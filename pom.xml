@@ -17,6 +17,7 @@
 		<module>jobject-copy</module>
 		<module>jobject-diff</module>
 		<module>jobject-compare</module>
+		<module>jobject-core</module>
 	</modules>
 	
 

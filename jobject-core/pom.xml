@@ -5,12 +5,12 @@
     <artifactId>jobject-extensions</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>jobject-copy</artifactId>
+  <artifactId>jobject-core</artifactId>
 	<dependencies>
 
 		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>silly-collections</artifactId>
 		</dependency>
 
 		<dependency>

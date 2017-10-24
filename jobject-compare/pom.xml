@@ -6,4 +6,23 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>jobject-compare</artifactId>
+	<dependencies>
+
+		<dependency>
+			<groupId>commons-beanutils</groupId>
+			<artifactId>commons-beanutils</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>silly-collections</artifactId>
+		</dependency>
+
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>test-objects</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
 </project>

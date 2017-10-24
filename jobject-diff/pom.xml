@@ -5,8 +5,7 @@
     <artifactId>jobject-extensions</artifactId>
     <version>0.0.1-SNAPSHOT</version>
   </parent>
-  <artifactId>jobject-diff</artifactId>
-  
+  <artifactId>jobject-diff</artifactId>  
 
 	<dependencies>
 

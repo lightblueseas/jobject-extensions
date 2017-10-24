@@ -9,14 +9,14 @@
 
 	<artifactId>jobject-extensions</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>	
+	<packaging>pom</packaging>
 
 	<name>${project.artifactId}</name>
 
 	<description>
 		Project that holds different utility classes and extension methods for operating on java objects like clone, compare, copy, diff and merge.
 	</description>
-	
+
 	<licenses>
 		<license>
 			<name>MIT License</name>
@@ -42,7 +42,7 @@
 		<system>github</system>
 		<url>https://github.com/lightblueseas/jobject-extensions/issues</url>
 	</issueManagement>
-	
+
 	<modules>
 		<module>jobject-merge</module>
 		<module>jobject-clone</module>
@@ -54,6 +54,7 @@
 
 	<properties>
 		<silly-collections.version>4.19.0</silly-collections.version>
+		<vintage-time.version>4.11.0</vintage-time.version>
 		<test-objects.version>4.16.0</test-objects.version>
 		<!-- EXTERNAL LIBRARIES versions -->
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
@@ -78,8 +79,31 @@
 
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
+				<artifactId>vintage-time</artifactId>
+				<version>${vintage-time.version}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
 				<artifactId>test-objects</artifactId>
 				<version>${test-objects.version}</version>
+			</dependency>
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-clone</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-copy</artifactId>
+				<version>${project.version}</version>
 			</dependency>
 
 		</dependencies>

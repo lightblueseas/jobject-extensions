@@ -6,6 +6,7 @@
     <version>0.0.1-SNAPSHOT</version>
   </parent>
   <artifactId>jobject-copy</artifactId>
+  
 	<dependencies>
 
 		<dependency>
@@ -16,6 +17,12 @@
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>test-objects</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>vintage-time</artifactId>
 			<scope>test</scope>
 		</dependency>
 

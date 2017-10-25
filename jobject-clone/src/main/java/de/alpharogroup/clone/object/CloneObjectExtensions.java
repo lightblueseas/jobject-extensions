@@ -37,6 +37,7 @@ import java.lang.reflect.Method;
 
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
+
 //
 //import de.alpharogroup.io.SerializedObjectExtensions;
 //import de.alpharogroup.reflection.ReflectionExtensions;
@@ -195,7 +196,7 @@ public final class CloneObjectExtensions
 		// the BeanUtils.copyProperties() method.
 		if (clone == null)
 		{
-			clone =object.getClass().newInstance();
+			clone = object.getClass().newInstance();
 			BeanUtils.copyProperties(clone, object);
 		}
 		return clone;

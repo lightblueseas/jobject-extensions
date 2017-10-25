@@ -93,9 +93,9 @@ public final class ReflectionExtensions
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
-	public static <T> void setFieldValue(final T source, final String fieldName, final Object newValue)
-		throws NoSuchFieldException, SecurityException, IllegalArgumentException,
-		IllegalAccessException
+	public static <T> void setFieldValue(final T source, final String fieldName,
+		final Object newValue) throws NoSuchFieldException, SecurityException,
+		IllegalArgumentException, IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(source, fieldName);
 		sourceField.setAccessible(true);

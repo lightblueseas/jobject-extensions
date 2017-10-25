@@ -105,6 +105,7 @@ public final class CopyObjectExtensions
 		final Object sourceValue = sourceField.get(source);
 		setFieldValue(target, fieldName, sourceValue);
 	}
+
 	/**
 	 * Gets the {@link Field} that match to the given field name that exists in the given object.
 	 *
@@ -126,6 +127,7 @@ public final class CopyObjectExtensions
 		final Field field = object.getClass().getDeclaredField(fieldName);
 		return field;
 	}
+
 	/**
 	 * Sets the field value of the given source object over the field name.
 	 *
@@ -146,9 +148,9 @@ public final class CopyObjectExtensions
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
-	public static <T> void setFieldValue(final T source, final String fieldName, final Object newValue)
-		throws NoSuchFieldException, SecurityException, IllegalArgumentException,
-		IllegalAccessException
+	public static <T> void setFieldValue(final T source, final String fieldName,
+		final Object newValue) throws NoSuchFieldException, SecurityException,
+		IllegalArgumentException, IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(source, fieldName);
 		sourceField.setAccessible(true);

@@ -29,39 +29,18 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Date;
 
 import org.testng.AssertJUnit;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.date.CreateDateExtensions;
 import de.alpharogroup.test.objects.A;
 import lombok.experimental.ExtensionMethod;
 
+/**
+ * The unit test class for the class {@link CloneObjectExtensions}.
+ */
 @ExtensionMethod(CloneObjectExtensions.class)
 public class CloneObjectExtensionsTest
 {
-
-	/**
-	 * Sets the up.
-	 *
-	 * @throws Exception
-	 *             the exception
-	 */
-	@BeforeMethod
-	public void setUp() throws Exception
-	{
-	}
-
-	/**
-	 * Tear down.
-	 *
-	 * @throws Exception
-	 *             the exception
-	 */
-	@AfterMethod
-	public void tearDown() throws Exception
-	{
-	}
 
 	/**
 	 * Test generic clone method.

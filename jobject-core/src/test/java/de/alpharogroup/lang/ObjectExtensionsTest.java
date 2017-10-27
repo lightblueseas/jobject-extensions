@@ -22,23 +22,30 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.diff.api;
+package de.alpharogroup.lang;
+
+import lombok.experimental.ExtensionMethod;
 
 /**
- * A class that implements the {@link Mergeable} interface indicates that it can be merged with an
- * other object of its type.
- *
- * @param <T>
- *            the type of objects that this object may be merged with
+ * The unit test class for the class {@link ObjectExtensions}.
  */
-public interface Mergeable<T>
+@ExtensionMethod(ObjectExtensions.class)
+public class ObjectExtensionsTest
 {
-	/**
-	 * Merge the given <code>object</code> with <code>this object</code>.
-	 *
-	 * @param object
-	 *            the object to merge with this one
-	 * @return the merged object
-	 */
-	public T merge(T object);
+
+	// @Test
+	// public void testIsDefaultValue()
+	// {
+	// }
+	//
+	// @Test
+	// public void testIsNotDefaultValue()
+	// {
+	// }
+	//
+	// @Test
+	// public void testGetClassType()
+	// {
+	// }
+
 }

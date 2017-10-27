@@ -22,23 +22,33 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.diff.api;
+package de.alpharogroup.lang;
+
+import org.testng.AssertJUnit;
+import org.testng.annotations.Test;
 
 /**
- * A class that implements the {@link Mergeable} interface indicates that it can be merged with an
- * other object of its type.
- *
- * @param <T>
- *            the type of objects that this object may be merged with
+ * The test class for {@link DefaultValue}.
  */
-public interface Mergeable<T>
+public class DefaultValueTest
 {
+
 	/**
-	 * Merge the given <code>object</code> with <code>this object</code>.
-	 *
-	 * @param object
-	 *            the object to merge with this one
-	 * @return the merged object
+	 * Test for {@link DefaultValue#getDefaultValue(Class)}
 	 */
-	public T merge(T object);
+	@Test
+	public void testGetDefaultValue()
+	{
+		AssertJUnit.assertEquals(false, DefaultValue.getDefaultValue(boolean.class).booleanValue());
+		AssertJUnit.assertEquals('\0', DefaultValue.getDefaultValue(char.class).charValue());
+		AssertJUnit.assertEquals(0, DefaultValue.getDefaultValue(byte.class).byteValue());
+		AssertJUnit.assertEquals(0, DefaultValue.getDefaultValue(short.class).shortValue());
+		AssertJUnit.assertEquals(0, DefaultValue.getDefaultValue(int.class).intValue());
+		AssertJUnit.assertEquals(0, DefaultValue.getDefaultValue(long.class).longValue());
+		AssertJUnit.assertEquals(0.0f, DefaultValue.getDefaultValue(float.class).floatValue());
+		AssertJUnit.assertEquals(0.0d, DefaultValue.getDefaultValue(double.class).doubleValue());
+		AssertJUnit.assertNull("", DefaultValue.getDefaultValue(void.class));
+		AssertJUnit.assertNull("", DefaultValue.getDefaultValue(Object.class));
+	}
+
 }

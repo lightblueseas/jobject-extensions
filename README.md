@@ -6,6 +6,7 @@ The jobject-extensions project provides several extension methods for the java c
 
 1. Very small size
 2. Extension methods for java core class Object for clone, compare, copy and merge
+3. modularizable, import only the functionality you need
 
 ## License
 
@@ -21,7 +22,12 @@ The source code comes under the liberal MIT License, making jobject-extensions g
 
 ## javadoc
 
-jobject-extensions [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-extensions.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-extensions)
+jobject-clone [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-clone.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-clone)
+jobject-compare [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-compare.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-compare)
+jobject-copy [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-copy.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-copy)
+jobject-core [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-core.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-core)
+jobject-diff [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-diff.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-diff)
+jobject-merge [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-merge.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-merge)
 
 ## Maven dependency
 
@@ -30,19 +36,97 @@ Check out [sonatype repository](https://oss.sonatype.org/index.html#nexus-search
 
 Add the following maven dependency to your project `pom.xml` if you want to import the core functionality of jobject-extensions:
 
-Than you can add the dependency to your dependencies:
+Than you can add the dependency to your dependencies:		
 
-		<!-- jobject-extensions version -->
-		<jobject-extensions.version>1.0.0</jobject-extensions.version>
+	<properties>
+			...
+		<!-- JOBJECT-EXTENSIONS version -->
+		<jobject-extensions.version>1.0.0</jobject-extensions.version>		
+		<jobject-clone.version>${jobject-extensions.version}</jobject-clone.version>
+		<jobject-compare.version>${jobject-extensions.version}</jobject-compare.version>
+		<jobject-copy.version>${jobject-extensions.version}</jobject-copy.version>
+		<jobject-core.version>${jobject-extensions.version}</jobject-core.version>
+		<jobject-diff.version>${jobject-extensions.version}</jobject-diff.version>
+		<jobject-merge.version>${jobject-extensions.version}</jobject-merge.version>
+			...
+	</properties>
+		
+You can add the following dependencies to your project for use the functionality of jobject-extensions.
+
+Add the following maven dependency to your project `pom.xml` if you want to import the core functionality of jobject-clone:
 
 		<dependencies>
 			...
+			<!-- JOBJECT-CLONE DEPENDENCIES -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
-				<artifactId>jobject-extensions</artifactId>
-				<version>${jobject-extensions.version}</version>
+				<artifactId>jobject-clone</artifactId>
+				<version>${jobject-clone.version}</version>
 			</dependency>
+		</dependencies>
+
+Add the following maven dependency to your project `pom.xml` if you want to import the functionality of jobject-compare:
+
+		<dependencies>
 			...
+			<!-- JOBJECT-COMPARE DEPENDENCIES -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-compare</artifactId>
+				<version>${jobject-compare.version}</version>
+			</dependency>
+		</dependencies>
+
+
+Add the following maven dependency to your project `pom.xml` if you want to import the functionality of jobject-copy:
+
+		<dependencies>
+			...
+			<!-- JOBJECT-COPY DEPENDENCIES -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-copy</artifactId>
+				<version>${jobject-copy.version}</version>
+			</dependency>
+		</dependencies>
+
+
+Add the following maven dependency to your project `pom.xml` if you want to import only the jobject-core:
+
+		<dependencies>
+			...
+			<!-- JOBJECT-CORE DEPENDENCIES -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-core</artifactId>
+				<version>${jobject-core.version}</version>
+			</dependency>
+		</dependencies>
+
+
+Add the following maven dependency to your project `pom.xml` if you want to import only the jobject-diff:
+
+		<dependencies>
+			...
+			<!-- JOBJECT-DIFF DEPENDENCIES -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-diff</artifactId>
+				<version>${jobject-diff.version}</version>
+			</dependency>
+		</dependencies>
+
+
+Add the following maven dependency to your project `pom.xml` if you want to import only the jobject-merge:
+
+		<dependencies>
+			...
+			<!-- JOBJECT-MERGE DEPENDENCIES -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-merge</artifactId>
+				<version>${jobject-merge.version}</version>
+			</dependency>
 		</dependencies>
 
 

@@ -45,7 +45,7 @@ Than you can add the dependency to your dependencies:
 	<properties>
 			...
 		<!-- JOBJECT-EXTENSIONS version -->
-		<jobject-extensions.version>1.0.0</jobject-extensions.version>		
+		<jobject-extensions.version>1.1.0</jobject-extensions.version>		
 		<jobject-clone.version>${jobject-extensions.version}</jobject-clone.version>
 		<jobject-compare.version>${jobject-extensions.version}</jobject-compare.version>
 		<jobject-copy.version>${jobject-extensions.version}</jobject-copy.version>
@@ -67,6 +67,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 				<artifactId>jobject-clone</artifactId>
 				<version>${jobject-clone.version}</version>
 			</dependency>
+			...
 		</dependencies>
 
 Add the following maven dependency to your project `pom.xml` if you want to import the functionality of jobject-compare:
@@ -79,6 +80,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 				<artifactId>jobject-compare</artifactId>
 				<version>${jobject-compare.version}</version>
 			</dependency>
+			...
 		</dependencies>
 
 
@@ -92,6 +94,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 				<artifactId>jobject-copy</artifactId>
 				<version>${jobject-copy.version}</version>
 			</dependency>
+			...
 		</dependencies>
 
 
@@ -105,6 +108,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 				<artifactId>jobject-core</artifactId>
 				<version>${jobject-core.version}</version>
 			</dependency>
+			...
 		</dependencies>
 
 
@@ -118,6 +122,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 				<artifactId>jobject-diff</artifactId>
 				<version>${jobject-diff.version}</version>
 			</dependency>
+			...
 		</dependencies>
 
 
@@ -131,6 +136,52 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 				<artifactId>jobject-merge</artifactId>
 				<version>${jobject-merge.version}</version>
 			</dependency>
+			...
+		</dependencies>
+
+
+You can of course import all dependencies of jobject-extensions:
+
+		<dependencies>
+			...
+			<!-- JOBJECT-EXTENSIONS DEPENDENCIES -->
+			<!-- JOBJECT-CLONE DEPENDENCIES -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-clone</artifactId>
+				<version>${jobject-clone.version}</version>
+			</dependency>
+			<!-- JOBJECT-COMPARE DEPENDENCIES -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-compare</artifactId>
+				<version>${jobject-compare.version}</version>
+			</dependency>
+			<!-- JOBJECT-COPY DEPENDENCIES -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-copy</artifactId>
+				<version>${jobject-copy.version}</version>
+			</dependency>
+			<!-- JOBJECT-CORE DEPENDENCIES -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-core</artifactId>
+				<version>${jobject-core.version}</version>
+			</dependency>
+			<!-- JOBJECT-DIFF DEPENDENCIES -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-diff</artifactId>
+				<version>${jobject-diff.version}</version>
+			</dependency>
+			<!-- JOBJECT-MERGE DEPENDENCIES -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-merge</artifactId>
+				<version>${jobject-merge.version}</version>
+			</dependency>
+			...
 		</dependencies>
 
 

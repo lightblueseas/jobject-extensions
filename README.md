@@ -2,11 +2,15 @@
 
 The jobject-extensions project provides several extension methods for the java core class Object. The feature extension methods can be provided over the lombok library. 
 
+When programming with java you have offen to clone or copy to compare or to diff and some times you have even merge objects. 
+Thats exactly the functionality what this library provides. 
+
 ## Key features:
 
-1. Very small size
-2. Extension methods for java core class Object for clone, compare, copy and merge
+1. very small size
+2. extension methods for java core class Object for clone, compare, copy and merge
 3. modularizable, import only the functionality you need
+4. simple to use
 
 ## License
 

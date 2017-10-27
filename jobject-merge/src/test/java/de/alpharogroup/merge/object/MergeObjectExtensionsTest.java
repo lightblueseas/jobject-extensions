@@ -24,7 +24,6 @@
  */
 package de.alpharogroup.merge.object;
 
-
 import java.lang.reflect.InvocationTargetException;
 
 import org.testng.AssertJUnit;
@@ -38,9 +37,8 @@ import de.alpharogroup.test.objects.Gender;
 import de.alpharogroup.test.objects.Person;
 import lombok.experimental.ExtensionMethod;
 
-
 /**
- * The class {@link MergeObjectExtensionsTest}.
+ * The unit test class for the class {@link MergeObjectExtensions}.
  */
 @ExtensionMethod(MergeObjectExtensions.class)
 public class MergeObjectExtensionsTest

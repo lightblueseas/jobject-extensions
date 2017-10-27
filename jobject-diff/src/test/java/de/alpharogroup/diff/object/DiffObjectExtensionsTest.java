@@ -34,6 +34,9 @@ import de.alpharogroup.diff.ChangedAttributeResult;
 import de.alpharogroup.test.objects.Gender;
 import de.alpharogroup.test.objects.Person;
 
+/**
+ * The unit test class for the class {@link DiffObjectExtensions}.
+ */
 public class DiffObjectExtensionsTest
 {
 

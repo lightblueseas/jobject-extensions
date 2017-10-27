@@ -24,7 +24,6 @@
  */
 package de.alpharogroup.compare.object;
 
-
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -33,8 +32,6 @@ import java.util.List;
 
 import org.apache.commons.beanutils.BeanComparator;
 import org.testng.AssertJUnit;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.clone.object.CloneObjectExtensions;
@@ -42,32 +39,12 @@ import de.alpharogroup.test.objects.Gender;
 import de.alpharogroup.test.objects.Person;
 import lombok.experimental.ExtensionMethod;
 
-
+/**
+ * The test class for {@link CompareObjectExtensions}.
+ */
 @ExtensionMethod(CompareObjectExtensions.class)
 public class CompareObjectExtensionsTest
 {
-
-	/**
-	 * Sets the up.
-	 *
-	 * @throws Exception
-	 *             the exception
-	 */
-	@BeforeMethod
-	public void setUp() throws Exception
-	{
-	}
-
-	/**
-	 * Tear down.
-	 *
-	 * @throws Exception
-	 *             the exception
-	 */
-	@AfterMethod
-	public void tearDown() throws Exception
-	{
-	}
 
 	/**
 	 * Test compare.
@@ -101,6 +78,16 @@ public class CompareObjectExtensionsTest
 	}
 
 
+	/**
+	 * Test compare to.
+	 *
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws InvocationTargetException
+	 *             the invocation target exception
+	 * @throws NoSuchMethodException
+	 *             the no such method exception
+	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Test(enabled = true)
 	public void testCompareTo()

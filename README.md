@@ -27,10 +27,15 @@ The source code comes under the liberal MIT License, making jobject-extensions g
 ## javadoc
 
 jobject-clone [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-clone.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-clone)
+
 jobject-compare [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-compare.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-compare)
+
 jobject-copy [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-copy.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-copy)
+
 jobject-core [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-core.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-core)
+
 jobject-diff [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-diff.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-diff)
+
 jobject-merge [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-merge.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-merge)
 
 ## Maven dependency
@@ -45,7 +50,7 @@ Than you can add the dependency to your dependencies:
 	<properties>
 			...
 		<!-- JOBJECT-EXTENSIONS version -->
-		<jobject-extensions.version>1.1.0</jobject-extensions.version>		
+		<jobject-extensions.version>1.2.0</jobject-extensions.version>		
 		<jobject-clone.version>${jobject-extensions.version}</jobject-clone.version>
 		<jobject-compare.version>${jobject-extensions.version}</jobject-compare.version>
 		<jobject-copy.version>${jobject-extensions.version}</jobject-copy.version>

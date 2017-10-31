@@ -22,23 +22,38 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.diff.api;
+package de.alpharogroup.merge.api;
+
+import java.util.List;
 
 /**
- * A class that implements the {@link Mergeable} interface indicates that it can be merged with an
- * other object of its type.
+ * A class that implements the {@link Summarizer} interface indicates that it can merge single or a
+ * collection of objects in with each other.
  *
  * @param <T>
- *            the type of objects that this object may be merged with
+ *            the type of objects that may be merged
  */
-public interface Mergeable<T>
+public interface Summarizer<T>
 {
+
 	/**
-	 * Merge the given <code>object</code> with <code>this object</code>.
+	 * Merge the given <code>list</code> with the <code>objects</code> that can be merged and return
+	 * the resulted merged <code>objects</code> in a <code>list</code>.
+	 *
+	 * @param list
+	 *            the <code>list</code> with the <code>objects</code> to merge
+	 * @return the list with the merged objects
+	 */
+	List<T> merge(List<T> list);
+
+	/**
+	 * Merge the given <code>object</code> with <code>other</code> object.
 	 *
 	 * @param object
-	 *            the object to merge with this one
-	 * @return the merged object
+	 *            the object to merge in
+	 * @param other
+	 *            the other object to merge with
+	 * @return the merged object or null if it isn't possible
 	 */
-	public T merge(T object);
+	T merge(T object, T other);
 }

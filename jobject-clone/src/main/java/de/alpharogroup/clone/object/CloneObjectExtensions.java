@@ -24,12 +24,7 @@
  */
 package de.alpharogroup.clone.object;
 
-import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
@@ -38,9 +33,8 @@ import java.lang.reflect.Method;
 import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
-//
-//import de.alpharogroup.io.SerializedObjectExtensions;
-//import de.alpharogroup.reflection.ReflectionExtensions;
+import de.alpharogroup.copy.object.CopyObjectExtensions;
+
 import lombok.experimental.UtilityClass;
 
 /**
@@ -111,7 +105,6 @@ public final class CloneObjectExtensions
 		return (T)cloneObjectQuietly(object);
 	}
 
-
 	/**
 	 * Try to clone the given object.
 	 *
@@ -153,7 +146,7 @@ public final class CloneObjectExtensions
 		// Try to clone the object if it implements Serializable.
 		if (object instanceof Serializable)
 		{
-			clone = copySerializedObject((Serializable)object);
+			clone = CopyObjectExtensions.copySerializedObject((Serializable)object);
 			if (clone != null)
 			{
 				return clone;
@@ -268,88 +261,4 @@ public final class CloneObjectExtensions
 		return clone;
 	}
 
-
-	/**
-	 * Copys the given Object and returns the copy from the object or null if the object can't be
-	 * serialized.
-	 *
-	 * @param <T>
-	 *            the generic type of the given object
-	 * @param orig
-	 *            The object to copy.
-	 * @return Returns a copy from the original object.
-	 * @throws IOException
-	 *             Signals that an I/O exception has occurred.
-	 * @throws ClassNotFoundException
-	 *             is thrown when a class is not found in the classloader or no definition for the
-	 *             class with the specified name could be found.
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T extends Serializable> T copySerializedObject(final T orig)
-		throws IOException, ClassNotFoundException
-	{
-		T object = null;
-		ByteArrayOutputStream byteArrayOutputStream = null;
-		ObjectOutputStream objectOutputStream = null;
-		try
-		{
-			byteArrayOutputStream = new ByteArrayOutputStream();
-			objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
-			objectOutputStream.writeObject(orig);
-			objectOutputStream.flush();
-			objectOutputStream.close();
-			final ByteArrayInputStream bis = new ByteArrayInputStream(
-				byteArrayOutputStream.toByteArray());
-			final ObjectInputStream ois = new ObjectInputStream(bis);
-			object = (T)ois.readObject();
-		}
-		finally
-		{
-			closeOutputStream(byteArrayOutputStream);
-			closeOutputStream(objectOutputStream);
-		}
-		return object;
-	}
-
-
-	/**
-	 * Closes the given OutputStream.
-	 *
-	 * @param out
-	 *            The OutputStream to close.
-	 * @return Returns true if the OutputStream is closed otherwise false.
-	 */
-	public static boolean closeOutputStream(OutputStream out)
-	{
-		boolean closed = true;
-		try
-		{
-			if (out != null)
-			{
-				out.flush();
-				out.close();
-				out = null;
-			}
-		}
-		catch (final IOException e)
-		{
-			closed = false;
-		}
-		finally
-		{
-			try
-			{
-				if (out != null)
-				{
-					out.flush();
-					out.close();
-				}
-			}
-			catch (final IOException e)
-			{
-				closed = false;
-			}
-		}
-		return closed;
-	}
 }

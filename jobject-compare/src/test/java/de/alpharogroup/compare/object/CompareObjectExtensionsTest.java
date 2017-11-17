@@ -24,6 +24,7 @@
  */
 package de.alpharogroup.compare.object;
 
+import static org.testng.AssertJUnit.*;
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -38,23 +39,27 @@ import de.alpharogroup.clone.object.CloneObjectExtensions;
 import de.alpharogroup.test.objects.Gender;
 import de.alpharogroup.test.objects.Person;
 import lombok.experimental.ExtensionMethod;
+import lombok.extern.slf4j.Slf4j;
 
 /**
- * The test class for {@link CompareObjectExtensions}.
+ * The unit test class for the class {@link CompareObjectExtensions}.
  */
 @ExtensionMethod(CompareObjectExtensions.class)
+@Slf4j
 public class CompareObjectExtensionsTest
 {
 
 	/**
-	 * Test compare.
+	 * Test method for {@link CompareObjectExtensions#compare(Object, Object)}.
 	 *
 	 * @throws IllegalAccessException
-	 *             the illegal access exception
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
 	 * @throws InvocationTargetException
-	 *             the invocation target exception
+	 *             Thrown if the property accessor method throws an exception
 	 * @throws NoSuchMethodException
-	 *             the no such method exception
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
 	 */
 	@Test(enabled = false)
 	public void testCompare()
@@ -68,7 +73,7 @@ public class CompareObjectExtensionsTest
 			.cloneObjectQuietly(sourceOjbect);
 
 		boolean result = CompareObjectExtensions.compare(sourceOjbect, objectToCompare);
-		AssertJUnit.assertTrue("Cloned object should be equal with the source object.", result);
+		assertTrue("Cloned object should be equal with the source object.", result);
 
 		objectToCompare.setGender(Gender.FEMALE);
 		result = CompareObjectExtensions.compare(sourceOjbect, objectToCompare);
@@ -77,16 +82,17 @@ public class CompareObjectExtensionsTest
 			result);
 	}
 
-
 	/**
-	 * Test compare to.
+	 * Test method for {@link CompareObjectExtensions#compareTo(Object, Object, String)}.
 	 *
 	 * @throws IllegalAccessException
-	 *             the illegal access exception
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
 	 * @throws InvocationTargetException
-	 *             the invocation target exception
+	 *             Thrown if the property accessor method throws an exception
 	 * @throws NoSuchMethodException
-	 *             the no such method exception
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Test(enabled = true)
@@ -94,34 +100,52 @@ public class CompareObjectExtensionsTest
 		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
 	{
 		final List<Person> persons = new ArrayList<>();
-		final Person obelix = new Person();
-		obelix.setGender(Gender.MALE);
-		obelix.setName("obelix");
+		final Person obelix = Person.builder()
+			.gender(Gender.MALE)
+			.name("obelix")
+			.build();
 
-		final Person asterix = new Person();
-		asterix.setGender(Gender.MALE);
-		asterix.setName("asterix");
+		final Person asterix = Person.builder()
+			.gender(Gender.MALE)
+			.name("asterix")
+			.build();
 
-		final Person miraculix = new Person();
-		miraculix.setGender(Gender.MALE);
-		miraculix.setName("miraculix");
+		final Person miraculix = Person.builder()
+			.gender(Gender.MALE)
+			.name("miraculix")
+			.build();
 
 		final int i = CompareObjectExtensions.compareTo(asterix, obelix, "name");
 
-		System.out.println(i);
+		assertTrue(i < 0);
 
 		persons.add(obelix);
 		persons.add(asterix);
 		persons.add(miraculix);
-		System.out.println("Unsorted Persons:");
-		System.out.println(persons.toString());
+
+		assertEquals(persons.get(0), obelix);
+		assertEquals(persons.get(1), asterix);
+		assertEquals(persons.get(2), miraculix);
+
+		log.debug("Unsorted Persons:");
+		log.debug(persons.toString());
 		final Comparator defaultComparator = new BeanComparator("name");
 		Collections.sort(persons, defaultComparator);
-		System.out.println("Sorted Persons by name:");
-		System.out.println(persons.toString());
+
+		log.debug("Sorted Persons by name:");
+		log.debug(persons.toString());
+
+		assertEquals(persons.get(0), asterix);
+		assertEquals(persons.get(1), miraculix);
+		assertEquals(persons.get(2), obelix);
+
 		Collections.reverse(persons);
-		System.out.println("Sorted Persons by name reversed:");
-		System.out.println(persons.toString());
+
+		log.debug("Sorted Persons by name reversed:");
+		log.debug(persons.toString());
+		assertEquals(persons.get(0), obelix);
+		assertEquals(persons.get(1), miraculix);
+		assertEquals(persons.get(2), asterix);
 	}
 
 }

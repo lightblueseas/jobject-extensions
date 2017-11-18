@@ -1,9 +1,10 @@
 # Overview
 
-The jobject-extensions project provides several extension methods for the java core class Object. The feature extension methods can be provided over the lombok library. 
+The jobject-extensions project provides main operation that you can do with java objects.
 
 When programming with java you have offen to clone or copy to compare or to diff and some times you have even merge objects. 
 Thats exactly the functionality what this library provides. 
+There are several extension methods for the java core class Object. The feature extension methods can be provided over the lombok library. 
 
 ## Key features:
 
@@ -50,7 +51,7 @@ Than you can add the dependency to your dependencies:
 	<properties>
 			...
 		<!-- JOBJECT-EXTENSIONS version -->
-		<jobject-extensions.version>1.2.0</jobject-extensions.version>		
+		<jobject-extensions.version>1.3.0</jobject-extensions.version>		
 		<jobject-clone.version>${jobject-extensions.version}</jobject-clone.version>
 		<jobject-compare.version>${jobject-extensions.version}</jobject-compare.version>
 		<jobject-copy.version>${jobject-extensions.version}</jobject-copy.version>

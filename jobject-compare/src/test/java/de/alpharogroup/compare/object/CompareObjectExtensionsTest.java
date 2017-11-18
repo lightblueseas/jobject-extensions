@@ -24,7 +24,8 @@
  */
 package de.alpharogroup.compare.object;
 
-import static org.testng.AssertJUnit.*;
+import static org.testng.AssertJUnit.assertEquals;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,19 +33,16 @@ import java.util.Comparator;
 import java.util.List;
 
 import org.apache.commons.beanutils.BeanComparator;
-import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.clone.object.CloneObjectExtensions;
 import de.alpharogroup.test.objects.Gender;
 import de.alpharogroup.test.objects.Person;
-import lombok.experimental.ExtensionMethod;
 import lombok.extern.slf4j.Slf4j;
 
 /**
  * The unit test class for the class {@link CompareObjectExtensions}.
  */
-@ExtensionMethod(CompareObjectExtensions.class)
 @Slf4j
 public class CompareObjectExtensionsTest
 {
@@ -65,21 +63,31 @@ public class CompareObjectExtensionsTest
 	public void testCompare()
 		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
 	{
-		final Person sourceOjbect = new Person();
-		sourceOjbect.setGender(Gender.MALE);
-		sourceOjbect.setName("obelix");
-
+		boolean expected;
+		boolean actual;
+		// create a person...
+		final Person sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();
+		// make a clone of it...
 		final Person objectToCompare = (Person)CloneObjectExtensions
 			.cloneObjectQuietly(sourceOjbect);
+		// 1. scenario...
+		// expected: the compare method should return true...
+		// explanation of expected: compared object are equal
+		expected = true;
+		actual = CompareObjectExtensions.compare(sourceOjbect, objectToCompare);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
+		// 2. scenario...
+		// expected: the compare method should return false...
+		// explanation of expected: compared object are not equal
 
-		boolean result = CompareObjectExtensions.compare(sourceOjbect, objectToCompare);
-		assertTrue("Cloned object should be equal with the source object.", result);
-
+		// change the gender and compare again...
 		objectToCompare.setGender(Gender.FEMALE);
-		result = CompareObjectExtensions.compare(sourceOjbect, objectToCompare);
-		AssertJUnit.assertFalse(
+
+		expected = false;
+		actual = CompareObjectExtensions.compare(sourceOjbect, objectToCompare);
+		assertEquals(
 			"Object to compare should be not equal with the source object because it has changed.",
-			result);
+			expected, actual);
 	}
 
 	/**
@@ -96,28 +104,33 @@ public class CompareObjectExtensionsTest
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@Test(enabled = true)
-	public void testCompareTo()
+	public void testCompareToProperty()
 		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
 	{
+		int expected;
+		int actual;
 		final List<Person> persons = new ArrayList<>();
-		final Person obelix = Person.builder()
-			.gender(Gender.MALE)
-			.name("obelix")
-			.build();
+		final Person obelix = Person.builder().gender(Gender.MALE).name("obelix").build();
 
-		final Person asterix = Person.builder()
-			.gender(Gender.MALE)
-			.name("asterix")
-			.build();
+		final Person asterix = Person.builder().gender(Gender.MALE).name("asterix").build();
 
-		final Person miraculix = Person.builder()
-			.gender(Gender.MALE)
-			.name("miraculix")
-			.build();
+		final Person miraculix = Person.builder().gender(Gender.MALE).name("miraculix").build();
 
-		final int i = CompareObjectExtensions.compareTo(asterix, obelix, "name");
+		// 1. scenario...
+		actual = CompareObjectExtensions.compareTo(asterix, obelix, "name");
 
-		assertTrue(i < 0);
+		final Comparator<String> comp = new Comparator<String>()
+		{
+
+			@Override
+			public int compare(final String o1, final String o2)
+			{
+				return o1.compareTo(o2);
+			}
+		};
+		expected = comp.compare(asterix.getName(), obelix.getName());
+
+		assertEquals("Result of compared properties should be equal.", expected, actual);
 
 		persons.add(obelix);
 		persons.add(asterix);
@@ -146,6 +159,15 @@ public class CompareObjectExtensionsTest
 		assertEquals(persons.get(0), obelix);
 		assertEquals(persons.get(1), miraculix);
 		assertEquals(persons.get(2), asterix);
+	}
+
+	/**
+	 * Test method for {@link CompareObjectExtensions#compareTo(Object, Object)}.
+	 *
+	 */
+	@Test(enabled = true)
+	public void testCompareTo()
+	{
 	}
 
 }

@@ -26,7 +26,8 @@ package de.alpharogroup.copy.object;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.testng.AssertJUnit;
+import static org.testng.AssertJUnit.assertEquals;
+
 import org.testng.annotations.Test;
 
 import de.alpharogroup.date.CreateDateExtensions;
@@ -68,9 +69,9 @@ public class CopyObjectExtensionsTest
 		final Employee actual = Employee.builder().build();
 		CopyObjectExtensions.copyQuietly(expected, actual);
 
-		AssertJUnit.assertEquals(expected.getId(), actual.getId());
-		AssertJUnit.assertEquals(expected.getPerson(), actual.getPerson());
-		AssertJUnit.assertEquals(expected, actual);
+		assertEquals(expected.getId(), actual.getId());
+		assertEquals(expected.getPerson(), actual.getPerson());
+		assertEquals(expected, actual);
 
 	}
 

@@ -26,7 +26,8 @@ package de.alpharogroup.merge.object;
 
 import java.lang.reflect.InvocationTargetException;
 
-import org.testng.AssertJUnit;
+import static org.testng.AssertJUnit.*;
+
 import org.testng.annotations.Test;
 
 import de.alpharogroup.date.CreateDateExtensions;
@@ -64,14 +65,14 @@ public class MergeObjectExtensionsTest
 		Employee mergeInObject = Employee.builder().build();
 		mergeInObject.merge(with);
 
-		AssertJUnit.assertTrue("", mergeInObject.getId().equals("23"));
-		AssertJUnit.assertTrue("", mergeInObject.getPerson().equals(person));
+		assertTrue("", mergeInObject.getId().equals("23"));
+		assertTrue("", mergeInObject.getPerson().equals(person));
 
 		mergeInObject = Employee.builder().id("22").person(Person.builder().build()).build();
 		mergeInObject.merge(with);
 
-		AssertJUnit.assertTrue("", mergeInObject.getId().equals("23"));
-		AssertJUnit.assertTrue("", mergeInObject.getPerson().equals(person));
+		assertTrue("", mergeInObject.getId().equals("23"));
+		assertTrue("", mergeInObject.getPerson().equals(person));
 
 	}
 
@@ -93,7 +94,7 @@ public class MergeObjectExtensionsTest
 
 		timestampDecorator.mergeOrCopyQuietly(dateDecorator);
 
-		AssertJUnit.assertTrue("Time should be equal.",
+		assertTrue("Time should be equal.",
 			timestampDecorator.getDate().getTime() == dateDecorator.getDate().getTime());
 	}
 
@@ -118,14 +119,14 @@ public class MergeObjectExtensionsTest
 		Employee mergeInObject = Employee.builder().build();
 		mergeInObject.mergeQuietly(with);
 
-		AssertJUnit.assertTrue("", mergeInObject.getId().equals("23"));
-		AssertJUnit.assertTrue("", mergeInObject.getPerson().equals(person));
+		assertTrue("", mergeInObject.getId().equals("23"));
+		assertTrue("", mergeInObject.getPerson().equals(person));
 
 		mergeInObject = Employee.builder().id("22").person(Person.builder().build()).build();
 		mergeInObject.mergeQuietly(with);
 
-		AssertJUnit.assertTrue("", mergeInObject.getId().equals("23"));
-		AssertJUnit.assertTrue("", mergeInObject.getPerson().equals(person));
+		assertTrue("", mergeInObject.getId().equals("23"));
+		assertTrue("", mergeInObject.getPerson().equals(person));
 
 	}
 

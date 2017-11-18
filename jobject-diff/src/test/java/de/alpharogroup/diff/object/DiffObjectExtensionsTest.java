@@ -27,7 +27,7 @@ package de.alpharogroup.diff.object;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-import org.testng.AssertJUnit;
+import static org.testng.AssertJUnit.*;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.diff.ChangedAttributeResult;
@@ -62,18 +62,18 @@ public class DiffObjectExtensionsTest
 
 		Map<Object, ChangedAttributeResult> result = DiffObjectExtensions
 			.getChangedDataMap(sourceOjbect, objectToCompare);
-		AssertJUnit.assertTrue("Size should be 0 but is " + result.size(), result.size() == 0);
+		assertTrue("Size should be 0 but is " + result.size(), result.size() == 0);
 		// Change the gender from the objectToCompare...
 		objectToCompare.setGender(Gender.FEMALE);
 		// and get the changed data...
 		result = DiffObjectExtensions.getChangedDataMap(sourceOjbect, objectToCompare);
-		AssertJUnit.assertFalse("Size should be 1 but is " + result.size(), result.size() == 0);
-		AssertJUnit.assertTrue("", result.containsKey("gender"));
+		assertFalse("Size should be 1 but is " + result.size(), result.size() == 0);
+		assertTrue("", result.containsKey("gender"));
 		final ChangedAttributeResult changed = result.get("gender");
 		final Object sourceAttribute = changed.getSourceAttribute();
 		final Object changedAttribute = changed.getChangedAttribute();
-		AssertJUnit.assertTrue("", sourceAttribute.equals(Gender.MALE.name()));
-		AssertJUnit.assertTrue("", changedAttribute.equals(Gender.FEMALE.name()));
+		assertTrue("", sourceAttribute.equals(Gender.MALE.name()));
+		assertTrue("", changedAttribute.equals(Gender.FEMALE.name()));
 	}
 
 }

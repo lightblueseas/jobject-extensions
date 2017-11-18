@@ -50,7 +50,7 @@ Than you can add the dependency to your dependencies:
 
 	<properties>
 			...
-		<!-- JOBJECT-EXTENSIONS version -->
+		<!-- JOBJECT-EXTENSIONS versions -->
 		<jobject-extensions.version>1.4.0</jobject-extensions.version>		
 		<jobject-clone.version>${jobject-extensions.version}</jobject-clone.version>
 		<jobject-compare.version>${jobject-extensions.version}</jobject-compare.version>
@@ -67,7 +67,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 
 		<dependencies>
 			...
-			<!-- JOBJECT-CLONE DEPENDENCIES -->
+			<!-- JOBJECT-CLONE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-clone</artifactId>
@@ -80,7 +80,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 
 		<dependencies>
 			...
-			<!-- JOBJECT-COMPARE DEPENDENCIES -->
+			<!-- JOBJECT-COMPARE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-compare</artifactId>
@@ -94,7 +94,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 
 		<dependencies>
 			...
-			<!-- JOBJECT-COPY DEPENDENCIES -->
+			<!-- JOBJECT-COPY DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-copy</artifactId>
@@ -108,7 +108,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 
 		<dependencies>
 			...
-			<!-- JOBJECT-CORE DEPENDENCIES -->
+			<!-- JOBJECT-CORE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-core</artifactId>
@@ -122,7 +122,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 
 		<dependencies>
 			...
-			<!-- JOBJECT-DIFF DEPENDENCIES -->
+			<!-- JOBJECT-DIFF DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-diff</artifactId>
@@ -136,7 +136,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 
 		<dependencies>
 			...
-			<!-- JOBJECT-MERGE DEPENDENCIES -->
+			<!-- JOBJECT-MERGE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-merge</artifactId>
@@ -151,37 +151,37 @@ You can of course import all dependencies of jobject-extensions:
 		<dependencies>
 			...
 			<!-- JOBJECT-EXTENSIONS DEPENDENCIES -->
-			<!-- JOBJECT-CLONE DEPENDENCIES -->
+			<!-- JOBJECT-CLONE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-clone</artifactId>
 				<version>${jobject-clone.version}</version>
 			</dependency>
-			<!-- JOBJECT-COMPARE DEPENDENCIES -->
+			<!-- JOBJECT-COMPARE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-compare</artifactId>
 				<version>${jobject-compare.version}</version>
 			</dependency>
-			<!-- JOBJECT-COPY DEPENDENCIES -->
+			<!-- JOBJECT-COPY DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-copy</artifactId>
 				<version>${jobject-copy.version}</version>
 			</dependency>
-			<!-- JOBJECT-CORE DEPENDENCIES -->
+			<!-- JOBJECT-CORE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-core</artifactId>
 				<version>${jobject-core.version}</version>
 			</dependency>
-			<!-- JOBJECT-DIFF DEPENDENCIES -->
+			<!-- JOBJECT-DIFF DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-diff</artifactId>
 				<version>${jobject-diff.version}</version>
 			</dependency>
-			<!-- JOBJECT-MERGE DEPENDENCIES -->
+			<!-- JOBJECT-MERGE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-merge</artifactId>

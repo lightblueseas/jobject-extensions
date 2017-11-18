@@ -24,6 +24,11 @@
  */
 package de.alpharogroup.lang;
 
+import static org.testng.AssertJUnit.assertEquals;
+
+import org.testng.annotations.Test;
+
+import de.alpharogroup.test.objects.Company;
 import lombok.experimental.ExtensionMethod;
 
 /**
@@ -33,19 +38,28 @@ import lombok.experimental.ExtensionMethod;
 public class ObjectExtensionsTest
 {
 
-	// @Test
-	// public void testIsDefaultValue()
-	// {
-	// }
-	//
-	// @Test
-	// public void testIsNotDefaultValue()
-	// {
-	// }
-	//
-	// @Test
-	// public void testGetClassType()
-	// {
-	// }
+	/**
+	 * Test method for {@link ObjectExtensions#isDefaultValue(Object)}
+	 */
+	@Test
+	public void testIsDefaultValue()
+	{
+		boolean expected;
+		boolean actual;
+
+		final Company company = Company.builder().build();
+		expected = true;
+		actual = ObjectExtensions.isDefaultValue(company.getName());
+		assertEquals(expected, actual);
+
+		expected = false;
+		actual = ObjectExtensions.isDefaultValue(2);
+		assertEquals(expected, actual);
+
+		expected = false;
+		actual = ObjectExtensions.isDefaultValue(Company.class);
+		assertEquals(expected, actual);
+
+	}
 
 }

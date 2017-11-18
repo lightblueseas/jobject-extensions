@@ -37,7 +37,7 @@ public class ReflectionExtensionsTest
 {
 
 	/**
-	 * Test for {@link ReflectionExtensions#copyFieldValue(Object, Object, String)}.
+	 * Test method for {@link ReflectionExtensions#copyFieldValue(Object, Object, String)}.
 	 *
 	 * @throws NoSuchFieldException
 	 *             is thrown if no such field exists.
@@ -63,19 +63,38 @@ public class ReflectionExtensionsTest
 
 	}
 
-	public void testGetNewInstance()
-	{
-	}
-
+	/**
+	 * Test method for {@link ReflectionExtensions#newInstance(Class)}.
+	 *
+     * @throws  IllegalAccessException  is thrown if the class or its nullary
+     *          constructor is not accessible.
+     * @throws  InstantiationException
+     *          is thrown if this {@code Class} represents an abstract class,
+     *          an interface, an array class, a primitive type, or void;
+     *          or if the class has no nullary constructor;
+     *          or if the instantiation fails for some other reason.
+	 */
 	@Test
 	public void testNewInstanceClassOfT()
-		throws InstantiationException, IllegalAccessException, ClassNotFoundException
+		throws InstantiationException, IllegalAccessException
 	{
 		final Class<Person> clazz = Person.class;
 		final Person actual = ReflectionExtensions.newInstance(clazz);
 		AssertJUnit.assertNotNull(actual);
 	}
 
+	/**
+	 * Test method for {@link ReflectionExtensions#newInstance(Object)}.
+	 *
+	 * @throws ClassNotFoundException
+	 *                is thrown if the class cannot be located
+	 * @throws IllegalAccessException
+	 *             is thrown if the class or its nullary constructor is not accessible.
+	 * @throws InstantiationException
+	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
+	 *             array class, a primitive type, or void; or if the class has no nullary
+	 *             constructor; or if the instantiation fails for some other reason.
+	 */
 	@Test
 	public void testNewInstanceT()
 		throws InstantiationException, IllegalAccessException, ClassNotFoundException
@@ -86,7 +105,7 @@ public class ReflectionExtensionsTest
 	}
 
 	/**
-	 * Test for {@link ReflectionExtensions#setFieldValue(Object, String, Object)}.
+	 * Test method for {@link ReflectionExtensions#setFieldValue(Object, String, Object)}.
 	 *
 	 * @throws NoSuchFieldException
 	 *             is thrown if no such field exists.

@@ -28,13 +28,13 @@ import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
 /**
- * The test class for {@link DefaultValue}.
+ * The unit test class for the class {@link DefaultValue}.
  */
 public class DefaultValueTest
 {
 
 	/**
-	 * Test for {@link DefaultValue#getDefaultValue(Class)}
+	 * Test method for {@link DefaultValue#getDefaultValue(Class)}
 	 */
 	@Test
 	public void testGetDefaultValue()

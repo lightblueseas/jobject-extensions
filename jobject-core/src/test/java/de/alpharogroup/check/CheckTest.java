@@ -36,7 +36,7 @@ import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
 /**
- * Test class for the class {@link Check}.
+ * The unit test class for the class {@link Check}.
  */
 public class CheckTest
 {
@@ -47,7 +47,7 @@ public class CheckTest
 	public ExpectedException throwable = ExpectedException.none();
 
 	/**
-	 * Test of get method, of class Check.
+	 * Test method for {@link Check#get()}
 	 */
 	@Test
 	public void testGet()
@@ -57,7 +57,7 @@ public class CheckTest
 	}
 
 	/**
-	 * Test for {@link Check#isInRange(Double, Double, Double, String)}
+	 * Test method for {@link Check#isInRange(Double, Double, Double, String)}
 	 */
 	@Test
 	public void testIsInRangeDouble()
@@ -74,7 +74,7 @@ public class CheckTest
 	}
 
 	/**
-	 * Test for {@link Check#isInRange(Float, Float, Float, String)}
+	 * Test method for {@link Check#isInRange(Float, Float, Float, String)}
 	 */
 	@Test
 	public void testIsInRangeFloat()
@@ -91,7 +91,7 @@ public class CheckTest
 	}
 
 	/**
-	 * Test for {@link Check#isInRange(Integer, Integer, Integer, String)}
+	 * Test method for {@link Check#isInRange(Integer, Integer, Integer, String)}
 	 */
 	@Test
 	public void testIsInRangeInteger()
@@ -108,7 +108,7 @@ public class CheckTest
 	}
 
 	/**
-	 * Test for {@link Check#isInRange(Long, Long, Long, String)}
+	 * Test method for {@link Check#isInRange(Long, Long, Long, String)}
 	 */
 	@Test
 	public void testIsInRangeLong()
@@ -125,7 +125,7 @@ public class CheckTest
 	}
 
 	/**
-	 * Test for {@link Check#notEmpty(java.util.Collection, String)}
+	 * Test method for {@link Check#notEmpty(java.util.Collection, String)}
 	 */
 	@Test
 	public void testNotEmptyCollection()
@@ -140,7 +140,7 @@ public class CheckTest
 
 
 	/**
-	 * Test for {@link Check#notEmpty(java.util.Collection, String)}
+	 * Test method for {@link Check#notEmpty(java.util.Collection, String)}
 	 */
 	@Test
 	public void testNotEmptyMap()
@@ -154,7 +154,7 @@ public class CheckTest
 	}
 
 	/**
-	 * Test for {@link Check#notEmpty(CharSequence, String)}
+	 * Test method for {@link Check#notEmpty(CharSequence, String)}
 	 */
 	@Test
 	public void testNotEmptyString()
@@ -168,7 +168,7 @@ public class CheckTest
 	}
 
 	/**
-	 * Test for {@link Check#notNull(Object, String)}
+	 * Test method for {@link Check#notNull(Object, String)}
 	 */
 	@Test
 	public void testNotNull()

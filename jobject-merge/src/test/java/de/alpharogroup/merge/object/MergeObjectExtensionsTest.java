@@ -24,9 +24,9 @@
  */
 package de.alpharogroup.merge.object;
 
-import java.lang.reflect.InvocationTargetException;
+import static org.testng.AssertJUnit.assertTrue;
 
-import static org.testng.AssertJUnit.*;
+import java.lang.reflect.InvocationTargetException;
 
 import org.testng.annotations.Test;
 

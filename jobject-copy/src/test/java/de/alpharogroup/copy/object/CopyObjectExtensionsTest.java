@@ -24,9 +24,9 @@
  */
 package de.alpharogroup.copy.object;
 
-import java.lang.reflect.InvocationTargetException;
-
 import static org.testng.AssertJUnit.assertEquals;
+
+import java.lang.reflect.InvocationTargetException;
 
 import org.testng.annotations.Test;
 

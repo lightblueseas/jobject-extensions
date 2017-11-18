@@ -89,7 +89,7 @@ public class CloneObjectExtensionsTest
 		actual = CloneObjectExtensions.clone(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
-		expected =  A.builder().a("a").build();
+		expected = A.builder().a("a").build();
 		actual = CloneObjectExtensions.clone(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
@@ -97,6 +97,7 @@ public class CloneObjectExtensionsTest
 
 	/**
 	 * Test method for {@link CloneObjectExtensions#cloneObject(Object)}.
+	 * 
 	 * @throws NoSuchMethodException
 	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
 	 *             "&lt;clinit&gt;".
@@ -125,7 +126,9 @@ public class CloneObjectExtensionsTest
 	 *             Signals that an I/O exception has occurred.
 	 */
 	@Test(enabled = true)
-	public void testCloneObject() throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException, InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
+	public void testCloneObject()
+		throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException,
+		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
 	{
 
 		Object expected;
@@ -140,7 +143,7 @@ public class CloneObjectExtensionsTest
 		actual = CloneObjectExtensions.cloneObject(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
-		expected =  A.builder().a("a").build();
+		expected = A.builder().a("a").build();
 		actual = CloneObjectExtensions.cloneObject(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
@@ -165,7 +168,7 @@ public class CloneObjectExtensionsTest
 		actual = CloneObjectExtensions.cloneObjectQuietly(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
-		expected =  A.builder().a("a").build();
+		expected = A.builder().a("a").build();
 		actual = CloneObjectExtensions.cloneObjectQuietly(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
@@ -190,7 +193,7 @@ public class CloneObjectExtensionsTest
 		actual = CloneObjectExtensions.cloneQuietly(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
-		expected =  A.builder().a("a").build();
+		expected = A.builder().a("a").build();
 		actual = CloneObjectExtensions.cloneQuietly(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 

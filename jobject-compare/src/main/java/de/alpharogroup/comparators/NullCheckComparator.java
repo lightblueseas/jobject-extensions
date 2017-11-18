@@ -108,7 +108,8 @@ public class NullCheckComparator<T> implements Comparator<T>, Serializable
 	 * @param nullIsGreaterThan
 	 *            the flag that specifies if null objects is greater than non null objects.
 	 */
-	public NullCheckComparator(final Comparator<T> decoratedComparator, final boolean nullIsGreaterThan)
+	public NullCheckComparator(final Comparator<T> decoratedComparator,
+		final boolean nullIsGreaterThan)
 	{
 		if (decoratedComparator == null)
 		{

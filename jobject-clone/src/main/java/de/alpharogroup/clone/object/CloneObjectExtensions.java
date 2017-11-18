@@ -34,7 +34,6 @@ import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
 import de.alpharogroup.copy.object.CopyObjectExtensions;
-
 import lombok.experimental.UtilityClass;
 
 /**

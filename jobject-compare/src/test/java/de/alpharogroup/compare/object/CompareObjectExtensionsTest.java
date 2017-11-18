@@ -91,6 +91,15 @@ public class CompareObjectExtensionsTest
 	}
 
 	/**
+	 * Test method for {@link CompareObjectExtensions#compareTo(Object, Object)}.
+	 *
+	 */
+	@Test(enabled = true)
+	public void testCompareTo()
+	{
+	}
+
+	/**
 	 * Test method for {@link CompareObjectExtensions#compareTo(Object, Object, String)}.
 	 *
 	 * @throws IllegalAccessException
@@ -159,15 +168,6 @@ public class CompareObjectExtensionsTest
 		assertEquals(persons.get(0), obelix);
 		assertEquals(persons.get(1), miraculix);
 		assertEquals(persons.get(2), asterix);
-	}
-
-	/**
-	 * Test method for {@link CompareObjectExtensions#compareTo(Object, Object)}.
-	 *
-	 */
-	@Test(enabled = true)
-	public void testCompareTo()
-	{
 	}
 
 }

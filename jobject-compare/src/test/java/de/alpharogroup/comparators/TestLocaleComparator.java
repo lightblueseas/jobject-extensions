@@ -28,8 +28,8 @@ import java.util.Comparator;
 import java.util.Locale;
 
 /**
- * The class {@link TestLocaleComparator} compares {@linkplain Locale} objects. This Comparator does not
- * check null, for null check you can decorate it with the
+ * The class {@link TestLocaleComparator} compares {@linkplain Locale} objects. This Comparator does
+ * not check null, for null check you can decorate it with the
  * {@link NullCheckComparator#of(Comparator)}. an example is in the unit test class from
  * {@linkplain NullCheckComparator}.
  */

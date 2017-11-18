@@ -24,10 +24,12 @@
  */
 package de.alpharogroup.diff.object;
 
+import static org.testng.AssertJUnit.assertFalse;
+import static org.testng.AssertJUnit.assertTrue;
+
 import java.lang.reflect.InvocationTargetException;
 import java.util.Map;
 
-import static org.testng.AssertJUnit.*;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.diff.ChangedAttributeResult;

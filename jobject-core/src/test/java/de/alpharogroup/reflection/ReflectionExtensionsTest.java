@@ -66,17 +66,15 @@ public class ReflectionExtensionsTest
 	/**
 	 * Test method for {@link ReflectionExtensions#newInstance(Class)}.
 	 *
-     * @throws  IllegalAccessException  is thrown if the class or its nullary
-     *          constructor is not accessible.
-     * @throws  InstantiationException
-     *          is thrown if this {@code Class} represents an abstract class,
-     *          an interface, an array class, a primitive type, or void;
-     *          or if the class has no nullary constructor;
-     *          or if the instantiation fails for some other reason.
+	 * @throws IllegalAccessException
+	 *             is thrown if the class or its nullary constructor is not accessible.
+	 * @throws InstantiationException
+	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
+	 *             array class, a primitive type, or void; or if the class has no nullary
+	 *             constructor; or if the instantiation fails for some other reason.
 	 */
 	@Test
-	public void testNewInstanceClassOfT()
-		throws InstantiationException, IllegalAccessException
+	public void testNewInstanceClassOfT() throws InstantiationException, IllegalAccessException
 	{
 		final Class<Person> clazz = Person.class;
 		final Person actual = ReflectionExtensions.newInstance(clazz);
@@ -87,7 +85,7 @@ public class ReflectionExtensionsTest
 	 * Test method for {@link ReflectionExtensions#newInstance(Object)}.
 	 *
 	 * @throws ClassNotFoundException
-	 *                is thrown if the class cannot be located
+	 *             is thrown if the class cannot be located
 	 * @throws IllegalAccessException
 	 *             is thrown if the class or its nullary constructor is not accessible.
 	 * @throws InstantiationException

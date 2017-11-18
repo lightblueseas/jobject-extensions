@@ -206,7 +206,7 @@ public final class ReflectionExtensions
 	 *            the obj
 	 * @return the new instance
 	 * @throws ClassNotFoundException
-	 *                is thrown if the class cannot be located
+	 *             is thrown if the class cannot be located
 	 * @throws IllegalAccessException
 	 *             is thrown if the class or its nullary constructor is not accessible.
 	 * @throws InstantiationException

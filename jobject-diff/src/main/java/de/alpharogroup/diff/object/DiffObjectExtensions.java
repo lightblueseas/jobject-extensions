@@ -35,6 +35,7 @@ import java.util.Map;
 import org.apache.commons.beanutils.BeanUtils;
 
 import de.alpharogroup.collections.list.ListExtensions;
+import de.alpharogroup.compare.object.CompareObjectExtensions;
 import de.alpharogroup.diff.ChangedAttributeResult;
 import lombok.experimental.UtilityClass;
 

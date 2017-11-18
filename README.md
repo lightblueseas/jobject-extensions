@@ -1,14 +1,15 @@
 # Overview
 
-The jobject-extensions project provides several extension methods for the java core class Object. The feature extension methods can be provided over the lombok library. 
+The jobject-extensions project provides main operation that you can do with java objects.
 
 When programming with java you have offen to clone or copy to compare or to diff and some times you have even merge objects. 
 Thats exactly the functionality what this library provides. 
+There are several extension methods for the java core class Object. The feature extension methods can be provided over the lombok library. 
 
 ## Key features:
 
 1. very small size
-2. extension methods for java core class Object for clone, compare, copy and merge
+2. extension methods for java core class Object for clone, compare, copy, diff and merge
 3. modularizable, import only the functionality you need
 4. simple to use
 
@@ -27,10 +28,15 @@ The source code comes under the liberal MIT License, making jobject-extensions g
 ## javadoc
 
 jobject-clone [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-clone.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-clone)
+
 jobject-compare [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-compare.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-compare)
+
 jobject-copy [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-copy.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-copy)
+
 jobject-core [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-core.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-core)
+
 jobject-diff [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-diff.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-diff)
+
 jobject-merge [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-merge.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-merge)
 
 ## Maven dependency
@@ -45,7 +51,7 @@ Than you can add the dependency to your dependencies:
 	<properties>
 			...
 		<!-- JOBJECT-EXTENSIONS version -->
-		<jobject-extensions.version>1.1.0</jobject-extensions.version>		
+		<jobject-extensions.version>1.3.0</jobject-extensions.version>		
 		<jobject-clone.version>${jobject-extensions.version}</jobject-clone.version>
 		<jobject-compare.version>${jobject-extensions.version}</jobject-compare.version>
 		<jobject-copy.version>${jobject-extensions.version}</jobject-copy.version>

@@ -24,6 +24,13 @@
  */
 package de.alpharogroup.copy.object;
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.OutputStream;
+import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
@@ -240,6 +247,89 @@ public final class CopyObjectExtensions
 		final DESTINATION destination)
 	{
 		return copyQuietly(original, destination) != null;
+	}
+
+	/**
+	 * Copys the given Object and returns the copy from the object or null if the object can't be
+	 * serialized.
+	 *
+	 * @param <T>
+	 *            the generic type of the given object
+	 * @param orig
+	 *            The object to copy.
+	 * @return Returns a copy from the original object.
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws ClassNotFoundException
+	 *             is thrown when a class is not found in the classloader or no definition for the
+	 *             class with the specified name could be found.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T extends Serializable> T copySerializedObject(final T orig)
+		throws IOException, ClassNotFoundException
+	{
+		T object = null;
+		ByteArrayOutputStream byteArrayOutputStream = null;
+		ObjectOutputStream objectOutputStream = null;
+		try
+		{
+			byteArrayOutputStream = new ByteArrayOutputStream();
+			objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
+			objectOutputStream.writeObject(orig);
+			objectOutputStream.flush();
+			objectOutputStream.close();
+			final ByteArrayInputStream bis = new ByteArrayInputStream(
+				byteArrayOutputStream.toByteArray());
+			final ObjectInputStream ois = new ObjectInputStream(bis);
+			object = (T)ois.readObject();
+		}
+		finally
+		{
+			closeOutputStream(byteArrayOutputStream);
+			closeOutputStream(objectOutputStream);
+		}
+		return object;
+	}
+
+	/**
+	 * Closes the given OutputStream.
+	 *
+	 * @param out
+	 *            The OutputStream to close.
+	 * @return Returns true if the OutputStream is closed otherwise false.
+	 */
+	public static boolean closeOutputStream(OutputStream out)
+	{
+		boolean closed = true;
+		try
+		{
+			if (out != null)
+			{
+				out.flush();
+				out.close();
+				out = null;
+			}
+		}
+		catch (final IOException e)
+		{
+			closed = false;
+		}
+		finally
+		{
+			try
+			{
+				if (out != null)
+				{
+					out.flush();
+					out.close();
+				}
+			}
+			catch (final IOException e)
+			{
+				closed = false;
+			}
+		}
+		return closed;
 	}
 
 }

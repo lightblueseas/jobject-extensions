@@ -183,7 +183,6 @@ public final class ReflectionExtensions
 		return new String(fn);
 	}
 
-
 	/**
 	 * Gets the modifiers from the given Field as a list of String objects.
 	 *
@@ -202,39 +201,18 @@ public final class ReflectionExtensions
 	 * Creates a new instance from the same type as the given object.
 	 *
 	 * @param <T>
-	 *            the generic type of the given object
-	 * @param obj
-	 *            the obj
-	 * @return the new instance
-	 * @throws ClassNotFoundException
-	 *             the class not found exception
-	 * @throws InstantiationException
-	 *             the instantiation exception
-	 * @throws IllegalAccessException
-	 *             the illegal access exception
-	 * @deprecated use instead {@link ReflectionExtensions#newInstance(Object)}
-	 */
-	@Deprecated
-	public static <T> T getNewInstance(final T obj)
-		throws ClassNotFoundException, InstantiationException, IllegalAccessException
-	{
-		return newInstance(obj);
-	}
-
-	/**
-	 * Creates a new instance from the same type as the given object.
-	 *
-	 * @param <T>
 	 *            the generic type
 	 * @param obj
 	 *            the obj
 	 * @return the new instance
 	 * @throws ClassNotFoundException
-	 *             the class not found exception
-	 * @throws InstantiationException
-	 *             the instantiation exception
+	 *             is thrown if the class cannot be located
 	 * @throws IllegalAccessException
-	 *             the illegal access exception
+	 *             is thrown if the class or its nullary constructor is not accessible.
+	 * @throws InstantiationException
+	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
+	 *             array class, a primitive type, or void; or if the class has no nullary
+	 *             constructor; or if the instantiation fails for some other reason.
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T newInstance(final T obj)
@@ -251,16 +229,16 @@ public final class ReflectionExtensions
 	 * @param clazz
 	 *            the Class object
 	 * @return the new instance
-	 * @throws ClassNotFoundException
-	 *             the class not found exception
-	 * @throws InstantiationException
-	 *             the instantiation exception
 	 * @throws IllegalAccessException
-	 *             the illegal access exception
+	 *             is thrown if the class or its nullary constructor is not accessible.
+	 * @throws InstantiationException
+	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
+	 *             array class, a primitive type, or void; or if the class has no nullary
+	 *             constructor; or if the instantiation fails for some other reason.
 	 */
 
 	public static <T> T newInstance(final Class<T> clazz)
-		throws InstantiationException, IllegalAccessException, ClassNotFoundException
+		throws InstantiationException, IllegalAccessException
 	{
 		return clazz.newInstance();
 	}

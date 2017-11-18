@@ -38,7 +38,7 @@ import de.alpharogroup.test.objects.Gender;
 import de.alpharogroup.test.objects.Person;
 
 /**
- * The test class for {@link CopyObjectExtensions}.
+ * The unit test class for the class {@link CopyObjectExtensions}.
  */
 public class CopyObjectExtensionsTest
 {

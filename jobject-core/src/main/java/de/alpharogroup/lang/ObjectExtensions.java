@@ -52,11 +52,11 @@ public final class ObjectExtensions
 		{
 			return true;
 		}
-		final Class<?> fooFieldClass = object.getClass();
-		final ClassType classType = getClassType(fooFieldClass);
+		final Class<?> fieldClass = object.getClass();
+		final ClassType classType = getClassType(fieldClass);
 		if (ClassType.PRIMITIVE.equals(classType))
 		{
-			return DefaultValue.getDefaultValue(fooFieldClass).equals(object);
+			return DefaultValue.getDefaultValue(fieldClass).equals(object);
 		}
 		return false;
 	}

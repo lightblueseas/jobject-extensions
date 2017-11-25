@@ -1,6 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
+
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>mvn-java-parent</artifactId>
@@ -12,6 +13,14 @@
 	<packaging>pom</packaging>
 
 	<name>${project.artifactId}</name>
+
+	<properties>
+		<silly-collections.version>4.20.0</silly-collections.version>
+		<vintage-time.version>4.11.0</vintage-time.version>
+		<test-objects.version>4.17.0</test-objects.version>
+		<!-- EXTERNAL LIBRARIES versions -->
+		<commons-beanutils.version>1.9.3</commons-beanutils.version>
+	</properties>
 
 	<description>
 		Project that holds different utility classes and extension methods for operating on java objects like clone, compare, copy, diff and merge.
@@ -44,22 +53,13 @@
 	</issueManagement>
 
 	<modules>
-		<module>jobject-merge</module>
 		<module>jobject-clone</module>
 		<module>jobject-copy</module>
-		<module>jobject-diff</module>
 		<module>jobject-compare</module>
 		<module>jobject-core</module>
+		<module>jobject-diff</module>
+		<module>jobject-merge</module>
 	</modules>
-
-	<properties>
-		<silly-collections.version>4.20.0</silly-collections.version>
-		<vintage-time.version>4.11.0</vintage-time.version>
-		<test-objects.version>4.17.0</test-objects.version>
-		<!-- EXTERNAL LIBRARIES versions -->
-		<commons-beanutils.version>1.9.3</commons-beanutils.version>
-	</properties>
-
 
 	<dependencyManagement>
 
@@ -115,5 +115,28 @@
 		</dependencies>
 
 	</dependencyManagement>
+
+	<build>
+
+		<plugins>
+
+			<plugin>
+				<inherited>true</inherited>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<inherited>true</inherited>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<inherited>true</inherited>
+				<artifactId>maven-eclipse-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+
+	</build>
 
 </project>

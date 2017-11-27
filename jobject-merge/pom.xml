@@ -14,12 +14,12 @@
 
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
-			<artifactId>jobject-core</artifactId>
+			<artifactId>jobject-copy</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
-			<artifactId>jobject-copy</artifactId>
+			<artifactId>jobject-core</artifactId>
 		</dependency>
 
 		<dependency>

@@ -19,12 +19,12 @@
 
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
-			<artifactId>silly-collections</artifactId>
+			<artifactId>jobject-compare</artifactId>
 		</dependency>
 
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
-			<artifactId>jobject-compare</artifactId>
+			<artifactId>silly-collections</artifactId>
 		</dependency>
 
 		<dependency>

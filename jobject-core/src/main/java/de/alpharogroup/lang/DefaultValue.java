@@ -52,6 +52,9 @@ public class DefaultValue
 				put(long.class, 0L);
 				put(float.class, 0f);
 				put(double.class, 0d);
+				put(Object.class, null);
+				put(null, null);
+				put(void.class, null);
 			}
 		});
 
@@ -63,9 +66,25 @@ public class DefaultValue
 	 * @param classType
 	 *            the class type
 	 * @return the default value
+	 * @deprecated use instead the get method from this class
+	 */
+	@Deprecated
+	public static <T> T getDefaultValue(final Class<T> classType)
+	{
+		return get(classType);
+	}
+
+	/**
+	 * Gets the default value from the given {@link Class}.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param classType
+	 *            the class type
+	 * @return the default value
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T getDefaultValue(final Class<T> classType)
+	public static <T> T get(final Class<T> classType)
 	{
 		Check.get().notNull(classType, "classType");
 		final T defaultValue = (T)DEFAULT_VALUE.get(classType);

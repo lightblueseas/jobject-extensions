@@ -24,7 +24,10 @@
  */
 package de.alpharogroup.reflection;
 
-import org.testng.AssertJUnit;
+
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertNotNull;
+
 import org.testng.annotations.Test;
 
 import de.alpharogroup.test.objects.A;
@@ -59,8 +62,7 @@ public class ReflectionExtensionsTest
 		expected = "Alex";
 		ReflectionExtensions.copyFieldValue(alex, nik, "name");
 		actual = nik.getName();
-		AssertJUnit.assertEquals(expected, actual);
-
+		assertEquals(expected, actual);
 	}
 
 	/**
@@ -76,9 +78,13 @@ public class ReflectionExtensionsTest
 	@Test
 	public void testNewInstanceClassOfT() throws InstantiationException, IllegalAccessException
 	{
+		Object expected;
+		Object actual;
 		final Class<Person> clazz = Person.class;
-		final Person actual = ReflectionExtensions.newInstance(clazz);
-		AssertJUnit.assertNotNull(actual);
+		actual = ReflectionExtensions.newInstance(clazz);
+		assertNotNull(actual);
+		expected = new Person();
+		assertEquals(expected, actual);
 	}
 
 	/**
@@ -97,9 +103,15 @@ public class ReflectionExtensionsTest
 	public void testNewInstanceT()
 		throws InstantiationException, IllegalAccessException, ClassNotFoundException
 	{
+		Object expected;
+		Object actual;
 		final A a = new A();
-		final A actual = ReflectionExtensions.newInstance(a);
-		AssertJUnit.assertNotNull(actual);
+		actual = ReflectionExtensions.newInstance(a);
+		assertNotNull(actual);
+		expected = new A();
+		assertEquals(expected, actual);
+		expected = A.builder().build();
+		assertEquals(expected, actual);
 	}
 
 	/**
@@ -124,7 +136,7 @@ public class ReflectionExtensionsTest
 		expected = "Leo";
 		ReflectionExtensions.setFieldValue(person, "name", "Leo");
 		actual = person.getName();
-		AssertJUnit.assertEquals(expected, actual);
+		assertEquals(expected, actual);
 	}
 
 }

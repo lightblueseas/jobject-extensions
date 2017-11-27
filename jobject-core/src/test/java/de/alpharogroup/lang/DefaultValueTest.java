@@ -24,7 +24,8 @@
  */
 package de.alpharogroup.lang;
 
-import org.testng.AssertJUnit;
+import static org.testng.AssertJUnit.assertEquals;
+
 import org.testng.annotations.Test;
 
 /**
@@ -34,21 +35,52 @@ public class DefaultValueTest
 {
 
 	/**
-	 * Test method for {@link DefaultValue#getDefaultValue(Class)}
+	 * Test method for {@link DefaultValue#get(Class)}
 	 */
 	@Test
 	public void testGetDefaultValue()
 	{
-		AssertJUnit.assertEquals(false, DefaultValue.getDefaultValue(boolean.class).booleanValue());
-		AssertJUnit.assertEquals('\0', DefaultValue.getDefaultValue(char.class).charValue());
-		AssertJUnit.assertEquals(0, DefaultValue.getDefaultValue(byte.class).byteValue());
-		AssertJUnit.assertEquals(0, DefaultValue.getDefaultValue(short.class).shortValue());
-		AssertJUnit.assertEquals(0, DefaultValue.getDefaultValue(int.class).intValue());
-		AssertJUnit.assertEquals(0, DefaultValue.getDefaultValue(long.class).longValue());
-		AssertJUnit.assertEquals(0.0f, DefaultValue.getDefaultValue(float.class).floatValue());
-		AssertJUnit.assertEquals(0.0d, DefaultValue.getDefaultValue(double.class).doubleValue());
-		AssertJUnit.assertNull("", DefaultValue.getDefaultValue(void.class));
-		AssertJUnit.assertNull("", DefaultValue.getDefaultValue(Object.class));
+		Object expected;
+		Object actual;
+		expected = Boolean.FALSE;
+		actual = DefaultValue.get(boolean.class);
+		assertEquals(expected, actual);
+
+		expected = Character.valueOf('\0');
+		actual = DefaultValue.get(char.class);
+		assertEquals(expected, actual);
+
+		expected = Byte.valueOf("0");
+		actual = DefaultValue.get(byte.class);
+		assertEquals(expected, actual);
+
+		expected = Short.valueOf("0");
+		actual = DefaultValue.get(short.class);
+		assertEquals(expected, actual);
+
+		expected = Integer.valueOf("0");
+		actual = DefaultValue.get(int.class);
+		assertEquals(expected, actual);
+
+		expected = Long.valueOf("0");
+		actual = DefaultValue.get(long.class);
+		assertEquals(expected, actual);
+
+		expected = Float.valueOf("0.0");
+		actual = DefaultValue.get(float.class);
+		assertEquals(expected, actual);
+
+		expected = Double.valueOf("0.0");
+		actual = DefaultValue.get(double.class);
+		assertEquals(expected, actual);
+
+		expected = null;
+		actual = DefaultValue.get(Object.class);
+		assertEquals(expected, actual);
+
+		expected = null;
+		actual = DefaultValue.get(void.class);
+		assertEquals(expected, actual);
 	}
 
 }

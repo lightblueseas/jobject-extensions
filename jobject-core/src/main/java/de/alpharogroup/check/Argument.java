@@ -40,6 +40,8 @@ public class Argument
 	/**
 	 * Checks if the given {@code value} argument is in the given a range.
 	 *
+	 * @param <T>
+	 *            the generic type of the arguments
 	 * @param min
 	 *            The minimum from the range to check.
 	 * @param max
@@ -96,8 +98,6 @@ public class Argument
 	/**
 	 * Checks if the given map is not null or empty.
 	 *
-	 * @param <T>
-	 *            the generic type of the elements in the given collection
 	 * @param <K>
 	 *            the generic type of the key from the given Map
 	 * @param <V>
@@ -113,7 +113,7 @@ public class Argument
 	 * @throws IllegalArgumentException
 	 *             when the given {@code map} is null or empty.
 	 */
-	public static <T, K, V, M extends Map<K, V>> M notEmpty(final M map, final String name)
+	public static <K, V, M extends Map<K, V>> M notEmpty(final M map, final String name)
 	{
 		notNull(map, name);
 		if (map.isEmpty())

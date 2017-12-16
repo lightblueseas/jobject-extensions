@@ -120,6 +120,8 @@ public final class ObjectExtensions
 	/**
 	 * Gets the {@link ClassType} from the given class.
 	 *
+	 * @param <T>
+	 *            the generic type
 	 * @param clazz
 	 *            The class.
 	 * @return the {@link ClassType} from the given class.

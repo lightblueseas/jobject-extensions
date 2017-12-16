@@ -208,8 +208,6 @@ public class Check implements Serializable
 	/**
 	 * Checks if the given map is not null or empty.
 	 *
-	 * @param <T>
-	 *            the generic type of the elements in the given collection
 	 * @param <K>
 	 *            the generic type of the key from the given Map
 	 * @param <V>
@@ -225,7 +223,7 @@ public class Check implements Serializable
 	 * @throws IllegalArgumentException
 	 *             when the given {@code map} is null or empty.
 	 */
-	public <T, K, V, M extends Map<K, V>> Check notEmpty(final M map, final String name)
+	public <K, V, M extends Map<K, V>> Check notEmpty(final M map, final String name)
 	{
 		nullCheck(map, name);
 		if (map.isEmpty())

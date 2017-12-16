@@ -61,33 +61,14 @@ public class DefaultValue
 	/**
 	 * Gets the default value from the given {@link Class}.
 	 *
-	 * @param <T>
-	 *            the generic type
-	 * @param classType
-	 *            the class type
-	 * @return the default value
-	 * @deprecated use instead the get method from this class
-	 */
-	@Deprecated
-	public static <T> T getDefaultValue(final Class<T> classType)
-	{
-		return get(classType);
-	}
-
-	/**
-	 * Gets the default value from the given {@link Class}.
-	 *
-	 * @param <T>
-	 *            the generic type
 	 * @param classType
 	 *            the class type
 	 * @return the default value
 	 */
-	@SuppressWarnings("unchecked")
-	public static <T> T get(final Class<T> classType)
+	public static Object get(final Class<?> classType)
 	{
 		Check.get().notNull(classType, "classType");
-		final T defaultValue = (T)DEFAULT_VALUE.get(classType);
+		final Object defaultValue = DEFAULT_VALUE.get(classType);
 		return defaultValue;
 	}
 }

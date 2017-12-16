@@ -48,13 +48,13 @@ public final class ObjectExtensions
 	 *            the object
 	 * @return true, if is default value
 	 */
-	public static final <T> boolean isDefaultValue(final Class<T> fieldClass, final T object)
+	public static final <T> boolean isDefaultValue(final Class<?> fieldClass, final T object)
 	{
 		if (object == null)
 		{
 			return true;
 		}
-		final T defaultValue = DefaultValue.get(fieldClass);
+		final Object defaultValue = DefaultValue.get(fieldClass);
 		if (defaultValue != null)
 		{
 			return DefaultValue.get(fieldClass).equals(object);

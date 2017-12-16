@@ -34,7 +34,6 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import de.alpharogroup.collections.list.ListExtensions;
 import de.alpharogroup.compare.object.CompareObjectExtensions;
 import de.alpharogroup.diff.ChangedAttributeResult;
 import lombok.experimental.UtilityClass;
@@ -166,7 +165,7 @@ public class DiffObjectExtensions
 	{
 		if (changedData == null)
 		{
-			changedData = ListExtensions.newArrayList();
+			changedData = new ArrayList<>();
 		}
 		if (sourceOjbect == null || objectToCompare == null
 			|| !sourceOjbect.getClass().equals(objectToCompare.getClass()))

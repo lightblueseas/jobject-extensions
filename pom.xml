@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>mvn-java-parent</artifactId>
-		<version>3.1.0</version>
+		<version>3.3.0</version>
 	</parent>
 
 	<artifactId>jobject-extensions</artifactId>
@@ -15,7 +15,6 @@
 	<name>${project.artifactId}</name>
 
 	<properties>
-		<silly-collections.version>4.20.0</silly-collections.version>
 		<vintage-time.version>4.11.0</vintage-time.version>
 		<test-objects.version>4.17.0</test-objects.version>
 		<!-- EXTERNAL LIBRARIES versions -->
@@ -69,12 +68,6 @@
 				<groupId>commons-beanutils</groupId>
 				<artifactId>commons-beanutils</artifactId>
 				<version>${commons-beanutils.version}</version>
-			</dependency>
-
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>silly-collections</artifactId>
-				<version>${silly-collections.version}</version>
 			</dependency>
 
 			<dependency>

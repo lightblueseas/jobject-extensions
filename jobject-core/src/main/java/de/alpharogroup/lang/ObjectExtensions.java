@@ -42,27 +42,6 @@ public final class ObjectExtensions
 	 *
 	 * @param <T>
 	 *            the generic type
-	 * @param object
-	 *            the object
-	 * @return true, if is default value
-	 * @deprecated use instead the same name method with class and object arguments
-	 */
-	@SuppressWarnings("unchecked")
-	@Deprecated
-	public static final <T> boolean isDefaultValue(final T object)
-	{
-		if (object == null)
-		{
-			return true;
-		}
-		return isDefaultValue((Class<T>)object.getClass(), object);
-	}
-
-	/**
-	 * Checks if the given object has the default value.
-	 *
-	 * @param <T>
-	 *            the generic type
 	 * @param fieldClass
 	 *            the field class
 	 * @param object
@@ -81,40 +60,6 @@ public final class ObjectExtensions
 			return DefaultValue.get(fieldClass).equals(object);
 		}
 		return false;
-	}
-
-	/**
-	 * Checks if the given object has not the default value.
-	 *
-	 * @param <T>
-	 *            the generic type
-	 * @param object
-	 *            the object
-	 * @return true, if the given object has not the default value
-	 * @deprecated use instead the same name method with class and object arguments
-	 */
-	@Deprecated
-	public static final <T> boolean isNotDefaultValue(final T object)
-	{
-		return !isDefaultValue(object);
-	}
-
-	/**
-	 * Checks if the given object has not the default value.
-	 *
-	 * @param <T>
-	 *            the generic type
-	 * @param fieldClass
-	 *            the field class
-	 * @param object
-	 *            the object
-	 * @return true, if the given object has not the default value
-	 * @deprecated use instead the same name method with class and object arguments
-	 */
-	@Deprecated
-	public static final <T> boolean isNotDefaultValue(final Class<T> fieldClass, final T object)
-	{
-		return !isDefaultValue(fieldClass, object);
 	}
 
 	/**

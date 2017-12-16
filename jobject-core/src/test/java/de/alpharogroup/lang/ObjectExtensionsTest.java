@@ -39,7 +39,7 @@ public class ObjectExtensionsTest
 {
 
 	/**
-	 * Test method for {@link ObjectExtensions#isDefaultValue(Object)}
+	 * Test method for {@link ObjectExtensions#isDefaultValue(Class, Object)}
 	 */
 	@Test
 	public void testIsDefaultValue()
@@ -47,17 +47,21 @@ public class ObjectExtensionsTest
 		boolean expected;
 		boolean actual;
 
+		expected = true;
+		actual = ObjectExtensions.isDefaultValue(int.class, 0);
+		assertEquals(expected, actual);
+
 		final Company company = Company.builder().build();
 		expected = true;
-		actual = ObjectExtensions.isDefaultValue(company.getName());
+		actual = ObjectExtensions.isDefaultValue(String.class, company.getName());
 		assertEquals(expected, actual);
 
 		expected = false;
-		actual = ObjectExtensions.isDefaultValue(2);
+		actual = ObjectExtensions.isDefaultValue(int.class, 2);
 		assertEquals(expected, actual);
 
 		expected = false;
-		actual = ObjectExtensions.isDefaultValue(Company.class);
+		actual = ObjectExtensions.isDefaultValue(Company.class, company);
 		assertEquals(expected, actual);
 
 	}

@@ -35,7 +35,6 @@ import java.util.List;
 import org.apache.commons.beanutils.BeanComparator;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.clone.object.CloneObjectExtensions;
 import de.alpharogroup.test.objects.Gender;
 import de.alpharogroup.test.objects.Person;
 import lombok.extern.slf4j.Slf4j;
@@ -68,8 +67,7 @@ public class CompareObjectExtensionsTest
 		// create a person...
 		final Person sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();
 		// make a clone of it...
-		final Person objectToCompare = (Person)CloneObjectExtensions
-			.cloneObjectQuietly(sourceOjbect);
+		final Person objectToCompare = Person.builder().gender(Gender.MALE).name("obelix").build();
 		// 1. scenario...
 		// expected: the compare method should return true...
 		// explanation of expected: compared object are equal

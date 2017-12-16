@@ -28,6 +28,7 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
 
 import org.testng.annotations.Test;
 
@@ -41,6 +42,22 @@ import lombok.experimental.ExtensionMethod;
 @ExtensionMethod(CloneObjectExtensions.class)
 public class CloneObjectExtensionsTest
 {
+
+	/**
+	 * Factory method for create new {@link Array} from the given optional elements.
+	 *
+	 * @param <T>
+	 *            the generic type of the elements
+	 * @param elements
+	 *            the optional elements to be added in the new {@link ArrayList}.
+	 * @return the new {@link Array}.
+	 */
+	@SafeVarargs
+	public static <T> T[] newArray(final T... elements)
+	{
+		return elements;
+	}
+
 
 	/**
 	 * Test method for {@link CloneObjectExtensions#clone(Object)}.
@@ -93,11 +110,31 @@ public class CloneObjectExtensionsTest
 		actual = CloneObjectExtensions.clone(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
+
+	}
+
+
+	@Test(enabled = true)
+	public void testCloneArray() throws NoSuchMethodException, SecurityException,
+		IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+		ClassNotFoundException, InstantiationException, IOException
+	{
+		// TODO create szenario with no serializable...
+		String[] expected;
+		String[] actual;
+
+		expected = newArray("foo", "bar");
+		actual = CloneObjectExtensions.clone(expected);
+		for (int i = 0; i < actual.length; i++)
+		{
+			assertEquals("Cloned object should be equal with the source object.", expected[i],
+				actual[i]);
+		}
 	}
 
 	/**
 	 * Test method for {@link CloneObjectExtensions#cloneObject(Object)}.
-	 * 
+	 *
 	 * @throws NoSuchMethodException
 	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
 	 *             "&lt;clinit&gt;".

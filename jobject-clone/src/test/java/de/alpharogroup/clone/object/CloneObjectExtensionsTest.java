@@ -44,6 +44,22 @@ public class CloneObjectExtensionsTest
 {
 
 	/**
+	 * Factory method for create new {@link Array} from the given optional elements.
+	 *
+	 * @param <T>
+	 *            the generic type of the elements
+	 * @param elements
+	 *            the optional elements to be added in the new {@link ArrayList}.
+	 * @return the new {@link Array}.
+	 */
+	@SafeVarargs
+	public static <T> T[] newArray(final T... elements)
+	{
+		return elements;
+	}
+
+
+	/**
 	 * Test method for {@link CloneObjectExtensions#clone(Object)}.
 	 *
 	 * @throws NoSuchMethodException
@@ -99,9 +115,9 @@ public class CloneObjectExtensionsTest
 
 
 	@Test(enabled = true)
-	public void testCloneArray() throws NoSuchMethodException, SecurityException, IllegalAccessException,
-		IllegalArgumentException, InvocationTargetException, ClassNotFoundException,
-		InstantiationException, IOException
+	public void testCloneArray() throws NoSuchMethodException, SecurityException,
+		IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+		ClassNotFoundException, InstantiationException, IOException
 	{
 		// TODO create szenario with no serializable...
 		String[] expected;
@@ -111,24 +127,9 @@ public class CloneObjectExtensionsTest
 		actual = CloneObjectExtensions.clone(expected);
 		for (int i = 0; i < actual.length; i++)
 		{
-			assertEquals("Cloned object should be equal with the source object.", expected[i], actual[i]);
+			assertEquals("Cloned object should be equal with the source object.", expected[i],
+				actual[i]);
 		}
-	}
-
-
-	/**
-	 * Factory method for create new {@link Array} from the given optional elements.
-	 *
-	 * @param <T>
-	 *            the generic type of the elements
-	 * @param elements
-	 *            the optional elements to be added in the new {@link ArrayList}.
-	 * @return the new {@link Array}.
-	 */
-	@SafeVarargs
-	public static <T> T[] newArray(final T... elements)
-	{
-		return elements;
 	}
 
 	/**

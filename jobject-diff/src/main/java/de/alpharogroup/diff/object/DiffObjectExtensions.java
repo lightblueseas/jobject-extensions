@@ -85,8 +85,8 @@ public class DiffObjectExtensions
 			if (CompareObjectExtensions.compareTo(sourceOjbect, objectToCompare,
 				key.toString()) != 0)
 			{
-				changedData.put(key, ChangedAttributeResult.builder().attributeName(key)
-					.sourceAttribute(sourceAttribute).changedAttribute(changedAttribute).build());
+				final ChangedAttributeResult result = new ChangedAttributeResult((ChangedAttributeResult)null, key, sourceAttribute, changedAttribute);
+				changedData.put(key, result);
 			}
 		}
 		return changedData;

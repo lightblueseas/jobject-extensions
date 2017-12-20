@@ -35,6 +35,7 @@ import org.junit.rules.ExpectedException;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.diff.ChangedAttributeResult;
+import de.alpharogroup.test.objects.Employee;
 import de.alpharogroup.test.objects.Gender;
 import de.alpharogroup.test.objects.Person;
 
@@ -51,7 +52,7 @@ public class DiffObjectExtensionsTest
 	public ExpectedException throwable = ExpectedException.none();
 
 	/**
-	 * Test method for {@link MergeObjectExtensions#getChangedDataMap(Object, Object)}.
+	 * Test method for {@link DiffObjectExtensions#getChangedDataMap(Object, Object)}.
 	 *
 	 * @throws IllegalAccessException
 	 *             the illegal access exception
@@ -64,10 +65,7 @@ public class DiffObjectExtensionsTest
 	public void testGetChangedDataMap()
 			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
 	{
-		Person sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();
-//			new Person();
-//		sourceOjbect.setGender(Gender.MALE);
-//		sourceOjbect.setName("obelix");
+		final Person sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();
 
 		final Person objectToCompare = Person.builder().gender(Gender.MALE).name("obelix").build();
 
@@ -85,15 +83,10 @@ public class DiffObjectExtensionsTest
 		final Object changedAttribute = changed.getChangedAttribute();
 		assertTrue("", sourceAttribute.equals(Gender.MALE.name()));
 		assertTrue("", changedAttribute.equals(Gender.FEMALE.name()));
-
-		sourceOjbect = null;
-		result = DiffObjectExtensions
-				.getChangedDataMap(sourceOjbect, objectToCompare);
 	}
 
-
 	/**
-	 * Test method for {@link MergeObjectExtensions#getChangedDataMap(Object, Object)}.
+	 * Test method for {@link DiffObjectExtensions#getChangedDataMap(Object, Object)} with source as null value.
 	 *
 	 * @throws IllegalAccessException
 	 *             the illegal access exception
@@ -102,12 +95,58 @@ public class DiffObjectExtensionsTest
 	 * @throws NoSuchMethodException
 	 *             the no such method exception
 	 */
-	@Test(enabled = false)
-	public void testGetChangedDataMapNullCass()
+	@Test(enabled = true
+			, expectedExceptions = IllegalArgumentException.class
+	)
+	public void testGetChangedDataMapSourceNullValue()
 			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
 	{
 		final Person sourceOjbect =  null;
+		final Person objectToCompare = Person.builder().build();
+		throwable.expect(IllegalArgumentException.class);
+		throwable.expectMessage("Given argument 'sourceOjbect' may not be null.");
+		DiffObjectExtensions
+				.getChangedDataMap(sourceOjbect, objectToCompare);
+	}
+
+	/**
+	 * Test method for {@link DiffObjectExtensions#getChangedDataMap(Object, Object)} with source as null value.
+	 *
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws InvocationTargetException
+	 *             the invocation target exception
+	 * @throws NoSuchMethodException
+	 *             the no such method exception
+	 */
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public void testGetChangedDataMapCompareNullValue()
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+	{
+		final Person sourceOjbect =  Person.builder().build();
 		final Person objectToCompare = null;
+		throwable.expect(IllegalArgumentException.class);
+		throwable.expectMessage("Given argument 'objectToCompare' may not be null.");
+		DiffObjectExtensions
+				.getChangedDataMap(sourceOjbect, objectToCompare);
+	}
+
+	/**
+	 * Test method for {@link DiffObjectExtensions#getChangedDataMap(Object, Object)} with different class of source and compare object.
+	 *
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws InvocationTargetException
+	 *             the invocation target exception
+	 * @throws NoSuchMethodException
+	 *             the no such method exception
+	 */
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public void testGetChangedDataMapDifferentClass()
+			throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+	{
+		final Person sourceOjbect =  Person.builder().build();
+		final Employee objectToCompare = Employee.builder().build();
 		throwable.expect(IllegalArgumentException.class);
 		throwable.expectMessage("Object should not be null and be the same type.");
 		DiffObjectExtensions

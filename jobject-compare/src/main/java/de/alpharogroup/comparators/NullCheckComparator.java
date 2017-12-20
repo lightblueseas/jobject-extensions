@@ -40,7 +40,7 @@ import lombok.EqualsAndHashCode;
  *            the generic type of the {@link Comparator} object that will be decorated
  */
 @EqualsAndHashCode
-@Builder(toBuilder = true)
+@Builder
 public class NullCheckComparator<T> implements Comparator<T>, Serializable
 {
 

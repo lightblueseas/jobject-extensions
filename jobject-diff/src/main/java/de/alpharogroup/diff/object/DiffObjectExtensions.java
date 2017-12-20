@@ -69,12 +69,12 @@ public class DiffObjectExtensions
 		final Object objectToCompare)
 		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
 	{
-		Check.get()
-		.notNull(sourceOjbect, "sourceOjbect")
-		.notNull(objectToCompare, "objectToCompare");
+		Check.get().notNull(sourceOjbect, "sourceOjbect").notNull(objectToCompare,
+			"objectToCompare");
 		if (!sourceOjbect.getClass().equals(objectToCompare.getClass()))
 		{
-			throw new IllegalArgumentException("Given sourceObject should be the same type as objectToCompare.");
+			throw new IllegalArgumentException(
+				"Given sourceObject should be the same type as objectToCompare.");
 		}
 		final Map beanDescription = BeanUtils.describe(sourceOjbect);
 		beanDescription.remove("class");
@@ -120,12 +120,12 @@ public class DiffObjectExtensions
 		final Object objectToCompare)
 		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
 	{
-		Check.get()
-		.notNull(sourceOjbect, "sourceOjbect")
-		.notNull(objectToCompare, "objectToCompare");
+		Check.get().notNull(sourceOjbect, "sourceOjbect").notNull(objectToCompare,
+			"objectToCompare");
 		if (!sourceOjbect.getClass().equals(objectToCompare.getClass()))
 		{
-			throw new IllegalArgumentException("Given sourceObject should be the same type as objectToCompare.");
+			throw new IllegalArgumentException(
+				"Given sourceObject should be the same type as objectToCompare.");
 		}
 		final Map beanDescription = BeanUtils.describe(sourceOjbect);
 		beanDescription.remove("class");

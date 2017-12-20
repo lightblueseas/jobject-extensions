@@ -73,7 +73,8 @@ public final class ObjectExtensions
 	 */
 	public static <T> ClassType getClassType(final Class<T> clazz)
 	{
-		if(clazz == null) {
+		if (clazz == null)
+		{
 			return null;
 		}
 		if (clazz.isArray())

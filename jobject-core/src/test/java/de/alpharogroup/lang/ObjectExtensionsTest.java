@@ -47,34 +47,6 @@ public class ObjectExtensionsTest
 {
 
 	/**
-	 * Test method for {@link ObjectExtensions#isDefaultValue(Class, Object)}
-	 */
-	@Test
-	public void testIsDefaultValue()
-	{
-		boolean expected;
-		boolean actual;
-
-		expected = true;
-		actual = ObjectExtensions.isDefaultValue(int.class, 0);
-		assertEquals(expected, actual);
-
-		final Company company = Company.builder().build();
-		expected = true;
-		actual = ObjectExtensions.isDefaultValue(String.class, company.getName());
-		assertEquals(expected, actual);
-
-		expected = false;
-		actual = ObjectExtensions.isDefaultValue(int.class, 2);
-		assertEquals(expected, actual);
-
-		expected = false;
-		actual = ObjectExtensions.isDefaultValue(Company.class, company);
-		assertEquals(expected, actual);
-
-	}
-
-	/**
 	 * Test method for {@link ObjectExtensions#getClassType(Class)}
 	 */
 	@Test
@@ -104,7 +76,7 @@ public class ObjectExtensionsTest
 		assertEquals(expected, actual);
 
 		expected = ClassType.ARRAY;
-		final String [] stringArray = {"foo", "bar"};
+		final String[] stringArray = { "foo", "bar" };
 		actual = ObjectExtensions.getClassType(stringArray.getClass());
 		assertEquals(expected, actual);
 
@@ -120,6 +92,34 @@ public class ObjectExtensionsTest
 
 		expected = ClassType.INTERFACE;
 		actual = ObjectExtensions.getClassType(AnnotatedInterface.class);
+		assertEquals(expected, actual);
+
+	}
+
+	/**
+	 * Test method for {@link ObjectExtensions#isDefaultValue(Class, Object)}
+	 */
+	@Test
+	public void testIsDefaultValue()
+	{
+		boolean expected;
+		boolean actual;
+
+		expected = true;
+		actual = ObjectExtensions.isDefaultValue(int.class, 0);
+		assertEquals(expected, actual);
+
+		final Company company = Company.builder().build();
+		expected = true;
+		actual = ObjectExtensions.isDefaultValue(String.class, company.getName());
+		assertEquals(expected, actual);
+
+		expected = false;
+		actual = ObjectExtensions.isDefaultValue(int.class, 2);
+		assertEquals(expected, actual);
+
+		expected = false;
+		actual = ObjectExtensions.isDefaultValue(Company.class, company);
 		assertEquals(expected, actual);
 
 	}

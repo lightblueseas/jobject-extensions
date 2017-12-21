@@ -229,7 +229,6 @@ or over ether with:
 
 0xaB6EaE10F352268B0CA672Dd6e999C86344D49D8
 
-or over flattr:  
-<a href="https://flattr.com/submit/auto?fid=r7vp62&url=https%3A%2F%2Fgithub.com%2Flightblueseas%2Fjobject-extensions" target="_blank">
+or over flattr: <a href="https://flattr.com/submit/auto?fid=r7vp62&url=https%3A%2F%2Fgithub.com%2Flightblueseas%2Fjobject-extensions" target="_blank">
 <img src="http://button.flattr.com/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0">
 </a>

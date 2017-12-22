@@ -23,7 +23,7 @@
 
 	<properties>
 		<vintage-time.version>4.11.0</vintage-time.version>
-		<test-objects.version>4.17.0</test-objects.version>
+		<test-objects.version>4.18.0</test-objects.version>
 		<!-- EXTERNAL LIBRARIES versions -->
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 	</properties>

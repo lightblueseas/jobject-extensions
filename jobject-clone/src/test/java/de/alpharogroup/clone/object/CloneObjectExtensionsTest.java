@@ -34,6 +34,7 @@ import org.testng.annotations.Test;
 
 import de.alpharogroup.date.CreateDateExtensions;
 import de.alpharogroup.test.objects.A;
+import de.alpharogroup.test.objects.NotSerializable;
 import lombok.experimental.ExtensionMethod;
 
 /**
@@ -124,6 +125,26 @@ public class CloneObjectExtensionsTest
 		String[] actual;
 
 		expected = newArray("foo", "bar");
+		actual = CloneObjectExtensions.clone(expected);
+		for (int i = 0; i < actual.length; i++)
+		{
+			assertEquals("Cloned object should be equal with the source object.", expected[i],
+				actual[i]);
+		}
+	}
+
+	@Test(enabled = true)
+	public void testClonePrimitiveArray() throws NoSuchMethodException, SecurityException,
+		IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+		ClassNotFoundException, InstantiationException, IOException
+	{
+		// TODO create szenario with no serializable...
+		int[] expected;
+		int[] actual;
+
+		expected = new int[2];
+		expected[0] = 1;
+		expected[1] = 2;
 		actual = CloneObjectExtensions.clone(expected);
 		for (int i = 0; i < actual.length; i++)
 		{
@@ -236,5 +257,20 @@ public class CloneObjectExtensionsTest
 
 	}
 
+
+	/**
+	 * Test method for {@link CloneObjectExtensions#cloneQuietly(Object)}.
+	 */
+	@Test(enabled = true)
+	public void testCloneNotSerializableObject()
+	{
+
+		Object expected;
+		Object actual;
+
+		expected = NotSerializable.builder().build();
+		actual = CloneObjectExtensions.cloneQuietly(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
+	}
 }
 

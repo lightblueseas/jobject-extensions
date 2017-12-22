@@ -35,7 +35,7 @@ import java.util.List;
 import org.apache.commons.beanutils.BeanComparator;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.test.objects.Gender;
+import de.alpharogroup.test.objects.enums.Gender;
 import de.alpharogroup.test.objects.Person;
 import lombok.extern.slf4j.Slf4j;
 

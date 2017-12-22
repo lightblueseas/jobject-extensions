@@ -37,7 +37,7 @@ import org.testng.annotations.Test;
 
 import de.alpharogroup.diff.ChangedAttributeResult;
 import de.alpharogroup.test.objects.Employee;
-import de.alpharogroup.test.objects.Gender;
+import de.alpharogroup.test.objects.enums.Gender;
 import de.alpharogroup.test.objects.Person;
 
 /**

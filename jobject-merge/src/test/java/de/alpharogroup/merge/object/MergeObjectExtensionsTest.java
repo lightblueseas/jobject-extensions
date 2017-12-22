@@ -34,7 +34,7 @@ import de.alpharogroup.date.CreateDateExtensions;
 import de.alpharogroup.date.DateDecorator;
 import de.alpharogroup.date.SqlTimestampDecorator;
 import de.alpharogroup.test.objects.Employee;
-import de.alpharogroup.test.objects.Gender;
+import de.alpharogroup.test.objects.enums.Gender;
 import de.alpharogroup.test.objects.Person;
 import lombok.experimental.ExtensionMethod;
 

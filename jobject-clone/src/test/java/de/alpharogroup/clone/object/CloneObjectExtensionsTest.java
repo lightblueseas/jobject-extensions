@@ -45,13 +45,13 @@ public class CloneObjectExtensionsTest
 {
 
 	/**
-	 * Factory method for create new {@link Array} from the given optional elements.
+	 * Factory method for create new  Array from the given optional elements.
 	 *
 	 * @param <T>
 	 *            the generic type of the elements
 	 * @param elements
-	 *            the optional elements to be added in the new {@link ArrayList}.
-	 * @return the new {@link Array}.
+	 *            the optional elements to be added in the new  Array.
+	 * @return the new  Array.
 	 */
 	@SafeVarargs
 	public static <T> T[] newArray(final T... elements)

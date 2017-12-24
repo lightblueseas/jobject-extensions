@@ -257,9 +257,8 @@ public class CloneObjectExtensionsTest
 
 	}
 
-
 	/**
-	 * Test method for {@link CloneObjectExtensions#cloneQuietly(Object)}.
+	 * Test method for {@link CloneObjectExtensions#cloneQuietly(Object)} not serializable object.
 	 */
 	@Test(enabled = true)
 	public void testCloneNotSerializableObject()
@@ -269,6 +268,21 @@ public class CloneObjectExtensionsTest
 		Object actual;
 
 		expected = NotSerializable.builder().build();
+		actual = CloneObjectExtensions.cloneQuietly(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
+	}
+
+	/**
+	 * Test method for {@link CloneObjectExtensions#cloneQuietly(Object)} with clonable object.
+	 */
+	@Test(enabled = true)
+	public void testCloneClonableObject()
+	{
+
+		Object expected;
+		Object actual;
+
+		expected = ClonableObject.builder().build();
 		actual = CloneObjectExtensions.cloneQuietly(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 	}

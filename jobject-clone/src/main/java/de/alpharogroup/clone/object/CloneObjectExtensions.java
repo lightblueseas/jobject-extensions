@@ -142,9 +142,11 @@ public final class CloneObjectExtensions
 		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
 	{
 		Object clone = null;
+
 		// Try to clone the object if it is Cloneble.
-		if (object instanceof Cloneable)
+		if (clone == null && object instanceof Cloneable)
 		{
+
 			if (object.getClass().isArray())
 			{
 				final Class<?> componentType = object.getClass().getComponentType();
@@ -166,17 +168,18 @@ public final class CloneObjectExtensions
 					return clone;
 				}
 			}
+
 			final Class<?> clazz = object.getClass();
-			final Method cloneMethod = clazz.getMethod("clone", (Class[])null);
+			final Method cloneMethod = clazz.getDeclaredMethod("clone");
+			cloneMethod.setAccessible(true);
 			clone = cloneMethod.invoke(object, (Object[])null);
 			if (clone != null)
 			{
 				return clone;
 			}
 		}
-
 		// Try to clone the object if it implements Serializable.
-		if (clone == null && object instanceof Serializable)
+		if (object instanceof Serializable)
 		{
 			clone = CopyObjectExtensions.copySerializedObject((Serializable)object);
 			if (clone != null)

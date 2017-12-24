@@ -31,11 +31,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import de.alpharogroup.reflection.ReflectionExtensions;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
@@ -79,89 +79,8 @@ public final class CopyObjectExtensions
 		throws NoSuchFieldException, SecurityException, IllegalArgumentException,
 		IllegalAccessException
 	{
-		copyFieldValue(original, destination, fieldName);
+		ReflectionExtensions.copyFieldValue(original, destination, fieldName);
 		return destination;
-	}
-
-	/**
-	 * Copies the field value of the given source object to the given target object.
-	 *
-	 * @param <T>
-	 *            the generic type of the object
-	 * @param source
-	 *            the source
-	 * @param target
-	 *            the target
-	 * @param fieldName
-	 *            the field name
-	 * @throws NoSuchFieldException
-	 *             is thrown if no such field exists.
-	 * @throws SecurityException
-	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
-	 * @throws IllegalAccessException
-	 *             is thrown if an illegal on create an instance or access a method.
-	 */
-	public static <T> void copyFieldValue(final T source, final T target, final String fieldName)
-		throws NoSuchFieldException, SecurityException, IllegalArgumentException,
-		IllegalAccessException
-	{
-		final Field sourceField = getDeclaredField(source, fieldName);
-		sourceField.setAccessible(true);
-		final Object sourceValue = sourceField.get(source);
-		setFieldValue(target, fieldName, sourceValue);
-	}
-
-	/**
-	 * Gets the {@link Field} that match to the given field name that exists in the given object.
-	 *
-	 * @param <T>
-	 *            the generic type
-	 * @param object
-	 *            the object
-	 * @param fieldName
-	 *            the field name
-	 * @return the declared field
-	 * @throws NoSuchFieldException
-	 *             is thrown if no such field exists.
-	 * @throws SecurityException
-	 *             is thrown if a security manager says no.
-	 */
-	public static <T> Field getDeclaredField(final T object, final String fieldName)
-		throws NoSuchFieldException, SecurityException
-	{
-		final Field field = object.getClass().getDeclaredField(fieldName);
-		return field;
-	}
-
-	/**
-	 * Sets the field value of the given source object over the field name.
-	 *
-	 * @param <T>
-	 *            the generic type
-	 * @param source
-	 *            the source
-	 * @param fieldName
-	 *            the field name
-	 * @param newValue
-	 *            the new value
-	 * @throws NoSuchFieldException
-	 *             is thrown if no such field exists.
-	 * @throws SecurityException
-	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
-	 * @throws IllegalAccessException
-	 *             is thrown if an illegal on create an instance or access a method.
-	 */
-	public static <T> void setFieldValue(final T source, final String fieldName,
-		final Object newValue) throws NoSuchFieldException, SecurityException,
-		IllegalArgumentException, IllegalAccessException
-	{
-		final Field sourceField = getDeclaredField(source, fieldName);
-		sourceField.setAccessible(true);
-		sourceField.set(source, newValue);
 	}
 
 	/**

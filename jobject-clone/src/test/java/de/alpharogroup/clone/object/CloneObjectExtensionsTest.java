@@ -28,7 +28,6 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 
 import org.testng.annotations.Test;
 

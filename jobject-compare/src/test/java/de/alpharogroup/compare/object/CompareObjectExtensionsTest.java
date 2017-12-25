@@ -58,7 +58,7 @@ public class CompareObjectExtensionsTest
 	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
 	 *             "&lt;clinit&gt;".
 	 */
-	@Test(enabled = false)
+	@Test(enabled = true)
 	public void testCompare()
 		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
 	{
@@ -91,10 +91,38 @@ public class CompareObjectExtensionsTest
 	/**
 	 * Test method for {@link CompareObjectExtensions#compareTo(Object, Object)}.
 	 *
+	 * @throws IllegalAccessException
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
+	 * @throws InvocationTargetException
+	 *             Thrown if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
+	 *
 	 */
 	@Test(enabled = true)
 	public void testCompareTo()
+		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
 	{
+
+		int expected;
+		int actual;
+		// create a person...
+		final Person sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();
+		// make a clone of it...
+		final Person objectToCompare = Person.builder().gender(Gender.MALE).name("obelix").build();
+
+		expected = 0;
+		actual = CompareObjectExtensions.compareTo(sourceOjbect, objectToCompare);
+		assertEquals("Given objects should not be equal.", expected, actual);
+
+		sourceOjbect.setAbout("Foo");
+		expected = 3;
+		actual = CompareObjectExtensions.compareTo(sourceOjbect, objectToCompare);
+		assertEquals("Given objects should not be equal.", expected, actual);
+
+
 	}
 
 	/**

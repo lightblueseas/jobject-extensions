@@ -124,6 +124,11 @@ public final class CompareObjectExtensions
 			{
 				continue;
 			}
+			else
+			{
+				break;
+			}
+
 		}
 		return result;
 	}

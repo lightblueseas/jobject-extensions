@@ -45,11 +45,7 @@ public class SerializedChangedAttributeResultTest
 	public void test()
 	{
 		SerializedChangedAttributeResult changedAttributeResult = SerializedChangedAttributeResult
-			.builder()
-			.attributeName("foo")
-			.sourceAttribute("")
-			.changedAttribute("")
-			.build();
+			.builder().attributeName("foo").sourceAttribute("").changedAttribute("").build();
 		assertTrue(HashcodeEvaluator.evaluateConsistency(changedAttributeResult));
 		assertTrue(EqualsEvaluator.evaluateReflexivity(changedAttributeResult));
 	}

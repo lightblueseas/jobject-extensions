@@ -58,7 +58,7 @@ public class ArgumentTest
 		final String name = "parameter";
 		throwable.expect(IllegalArgumentException.class);
 		throwable.expectMessage("Given argument '" + name + "' should have a value between " + min
-				+ " - " + max + ", but given argument is currently:" + value + "");
+			+ " - " + max + ", but given argument is currently:" + value + "");
 		Argument.isInRange(min, max, value, name);
 	}
 

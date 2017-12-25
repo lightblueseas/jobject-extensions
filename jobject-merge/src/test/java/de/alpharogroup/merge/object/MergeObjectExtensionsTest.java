@@ -24,6 +24,7 @@
  */
 package de.alpharogroup.merge.object;
 
+import static org.testng.AssertJUnit.assertFalse;
 import static org.testng.AssertJUnit.assertTrue;
 
 import java.lang.reflect.InvocationTargetException;
@@ -96,6 +97,49 @@ public class MergeObjectExtensionsTest
 
 		assertTrue("Time should be equal.",
 			timestampDecorator.getDate().getTime() == dateDecorator.getDate().getTime());
+	}
+
+	/**
+	 * Test method for
+	 * {@link MergeObjectExtensions#mergePropertyWithReflection(Object, Object, String)}
+	 */
+	@Test
+	public void testMergePropertyWithReflection()
+	{
+		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
+			.about("About what...").nickname("beast").build();
+
+		final Employee withObject = Employee.builder().person(person).id("23").build();
+
+		Employee mergeInObject = Employee.builder().build();
+
+		boolean condition = MergeObjectExtensions.mergePropertyWithReflection(mergeInObject,
+			withObject, "id");
+
+		assertTrue("", condition);
+		assertTrue("", mergeInObject.getId().equals("23"));
+
+	}
+
+	/**
+	 * Test method for
+	 * {@link MergeObjectExtensions#mergePropertyWithReflection(Object, Object, String)}
+	 */
+	@Test(enabled = true)
+	public void testMergePropertyWithReflectionCaseException()
+	{
+		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
+			.about("About what...").nickname("beast").build();
+
+		final Employee withObject = Employee.builder().person(person).id("23").build();
+
+		Employee mergeInObject = Employee.builder().build();
+
+		boolean condition = MergeObjectExtensions.mergePropertyWithReflection(mergeInObject,
+			withObject, "foo");
+
+		assertFalse("NoSuchFieldException should be thrown and catched and return false",
+			condition);
 	}
 
 

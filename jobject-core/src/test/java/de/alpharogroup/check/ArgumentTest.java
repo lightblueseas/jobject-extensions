@@ -24,12 +24,12 @@
  */
 package de.alpharogroup.check;
 
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.junit.Assert;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
@@ -58,8 +58,26 @@ public class ArgumentTest
 		final String name = "parameter";
 		throwable.expect(IllegalArgumentException.class);
 		throwable.expectMessage("Given argument '" + name + "' should have a value between " + min
-			+ " - " + max + ", but given argument is currently:" + value + "");
+				+ " - " + max + ", but given argument is currently:" + value + "");
 		Argument.isInRange(min, max, value, name);
+	}
+
+	/**
+	 * Test method for {@link Argument#isInRange(Comparable, Comparable, Comparable, String)}
+	 */
+	@Test
+	public void testIsInRangeNormalCase()
+	{
+		Double expected;
+		Double actual;
+		final Double min = 0.0d;
+		final Double max = 5.0d;
+		final Double value = 4.0d;
+		final String name = "parameter";
+
+		expected = value;
+		actual = Argument.isInRange(min, max, value, name);
+		Assert.assertEquals(expected, actual);
 	}
 
 	/**

@@ -25,8 +25,15 @@
 package de.alpharogroup.reflection;
 
 
+import static org.testng.Assert.assertFalse;
+import static org.testng.Assert.assertTrue;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
+
+import java.lang.reflect.Field;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 import org.testng.annotations.Test;
 
@@ -62,6 +69,139 @@ public class ReflectionExtensionsTest
 		expected = "Alex";
 		ReflectionExtensions.copyFieldValue(alex, nik, "name");
 		actual = nik.getName();
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#firstCharacterToUpperCase(String)}.
+	 */
+	@Test
+	public void testFirstCharacterToUpperCase()
+	{
+		String expected;
+		String actual;
+		actual = ReflectionExtensions.firstCharacterToUpperCase("name");
+
+		expected = "Name";
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getDeclaredField(Class, String)}.
+	 *
+	 * @throws NoSuchFieldException
+	 *             is thrown if no such field exists.
+	 * @throws SecurityException
+	 *             is thrown if a security manager says no.
+	 */
+	@Test
+	public void testGetDeclaredFieldClassOfQString() throws NoSuchFieldException, SecurityException
+	{
+		String expected;
+		String actual;
+
+		Field declaredField = ReflectionExtensions.getDeclaredField(Person.class, "name");
+		assertNotNull(declaredField);
+		expected = "name";
+		actual = declaredField.getName();
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getDeclaredField(Object, String)}.
+	 *
+	 * @throws NoSuchFieldException
+	 *             is thrown if no such field exists.
+	 * @throws SecurityException
+	 *             is thrown if a security manager says no.
+	 */
+	@Test
+	public void testGetDeclaredFieldTString() throws NoSuchFieldException, SecurityException
+	{
+		String expected;
+		String actual;
+
+		final Person alex = Person.builder().name("Alex").build();
+		Field declaredField = ReflectionExtensions.getDeclaredField(alex, "name");
+		assertNotNull(declaredField);
+		expected = "name";
+		actual = declaredField.getName();
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getFieldNames(Class)}.
+	 */
+	@Test
+	public void testGetFieldNames()
+	{
+		List<String> fieldNames = ReflectionExtensions.getFieldNames(Person.class);
+		assertNotNull(fieldNames);
+
+		assertTrue(fieldNames.contains("serialVersionUID"));
+		assertTrue(fieldNames.contains("name"));
+		assertTrue(fieldNames.contains("nickname"));
+		assertTrue(fieldNames.contains("gender"));
+		assertTrue(fieldNames.contains("about"));
+		assertTrue(fieldNames.contains("married"));
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getMethodNames(Class)}.
+	 */
+	@Test
+	public void testGetMethodNames()
+	{
+		List<String> methodNames = Arrays.asList(ReflectionExtensions.getMethodNames(Person.class));
+		assertNotNull(methodNames);
+
+		assertTrue(methodNames.contains("builder"));
+		assertTrue(methodNames.contains("getNickname"));
+		assertTrue(methodNames.contains("getName"));
+	}
+
+	/**
+	 * Test method for
+	 * {@link ReflectionExtensions#getMethodNamesWithPrefixFromFieldNames(java.util.List, String)}.
+	 */
+	@Test
+	public void testGetMethodNamesWithPrefixFromFieldNames()
+	{
+		List<String> fieldNames = ReflectionExtensions.getFieldNames(Person.class);
+		assertNotNull(fieldNames);
+		Map<String, String> methodNames = ReflectionExtensions
+			.getMethodNamesWithPrefixFromFieldNames(fieldNames, "get");
+		assertNotNull(methodNames);
+
+		assertNotNull(methodNames.get("serialVersionUID"));
+		assertNotNull(methodNames.get("gender"));
+		assertNotNull(methodNames.get("name"));
+		assertNotNull(methodNames.get("nickname"));
+		assertNotNull(methodNames.get("about"));
+		assertNotNull(methodNames.get("married"));
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getModifiers(java.lang.reflect.Field)}.
+	 *
+	 * @throws NoSuchFieldException
+	 *             is thrown if no such field exists.
+	 * @throws SecurityException
+	 *             is thrown if a security manager says no.
+	 */
+	@Test
+	public void testGetModifiers() throws NoSuchFieldException, SecurityException
+	{
+		String expected;
+		String actual;
+
+		Field declaredField = ReflectionExtensions.getDeclaredField(Person.class, "name");
+		List<String> modifiers = ReflectionExtensions.getModifiers(declaredField);
+
+		assertNotNull(modifiers);
+		assertFalse(modifiers.isEmpty());
+		expected = "private";
+		actual = modifiers.get(0);
 		assertEquals(expected, actual);
 	}
 

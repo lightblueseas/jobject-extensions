@@ -22,38 +22,39 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.diff;
+package de.alpharogroup.diff.beans;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 /**
- * The class {@link GenericChangedAttribute} is a bean class that encapsulated the difference of the
- * attribute from two objects.
- *
- * @param <SOURCE>
- *            the generic type of the source attribute
- * @param <CHANGED>
- *            the generic type of the changed attribute
+ * The class {@link ChangedAttributeResult} is a bean class that is used for compare objects and see
+ * what changes are made.
  */
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
+@NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-public class GenericChangedAttribute<SOURCE, CHANGED>
+public class ChangedAttributeResult
 {
+	/** The parent if exists. */
+	private ChangedAttributeResult parent;
+
 	/** The attribute name. */
-	private String attributeName;
+	private Object attributeName;
 
 	/** The source attribute. */
-	private SOURCE sourceAttribute;
+	private Object sourceAttribute;
 
 	/** The changed attribute. */
-	private CHANGED changedAttribute;
+	private Object changedAttribute;
+
 }

@@ -36,7 +36,7 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import de.alpharogroup.check.Check;
 import de.alpharogroup.compare.object.CompareObjectExtensions;
-import de.alpharogroup.diff.ChangedAttributeResult;
+import de.alpharogroup.diff.beans.ChangedAttributeResult;
 import lombok.experimental.UtilityClass;
 
 /**

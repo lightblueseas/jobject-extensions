@@ -44,13 +44,13 @@ public class CloneObjectExtensionsTest
 {
 
 	/**
-	 * Factory method for create new  Array from the given optional elements.
+	 * Factory method for create new Array from the given optional elements.
 	 *
 	 * @param <T>
 	 *            the generic type of the elements
 	 * @param elements
-	 *            the optional elements to be added in the new  Array.
-	 * @return the new  Array.
+	 *            the optional elements to be added in the new Array.
+	 * @return the new Array.
 	 */
 	@SafeVarargs
 	public static <T> T[] newArray(final T... elements)
@@ -132,24 +132,34 @@ public class CloneObjectExtensionsTest
 		}
 	}
 
+	/**
+	 * Test method for {@link CloneObjectExtensions#cloneQuietly(Object)} with clonable object.
+	 */
 	@Test(enabled = true)
-	public void testClonePrimitiveArray() throws NoSuchMethodException, SecurityException,
-		IllegalAccessException, IllegalArgumentException, InvocationTargetException,
-		ClassNotFoundException, InstantiationException, IOException
+	public void testCloneClonableObject()
 	{
-		// TODO create szenario with no serializable...
-		int[] expected;
-		int[] actual;
 
-		expected = new int[2];
-		expected[0] = 1;
-		expected[1] = 2;
-		actual = CloneObjectExtensions.clone(expected);
-		for (int i = 0; i < actual.length; i++)
-		{
-			assertEquals("Cloned object should be equal with the source object.", expected[i],
-				actual[i]);
-		}
+		Object expected;
+		Object actual;
+
+		expected = ClonableObject.builder().build();
+		actual = CloneObjectExtensions.cloneQuietly(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
+	}
+
+	/**
+	 * Test method for {@link CloneObjectExtensions#cloneQuietly(Object)} not serializable object.
+	 */
+	@Test(enabled = true)
+	public void testCloneNotSerializableObject()
+	{
+
+		Object expected;
+		Object actual;
+
+		expected = NotSerializable.builder().build();
+		actual = CloneObjectExtensions.cloneQuietly(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 	}
 
 	/**
@@ -231,6 +241,26 @@ public class CloneObjectExtensionsTest
 
 	}
 
+	@Test(enabled = true)
+	public void testClonePrimitiveArray() throws NoSuchMethodException, SecurityException,
+		IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+		ClassNotFoundException, InstantiationException, IOException
+	{
+		// TODO create szenario with no serializable...
+		int[] expected;
+		int[] actual;
+
+		expected = new int[2];
+		expected[0] = 1;
+		expected[1] = 2;
+		actual = CloneObjectExtensions.clone(expected);
+		for (int i = 0; i < actual.length; i++)
+		{
+			assertEquals("Cloned object should be equal with the source object.", expected[i],
+				actual[i]);
+		}
+	}
+
 	/**
 	 * Test method for {@link CloneObjectExtensions#cloneQuietly(Object)}.
 	 */
@@ -254,36 +284,6 @@ public class CloneObjectExtensionsTest
 		actual = CloneObjectExtensions.cloneQuietly(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
-	}
-
-	/**
-	 * Test method for {@link CloneObjectExtensions#cloneQuietly(Object)} not serializable object.
-	 */
-	@Test(enabled = true)
-	public void testCloneNotSerializableObject()
-	{
-
-		Object expected;
-		Object actual;
-
-		expected = NotSerializable.builder().build();
-		actual = CloneObjectExtensions.cloneQuietly(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
-	}
-
-	/**
-	 * Test method for {@link CloneObjectExtensions#cloneQuietly(Object)} with clonable object.
-	 */
-	@Test(enabled = true)
-	public void testCloneClonableObject()
-	{
-
-		Object expected;
-		Object actual;
-
-		expected = ClonableObject.builder().build();
-		actual = CloneObjectExtensions.cloneQuietly(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 	}
 }
 

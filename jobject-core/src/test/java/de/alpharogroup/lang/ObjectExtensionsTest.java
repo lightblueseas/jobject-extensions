@@ -34,9 +34,9 @@ import java.util.Map;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.test.objects.Company;
-import de.alpharogroup.test.objects.enums.Gender;
-import de.alpharogroup.test.objects.annotations.interfaces.AnnotatedInterface;
 import de.alpharogroup.test.objects.annotations.Mandatory;
+import de.alpharogroup.test.objects.annotations.interfaces.AnnotatedInterface;
+import de.alpharogroup.test.objects.enums.Gender;
 import lombok.experimental.ExtensionMethod;
 
 /**

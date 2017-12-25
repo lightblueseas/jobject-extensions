@@ -35,10 +35,10 @@ import org.junit.Rule;
 import org.junit.rules.ExpectedException;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.diff.ChangedAttributeResult;
+import de.alpharogroup.diff.beans.ChangedAttributeResult;
 import de.alpharogroup.test.objects.Employee;
-import de.alpharogroup.test.objects.enums.Gender;
 import de.alpharogroup.test.objects.Person;
+import de.alpharogroup.test.objects.enums.Gender;
 
 /**
  * The unit test class for the class {@link DiffObjectExtensions}.

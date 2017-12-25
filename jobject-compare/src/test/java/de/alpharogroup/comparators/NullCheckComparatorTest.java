@@ -45,7 +45,8 @@ public class NullCheckComparatorTest
 	{
 		int expected;
 		int actual;
-		Comparator<Locale> localeComparator = NullCheckComparator.<Locale>of(new TestLocaleComparator());
+		Comparator<Locale> localeComparator = NullCheckComparator
+			.<Locale> of(new TestLocaleComparator());
 		actual = localeComparator.compare(Locale.CANADA, null);
 		expected = 1;
 		assertEquals(expected, actual);

@@ -51,6 +51,21 @@ public class CopyObjectExtensionsTest
 {
 
 	/**
+	 * Test method for {@link CopyObjectExtensions#closeOutputStream(OutputStream)}.
+	 */
+	@Test(enabled = true)
+	public void testCloseOutputStream() throws FileNotFoundException, URISyntaxException
+	{
+		boolean expected;
+		boolean actual;
+		final URL url = getClass().getClassLoader().getResource("log4j2-test.xml");
+		final OutputStream os = new FileOutputStream(new File(url.toURI()));
+		expected = true;
+		actual = CopyObjectExtensions.closeOutputStream(os);
+		assertEquals(expected, actual);
+	}
+
+	/**
 	 * Test method for {@link CopyObjectExtensions#copy(Object, Object)}.
 	 *
 	 * @throws IllegalAccessException
@@ -77,7 +92,8 @@ public class CopyObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link CopyObjectExtensions#copyPropertyWithReflection(Object, Object, String)}.
+	 * Test method for
+	 * {@link CopyObjectExtensions#copyPropertyWithReflection(Object, Object, String)}.
 	 */
 	@Test(enabled = true)
 	public void testCopyPropertyWithReflection() throws NoSuchFieldException, SecurityException,
@@ -125,6 +141,24 @@ public class CopyObjectExtensionsTest
 	}
 
 	/**
+	 * Test method for {@link CopyObjectExtensions#copySerializedObject(java.io.Serializable)}.
+	 */
+	@Test(enabled = true)
+	public void testCopySerializedObject() throws ClassNotFoundException, IOException
+	{
+		Employee expected;
+		Employee actual;
+
+		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
+			.about("Ha ha ha...").nickname("beast").build();
+
+		expected = Employee.builder().person(person).id("23").build();
+
+		actual = CopyObjectExtensions.copySerializedObject(expected);
+		assertEquals(expected, actual);
+	}
+
+	/**
 	 * Test method for {@link CopyObjectExtensions#isCopyable(Object, Object)}.
 	 */
 	@Test(enabled = true)
@@ -142,39 +176,6 @@ public class CopyObjectExtensionsTest
 
 		expected = true;
 		actual = CopyObjectExtensions.isCopyable(original, destination);
-		assertEquals(expected, actual);
-	}
-
-	/**
-	 * Test method for {@link CopyObjectExtensions#copySerializedObject(java.io.Serializable)}.
-	 */
-	@Test(enabled = true)
-	public void testCopySerializedObject() throws ClassNotFoundException, IOException
-	{
-		Employee expected;
-		Employee actual;
-
-		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
-				.about("Ha ha ha...").nickname("beast").build();
-
-		expected = Employee.builder().person(person).id("23").build();
-
-		actual = CopyObjectExtensions.copySerializedObject(expected);
-		assertEquals(expected, actual);
-	}
-
-	/**
-	 * Test method for {@link CopyObjectExtensions#closeOutputStream(OutputStream)}.
-	 */
-	@Test(enabled = true)
-	public void testCloseOutputStream() throws FileNotFoundException, URISyntaxException
-	{
-		boolean expected;
-		boolean actual;
-		final URL url = getClass().getClassLoader().getResource("log4j2-test.xml");
-		final OutputStream os = new FileOutputStream(new File(url.toURI()));
-		expected = true;
-		actual = CopyObjectExtensions.closeOutputStream(os);
 		assertEquals(expected, actual);
 	}
 

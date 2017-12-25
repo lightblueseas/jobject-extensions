@@ -22,45 +22,32 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.clone.object;
+package de.alpharogroup.diff;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import static org.testng.Assert.assertTrue;
+
+import org.testng.annotations.Test;
+
+import de.alpharogroup.diff.beans.SerializedChangedAttributeResult;
+import de.alpharogroup.test.objects.evaluations.EqualsEvaluator;
+import de.alpharogroup.test.objects.evaluations.HashcodeEvaluator;
 
 /**
- * The class {@link ClonableObject} is a class intended for use in unit tests that represents a
- * clonable object and implements {@link Cloneable}.
- * 
- * @deprecated use instead same name class from next release of test-objects.
+ * The unit test class for the class {@link SerializedChangedAttributeResult}.
  */
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder(toBuilder = true)
-@Deprecated
-public class ClonableObject implements Cloneable
+public class SerializedChangedAttributeResultTest
 {
 
-	/** The name. */
-	private String name;
-
 	/**
-	 * {@inheritDoc}
+	 * Test method for bean {@link SerializedChangedAttributeResult}.
 	 */
-	@Override
-	protected Object clone() throws CloneNotSupportedException
+	@Test
+	public void test()
 	{
-		ClonableObject clone = new ClonableObject();
-		clone.setName(this.name);
-		return clone;
+		SerializedChangedAttributeResult changedAttributeResult = SerializedChangedAttributeResult
+			.builder().build();
+		assertTrue(HashcodeEvaluator.evaluateConsistency(changedAttributeResult));
+		assertTrue(EqualsEvaluator.evaluateReflexivity(changedAttributeResult));
 	}
 
 }

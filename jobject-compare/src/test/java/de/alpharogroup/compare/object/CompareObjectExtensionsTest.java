@@ -24,8 +24,8 @@
  */
 package de.alpharogroup.compare.object;
 
-import static org.testng.AssertJUnit.assertNotNull;
 import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertNotNull;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
@@ -240,7 +240,8 @@ public class CompareObjectExtensionsTest
 	 *             "&lt;clinit&gt;".
 	 */
 	@Test
-	public void testGetCompareToResult() throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+	public void testGetCompareToResult()
+		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
 	{
 		// TODO
 		int expected;
@@ -249,13 +250,14 @@ public class CompareObjectExtensionsTest
 		final Person obelix = Person.builder().gender(Gender.MALE).name("obelix").build();
 
 		final Person asterix = Person.builder().gender(Gender.MALE).name("asterix").build();
-		Map<String, Integer> compareToResult = CompareObjectExtensions.getCompareToResult(asterix, obelix);
+		Map<String, Integer> compareToResult = CompareObjectExtensions.getCompareToResult(asterix,
+			obelix);
 
 		assertNotNull(compareToResult);
 		expected = 5;
 		actual = compareToResult.size();
 
-		assertEquals("size of map should be 5 but is "+ actual+".", expected, actual);
+		assertEquals("size of map should be 5 but is " + actual + ".", expected, actual);
 	}
 
 }

@@ -24,7 +24,7 @@
  */
 package de.alpharogroup.check;
 
-import static org.junit.Assert.assertNotNull;
+import static org.testng.AssertJUnit.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,6 +34,8 @@ import java.util.Map;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+
+import de.alpharogroup.test.objects.Person;
 
 /**
  * The unit test class for the class {@link Check}.
@@ -74,6 +76,21 @@ public class CheckTest
 	}
 
 	/**
+	 * Test method for {@link Check#isInRange(Double, Double, Double, String)}
+	 */
+	@Test
+	public void testIsInRangeDoubleNormalCase()
+	{
+		final Double min = 0.0d;
+		final Double max = 5.0d;
+		final Double value = 4.0d;
+		final String name = "parameter";
+
+		Check check = Check.get().isInRange(min, max, value, name);
+		assertNotNull(check);
+	}
+
+	/**
 	 * Test method for {@link Check#isInRange(Float, Float, Float, String)}
 	 */
 	@Test
@@ -88,6 +105,21 @@ public class CheckTest
 			+ " - " + max + ", but given argument is currently:" + value + "");
 
 		Check.get().isInRange(min, max, value, name);
+	}
+
+	/**
+	 * Test method for {@link Check#isInRange(Float, Float, Float, String)}
+	 */
+	@Test
+	public void testIsInRangeFloatNormalCase()
+	{
+		final Float min = 0.0f;
+		final Float max = 5.0f;
+		final Float value = 4.0f;
+		final String name = "parameter";
+
+		Check check = Check.get().isInRange(min, max, value, name);
+		assertNotNull(check);
 	}
 
 	/**
@@ -108,6 +140,21 @@ public class CheckTest
 	}
 
 	/**
+	 * Test method for {@link Check#isInRange(Integer, Integer, Integer, String)}
+	 */
+	@Test
+	public void testIsInRangeIntegerNormalCase()
+	{
+		final Integer min = 0;
+		final Integer max = 5;
+		final Integer value = 2;
+		final String name = "parameter";
+
+		Check check = Check.get().isInRange(min, max, value, name);
+		assertNotNull(check);
+	}
+
+	/**
 	 * Test method for {@link Check#isInRange(Long, Long, Long, String)}
 	 */
 	@Test
@@ -125,6 +172,21 @@ public class CheckTest
 	}
 
 	/**
+	 * Test method for {@link Check#isInRange(Long, Long, Long, String)}
+	 */
+	@Test
+	public void testIsInRangeLongNormalCase()
+	{
+		final Long min = 0l;
+		final Long max = 5l;
+		final Long value = 3l;
+		final String name = "parameter";
+
+		Check check = Check.get().isInRange(min, max, value, name);
+		assertNotNull(check);
+	}
+
+	/**
 	 * Test method for {@link Check#notEmpty(java.util.Collection, String)}
 	 */
 	@Test
@@ -138,6 +200,19 @@ public class CheckTest
 		Check.get().notEmpty(list, name);
 	}
 
+	/**
+	 * Test method for {@link Check#notEmpty(java.util.Collection, String)}
+	 */
+	@Test
+	public void testNotEmptyCollectionNormalCase()
+	{
+		final String name = "list";
+		final List<String> list = new ArrayList<>();
+		list.add("foo");
+
+		Check check = Check.get().notEmpty(list, name);
+		assertNotNull(check);
+	}
 
 	/**
 	 * Test method for {@link Check#notEmpty(java.util.Collection, String)}
@@ -151,6 +226,19 @@ public class CheckTest
 		throwable.expectMessage("Given map '" + name + "' may not be empty.");
 
 		Check.get().notEmpty(emptyMap, name);
+	}
+
+	/**
+	 * Test method for {@link Check#notEmpty(java.util.Collection, String)}
+	 */
+	@Test
+	public void testNotEmptyMapNormalCase()
+	{
+		final String name = "map";
+		final Map<String, String> map = new HashMap<>();
+		map.put("foo", "bar");
+		Check check = Check.get().notEmpty(map, name);
+		assertNotNull(check);
 	}
 
 	/**
@@ -168,6 +256,19 @@ public class CheckTest
 	}
 
 	/**
+	 * Test method for {@link Check#notEmpty(CharSequence, String)}
+	 */
+	@Test
+	public void testNotEmptyStringNormalCase()
+	{
+		final String name = "parameter";
+		final String argument = "foo";
+
+		Check check = Check.get().notEmpty(argument, name);
+		assertNotNull(check);
+	}
+
+	/**
 	 * Test method for {@link Check#notNull(Object, String)}
 	 */
 	@Test
@@ -178,6 +279,18 @@ public class CheckTest
 		throwable.expectMessage("Given argument '" + name + "' may not be null.");
 
 		Check.get().notNull(null, name);
+	}
+
+	/**
+	 * Test method for {@link Check#notNull(Object, String)}
+	 */
+	@Test
+	public void testNotNullNormalCase()
+	{
+		final String name = "parameter";
+
+		Check check = Check.get().notNull(Person.builder().build(), name);
+		assertNotNull(check);
 	}
 
 }

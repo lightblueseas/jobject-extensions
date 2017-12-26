@@ -141,10 +141,13 @@ public final class CloneObjectExtensions
 		throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException,
 		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
 	{
+	    if (object == null) {
+	        return object;
+        }
 		Object clone = null;
 
 		// Try to clone the object if it is Cloneble.
-		if (clone == null && object instanceof Cloneable)
+		if (object instanceof Cloneable)
 		{
 
 			if (object.getClass().isArray())
@@ -179,7 +182,7 @@ public final class CloneObjectExtensions
 			}
 		}
 		// Try to clone the object if it implements Serializable.
-		if (object instanceof Serializable)
+		if (clone == null && object instanceof Serializable)
 		{
 			clone = CopyObjectExtensions.copySerializedObject((Serializable)object);
 			if (clone != null)

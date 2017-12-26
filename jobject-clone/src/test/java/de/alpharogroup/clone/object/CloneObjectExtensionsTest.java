@@ -111,6 +111,9 @@ public class CloneObjectExtensionsTest
 		actual = CloneObjectExtensions.clone(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
+		expected = null;
+		actual = CloneObjectExtensions.clone(null);
+		assertEquals(expected, actual);
 
 	}
 
@@ -139,7 +142,6 @@ public class CloneObjectExtensionsTest
 	@Test(enabled = true)
 	public void testCloneClonableObject()
 	{
-
 		Object expected;
 		Object actual;
 

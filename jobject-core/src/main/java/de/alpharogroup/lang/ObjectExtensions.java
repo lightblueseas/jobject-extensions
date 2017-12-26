@@ -42,49 +42,41 @@ public final class ObjectExtensions
 	 *
 	 * @param <T>
 	 *            the generic type
+	 * @param fieldClass
+	 *            the field class
 	 * @param object
 	 *            the object
 	 * @return true, if is default value
 	 */
-	public static final <T> boolean isDefaultValue(final T object)
+	public static final <T> boolean isDefaultValue(final Class<?> fieldClass, final T object)
 	{
 		if (object == null)
 		{
 			return true;
 		}
-		final Class<?> fooFieldClass = object.getClass();
-		final ClassType classType = getClassType(fooFieldClass);
-		if (ClassType.PRIMITIVE.equals(classType))
+		final Object defaultValue = DefaultValue.get(fieldClass);
+		if (defaultValue != null)
 		{
-			return DefaultValue.getDefaultValue(fooFieldClass).equals(object);
+			return DefaultValue.get(fieldClass).equals(object);
 		}
 		return false;
 	}
 
 	/**
-	 * Checks if the given object has not the default value.
+	 * Gets the {@link ClassType} from the given class.
 	 *
 	 * @param <T>
 	 *            the generic type
-	 * @param object
-	 *            the object
-	 * @return true, if the given object has not the default value
-	 */
-	public static final <T> boolean isNotDefaultValue(final T object)
-	{
-		return !isDefaultValue(object);
-	}
-
-
-	/**
-	 * Gets the {@link ClassType} from the given class.
-	 *
 	 * @param clazz
 	 *            The class.
 	 * @return the {@link ClassType} from the given class.
 	 */
-	public static ClassType getClassType(final Class<?> clazz)
+	public static <T> ClassType getClassType(final Class<T> clazz)
 	{
+		if (clazz == null)
+		{
+			return null;
+		}
 		if (clazz.isArray())
 		{
 			return ClassType.ARRAY;

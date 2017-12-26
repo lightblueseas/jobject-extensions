@@ -24,36 +24,30 @@
  */
 package de.alpharogroup.diff;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
+import static org.testng.Assert.assertTrue;
+
+import org.testng.annotations.Test;
+
+import de.alpharogroup.diff.beans.SerializedChangedAttributeResult;
+import de.alpharogroup.test.objects.evaluations.EqualsEvaluator;
+import de.alpharogroup.test.objects.evaluations.HashcodeEvaluator;
 
 /**
- * The class {@link GenericChangedAttribute} is a bean class that encapsulated the difference of the
- * attribute from two objects.
- *
- * @param <SOURCE>
- *            the generic type of the source attribute
- * @param <CHANGED>
- *            the generic type of the changed attribute
+ * The unit test class for the class {@link SerializedChangedAttributeResult}.
  */
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
-@AllArgsConstructor
-@Builder(toBuilder = true)
-public class GenericChangedAttribute<SOURCE, CHANGED>
+public class SerializedChangedAttributeResultTest
 {
-	/** The attribute name. */
-	private String attributeName;
 
-	/** The source attribute. */
-	private SOURCE sourceAttribute;
+	/**
+	 * Test method for bean {@link SerializedChangedAttributeResult}.
+	 */
+	@Test
+	public void test()
+	{
+		SerializedChangedAttributeResult changedAttributeResult = SerializedChangedAttributeResult
+			.builder().attributeName("foo").sourceAttribute("").changedAttribute("").build();
+		assertTrue(HashcodeEvaluator.evaluateConsistency(changedAttributeResult));
+		assertTrue(EqualsEvaluator.evaluateReflexivity(changedAttributeResult));
+	}
 
-	/** The changed attribute. */
-	private CHANGED changedAttribute;
 }

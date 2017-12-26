@@ -24,15 +24,17 @@
  */
 package de.alpharogroup.clone.object;
 
+import static org.testng.AssertJUnit.assertEquals;
+
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.Date;
 
-import org.testng.AssertJUnit;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.date.CreateDateExtensions;
 import de.alpharogroup.test.objects.A;
+import de.alpharogroup.test.objects.ClonableObject;
+import de.alpharogroup.test.objects.NotSerializable;
 import lombok.experimental.ExtensionMethod;
 
 /**
@@ -43,72 +45,248 @@ public class CloneObjectExtensionsTest
 {
 
 	/**
-	 * Test generic clone method.
+	 * Factory method for create new Array from the given optional elements.
 	 *
-	 * @throws IOException
-	 * @throws InstantiationException
-	 * @throws ClassNotFoundException
-	 * @throws InvocationTargetException
-	 * @throws IllegalArgumentException
-	 * @throws IllegalAccessException
-	 * @throws SecurityException
-	 * @throws NoSuchMethodException
+	 * @param <T>
+	 *            the generic type of the elements
+	 * @param elements
+	 *            the optional elements to be added in the new Array.
+	 * @return the new Array.
 	 */
-	@Test(enabled = false)
+	@SafeVarargs
+	public static <T> T[] newArray(final T... elements)
+	{
+		return elements;
+	}
+
+
+	/**
+	 * Test method for {@link CloneObjectExtensions#clone(Object)}.
+	 *
+	 * @throws NoSuchMethodException
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
+	 * @throws SecurityException
+	 *             Thrown if the security manager indicates a security violation.
+	 * @throws IllegalAccessException
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
+	 * @throws IllegalArgumentException
+	 *             Thrown if an illegal argument is given
+	 * @throws InvocationTargetException
+	 *             Thrown if the property accessor method throws an exception
+	 * @throws ClassNotFoundException
+	 *             occurs if a given class cannot be located by the specified class loader
+	 * @throws InstantiationException
+	 *             Thrown if one of the following reasons: the class object
+	 *             <ul>
+	 *             <li>represents an abstract class</li>
+	 *             <li>represents an interface</li>
+	 *             <li>represents an array class</li>
+	 *             <li>represents a primitive type</li>
+	 *             <li>represents {@code void}</li>
+	 *             <li>has no nullary constructor</li>
+	 *             </ul>
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	@Test(enabled = true)
 	public void testClone() throws NoSuchMethodException, SecurityException, IllegalAccessException,
 		IllegalArgumentException, InvocationTargetException, ClassNotFoundException,
 		InstantiationException, IOException
 	{
-		final Date past = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 04);
-		final Date otherCopy = CloneObjectExtensions.clone(past);
+		Object expected;
+		Object actual;
 
-		boolean result = past.equals(otherCopy);
-		AssertJUnit.assertTrue("Cloned object should be equal with the source object.", result);
+		expected = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 04);
+		actual = CloneObjectExtensions.clone(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
-		final String aString = "Hy there...";
 
-		final String clonedString = CloneObjectExtensions.clone(aString);
+		expected = "Hy there...";
+		actual = CloneObjectExtensions.clone(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
-		result = aString.equals(clonedString);
-		AssertJUnit.assertTrue("Cloned object should be equal with the source object.", result);
+		expected = A.builder().a("a").build();
+		actual = CloneObjectExtensions.clone(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
-		final A a = new A();
-		a.setA("a");
+		expected = null;
+		actual = CloneObjectExtensions.clone(null);
+		assertEquals(expected, actual);
 
-		final A anotherCopy = CloneObjectExtensions.clone(a);
+	}
 
-		result = a.equals(anotherCopy);
-		AssertJUnit.assertTrue("Cloned object should be equal with the source object.", result);
+
+	@Test(enabled = true)
+	public void testCloneArray() throws NoSuchMethodException, SecurityException,
+		IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+		ClassNotFoundException, InstantiationException, IOException
+	{
+		// TODO create szenario with no serializable...
+		String[] expected;
+		String[] actual;
+
+		expected = newArray("foo", "bar");
+		actual = CloneObjectExtensions.clone(expected);
+		for (int i = 0; i < actual.length; i++)
+		{
+			assertEquals("Cloned object should be equal with the source object.", expected[i],
+				actual[i]);
+		}
 	}
 
 	/**
-	 * Test clone object.
+	 * Test method for {@link CloneObjectExtensions#cloneQuietly(Object)} with clonable object.
+	 */
+	@Test(enabled = true)
+	public void testCloneClonableObject()
+	{
+		Object expected;
+		Object actual;
+
+		expected = ClonableObject.builder().build();
+		actual = CloneObjectExtensions.cloneQuietly(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
+	}
+
+	/**
+	 * Test method for {@link CloneObjectExtensions#cloneQuietly(Object)} not serializable object.
+	 */
+	@Test(enabled = true)
+	public void testCloneNotSerializableObject()
+	{
+
+		Object expected;
+		Object actual;
+
+		expected = NotSerializable.builder().build();
+		actual = CloneObjectExtensions.cloneQuietly(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
+	}
+
+	/**
+	 * Test method for {@link CloneObjectExtensions#cloneObject(Object)}.
+	 *
+	 * @throws NoSuchMethodException
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
+	 * @throws SecurityException
+	 *             Thrown if the security manager indicates a security violation.
+	 * @throws IllegalAccessException
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
+	 * @throws IllegalArgumentException
+	 *             Thrown if an illegal argument is given
+	 * @throws InvocationTargetException
+	 *             Thrown if the property accessor method throws an exception
+	 * @throws ClassNotFoundException
+	 *             occurs if a given class cannot be located by the specified class loader
+	 * @throws InstantiationException
+	 *             Thrown if one of the following reasons: the class object
+	 *             <ul>
+	 *             <li>represents an abstract class</li>
+	 *             <li>represents an interface</li>
+	 *             <li>represents an array class</li>
+	 *             <li>represents a primitive type</li>
+	 *             <li>represents {@code void}</li>
+	 *             <li>has no nullary constructor</li>
+	 *             </ul>
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
 	 */
 	@Test(enabled = true)
 	public void testCloneObject()
+		throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException,
+		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
 	{
-		final Date past = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 04);
-		// this is possible through the extension method of lombok :-) ...
-		Object otherCopy = past.cloneObjectQuietly();
 
-		boolean result = past.equals(otherCopy);
-		AssertJUnit.assertTrue("Cloned object should be equal with the source object.", result);
+		Object expected;
+		Object actual;
 
-		final String aString = "Hy there...";
+		expected = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 04);
+		actual = CloneObjectExtensions.cloneObject(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
-		otherCopy = CloneObjectExtensions.cloneObjectQuietly(aString);
 
-		result = aString.equals(otherCopy);
-		AssertJUnit.assertTrue("Cloned object should be equal with the source object.", result);
+		expected = "Hy there...";
+		actual = CloneObjectExtensions.cloneObject(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
-		final A a = new A();
-		a.setA("a");
+		expected = A.builder().a("a").build();
+		actual = CloneObjectExtensions.cloneObject(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
-		final Object anotherCopy = CloneObjectExtensions.cloneObjectQuietly(a);
-
-		result = a.equals(anotherCopy);
-		AssertJUnit.assertTrue("Cloned object should be equal with the source object.", result);
 	}
 
+	/**
+	 * Test method for {@link CloneObjectExtensions#cloneObjectQuietly(Object)}.
+	 */
+	@Test(enabled = true)
+	public void testCloneObjectQuietly()
+	{
+
+		Object expected;
+		Object actual;
+
+		expected = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 04);
+		actual = CloneObjectExtensions.cloneObjectQuietly(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
+
+
+		expected = "Hy there...";
+		actual = CloneObjectExtensions.cloneObjectQuietly(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
+
+		expected = A.builder().a("a").build();
+		actual = CloneObjectExtensions.cloneObjectQuietly(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
+
+	}
+
+	@Test(enabled = true)
+	public void testClonePrimitiveArray() throws NoSuchMethodException, SecurityException,
+		IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+		ClassNotFoundException, InstantiationException, IOException
+	{
+		// TODO create szenario with no serializable...
+		int[] expected;
+		int[] actual;
+
+		expected = new int[2];
+		expected[0] = 1;
+		expected[1] = 2;
+		actual = CloneObjectExtensions.clone(expected);
+		for (int i = 0; i < actual.length; i++)
+		{
+			assertEquals("Cloned object should be equal with the source object.", expected[i],
+				actual[i]);
+		}
+	}
+
+	/**
+	 * Test method for {@link CloneObjectExtensions#cloneQuietly(Object)}.
+	 */
+	@Test(enabled = true)
+	public void testCloneQuietly()
+	{
+
+		Object expected;
+		Object actual;
+
+		expected = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 04);
+		actual = CloneObjectExtensions.cloneQuietly(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
+
+
+		expected = "Hy there...";
+		actual = CloneObjectExtensions.cloneQuietly(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
+
+		expected = A.builder().a("a").build();
+		actual = CloneObjectExtensions.cloneQuietly(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
+
+	}
 }
 

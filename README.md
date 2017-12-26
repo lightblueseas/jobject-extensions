@@ -1,14 +1,15 @@
 # Overview
 
-The jobject-extensions project provides several extension methods for the java core class Object. The feature extension methods can be provided over the lombok library. 
+The jobject-extensions project provides main operation that you can do with java objects.
 
 When programming with java you have offen to clone or copy to compare or to diff and some times you have even merge objects. 
 Thats exactly the functionality what this library provides. 
+There are several extension methods for the java core class Object. The feature extension methods can be provided over the lombok library. 
 
 ## Key features:
 
 1. very small size
-2. extension methods for java core class Object for clone, compare, copy and merge
+2. extension methods for java core class Object for clone, compare, copy, diff and merge
 3. modularizable, import only the functionality you need
 4. simple to use
 
@@ -19,6 +20,10 @@ The source code comes under the liberal MIT License, making jobject-extensions g
 ## Build status
 
 [![Build Status](https://travis-ci.org/lightblueseas/jobject-extensions.svg?branch=master)](https://travis-ci.org/lightblueseas/jobject-extensions)
+
+## Coverage Status
+
+[![Coverage Status](https://coveralls.io/repos/github/lightblueseas/jobject-extensions/badge.svg?branch=develop)](https://coveralls.io/github/lightblueseas/jobject-extensions?branch=develop)
 
 ## Maven Central
 
@@ -49,8 +54,8 @@ Than you can add the dependency to your dependencies:
 
 	<properties>
 			...
-		<!-- JOBJECT-EXTENSIONS version -->
-		<jobject-extensions.version>1.2.0</jobject-extensions.version>		
+		<!-- JOBJECT-EXTENSIONS versions -->
+		<jobject-extensions.version>1.6.0</jobject-extensions.version>		
 		<jobject-clone.version>${jobject-extensions.version}</jobject-clone.version>
 		<jobject-compare.version>${jobject-extensions.version}</jobject-compare.version>
 		<jobject-copy.version>${jobject-extensions.version}</jobject-copy.version>
@@ -66,7 +71,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 
 		<dependencies>
 			...
-			<!-- JOBJECT-CLONE DEPENDENCIES -->
+			<!-- JOBJECT-CLONE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-clone</artifactId>
@@ -79,7 +84,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 
 		<dependencies>
 			...
-			<!-- JOBJECT-COMPARE DEPENDENCIES -->
+			<!-- JOBJECT-COMPARE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-compare</artifactId>
@@ -93,7 +98,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 
 		<dependencies>
 			...
-			<!-- JOBJECT-COPY DEPENDENCIES -->
+			<!-- JOBJECT-COPY DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-copy</artifactId>
@@ -107,7 +112,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 
 		<dependencies>
 			...
-			<!-- JOBJECT-CORE DEPENDENCIES -->
+			<!-- JOBJECT-CORE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-core</artifactId>
@@ -121,7 +126,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 
 		<dependencies>
 			...
-			<!-- JOBJECT-DIFF DEPENDENCIES -->
+			<!-- JOBJECT-DIFF DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-diff</artifactId>
@@ -135,7 +140,7 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 
 		<dependencies>
 			...
-			<!-- JOBJECT-MERGE DEPENDENCIES -->
+			<!-- JOBJECT-MERGE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-merge</artifactId>
@@ -150,37 +155,37 @@ You can of course import all dependencies of jobject-extensions:
 		<dependencies>
 			...
 			<!-- JOBJECT-EXTENSIONS DEPENDENCIES -->
-			<!-- JOBJECT-CLONE DEPENDENCIES -->
+			<!-- JOBJECT-CLONE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-clone</artifactId>
 				<version>${jobject-clone.version}</version>
 			</dependency>
-			<!-- JOBJECT-COMPARE DEPENDENCIES -->
+			<!-- JOBJECT-COMPARE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-compare</artifactId>
 				<version>${jobject-compare.version}</version>
 			</dependency>
-			<!-- JOBJECT-COPY DEPENDENCIES -->
+			<!-- JOBJECT-COPY DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-copy</artifactId>
 				<version>${jobject-copy.version}</version>
 			</dependency>
-			<!-- JOBJECT-CORE DEPENDENCIES -->
+			<!-- JOBJECT-CORE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-core</artifactId>
 				<version>${jobject-core.version}</version>
 			</dependency>
-			<!-- JOBJECT-DIFF DEPENDENCIES -->
+			<!-- JOBJECT-DIFF DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-diff</artifactId>
 				<version>${jobject-diff.version}</version>
 			</dependency>
-			<!-- JOBJECT-MERGE DEPENDENCIES -->
+			<!-- JOBJECT-MERGE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-merge</artifactId>
@@ -209,9 +214,21 @@ Do not hesitate to contact the jobject-extensions developers with your questions
 
 No animals were harmed in the making of this library.
 
-# Donate
 
-If you like this library, please consider a donation through 
-<a href="https://flattr.com/submit/auto?fid=r7vp62&url=https%3A%2F%2Fgithub.com%2Flightblueseas%2Fjobject-extensions" target="_blank">
+# Donations
+
+If you like this library, please consider a donation through paypal: <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&hosted_button_id=B37J9DZF6G9ZC" target="_blank">
+<img src="https://www.paypalobjects.com/en_US/GB/i/btn/btn_donateCC_LG.gif" alt="PayPal this" title="PayPal – The safer, easier way to pay online!" border="0" />
+</a>
+
+or over bitcoin or bitcoin-cash with:
+
+1Jzso5h7U82QCNmgxxSCya1yUK7UVcSXsW
+
+or over ether with:
+
+0xaB6EaE10F352268B0CA672Dd6e999C86344D49D8
+
+or over flattr: <a href="https://flattr.com/submit/auto?fid=r7vp62&url=https%3A%2F%2Fgithub.com%2Flightblueseas%2Fjobject-extensions" target="_blank">
 <img src="http://button.flattr.com/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0">
 </a>

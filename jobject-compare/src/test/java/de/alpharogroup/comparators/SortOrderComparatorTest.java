@@ -22,53 +22,41 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.lang;
+package de.alpharogroup.comparators;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import static org.testng.AssertJUnit.assertTrue;
 
-import de.alpharogroup.check.Check;
-import lombok.experimental.UtilityClass;
+import org.testng.annotations.Test;
 
 /**
- * The class DefaultValue provide the default values of the primitive types, as defined by the JLS.
+ * The unit test class for the class {@link SortOrderComparator}.
  */
-@UtilityClass
-public class DefaultValue
+public class SortOrderComparatorTest
 {
 
-	/** The constant map with the default values. */
-	@SuppressWarnings("serial")
-	private static final Map<Class<?>, Object> DEFAULT_VALUE = Collections
-		.unmodifiableMap(new HashMap<Class<?>, Object>()
-		{
-			{
-				put(boolean.class, false);
-				put(char.class, '\0');
-				put(byte.class, (byte)0);
-				put(short.class, (short)0);
-				put(int.class, 0);
-				put(long.class, 0L);
-				put(float.class, 0f);
-				put(double.class, 0d);
-				put(Object.class, null);
-				put(null, null);
-				put(void.class, null);
-			}
-		});
-
 	/**
-	 * Gets the default value from the given {@link Class}.
-	 *
-	 * @param classType
-	 *            the class type
-	 * @return the default value
+	 * Test method for {@link SortOrderComparator#compare(Object, Object)}.
 	 */
-	public static Object get(final Class<?> classType)
+	@Test
+	public void testComparable()
 	{
-		Check.get().notNull(classType, "classType");
-		final Object defaultValue = DEFAULT_VALUE.get(classType);
-		return defaultValue;
+		SortOrderComparator<Integer> comparator = new SortOrderComparator<>();
+		final Integer i1 = 42;
+
+		final Integer lesser = i1 / 2;
+		final Integer same = i1;
+		final Integer greater = i1 * 2;
+
+		assertTrue(comparator.compare(i1, lesser) > 0);
+		assertTrue(comparator.compare(i1, same) == 0);
+		assertTrue(comparator.compare(i1, greater) < 0);
+		assertTrue(comparator.compare(i1, null) > 0);
+
+		comparator = new SortOrderComparator<>(SortOrder.DESCENDING);
+
+		assertTrue(comparator.compare(i1, lesser) < 0);
+		assertTrue(comparator.compare(i1, same) == 0);
+		assertTrue(comparator.compare(i1, greater) > 0);
+		assertTrue(comparator.compare(i1, null) < 0);
 	}
 }

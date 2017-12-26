@@ -34,9 +34,9 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.BeanUtils;
 
-import de.alpharogroup.collections.list.ListExtensions;
+import de.alpharogroup.check.Check;
 import de.alpharogroup.compare.object.CompareObjectExtensions;
-import de.alpharogroup.diff.ChangedAttributeResult;
+import de.alpharogroup.diff.beans.ChangedAttributeResult;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -69,10 +69,12 @@ public class DiffObjectExtensions
 		final Object objectToCompare)
 		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
 	{
-		if (sourceOjbect == null || objectToCompare == null
-			|| !sourceOjbect.getClass().equals(objectToCompare.getClass()))
+		Check.get().notNull(sourceOjbect, "sourceOjbect").notNull(objectToCompare,
+			"objectToCompare");
+		if (!sourceOjbect.getClass().equals(objectToCompare.getClass()))
 		{
-			throw new IllegalArgumentException("Object should not be null and be the same type.");
+			throw new IllegalArgumentException(
+				"Given sourceObject should be the same type as objectToCompare.");
 		}
 		final Map beanDescription = BeanUtils.describe(sourceOjbect);
 		beanDescription.remove("class");
@@ -86,8 +88,11 @@ public class DiffObjectExtensions
 			if (CompareObjectExtensions.compareTo(sourceOjbect, objectToCompare,
 				key.toString()) != 0)
 			{
-				changedData.put(key, ChangedAttributeResult.builder().attributeName(key)
-					.sourceAttribute(sourceAttribute).changedAttribute(changedAttribute).build());
+				final ChangedAttributeResult result = new ChangedAttributeResult();
+				result.setAttributeName(key);
+				result.setSourceAttribute(sourceAttribute);
+				result.setChangedAttribute(changedAttribute);
+				changedData.put(key, result);
 			}
 		}
 		return changedData;
@@ -115,10 +120,12 @@ public class DiffObjectExtensions
 		final Object objectToCompare)
 		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
 	{
-		if (sourceOjbect == null || objectToCompare == null
-			|| !sourceOjbect.getClass().equals(objectToCompare.getClass()))
+		Check.get().notNull(sourceOjbect, "sourceOjbect").notNull(objectToCompare,
+			"objectToCompare");
+		if (!sourceOjbect.getClass().equals(objectToCompare.getClass()))
 		{
-			throw new IllegalArgumentException("Object should not be null and be the same type.");
+			throw new IllegalArgumentException(
+				"Given sourceObject should be the same type as objectToCompare.");
 		}
 		final Map beanDescription = BeanUtils.describe(sourceOjbect);
 		beanDescription.remove("class");
@@ -166,7 +173,7 @@ public class DiffObjectExtensions
 	{
 		if (changedData == null)
 		{
-			changedData = ListExtensions.newArrayList();
+			changedData = new ArrayList<>();
 		}
 		if (sourceOjbect == null || objectToCompare == null
 			|| !sourceOjbect.getClass().equals(objectToCompare.getClass()))

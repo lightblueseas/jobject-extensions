@@ -35,7 +35,6 @@ import de.alpharogroup.check.Check;
 import de.alpharogroup.copy.object.CopyObjectExtensions;
 import de.alpharogroup.lang.ObjectExtensions;
 import de.alpharogroup.reflection.ReflectionExtensions;
-import lombok.experimental.ExtensionMethod;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,7 +43,6 @@ import lombok.extern.slf4j.Slf4j;
  * another object.
  */
 @UtilityClass
-@ExtensionMethod(ObjectExtensions.class)
 @Slf4j
 public final class MergeObjectExtensions
 {
@@ -219,7 +217,7 @@ public final class MergeObjectExtensions
 		{
 			final Method getter = propertyDescriptor.getReadMethod();
 			final Object value = getter.invoke(withObject);
-			if (!value.isDefaultValue())
+			if (!ObjectExtensions.isDefaultValue(propertyDescriptor.getPropertyType(), value))
 			{
 				final Method setter = propertyDescriptor.getWriteMethod();
 				setter.invoke(mergeInObject, value);

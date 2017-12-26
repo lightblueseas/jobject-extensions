@@ -22,53 +22,32 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.lang;
+package de.alpharogroup.diff;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
 
-import de.alpharogroup.check.Check;
-import lombok.experimental.UtilityClass;
+import static org.testng.Assert.assertTrue;
+
+import org.testng.annotations.Test;
+
+import de.alpharogroup.diff.beans.ChangedAttributeResult;
+import de.alpharogroup.test.objects.evaluations.EqualsEvaluator;
+import de.alpharogroup.test.objects.evaluations.HashcodeEvaluator;
 
 /**
- * The class DefaultValue provide the default values of the primitive types, as defined by the JLS.
+ * The unit test class for the class {@link ChangedAttributeResult}.
  */
-@UtilityClass
-public class DefaultValue
+public class ChangedAttributeResultTest
 {
 
-	/** The constant map with the default values. */
-	@SuppressWarnings("serial")
-	private static final Map<Class<?>, Object> DEFAULT_VALUE = Collections
-		.unmodifiableMap(new HashMap<Class<?>, Object>()
-		{
-			{
-				put(boolean.class, false);
-				put(char.class, '\0');
-				put(byte.class, (byte)0);
-				put(short.class, (short)0);
-				put(int.class, 0);
-				put(long.class, 0L);
-				put(float.class, 0f);
-				put(double.class, 0d);
-				put(Object.class, null);
-				put(null, null);
-				put(void.class, null);
-			}
-		});
-
 	/**
-	 * Gets the default value from the given {@link Class}.
-	 *
-	 * @param classType
-	 *            the class type
-	 * @return the default value
+	 * Test method for bean {@link ChangedAttributeResult}.
 	 */
-	public static Object get(final Class<?> classType)
+	@Test
+	public void test()
 	{
-		Check.get().notNull(classType, "classType");
-		final Object defaultValue = DEFAULT_VALUE.get(classType);
-		return defaultValue;
+		ChangedAttributeResult changedAttributeResult = ChangedAttributeResult.builder().build();
+		assertTrue(HashcodeEvaluator.evaluateConsistency(changedAttributeResult));
+		assertTrue(EqualsEvaluator.evaluateReflexivity(changedAttributeResult));
 	}
+
 }

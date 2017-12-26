@@ -22,65 +22,70 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.lang;
+package de.alpharogroup.comparators;
 
 import static org.testng.AssertJUnit.assertEquals;
+
+import java.util.Comparator;
+import java.util.Locale;
 
 import org.testng.annotations.Test;
 
 /**
- * The unit test class for the class {@link DefaultValue}.
+ * The unit test class for the class {@link NullCheckComparator}.
  */
-public class DefaultValueTest
+public class NullCheckComparatorTest
 {
 
 	/**
-	 * Test method for {@link DefaultValue#get(Class)}
+	 * Test method for {@link NullCheckComparator#compare(Object, Object)}.
 	 */
 	@Test
-	public void testGetDefaultValue()
+	public void testCompare()
 	{
-		Object expected;
-		Object actual;
-		expected = Boolean.FALSE;
-		actual = DefaultValue.get(boolean.class);
+		int expected;
+		int actual;
+		Comparator<Locale> localeComparator = NullCheckComparator
+			.<Locale> of(new TestLocaleComparator());
+		actual = localeComparator.compare(Locale.CANADA, null);
+		expected = 1;
 		assertEquals(expected, actual);
 
-		expected = Character.valueOf('\0');
-		actual = DefaultValue.get(char.class);
+		actual = localeComparator.compare(null, null);
+		expected = 0;
 		assertEquals(expected, actual);
 
-		expected = Byte.valueOf("0");
-		actual = DefaultValue.get(byte.class);
+		actual = localeComparator.compare(null, Locale.CANADA);
+		expected = -1;
 		assertEquals(expected, actual);
 
-		expected = Short.valueOf("0");
-		actual = DefaultValue.get(short.class);
+		// set null flag to true so null are greater...
+		localeComparator = TestLocaleComparator.of(true);
+
+		actual = localeComparator.compare(Locale.CANADA, null);
+		expected = -1;
 		assertEquals(expected, actual);
 
-		expected = Integer.valueOf("0");
-		actual = DefaultValue.get(int.class);
+		actual = localeComparator.compare(null, null);
+		expected = 0;
 		assertEquals(expected, actual);
 
-		expected = Long.valueOf("0");
-		actual = DefaultValue.get(long.class);
+		actual = localeComparator.compare(null, Locale.CANADA);
+		expected = 1;
 		assertEquals(expected, actual);
 
-		expected = Float.valueOf("0.0");
-		actual = DefaultValue.get(float.class);
+		localeComparator = new NullCheckComparator<>(new TestLocaleComparator(), false);
+
+		actual = localeComparator.compare(Locale.CANADA, null);
+		expected = 1;
 		assertEquals(expected, actual);
 
-		expected = Double.valueOf("0.0");
-		actual = DefaultValue.get(double.class);
-		assertEquals(expected, actual);
+	}
 
-		expected = null;
-		actual = DefaultValue.get(Object.class);
-		assertEquals(expected, actual);
-
-		expected = null;
-		actual = DefaultValue.get(void.class);
-		assertEquals(expected, actual);
+	@Test(expectedExceptions = IllegalArgumentException.class)
+	public void testNullComparator()
+	{
+		new NullCheckComparator<Locale>(null);
 	}
 
 }

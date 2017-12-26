@@ -103,12 +103,12 @@ public final class ReflectionExtensions
 	}
 
 	/**
-	 * Gets all fieldnames from the given class as an String array.
+	 * Gets all field names from the given class as an String list.
 	 *
 	 * @param cls
-	 *            The class object to get the fieldnames.
+	 *            The class object to get the field names.
 	 *
-	 * @return Gets all fieldnames from the given class as an String array.
+	 * @return Gets all field names from the given class as an String list.
 	 */
 	public static List<String> getFieldNames(final Class<?> cls)
 	{
@@ -122,12 +122,12 @@ public final class ReflectionExtensions
 	}
 
 	/**
-	 * Gets all methodnames from the given class as an String array.
+	 * Gets all method names from the given class as an String array.
 	 *
 	 * @param cls
-	 *            The class object to get the methodnames.
+	 *            The class object to get the method names.
 	 *
-	 * @return Gets all methodnames from the given class as an String array.
+	 * @return Gets all method names from the given class as an String array.
 	 */
 	public static String[] getMethodNames(final Class<?> cls)
 	{
@@ -142,12 +142,12 @@ public final class ReflectionExtensions
 
 	/**
 	 * Generates a Map with the fieldName as key and the method as value. Concatenates the given
-	 * prefix and the fieldname and puts the result into the map.
+	 * prefix and the field name and puts the result into the map.
 	 *
 	 * @param fieldNames
-	 *            A list with the fieldNames.
+	 *            A list with the field names.
 	 * @param prefix
-	 *            The prefix for the methodname.
+	 *            The prefix for the method name.
 	 *
 	 * @return the method names with prefix from field names
 	 */
@@ -183,7 +183,6 @@ public final class ReflectionExtensions
 		return new String(fn);
 	}
 
-
 	/**
 	 * Gets the modifiers from the given Field as a list of String objects.
 	 *
@@ -202,45 +201,24 @@ public final class ReflectionExtensions
 	 * Creates a new instance from the same type as the given object.
 	 *
 	 * @param <T>
-	 *            the generic type of the given object
-	 * @param obj
-	 *            the obj
-	 * @return the new instance
-	 * @throws ClassNotFoundException
-	 *             the class not found exception
-	 * @throws InstantiationException
-	 *             the instantiation exception
-	 * @throws IllegalAccessException
-	 *             the illegal access exception
-	 * @deprecated use instead {@link ReflectionExtensions#newInstance(Object)}
-	 */
-	@Deprecated
-	public static <T> T getNewInstance(final T obj)
-		throws ClassNotFoundException, InstantiationException, IllegalAccessException
-	{
-		return newInstance(obj);
-	}
-
-	/**
-	 * Creates a new instance from the same type as the given object.
-	 *
-	 * @param <T>
 	 *            the generic type
-	 * @param obj
-	 *            the obj
+	 * @param object
+	 *            the object
 	 * @return the new instance
 	 * @throws ClassNotFoundException
-	 *             the class not found exception
-	 * @throws InstantiationException
-	 *             the instantiation exception
+	 *             is thrown if the class cannot be located
 	 * @throws IllegalAccessException
-	 *             the illegal access exception
+	 *             is thrown if the class or its default constructor is not accessible.
+	 * @throws InstantiationException
+	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
+	 *             array class, a primitive type, or void; or if the class has no default
+	 *             constructor; or if the instantiation fails for some other reason.
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T newInstance(final T obj)
+	public static <T> T newInstance(final T object)
 		throws InstantiationException, IllegalAccessException, ClassNotFoundException
 	{
-		return newInstance((Class<T>)Class.forName(obj.getClass().getCanonicalName()));
+		return newInstance((Class<T>)Class.forName(object.getClass().getCanonicalName()));
 	}
 
 	/**
@@ -251,16 +229,16 @@ public final class ReflectionExtensions
 	 * @param clazz
 	 *            the Class object
 	 * @return the new instance
-	 * @throws ClassNotFoundException
-	 *             the class not found exception
-	 * @throws InstantiationException
-	 *             the instantiation exception
 	 * @throws IllegalAccessException
-	 *             the illegal access exception
+	 *             is thrown if the class or its default constructor is not accessible.
+	 * @throws InstantiationException
+	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
+	 *             array class, a primitive type, or void; or if the class has no default
+	 *             constructor; or if the instantiation fails for some other reason.
 	 */
 
 	public static <T> T newInstance(final Class<T> clazz)
-		throws InstantiationException, IllegalAccessException, ClassNotFoundException
+		throws InstantiationException, IllegalAccessException
 	{
 		return clazz.newInstance();
 	}
@@ -291,7 +269,7 @@ public final class ReflectionExtensions
 	 * Gets the {@link Field} that match to the given field name that exists in the given class.
 	 *
 	 * @param cls
-	 *            the cls
+	 *            the class object
 	 * @param fieldName
 	 *            the field name
 	 * @return the declared field

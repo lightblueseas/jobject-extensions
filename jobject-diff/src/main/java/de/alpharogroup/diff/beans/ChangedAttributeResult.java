@@ -22,30 +22,31 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.diff;
+package de.alpharogroup.diff.beans;
 
-import java.io.Serializable;
-
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 /**
- * The class {@link SerializedChangedAttributeResult} is a bean class that is used for compare
- * objects and see what changes are made.
+ * The class {@link ChangedAttributeResult} is a bean class that is used for compare objects and see
+ * what changes are made.
  */
 @Getter
 @Setter
 @EqualsAndHashCode
 @ToString
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder(toBuilder = true)
-public class SerializedChangedAttributeResult implements Serializable
+public class ChangedAttributeResult
 {
-
-	/** The Constant serialVersionUID. */
-	private static final long serialVersionUID = 1L;
+	/** The parent if exists. */
+	private ChangedAttributeResult parent;
 
 	/** The attribute name. */
 	private Object attributeName;
@@ -55,29 +56,5 @@ public class SerializedChangedAttributeResult implements Serializable
 
 	/** The changed attribute. */
 	private Object changedAttribute;
-
-	/**
-	 * Instantiates a new changed attribute result.
-	 *
-	 * @param attributeName
-	 *            the attribute name
-	 * @param sourceAttribute
-	 *            the source attribute
-	 * @param changedAttribute
-	 *            the changed attribute
-	 */
-	public SerializedChangedAttributeResult(final Object attributeName,
-		final Object sourceAttribute, final Object changedAttribute)
-	{
-		if (!(attributeName instanceof Serializable) || !(sourceAttribute instanceof Serializable)
-			|| !(changedAttribute instanceof Serializable))
-		{
-			throw new IllegalArgumentException(
-				"Arguments should implement the Serializable interface.");
-		}
-		this.attributeName = attributeName;
-		this.sourceAttribute = sourceAttribute;
-		this.changedAttribute = changedAttribute;
-	}
 
 }

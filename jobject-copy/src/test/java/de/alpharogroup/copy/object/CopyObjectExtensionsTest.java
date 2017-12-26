@@ -25,6 +25,7 @@
 package de.alpharogroup.copy.object;
 
 import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertNull;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -35,6 +36,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import lombok.extern.slf4j.Slf4j;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.date.CreateDateExtensions;
@@ -47,6 +49,7 @@ import de.alpharogroup.test.objects.enums.Gender;
 /**
  * The unit test class for the class {@link CopyObjectExtensions}.
  */
+@Slf4j
 public class CopyObjectExtensionsTest
 {
 
@@ -80,7 +83,7 @@ public class CopyObjectExtensionsTest
 		Object actual;
 
 		final DateDecorator dateDecorator = DateDecorator.builder().date(CreateDateExtensions.now())
-			.build();
+				.build();
 
 		final SqlTimestampDecorator timestampDecorator = SqlTimestampDecorator.builder().build();
 
@@ -89,6 +92,20 @@ public class CopyObjectExtensionsTest
 		actual = timestampDecorator.getDate().getTime();
 		assertEquals(expected, actual);
 
+	}
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copy(Object, Object)}.
+	 *
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws InvocationTargetException
+	 *             the invocation target exception
+	 */
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public void testCopyIllegalArgumentException() throws IllegalAccessException, InvocationTargetException
+	{
+		CopyObjectExtensions.copy(null, "beast");
 	}
 
 	/**

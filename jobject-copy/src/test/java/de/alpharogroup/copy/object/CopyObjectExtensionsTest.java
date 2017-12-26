@@ -53,20 +53,33 @@ import de.alpharogroup.test.objects.enums.Gender;
 public class CopyObjectExtensionsTest
 {
 
-	/**
-	 * Test method for {@link CopyObjectExtensions#closeOutputStream(OutputStream)}.
-	 */
-	@Test(enabled = true)
-	public void testCloseOutputStream() throws FileNotFoundException, URISyntaxException
-	{
+    /**
+     * Test method for {@link CopyObjectExtensions#closeOutputStream(OutputStream)}.
+     */
+    @Test(enabled = true)
+    public void testCloseOutputStream() throws FileNotFoundException, URISyntaxException
+    {
+        boolean expected;
+        boolean actual;
+        final URL url = getClass().getClassLoader().getResource("log4j2-test.xml");
+        final OutputStream os = new FileOutputStream(new File(url.toURI()));
+        expected = true;
+        actual = CopyObjectExtensions.closeOutputStream(os);
+        assertEquals(expected, actual);
+    }
+
+    /**
+     * Test method for {@link CopyObjectExtensions#closeOutputStream(OutputStream)}.
+     */
+    @Test(enabled = true)
+    public void testCloseOutputStreamNull() throws IOException, URISyntaxException
+    {
 		boolean expected;
 		boolean actual;
-		final URL url = getClass().getClassLoader().getResource("log4j2-test.xml");
-		final OutputStream os = new FileOutputStream(new File(url.toURI()));
+		actual = CopyObjectExtensions.closeOutputStream(null);
 		expected = true;
-		actual = CopyObjectExtensions.closeOutputStream(os);
 		assertEquals(expected, actual);
-	}
+    }
 
 	/**
 	 * Test method for {@link CopyObjectExtensions#copy(Object, Object)}.

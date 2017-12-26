@@ -34,6 +34,9 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
 
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertNotNull;
+
 
 /**
  * The unit test class for the class {@link Argument}.
@@ -77,7 +80,7 @@ public class ArgumentTest
 
 		expected = value;
 		actual = Argument.isInRange(min, max, value, name);
-		Assert.assertEquals(expected, actual);
+		assertEquals(expected, actual);
 	}
 
 	/**
@@ -95,6 +98,23 @@ public class ArgumentTest
 	}
 
 	/**
+	 * Test method for {@link Argument#notEmpty(java.util.Collection, String)}
+	 */
+	@Test
+	public void testNotEmptyCollectionNormalCase()
+	{
+		List<String> expected;
+		List<String> actual;
+		final String name = "list";
+		expected = new ArrayList<>();
+		expected.add("foo");
+
+		actual = Argument.notEmpty(expected, name);
+		assertNotNull(actual);
+		assertEquals(expected, actual);
+	}
+
+	/**
 	 * Test method for {@link Argument#notEmpty(Map, String)}
 	 */
 	@Test
@@ -108,6 +128,23 @@ public class ArgumentTest
 	}
 
 	/**
+	 * Test method for {@link Argument#notEmpty(Map, String)}
+	 */
+	@Test
+	public void testNotEmptyMapNormalCase()
+	{
+		Map<String, String> expected;
+		Map<String, String> actual;
+		final String name = "map";
+		expected = new HashMap<>();
+		expected.put("foo", "bar");
+
+		actual = Argument.notEmpty(expected, name);
+		assertNotNull(actual);
+		assertEquals(expected, actual);
+	}
+
+	/**
 	 * Test method for {@link Argument#notEmpty(CharSequence, String)}
 	 */
 	@Test
@@ -118,7 +155,21 @@ public class ArgumentTest
 		throwable.expect(IllegalArgumentException.class);
 		throwable.expectMessage("Given argument '" + name + "' may not be empty.");
 		Argument.notEmpty(argument, name);
+	}
 
+	/**
+	 * Test method for {@link Argument#notEmpty(CharSequence, String)}
+	 */
+	@Test
+	public void testNotEmptyStringNormalCase()
+	{
+		String expected;
+		String actual;
+		final String name = "parameter";
+		expected = "foo";
+		actual = Argument.notEmpty(expected, name);
+		assertNotNull(actual);
+		assertEquals(expected, actual);
 	}
 
 	/**

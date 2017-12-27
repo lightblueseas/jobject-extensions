@@ -141,9 +141,10 @@ public final class CloneObjectExtensions
 		throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException,
 		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
 	{
-	    if (object == null) {
-	        return object;
-        }
+		if (object == null)
+		{
+			return object;
+		}
 		Object clone = null;
 
 		// Try to clone the object if it is Cloneble.

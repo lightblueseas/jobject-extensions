@@ -31,7 +31,7 @@ import lombok.experimental.UtilityClass;
 
 /**
  * The class {@link ObjectExtensions} provides extension methods to check if the object is the
- * default value. It also provides methods to find changed data between Objects.
+ * default value.
  */
 @UtilityClass
 public final class ObjectExtensions

@@ -129,7 +129,7 @@ public class NullCheckComparator<T> implements Comparator<T>, Serializable
 			this.nullIsGreaterThan);
 		if (nullCheck != null)
 		{
-			return nullCheck;
+			return nullCheck.intValue();
 		}
 		return this.decoratedComparator.compare(object, compareWithObject);
 	}

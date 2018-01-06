@@ -7,10 +7,11 @@ Version 1.7.0-SNAPSHOT
 ADDED:
  
 - provide package.html for the javadoc of packages
+- provide LICENSE file to root directory
 
 CHANGED:
 
-- unit tests extended for improve code coverage
+- unit tests extended for improve code coverage to 86%
 
 Version 1.6.0
 -------------

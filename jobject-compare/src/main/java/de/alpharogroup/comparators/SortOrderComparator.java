@@ -28,13 +28,13 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 /**
- * The class {@link SortOrderComparator} can add a sort order ascending or descending. The default
+ * The abstract class {@link SortOrderComparator} can be extended for add a sort order ascending or descending. The default
  * sort order is ascending.
  *
  * @param <T>
  *            the generic type of the comparing object
  */
-public class SortOrderComparator<T extends Comparable<T>> implements Comparator<T>, Serializable
+public abstract class SortOrderComparator<T extends Comparable<T>> implements Comparator<T>, Serializable
 {
 
 	/** The serialVersionUID */
@@ -51,7 +51,7 @@ public class SortOrderComparator<T extends Comparable<T>> implements Comparator<
 	 */
 	public SortOrderComparator()
 	{
-		this(SortOrder.ASCENDING);
+		this(DEFAULT_SORT_ORDER);
 	}
 
 	/**

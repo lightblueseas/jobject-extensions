@@ -1,6 +1,17 @@
 ## Change log
 ----------------------
 
+Version 1.8.0-SNAPSHOT
+-------------
+
+ADDED:
+ 
+- 
+
+CHANGED:
+
+- 
+
 Version 1.7.0
 -------------
 

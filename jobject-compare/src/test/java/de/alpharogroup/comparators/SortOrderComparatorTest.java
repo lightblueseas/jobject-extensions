@@ -40,7 +40,9 @@ public class SortOrderComparatorTest
 	@Test
 	public void testComparable()
 	{
-		SortOrderComparator<Integer> comparator = new SortOrderComparator<Integer>(){};
+		SortOrderComparator<Integer> comparator = new SortOrderComparator<Integer>()
+		{
+		};
 		final Integer i1 = 42;
 
 		final Integer lesser = i1 / 2;
@@ -52,14 +54,18 @@ public class SortOrderComparatorTest
 		assertTrue(comparator.compare(i1, greater) < 0);
 		assertTrue(comparator.compare(i1, null) > 0);
 
-		comparator = new SortOrderComparator<Integer>(SortOrder.DESCENDING){};
+		comparator = new SortOrderComparator<Integer>(SortOrder.DESCENDING)
+		{
+		};
 
 		assertTrue(comparator.compare(i1, lesser) < 0);
 		assertTrue(comparator.compare(i1, same) == 0);
 		assertTrue(comparator.compare(i1, greater) > 0);
 		assertTrue(comparator.compare(i1, null) < 0);
 
-		comparator = new SortOrderComparator<Integer>(SortOrder.ASCENDING){};
+		comparator = new SortOrderComparator<Integer>(SortOrder.ASCENDING)
+		{
+		};
 
 		assertTrue(comparator.compare(i1, lesser) > 0);
 		assertTrue(comparator.compare(i1, same) == 0);

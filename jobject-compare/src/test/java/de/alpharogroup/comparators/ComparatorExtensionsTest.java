@@ -24,7 +24,10 @@
  */
 package de.alpharogroup.comparators;
 
-import org.testng.AssertJUnit;
+import static org.testng.Assert.assertEquals;
+import static org.testng.Assert.assertNull;
+import static org.testng.AssertJUnit.assertTrue;
+
 import org.testng.annotations.Test;
 
 import de.alpharogroup.test.objects.Person;
@@ -46,7 +49,7 @@ public class ComparatorExtensionsTest
 		final Person person = Person.builder().name("al").build();
 		final Person otherPerson = Person.builder().name("bert").build();
 		final int actual = person.compare(otherPerson);
-		AssertJUnit.assertTrue(actual == -1);
+		assertTrue(actual == -1);
 	}
 
 	/**
@@ -58,9 +61,40 @@ public class ComparatorExtensionsTest
 		final Person person = Person.builder().name("al").build();
 		final Person otherPerson = Person.builder().name("bert").build();
 		int actual = person.compare(otherPerson, SortOrder.DESCENDING);
-		AssertJUnit.assertTrue(actual == 1);
+		assertTrue(actual == 1);
 		actual = person.compare(otherPerson, SortOrder.ASCENDING);
-		AssertJUnit.assertTrue(actual == -1);
+		assertTrue(actual == -1);
+	}
+
+	/**
+	 * Test for method {@link ComparatorExtensions#equalNullCheck(Object, Object)}.
+	 */
+	@Test
+	public void testEqualNullCheck()
+	{
+		Boolean expected;
+		Boolean actual;
+		final Person person = Person.builder().name("al").build();
+		final Person otherPerson = Person.builder().name("bert").build();
+
+		expected = null;
+		actual = ComparatorExtensions.equalNullCheck(person, otherPerson);
+
+		assertNull(actual);
+		assertEquals(actual, expected);
+
+		expected = true;
+		actual = ComparatorExtensions.equalNullCheck(person, person);
+		assertEquals(actual, expected);
+
+		expected = false;
+		actual = ComparatorExtensions.equalNullCheck(person, null);
+		assertEquals(actual, expected);
+
+		expected = false;
+		actual = ComparatorExtensions.equalNullCheck(null, person);
+		assertEquals(actual, expected);
+
 	}
 
 	/**
@@ -70,18 +104,18 @@ public class ComparatorExtensionsTest
 	public void testNullCheck()
 	{
 		Integer actual = ComparatorExtensions.nullCheck(Person.builder().build(), null);
-		AssertJUnit.assertTrue(actual == 1);
+		assertTrue(actual == 1);
 		Person person = Person.builder().build();
 		actual = person.nullCheck(null);
-		AssertJUnit.assertTrue(actual == 1);
+		assertTrue(actual == 1);
 		final Person otherPerson = Person.builder().name("s").build();
 		actual = person.nullCheck(otherPerson);
-		AssertJUnit.assertTrue(actual == null);
+		assertTrue(actual == null);
 		person = null;
 		actual = person.nullCheck(null);
-		AssertJUnit.assertTrue(actual == 0);
+		assertTrue(actual == 0);
 		actual = person.nullCheck(otherPerson);
-		AssertJUnit.assertTrue(actual == -1);
+		assertTrue(actual == -1);
 	}
 
 	/**
@@ -92,31 +126,31 @@ public class ComparatorExtensionsTest
 	{
 		// false case...
 		Integer actual = ComparatorExtensions.nullCheck(Person.builder().build(), null, false);
-		AssertJUnit.assertTrue(actual == 1);
+		assertTrue(actual == 1);
 		Person person = Person.builder().build();
 		actual = person.nullCheck(null, false);
-		AssertJUnit.assertTrue(actual == 1);
+		assertTrue(actual == 1);
 		final Person otherPerson = Person.builder().name("s").build();
 		actual = person.nullCheck(otherPerson, false);
-		AssertJUnit.assertTrue(actual == null);
+		assertTrue(actual == null);
 		person = null;
 		actual = person.nullCheck(null, false);
-		AssertJUnit.assertTrue(actual == 0);
+		assertTrue(actual == 0);
 		actual = person.nullCheck(otherPerson, false);
-		AssertJUnit.assertTrue(actual == -1);
+		assertTrue(actual == -1);
 		// true case...
 		actual = ComparatorExtensions.nullCheck(Person.builder().build(), null, true);
-		AssertJUnit.assertTrue(actual == -1);
+		assertTrue(actual == -1);
 		person = Person.builder().build();
 		actual = person.nullCheck(null, true);
-		AssertJUnit.assertTrue(actual == -1);
+		assertTrue(actual == -1);
 		actual = person.nullCheck(otherPerson, true);
-		AssertJUnit.assertTrue(actual == null);
+		assertTrue(actual == null);
 		person = null;
 		actual = person.nullCheck(null, true);
-		AssertJUnit.assertTrue(actual == 0);
+		assertTrue(actual == 0);
 		actual = person.nullCheck(otherPerson, true);
-		AssertJUnit.assertTrue(actual == 1);
+		assertTrue(actual == 1);
 	}
 
 }

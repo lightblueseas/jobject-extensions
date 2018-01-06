@@ -24,10 +24,13 @@
  */
 package de.alpharogroup.comparators;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * The class {@link ComparatorExtensions} have helper methods for comparators.
  */
-public class ComparatorExtensions
+@UtilityClass
+public final class ComparatorExtensions
 {
 
 	/**

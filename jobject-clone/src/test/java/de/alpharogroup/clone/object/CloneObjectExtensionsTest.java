@@ -29,6 +29,8 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
+import org.meanbean.test.BeanTestException;
+import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.date.CreateDateExtensions;
@@ -287,6 +289,16 @@ public class CloneObjectExtensionsTest
 		actual = CloneObjectExtensions.cloneQuietly(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
+	}
+
+	/**
+	 * Test method for {@link CloneObjectExtensions}
+	 */
+	@Test(expectedExceptions={BeanTestException.class, InvocationTargetException.class, UnsupportedOperationException.class})
+	public void testWithBeanTester()
+	{
+		BeanTester beanTester = new BeanTester();
+		beanTester.testBean(CloneObjectExtensions.class);
 	}
 }
 

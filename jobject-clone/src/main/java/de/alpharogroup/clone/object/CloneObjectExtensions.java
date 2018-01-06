@@ -261,8 +261,8 @@ public final class CloneObjectExtensions
 		catch (final IOException e)
 		{
 			LOG.error("Try to clone the object with "
-				+ "SerializedObjectUtils.copySerializedObject((Serializable)object) "
-				+ "cause of IOException.", e);
+				+ "CopyObjectExtensions.copySerializedObject((Serializable)object) "
+				+ "caused an IOException.", e);
 		}
 		return clone;
 	}

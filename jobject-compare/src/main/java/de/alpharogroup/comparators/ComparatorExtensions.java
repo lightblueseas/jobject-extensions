@@ -24,10 +24,13 @@
  */
 package de.alpharogroup.comparators;
 
+import lombok.experimental.UtilityClass;
+
 /**
  * The class {@link ComparatorExtensions} have helper methods for comparators.
  */
-public class ComparatorExtensions
+@UtilityClass
+public final class ComparatorExtensions
 {
 
 	/**
@@ -154,7 +157,7 @@ public class ComparatorExtensions
 		{
 			return 0;// it is the same Object
 		}
-		if (object == null && compareWithObject != null)
+		if (object == null)
 		{
 			if (nullIsGreaterThan)
 			{
@@ -163,7 +166,7 @@ public class ComparatorExtensions
 			return -1; // object is null so its smaller
 		}
 		// Check if one of the objects are null
-		if (object != null && compareWithObject == null)
+		if (compareWithObject == null)
 		{
 			if (nullIsGreaterThan)
 			{

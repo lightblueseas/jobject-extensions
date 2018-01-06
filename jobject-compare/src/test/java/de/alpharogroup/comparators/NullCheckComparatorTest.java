@@ -24,9 +24,13 @@
  */
 package de.alpharogroup.comparators;
 
+import static org.testng.Assert.assertTrue;
 import static org.testng.AssertJUnit.assertEquals;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Comparator;
+import java.util.List;
 import java.util.Locale;
 
 import org.testng.annotations.Test;
@@ -79,6 +83,43 @@ public class NullCheckComparatorTest
 		actual = localeComparator.compare(Locale.CANADA, null);
 		expected = 1;
 		assertEquals(expected, actual);
+
+	}
+
+
+	/**
+	 * Test method for {@link TestStringComparator#compare(String, String)}.
+	 */
+	@Test
+	public void testCompareStringComparator()
+	{
+		boolean expected;
+		int actual;
+
+		String alex = "Alex";
+
+		Comparator<String> comparator = TestStringComparator.of(true);
+
+		actual = comparator.compare(alex, null);
+		expected = actual < 0;
+		assertTrue(expected);
+
+		actual = comparator.compare(null, alex);
+		expected = 0 < actual;
+		assertTrue(expected);
+
+		// Now lets see a demo on a list...
+		List<String> list = new ArrayList<>();
+		list.add(alex);
+		list.add(null);
+
+		expected = list.indexOf(alex) == 0;
+		assertTrue(expected);
+
+		Collections.sort(list, comparator);
+
+		expected = list.indexOf(alex) == 0;
+		assertTrue(expected);
 
 	}
 

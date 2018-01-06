@@ -35,6 +35,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
+import org.meanbean.test.BeanTestException;
+import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.date.CreateDateExtensions;
@@ -205,6 +207,16 @@ public class CopyObjectExtensionsTest
 		expected = true;
 		actual = CopyObjectExtensions.isCopyable(original, destination);
 		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link CopyObjectExtensions} with {@link BeanTester}
+	 */
+	@Test(expectedExceptions={BeanTestException.class, InvocationTargetException.class, UnsupportedOperationException.class})
+	public void testWithBeanTester()
+	{
+		BeanTester beanTester = new BeanTester();
+		beanTester.testBean(CopyObjectExtensions.class);
 	}
 
 }

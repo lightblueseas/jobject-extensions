@@ -292,13 +292,15 @@ public class CloneObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link CloneObjectExtensions}
+	 * Test method for {@link CloneObjectExtensions} with {@link BeanTester}
 	 */
-	@Test(expectedExceptions={BeanTestException.class, InvocationTargetException.class, UnsupportedOperationException.class})
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
 	public void testWithBeanTester()
 	{
 		BeanTester beanTester = new BeanTester();
 		beanTester.testBean(CloneObjectExtensions.class);
 	}
+
 }
 

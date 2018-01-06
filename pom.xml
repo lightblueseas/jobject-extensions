@@ -121,6 +121,17 @@
 
 	</dependencyManagement>
 
+	<dependencies>
+
+		<!-- MEANBEAN DEPENDENCY -->
+		<dependency>
+			<groupId>org.meanbean</groupId>
+			<artifactId>meanbean</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
 	<build>
 
 		<resources>

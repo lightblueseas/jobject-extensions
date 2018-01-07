@@ -24,30 +24,51 @@
  */
 package de.alpharogroup.comparators;
 
-import java.io.Serializable;
 import java.util.Comparator;
 
 /**
- * The abstract class {@link SortOrderComparator} can be extended for add a sort order ascending or
- * descending. The default sort order is ascending.
+ * The abstract class {@link SortOrderComparator} can be extended for adding the sort order
+ * ascending or descending. The default sort order is ascending.
  *
  * @param <T>
- *            the generic type of the comparing object
+ *            the generic type of the object to compare
  */
-public abstract class SortOrderComparator<T extends Comparable<T>>
-	implements
-		Comparator<T>,
-		Serializable
+public class SortOrderComparator<T extends Comparable<T>> implements Comparator<T>
 {
-
-	/** The serialVersionUID */
-	private static final long serialVersionUID = 1L;
 
 	/** The constant default sort order. */
 	public static final SortOrder DEFAULT_SORT_ORDER = SortOrder.ASCENDING;
 
 	/** The sort order. Default is ascending. */
 	private SortOrder sortOrder = SortOrder.ASCENDING;
+
+	/**
+	 * Factory method to create a new {@link SortOrderComparator} with the default sort order.
+	 *
+	 * @param <T>
+	 *            the generic type of the object to compare
+	 *
+	 * @return the new {@link Comparator} object
+	 */
+	public static <T extends Comparable<T>> Comparator<T> of()
+	{
+		return new SortOrderComparator<T>();
+	}
+
+	/**
+	 * Factory method to create a new {@link SortOrderComparator} with the default sort order.
+	 *
+	 * @param <T>
+	 *            the generic type of the object to compare
+	 * @param sortOrder
+	 *            the sort order
+	 *
+	 * @return the new {@link Comparator} object
+	 */
+	public static <T extends Comparable<T>> Comparator<T> of(final SortOrder sortOrder)
+	{
+		return new SortOrderComparator<T>(sortOrder);
+	}
 
 	/**
 	 * Instantiates a new {@link SortOrderComparator} with the default sort order.

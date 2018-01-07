@@ -38,9 +38,6 @@ import lombok.NoArgsConstructor;
 public class TestStringComparator extends SortOrderComparator<String>
 {
 
-	/** The serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-
 	/**
 	 * Factory method to create a new {@link TestStringComparator} object.
 	 *
@@ -60,7 +57,7 @@ public class TestStringComparator extends SortOrderComparator<String>
 	 */
 	public static Comparator<String> of(final boolean nullIsGreaterThan)
 	{
-		return NullCheckComparator.<String> of(new TestStringComparator(), nullIsGreaterThan);
+		return NullCheckComparator.<String> of(SortOrderComparator.<String>of(), nullIsGreaterThan);
 	}
 
 	/**
@@ -86,7 +83,7 @@ public class TestStringComparator extends SortOrderComparator<String>
 	 */
 	public static Comparator<String> of(final SortOrder sortOrder, final boolean nullIsGreaterThan)
 	{
-		return NullCheckComparator.<String> of(new TestStringComparator(sortOrder),
+		return NullCheckComparator.<String> of(SortOrderComparator.<String>of(sortOrder),
 			nullIsGreaterThan);
 	}
 

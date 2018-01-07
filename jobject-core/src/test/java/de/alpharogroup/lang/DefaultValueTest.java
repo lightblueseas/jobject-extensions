@@ -26,6 +26,10 @@ package de.alpharogroup.lang;
 
 import static org.testng.AssertJUnit.assertEquals;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.meanbean.test.BeanTestException;
+import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
 /**
@@ -81,6 +85,16 @@ public class DefaultValueTest
 		expected = null;
 		actual = DefaultValue.get(void.class);
 		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link DefaultValue} with {@link BeanTester}
+	 */
+	@Test(expectedExceptions={BeanTestException.class, InvocationTargetException.class, UnsupportedOperationException.class})
+	public void testWithBeanTester()
+	{
+		final BeanTester beanTester = new BeanTester();
+		beanTester.testBean(DefaultValue.class);
 	}
 
 }

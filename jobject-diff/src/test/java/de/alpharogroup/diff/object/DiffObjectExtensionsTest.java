@@ -33,8 +33,11 @@ import java.util.Map;
 
 import org.junit.Rule;
 import org.junit.rules.ExpectedException;
+import org.meanbean.test.BeanTestException;
+import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
+import de.alpharogroup.clone.object.CloneObjectExtensions;
 import de.alpharogroup.diff.beans.ChangedAttributeResult;
 import de.alpharogroup.test.objects.Employee;
 import de.alpharogroup.test.objects.Person;
@@ -319,6 +322,17 @@ public class DiffObjectExtensionsTest
 			result, null);
 		assertFalse("Size should be 1 but is " + result.size(), result.size() == 0);
 		assertTrue("Size should be 1 but is " + result.size(), result.size() == 1);
+	}
+
+	/**
+	 * Test method for {@link DiffObjectExtensions} with {@link BeanTester}
+	 */
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
+	public void testWithBeanTester()
+	{
+		final BeanTester beanTester = new BeanTester();
+		beanTester.testBean(DiffObjectExtensions.class);
 	}
 
 }

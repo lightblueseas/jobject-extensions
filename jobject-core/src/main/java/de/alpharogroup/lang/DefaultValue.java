@@ -35,7 +35,7 @@ import lombok.experimental.UtilityClass;
  * The class DefaultValue provide the default values of the primitive types, as defined by the JLS.
  */
 @UtilityClass
-public class DefaultValue
+public final class DefaultValue
 {
 
 	/** The constant map with the default values. */

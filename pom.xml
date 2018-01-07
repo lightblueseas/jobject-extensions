@@ -199,6 +199,8 @@
 								<!-- constant classes with only constants -->
 								<!-- explicit bean classes -->
 								<!-- explicit deprecated classes -->
+								<!-- explicit enums -->
+								<exclude>de/alpharogroup/lang/ClassType.class</exclude>
 								<!-- explicit interfaces -->
 								<!-- explicit constant classes with only constants -->
 								<!-- explicit delegation classes -->

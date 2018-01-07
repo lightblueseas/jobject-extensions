@@ -24,14 +24,16 @@
  */
 package de.alpharogroup.diff;
 
-
-import static org.testng.Assert.assertTrue;
+import static org.testng.AssertJUnit.assertEquals;
+import static org.testng.AssertJUnit.assertNotSame;
+import static org.testng.AssertJUnit.assertTrue;
 
 import org.testng.annotations.Test;
 
 import de.alpharogroup.diff.beans.ChangedAttributeResult;
 import de.alpharogroup.test.objects.evaluations.EqualsEvaluator;
 import de.alpharogroup.test.objects.evaluations.HashcodeEvaluator;
+import de.alpharogroup.test.objects.evaluations.ToStringEvaluator;
 
 /**
  * The unit test class for the class {@link ChangedAttributeResult}.
@@ -40,14 +42,62 @@ public class ChangedAttributeResultTest
 {
 
 	/**
-	 * Test method for bean {@link ChangedAttributeResult}.
+	 * Test method for {@link ChangedAttributeResult#equals(Object)}
 	 */
 	@Test
-	public void test()
+	public void testEqualsObject()
 	{
-		ChangedAttributeResult changedAttributeResult = ChangedAttributeResult.builder().build();
-		assertTrue(HashcodeEvaluator.evaluateConsistency(changedAttributeResult));
-		assertTrue(EqualsEvaluator.evaluateReflexivity(changedAttributeResult));
+		final ChangedAttributeResult expected = ChangedAttributeResult.builder().attributeName("foo").build();
+		final ChangedAttributeResult actual = new ChangedAttributeResult();
+
+		assertNotSame(expected, actual);
+		final ChangedAttributeResult attributeResult = new ChangedAttributeResult();
+		attributeResult.setAttributeName("foo");
+		assertEquals(expected, attributeResult);
+		assertTrue(EqualsEvaluator.evaluateReflexivityNonNullSymmetricAndConsistency(expected, actual));
+		assertTrue(EqualsEvaluator.evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(expected, attributeResult, ChangedAttributeResult.builder().attributeName("foo").build()));
+	}
+
+	/**
+	 * Test method for {@link ChangedAttributeResult#hashCode()}
+	 */
+	@Test
+	public void testHashcode()
+	{
+		boolean expected;
+		boolean actual;
+		final ChangedAttributeResult attributeResult1 = ChangedAttributeResult.builder().build();
+		final ChangedAttributeResult attributeResult2 =ChangedAttributeResult.builder().build();
+		actual = HashcodeEvaluator.evaluateEquality(attributeResult1, attributeResult2);
+		expected = true;
+		assertEquals(expected, actual);
+
+		expected = true;
+		actual = HashcodeEvaluator.evaluateUnequality(attributeResult1, ChangedAttributeResult.builder().attributeName("foo").build());
+		assertEquals(expected, actual);
+
+		actual = HashcodeEvaluator.evaluateConsistency(attributeResult1);
+		expected = true;
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link ChangedAttributeResult#toString()}
+	 */
+	@Test
+	public void testToString()
+	{
+		boolean expected;
+		boolean actual;
+		actual = ToStringEvaluator.evaluate(ChangedAttributeResult.class);
+		expected = true;
+		assertEquals(expected, actual);
+
+		final ChangedAttributeResult integerBox = ChangedAttributeResult.builder().build();
+
+		actual = ToStringEvaluator.evaluateConsistency(integerBox);
+		expected = true;
+		assertEquals(expected, actual);
 	}
 
 }

@@ -26,11 +26,14 @@ package de.alpharogroup.lang;
 
 import static org.testng.AssertJUnit.assertEquals;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.meanbean.test.BeanTestException;
+import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.test.objects.Company;
@@ -123,5 +126,16 @@ public class ObjectExtensionsTest
 		assertEquals(expected, actual);
 
 	}
+
+	/**
+	 * Test method for {@link ObjectExtensions} with {@link BeanTester}
+	 */
+	@Test(expectedExceptions={BeanTestException.class, InvocationTargetException.class, UnsupportedOperationException.class})
+	public void testWithBeanTester()
+	{
+		final BeanTester beanTester = new BeanTester();
+		beanTester.testBean(ObjectExtensions.class);
+	}
+
 
 }

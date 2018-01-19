@@ -97,6 +97,19 @@ public class ObjectExtensionsTest
 		actual = ObjectExtensions.getClassType(AnnotatedInterface.class);
 		assertEquals(expected, actual);
 
+		expected = ClassType.ANONYMOUS;
+		actual = ObjectExtensions.getClassType(new Runnable()
+		{
+
+			@Override
+			public void run()
+			{
+				// TODO Auto-generated method stub
+
+			}
+		}.getClass());
+		assertEquals(expected, actual);
+
 	}
 
 	/**

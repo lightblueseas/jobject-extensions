@@ -6,7 +6,7 @@ Version 1.8.0-SNAPSHOT
 
 ADDED:
  
-- 
+- ObjectExtensions now supports method isNotDefaultValue
 
 CHANGED:
 

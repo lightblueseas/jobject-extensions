@@ -125,6 +125,42 @@ public class ObjectExtensionsTest
 		actual = ObjectExtensions.isDefaultValue(Company.class, company);
 		assertEquals(expected, actual);
 
+		expected = true;
+		actual = ObjectExtensions.isDefaultValue(Company.class, null);
+		assertEquals(expected, actual);
+
+	}
+
+	/**
+	 * Test method for {@link ObjectExtensions#isNotDefaultValue(Class, Object)}
+	 */
+	@Test
+	public void testIsNotDefaultValue()
+	{
+		boolean expected;
+		boolean actual;
+
+		expected = false;
+		actual = ObjectExtensions.isNotDefaultValue(int.class, 0);
+		assertEquals(expected, actual);
+
+		final Company company = Company.builder().build();
+		expected = false;
+		actual = ObjectExtensions.isNotDefaultValue(String.class, company.getName());
+		assertEquals(expected, actual);
+
+		expected = true;
+		actual = ObjectExtensions.isNotDefaultValue(int.class, 2);
+		assertEquals(expected, actual);
+
+		expected = true;
+		actual = ObjectExtensions.isNotDefaultValue(Company.class, company);
+		assertEquals(expected, actual);
+
+		expected = false;
+		actual = ObjectExtensions.isNotDefaultValue(Company.class, null);
+		assertEquals(expected, actual);
+
 	}
 
 	/**

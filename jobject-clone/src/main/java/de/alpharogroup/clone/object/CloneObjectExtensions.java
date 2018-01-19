@@ -31,7 +31,6 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
 
 import de.alpharogroup.copy.object.CopyObjectExtensions;
 import lombok.experimental.UtilityClass;
@@ -42,9 +41,6 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class CloneObjectExtensions
 {
-
-	/** The logger constant. */
-	private static final Logger LOG = Logger.getLogger(CloneObjectExtensions.class.getName());
 
 	/**
 	 * Try to clone the given generic object.
@@ -87,21 +83,6 @@ public final class CloneObjectExtensions
 		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
 	{
 		return (T)cloneObject(object);
-	}
-
-	/**
-	 * Try to clone the given generic object.
-	 *
-	 * @param <T>
-	 *            the generic type
-	 * @param object
-	 *            the object to clone
-	 * @return The cloned object or null if the clone process failed.
-	 */
-	@SuppressWarnings("unchecked")
-	public static <T> T cloneQuietly(final T object)
-	{
-		return (T)cloneObjectQuietly(object);
 	}
 
 	/**
@@ -197,72 +178,6 @@ public final class CloneObjectExtensions
 		{
 			clone = object.getClass().newInstance();
 			BeanUtils.copyProperties(clone, object);
-		}
-		return clone;
-	}
-
-	/**
-	 * Try to clone the given object quietly.
-	 *
-	 * @param object
-	 *            The object to clone.
-	 * @return The cloned object or null if the clone process failed.
-	 */
-	public static Object cloneObjectQuietly(final Object object)
-	{
-		Object clone = null;
-		try
-		{
-			clone = cloneObject(object);
-		}
-		catch (final NoSuchMethodException e)
-		{
-			LOG.error("Try to clone the object with " + "reflection and call the clone method. "
-				+ "Thrown exception: NoSuchMethodException", e);
-		}
-		catch (final SecurityException e)
-		{
-			LOG.error("Try to clone the object with " + "reflection and call the clone method. "
-				+ "Thrown exception: SecurityException", e);
-		}
-		catch (final IllegalAccessException e)
-		{
-			LOG.error(
-				"Try to clone the object with " + "org.apache.commons.beanutils.BeanUtils failed "
-					+ "cause of IllegalAccessException. Could not found from ReflectionExtensions.",
-				e);
-		}
-		catch (final IllegalArgumentException e)
-		{
-			LOG.error("Try to clone the object with " + "reflection and call the clone method. "
-				+ "Thrown exception: IllegalArgumentException", e);
-		}
-		catch (final InvocationTargetException e)
-		{
-			LOG.error(
-				"Try to clone the object with " + "org.apache.commons.beanutils.BeanUtils failed "
-					+ "cause of InvocationTargetException. Could not found from ReflectionExtensions.",
-				e);
-		}
-		catch (final ClassNotFoundException e)
-		{
-			LOG.error(
-				"Try to clone the object with " + "org.apache.commons.beanutils.BeanUtils failed "
-					+ "cause of ClassNotFoundException. Could not found from ReflectionExtensions.",
-				e);
-		}
-		catch (final InstantiationException e)
-		{
-			LOG.error(
-				"Try to clone the object with " + "org.apache.commons.beanutils.BeanUtils failed "
-					+ "cause of InstantiationException. Could not found from ReflectionExtensions.",
-				e);
-		}
-		catch (final IOException e)
-		{
-			LOG.error("Try to clone the object with "
-				+ "CopyObjectExtensions.copySerializedObject((Serializable)object) "
-				+ "caused an IOException.", e);
 		}
 		return clone;
 	}

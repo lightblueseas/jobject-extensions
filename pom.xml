@@ -198,6 +198,7 @@
 								<!-- deprecated -->
 								<!-- constant classes with only constants -->
 								<!-- explicit bean classes -->
+								<exclude>de/alpharogroup/clone/object/CloneObjectQuietlyExtensions.class</exclude>
 								<!-- explicit deprecated classes -->
 								<!-- explicit enums -->
 								<exclude>de/alpharogroup/lang/ClassType.class</exclude>

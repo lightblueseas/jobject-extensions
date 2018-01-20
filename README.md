@@ -1,5 +1,7 @@
 # Overview
 
+[![Build Status](https://travis-ci.org/lightblueseas/jobject-extensions.svg?branch=master)](https://travis-ci.org/lightblueseas/jobject-extensions) [![Coverage Status](https://coveralls.io/repos/github/lightblueseas/jobject-extensions/badge.svg?branch=develop)](https://coveralls.io/github/lightblueseas/jobject-extensions?branch=develop) [![Maven Central](https://maven-badges.herokuapp.com/maven-central/de.alpharogroup/jobject-extensions/badge.svg)](https://maven-badges.herokuapp.com/maven-central/de.alpharogroup/jobject-extensions)
+
 The jobject-extensions project provides main operation that you can do with java objects.
 
 When programming with java you have offen to clone or copy to compare or to diff and some times you have even merge objects. 

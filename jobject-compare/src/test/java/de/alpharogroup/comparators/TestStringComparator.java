@@ -43,6 +43,7 @@ public class TestStringComparator extends SortOrderComparator<String>
 	 *
 	 * @return the new {@link TestStringComparator} object
 	 */
+	@SuppressWarnings("unchecked")
 	public static Comparator<String> of()
 	{
 		return TestStringComparator.of(false);
@@ -68,6 +69,7 @@ public class TestStringComparator extends SortOrderComparator<String>
 	 *            the sort order
 	 * @return the new {@link TestStringComparator} object
 	 */
+	@SuppressWarnings("unchecked")
 	public static Comparator<String> of(final SortOrder sortOrder)
 	{
 		return TestStringComparator.of(sortOrder, false);

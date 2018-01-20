@@ -67,6 +67,8 @@ public final class ObjectExtensions
 	 *
 	 * @param <T>
 	 *            the generic type
+	 * @param fieldClass
+	 *            the field class
 	 * @param object
 	 *            the object
 	 * @return true, if the given object has not the default value

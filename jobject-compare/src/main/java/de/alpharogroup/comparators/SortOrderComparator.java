@@ -39,9 +39,6 @@ public class SortOrderComparator<T extends Comparable<T>> implements Comparator<
 	/** The constant default sort order. */
 	public static final SortOrder DEFAULT_SORT_ORDER = SortOrder.ASCENDING;
 
-	/** The sort order. Default is ascending. */
-	private SortOrder sortOrder = SortOrder.ASCENDING;
-
 	/**
 	 * Factory method to create a new {@link SortOrderComparator} with the default sort order.
 	 *
@@ -69,6 +66,9 @@ public class SortOrderComparator<T extends Comparable<T>> implements Comparator<
 	{
 		return new SortOrderComparator<T>(sortOrder);
 	}
+
+	/** The sort order. Default is ascending. */
+	private SortOrder sortOrder = SortOrder.ASCENDING;
 
 	/**
 	 * Instantiates a new {@link SortOrderComparator} with the default sort order.

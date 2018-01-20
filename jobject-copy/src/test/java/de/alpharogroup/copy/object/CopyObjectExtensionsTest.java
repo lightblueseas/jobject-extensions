@@ -26,14 +26,8 @@ package de.alpharogroup.copy.object;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
@@ -51,34 +45,6 @@ import de.alpharogroup.test.objects.enums.Gender;
  */
 public class CopyObjectExtensionsTest
 {
-
-	/**
-	 * Test method for {@link CopyObjectExtensions#closeOutputStream(OutputStream)}.
-	 */
-	@Test(enabled = true)
-	public void testCloseOutputStream() throws FileNotFoundException, URISyntaxException
-	{
-		boolean expected;
-		boolean actual;
-		final URL url = getClass().getClassLoader().getResource("log4j2-test.xml");
-		final OutputStream os = new FileOutputStream(new File(url.toURI()));
-		expected = true;
-		actual = CopyObjectExtensions.closeOutputStream(os);
-		assertEquals(expected, actual);
-	}
-
-	/**
-	 * Test method for {@link CopyObjectExtensions#closeOutputStream(OutputStream)}.
-	 */
-	@Test(enabled = true)
-	public void testCloseOutputStreamNull() throws IOException, URISyntaxException
-	{
-		boolean expected;
-		boolean actual;
-		actual = CopyObjectExtensions.closeOutputStream(null);
-		expected = true;
-		assertEquals(expected, actual);
-	}
 
 	/**
 	 * Test method for {@link CopyObjectExtensions#copy(Object, Object)}.
@@ -148,29 +114,6 @@ public class CopyObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link CopyObjectExtensions#copyQuietly(Object, Object)}.
-	 */
-	@Test(enabled = true)
-	public void testCopyQuietly()
-	{
-		Employee expected;
-		Employee actual;
-
-		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
-			.about("Ha ha ha...").nickname("beast").build();
-
-		expected = Employee.builder().person(person).id("23").build();
-
-		actual = Employee.builder().build();
-
-		CopyObjectExtensions.copyQuietly(expected, actual);
-
-		assertEquals(expected.getId(), actual.getId());
-		assertEquals(expected.getPerson(), actual.getPerson());
-		assertEquals(expected, actual);
-	}
-
-	/**
 	 * Test method for {@link CopyObjectExtensions#copySerializedObject(java.io.Serializable)}.
 	 */
 	@Test(enabled = true)
@@ -189,30 +132,10 @@ public class CopyObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link CopyObjectExtensions#isCopyable(Object, Object)}.
-	 */
-	@Test(enabled = true)
-	public void testIsCopyable()
-	{
-		boolean expected;
-		boolean actual;
-
-		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
-			.about("Ha ha ha...").nickname("beast").build();
-
-		Employee original = Employee.builder().person(person).id("23").build();
-
-		Employee destination = Employee.builder().build();
-
-		expected = true;
-		actual = CopyObjectExtensions.isCopyable(original, destination);
-		assertEquals(expected, actual);
-	}
-
-	/**
 	 * Test method for {@link CopyObjectExtensions} with {@link BeanTester}
 	 */
-	@Test(expectedExceptions={BeanTestException.class, InvocationTargetException.class, UnsupportedOperationException.class})
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
 	public void testWithBeanTester()
 	{
 		BeanTester beanTester = new BeanTester();

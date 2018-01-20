@@ -68,14 +68,14 @@ public class SortOrderComparatorTest
 		assertTrue(comparator.compare(i1, greater) < 0);
 		assertTrue(comparator.compare(i1, null) > 0);
 
-		comparator = SortOrderComparator.<Integer>of();
+		comparator = SortOrderComparator.<Integer> of();
 
 		assertTrue(comparator.compare(i1, lesser) > 0);
 		assertTrue(comparator.compare(i1, same) == 0);
 		assertTrue(comparator.compare(i1, greater) < 0);
 		assertTrue(comparator.compare(i1, null) > 0);
 
-		comparator = SortOrderComparator.<Integer>of(SortOrder.DESCENDING);
+		comparator = SortOrderComparator.<Integer> of(SortOrder.DESCENDING);
 
 		assertTrue(comparator.compare(i1, lesser) < 0);
 		assertTrue(comparator.compare(i1, same) == 0);

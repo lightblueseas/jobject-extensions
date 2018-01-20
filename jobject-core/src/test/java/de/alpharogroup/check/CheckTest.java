@@ -51,16 +51,6 @@ public class CheckTest
 
 
 	/**
-	 * Test method for {@link Check} with {@link BeanTester}
-	 */
-	@Test
-	public void testWithBeanTester()
-	{
-		BeanTester beanTester = new BeanTester();
-		beanTester.testBean(Check.class);
-	}
-
-	/**
 	 * Test method for {@link Check#get()}
 	 */
 	@Test
@@ -303,6 +293,16 @@ public class CheckTest
 
 		Check check = Check.get().notNull(Person.builder().build(), name);
 		assertNotNull(check);
+	}
+
+	/**
+	 * Test method for {@link Check} with {@link BeanTester}
+	 */
+	@Test
+	public void testWithBeanTester()
+	{
+		BeanTester beanTester = new BeanTester();
+		beanTester.testBean(Check.class);
 	}
 
 }

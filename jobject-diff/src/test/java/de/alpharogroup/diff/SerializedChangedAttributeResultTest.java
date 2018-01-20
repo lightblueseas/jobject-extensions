@@ -47,8 +47,8 @@ public class SerializedChangedAttributeResultTest
 	@Test
 	public void testEqualsObject()
 	{
-		final SerializedChangedAttributeResult expected = SerializedChangedAttributeResult
-			.builder().attributeName("foo").sourceAttribute("").changedAttribute("").build();
+		final SerializedChangedAttributeResult expected = SerializedChangedAttributeResult.builder()
+			.attributeName("foo").sourceAttribute("").changedAttribute("").build();
 		final SerializedChangedAttributeResult actual = new SerializedChangedAttributeResult();
 
 		assertNotSame(expected, actual);
@@ -57,9 +57,11 @@ public class SerializedChangedAttributeResultTest
 		attributeResult.setSourceAttribute("");
 		attributeResult.setChangedAttribute("");
 		assertEquals(expected, attributeResult);
-		assertTrue(EqualsEvaluator.evaluateReflexivityNonNullSymmetricAndConsistency(expected, actual));
-		assertTrue(EqualsEvaluator.evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(expected, attributeResult, SerializedChangedAttributeResult
-				.builder().attributeName("foo").sourceAttribute("").changedAttribute("").build()));
+		assertTrue(
+			EqualsEvaluator.evaluateReflexivityNonNullSymmetricAndConsistency(expected, actual));
+		assertTrue(EqualsEvaluator.evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(
+			expected, attributeResult, SerializedChangedAttributeResult.builder()
+				.attributeName("foo").sourceAttribute("").changedAttribute("").build()));
 	}
 
 	/**
@@ -72,15 +74,16 @@ public class SerializedChangedAttributeResultTest
 		boolean actual;
 		final SerializedChangedAttributeResult attributeResult1 = SerializedChangedAttributeResult
 			.builder().attributeName("foo").sourceAttribute("").changedAttribute("").build();
-		final SerializedChangedAttributeResult attributeResult2 =SerializedChangedAttributeResult
+		final SerializedChangedAttributeResult attributeResult2 = SerializedChangedAttributeResult
 			.builder().attributeName("foo").sourceAttribute("").changedAttribute("").build();
 		actual = HashcodeEvaluator.evaluateEquality(attributeResult1, attributeResult2);
 		expected = true;
 		assertEquals(expected, actual);
 
 		expected = true;
-		actual = HashcodeEvaluator.evaluateUnequality(attributeResult1, SerializedChangedAttributeResult
-			.builder().attributeName("bar").sourceAttribute("").changedAttribute("").build());
+		actual = HashcodeEvaluator.evaluateUnequality(attributeResult1,
+			SerializedChangedAttributeResult.builder().attributeName("bar").sourceAttribute("")
+				.changedAttribute("").build());
 		assertEquals(expected, actual);
 
 		actual = HashcodeEvaluator.evaluateConsistency(attributeResult1);

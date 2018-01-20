@@ -45,7 +45,8 @@ public class CloneObjectQuietlyExtensionsTest
 {
 
 	/**
-	 * Test method for {@link CloneObjectQuietlyExtensions#cloneQuietly(Object)} with not serializable object.
+	 * Test method for {@link CloneObjectQuietlyExtensions#cloneQuietly(Object)} with not
+	 * serializable object.
 	 */
 	@Test(enabled = true)
 	public void testCloneNotSerializableObject()

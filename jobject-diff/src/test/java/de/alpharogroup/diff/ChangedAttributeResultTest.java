@@ -47,15 +47,19 @@ public class ChangedAttributeResultTest
 	@Test
 	public void testEqualsObject()
 	{
-		final ChangedAttributeResult expected = ChangedAttributeResult.builder().attributeName("foo").build();
+		final ChangedAttributeResult expected = ChangedAttributeResult.builder()
+			.attributeName("foo").build();
 		final ChangedAttributeResult actual = new ChangedAttributeResult();
 
 		assertNotSame(expected, actual);
 		final ChangedAttributeResult attributeResult = new ChangedAttributeResult();
 		attributeResult.setAttributeName("foo");
 		assertEquals(expected, attributeResult);
-		assertTrue(EqualsEvaluator.evaluateReflexivityNonNullSymmetricAndConsistency(expected, actual));
-		assertTrue(EqualsEvaluator.evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(expected, attributeResult, ChangedAttributeResult.builder().attributeName("foo").build()));
+		assertTrue(
+			EqualsEvaluator.evaluateReflexivityNonNullSymmetricAndConsistency(expected, actual));
+		assertTrue(
+			EqualsEvaluator.evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(expected,
+				attributeResult, ChangedAttributeResult.builder().attributeName("foo").build()));
 	}
 
 	/**
@@ -67,13 +71,14 @@ public class ChangedAttributeResultTest
 		boolean expected;
 		boolean actual;
 		final ChangedAttributeResult attributeResult1 = ChangedAttributeResult.builder().build();
-		final ChangedAttributeResult attributeResult2 =ChangedAttributeResult.builder().build();
+		final ChangedAttributeResult attributeResult2 = ChangedAttributeResult.builder().build();
 		actual = HashcodeEvaluator.evaluateEquality(attributeResult1, attributeResult2);
 		expected = true;
 		assertEquals(expected, actual);
 
 		expected = true;
-		actual = HashcodeEvaluator.evaluateUnequality(attributeResult1, ChangedAttributeResult.builder().attributeName("foo").build());
+		actual = HashcodeEvaluator.evaluateUnequality(attributeResult1,
+			ChangedAttributeResult.builder().attributeName("foo").build());
 		assertEquals(expected, actual);
 
 		actual = HashcodeEvaluator.evaluateConsistency(attributeResult1);

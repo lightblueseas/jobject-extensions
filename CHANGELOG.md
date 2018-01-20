@@ -8,7 +8,7 @@ ADDED:
  
 - ObjectExtensions now supports method isNotDefaultValue
 - added new meanbean dependency for better unit testing of beans
-- moved conveniences quietly methods from CloneObjectExtensions to its own class
+- moved conveniences quietly methods from CloneObjectExtensions and CopyObjectExtensions to its own class
 
 CHANGED:
 

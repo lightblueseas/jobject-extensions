@@ -191,7 +191,8 @@ public class CloneObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link CloneObjectExtensions#clone(Object)} with an array with primitive values.
+	 * Test method for {@link CloneObjectExtensions#clone(Object)} with an array with primitive
+	 * values.
 	 */
 	@Test(enabled = true)
 	public void testClonePrimitiveArray() throws NoSuchMethodException, SecurityException,

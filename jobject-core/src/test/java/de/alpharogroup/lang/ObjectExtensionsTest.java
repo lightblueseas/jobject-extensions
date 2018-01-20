@@ -179,7 +179,8 @@ public class ObjectExtensionsTest
 	/**
 	 * Test method for {@link ObjectExtensions} with {@link BeanTester}
 	 */
-	@Test(expectedExceptions={BeanTestException.class, InvocationTargetException.class, UnsupportedOperationException.class})
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
 	public void testWithBeanTester()
 	{
 		final BeanTester beanTester = new BeanTester();

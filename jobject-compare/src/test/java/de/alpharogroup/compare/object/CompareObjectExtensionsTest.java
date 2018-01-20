@@ -264,7 +264,8 @@ public class CompareObjectExtensionsTest
 	/**
 	 * Test method for {@link CompareObjectExtensions} with {@link BeanTester}
 	 */
-	@Test(expectedExceptions={BeanTestException.class, InvocationTargetException.class, UnsupportedOperationException.class})
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
 	public void testWithBeanTester()
 	{
 		BeanTester beanTester = new BeanTester();

@@ -32,14 +32,16 @@ import org.apache.log4j.Logger;
 import lombok.experimental.UtilityClass;
 
 /**
- * The class {@link CloneObjectQuietlyExtensions} provide methods for clone object in a quietly manner as the name let presume.
+ * The class {@link CloneObjectQuietlyExtensions} provide methods for clone object in a quietly
+ * manner as the name let presume.
  */
 @UtilityClass
 public final class CloneObjectQuietlyExtensions
 {
 
 	/** The logger constant. */
-	private static final Logger LOG = Logger.getLogger(CloneObjectQuietlyExtensions.class.getName());
+	private static final Logger LOG = Logger
+		.getLogger(CloneObjectQuietlyExtensions.class.getName());
 
 	/**
 	 * Try to clone the given generic object.

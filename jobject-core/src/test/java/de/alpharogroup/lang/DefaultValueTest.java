@@ -90,7 +90,8 @@ public class DefaultValueTest
 	/**
 	 * Test method for {@link DefaultValue} with {@link BeanTester}
 	 */
-	@Test(expectedExceptions={BeanTestException.class, InvocationTargetException.class, UnsupportedOperationException.class})
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
 	public void testWithBeanTester()
 	{
 		final BeanTester beanTester = new BeanTester();

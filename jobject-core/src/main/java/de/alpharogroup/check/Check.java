@@ -31,7 +31,7 @@ import java.util.Map;
 /**
  * The class {@link Check} can validate arguments in a chainable manner like a builder.
  */
-public class Check implements Serializable
+public final class Check implements Serializable
 {
 
 	/** The serialVersionUID. */

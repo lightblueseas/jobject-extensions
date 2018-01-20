@@ -1,6 +1,20 @@
 ## Change log
 ----------------------
 
+Version 1.8.0
+-------------
+
+ADDED:
+ 
+- ObjectExtensions now supports method isNotDefaultValue
+- added new meanbean dependency for better unit testing of beans
+- moved conveniences quietly methods from CloneObjectExtensions and CopyObjectExtensions to its own class
+
+CHANGED:
+
+- SortOrderComparator is not abstract and provides factory methods
+- GenericChangedAttribute and SerializedChangedAttributeResult provides now a NoArgs Constructor
+
 Version 1.7.0
 -------------
 

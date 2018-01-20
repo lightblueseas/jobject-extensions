@@ -29,6 +29,7 @@ import java.io.Serializable;
 import lombok.Builder;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
@@ -40,6 +41,7 @@ import lombok.ToString;
 @Setter
 @EqualsAndHashCode
 @ToString
+@NoArgsConstructor
 @Builder(toBuilder = true)
 public class SerializedChangedAttributeResult implements Serializable
 {

@@ -29,12 +29,12 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
+import org.meanbean.test.BeanTestException;
+import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.date.CreateDateExtensions;
 import de.alpharogroup.test.objects.A;
-import de.alpharogroup.test.objects.ClonableObject;
-import de.alpharogroup.test.objects.NotSerializable;
 import lombok.experimental.ExtensionMethod;
 
 /**
@@ -58,7 +58,6 @@ public class CloneObjectExtensionsTest
 	{
 		return elements;
 	}
-
 
 	/**
 	 * Test method for {@link CloneObjectExtensions#clone(Object)}.
@@ -117,13 +116,14 @@ public class CloneObjectExtensionsTest
 
 	}
 
-
+	/**
+	 * Test method for {@link CloneObjectExtensions#clone(Object)} with an array.
+	 */
 	@Test(enabled = true)
 	public void testCloneArray() throws NoSuchMethodException, SecurityException,
 		IllegalAccessException, IllegalArgumentException, InvocationTargetException,
 		ClassNotFoundException, InstantiationException, IOException
 	{
-		// TODO create szenario with no serializable...
 		String[] expected;
 		String[] actual;
 
@@ -134,35 +134,6 @@ public class CloneObjectExtensionsTest
 			assertEquals("Cloned object should be equal with the source object.", expected[i],
 				actual[i]);
 		}
-	}
-
-	/**
-	 * Test method for {@link CloneObjectExtensions#cloneQuietly(Object)} with clonable object.
-	 */
-	@Test(enabled = true)
-	public void testCloneClonableObject()
-	{
-		Object expected;
-		Object actual;
-
-		expected = ClonableObject.builder().build();
-		actual = CloneObjectExtensions.cloneQuietly(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
-	}
-
-	/**
-	 * Test method for {@link CloneObjectExtensions#cloneQuietly(Object)} not serializable object.
-	 */
-	@Test(enabled = true)
-	public void testCloneNotSerializableObject()
-	{
-
-		Object expected;
-		Object actual;
-
-		expected = NotSerializable.builder().build();
-		actual = CloneObjectExtensions.cloneQuietly(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 	}
 
 	/**
@@ -220,30 +191,9 @@ public class CloneObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link CloneObjectExtensions#cloneObjectQuietly(Object)}.
+	 * Test method for {@link CloneObjectExtensions#clone(Object)} with an array with primitive
+	 * values.
 	 */
-	@Test(enabled = true)
-	public void testCloneObjectQuietly()
-	{
-
-		Object expected;
-		Object actual;
-
-		expected = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 04);
-		actual = CloneObjectExtensions.cloneObjectQuietly(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
-
-
-		expected = "Hy there...";
-		actual = CloneObjectExtensions.cloneObjectQuietly(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
-
-		expected = A.builder().a("a").build();
-		actual = CloneObjectExtensions.cloneObjectQuietly(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
-
-	}
-
 	@Test(enabled = true)
 	public void testClonePrimitiveArray() throws NoSuchMethodException, SecurityException,
 		IllegalAccessException, IllegalArgumentException, InvocationTargetException,
@@ -265,28 +215,15 @@ public class CloneObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link CloneObjectExtensions#cloneQuietly(Object)}.
+	 * Test method for {@link CloneObjectExtensions} with {@link BeanTester}
 	 */
-	@Test(enabled = true)
-	public void testCloneQuietly()
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
+	public void testWithBeanTester()
 	{
-
-		Object expected;
-		Object actual;
-
-		expected = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 04);
-		actual = CloneObjectExtensions.cloneQuietly(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
-
-
-		expected = "Hy there...";
-		actual = CloneObjectExtensions.cloneQuietly(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
-
-		expected = A.builder().a("a").build();
-		actual = CloneObjectExtensions.cloneQuietly(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
-
+		final BeanTester beanTester = new BeanTester();
+		beanTester.testBean(CloneObjectExtensions.class);
 	}
+
 }
 

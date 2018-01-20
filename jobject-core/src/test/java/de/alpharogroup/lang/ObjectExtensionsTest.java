@@ -26,11 +26,14 @@ package de.alpharogroup.lang;
 
 import static org.testng.AssertJUnit.assertEquals;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.meanbean.test.BeanTestException;
+import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.test.objects.Company;
@@ -94,6 +97,19 @@ public class ObjectExtensionsTest
 		actual = ObjectExtensions.getClassType(AnnotatedInterface.class);
 		assertEquals(expected, actual);
 
+		expected = ClassType.ANONYMOUS;
+		actual = ObjectExtensions.getClassType(new Runnable()
+		{
+
+			@Override
+			public void run()
+			{
+				// TODO Auto-generated method stub
+
+			}
+		}.getClass());
+		assertEquals(expected, actual);
+
 	}
 
 	/**
@@ -122,6 +138,54 @@ public class ObjectExtensionsTest
 		actual = ObjectExtensions.isDefaultValue(Company.class, company);
 		assertEquals(expected, actual);
 
+		expected = true;
+		actual = ObjectExtensions.isDefaultValue(Company.class, null);
+		assertEquals(expected, actual);
+
 	}
+
+	/**
+	 * Test method for {@link ObjectExtensions#isNotDefaultValue(Class, Object)}
+	 */
+	@Test
+	public void testIsNotDefaultValue()
+	{
+		boolean expected;
+		boolean actual;
+
+		expected = false;
+		actual = ObjectExtensions.isNotDefaultValue(int.class, 0);
+		assertEquals(expected, actual);
+
+		final Company company = Company.builder().build();
+		expected = false;
+		actual = ObjectExtensions.isNotDefaultValue(String.class, company.getName());
+		assertEquals(expected, actual);
+
+		expected = true;
+		actual = ObjectExtensions.isNotDefaultValue(int.class, 2);
+		assertEquals(expected, actual);
+
+		expected = true;
+		actual = ObjectExtensions.isNotDefaultValue(Company.class, company);
+		assertEquals(expected, actual);
+
+		expected = false;
+		actual = ObjectExtensions.isNotDefaultValue(Company.class, null);
+		assertEquals(expected, actual);
+
+	}
+
+	/**
+	 * Test method for {@link ObjectExtensions} with {@link BeanTester}
+	 */
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
+	public void testWithBeanTester()
+	{
+		final BeanTester beanTester = new BeanTester();
+		beanTester.testBean(ObjectExtensions.class);
+	}
+
 
 }

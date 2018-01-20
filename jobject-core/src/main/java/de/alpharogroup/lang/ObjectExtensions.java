@@ -63,6 +63,22 @@ public final class ObjectExtensions
 	}
 
 	/**
+	 * Checks if the given object has not the default value.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param fieldClass
+	 *            the field class
+	 * @param object
+	 *            the object
+	 * @return true, if the given object has not the default value
+	 */
+	public static final <T> boolean isNotDefaultValue(final Class<?> fieldClass, final T object)
+	{
+		return !isDefaultValue(fieldClass, object);
+	}
+
+	/**
 	 * Gets the {@link ClassType} from the given class.
 	 *
 	 * @param <T>

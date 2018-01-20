@@ -35,6 +35,8 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.beanutils.BeanComparator;
+import org.meanbean.test.BeanTestException;
+import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.test.objects.Person;
@@ -243,7 +245,6 @@ public class CompareObjectExtensionsTest
 	public void testGetCompareToResult()
 		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
 	{
-		// TODO
 		int expected;
 		int actual;
 
@@ -258,6 +259,17 @@ public class CompareObjectExtensionsTest
 		actual = compareToResult.size();
 
 		assertEquals("size of map should be 5 but is " + actual + ".", expected, actual);
+	}
+
+	/**
+	 * Test method for {@link CompareObjectExtensions} with {@link BeanTester}
+	 */
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
+	public void testWithBeanTester()
+	{
+		BeanTester beanTester = new BeanTester();
+		beanTester.testBean(CompareObjectExtensions.class);
 	}
 
 }

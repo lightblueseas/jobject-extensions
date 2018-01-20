@@ -29,7 +29,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.io.OutputStream;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
@@ -37,14 +36,12 @@ import org.apache.commons.beanutils.BeanUtils;
 
 import de.alpharogroup.reflection.ReflectionExtensions;
 import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link CopyObjectExtensions} provide methods for copy an original object to a given
  * destination object.
  */
 @UtilityClass
-@Slf4j
 public final class CopyObjectExtensions
 {
 
@@ -113,62 +110,6 @@ public final class CopyObjectExtensions
 	}
 
 	/**
-	 * Copy quietly the given original object to the given destination object.
-	 *
-	 * @param <DESTINATION>
-	 *            the generic type of the destination object.
-	 * @param <ORIGINAL>
-	 *            the generic type of the original object.
-	 * @param original
-	 *            the original object.
-	 * @param destination
-	 *            the destination object.
-	 * @return the destination object or null if the copy process failed.
-	 */
-	public static final <ORIGINAL, DESTINATION> DESTINATION copyQuietly(final ORIGINAL original,
-		final DESTINATION destination)
-	{
-		try
-		{
-			return copy(original, destination);
-		}
-		catch (final IllegalAccessException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
-			return null;
-		}
-		catch (final InvocationTargetException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
-			return null;
-		}
-		catch (final IllegalArgumentException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
-			return null;
-		}
-	}
-
-	/**
-	 * Checks if is copyable and copies if its possible otherwise it returns false.
-	 *
-	 * @param <DESTINATION>
-	 *            the generic type of the destination object.
-	 * @param <ORIGINAL>
-	 *            the generic type of the original object.
-	 * @param original
-	 *            the original object.
-	 * @param destination
-	 *            the destination object.
-	 * @return true, if is copyable otherwise false.
-	 */
-	public static final <DESTINATION, ORIGINAL> boolean isCopyable(final ORIGINAL original,
-		final DESTINATION destination)
-	{
-		return copyQuietly(original, destination) != null;
-	}
-
-	/**
 	 * Copys the given Object and returns the copy from the object or null if the object can't be
 	 * serialized.
 	 *
@@ -187,68 +128,20 @@ public final class CopyObjectExtensions
 	public static <T extends Serializable> T copySerializedObject(final T orig)
 		throws IOException, ClassNotFoundException
 	{
-		T object = null;
-		ByteArrayOutputStream byteArrayOutputStream = null;
-		ObjectOutputStream objectOutputStream = null;
-		try
+		try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);)
 		{
-			byteArrayOutputStream = new ByteArrayOutputStream();
-			objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);
 			objectOutputStream.writeObject(orig);
 			objectOutputStream.flush();
 			objectOutputStream.close();
 			final ByteArrayInputStream bis = new ByteArrayInputStream(
 				byteArrayOutputStream.toByteArray());
 			final ObjectInputStream ois = new ObjectInputStream(bis);
-			object = (T)ois.readObject();
+			T object = (T)ois.readObject();
+			byteArrayOutputStream.close();
+			ois.close();
+			return object;
 		}
-		finally
-		{
-			closeOutputStream(byteArrayOutputStream);
-			closeOutputStream(objectOutputStream);
-		}
-		return object;
-	}
-
-	/**
-	 * Closes the given OutputStream.
-	 *
-	 * @param out
-	 *            The OutputStream to close.
-	 * @return Returns true if the OutputStream is closed otherwise false.
-	 */
-	public static boolean closeOutputStream(OutputStream out)
-	{
-		boolean closed = true;
-		try
-		{
-			if (out != null)
-			{
-				out.flush();
-				out.close();
-				out = null;
-			}
-		}
-		catch (final IOException e)
-		{
-			closed = false;
-		}
-		finally
-		{
-			try
-			{
-				if (out != null)
-				{
-					out.flush();
-					out.close();
-				}
-			}
-			catch (final IOException e)
-			{
-				closed = false;
-			}
-		}
-		return closed;
 	}
 
 }

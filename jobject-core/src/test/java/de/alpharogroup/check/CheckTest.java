@@ -34,6 +34,7 @@ import java.util.Map;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.meanbean.test.BeanTester;
 
 import de.alpharogroup.test.objects.Person;
 
@@ -47,6 +48,7 @@ public class CheckTest
 	 */
 	@Rule
 	public ExpectedException throwable = ExpectedException.none();
+
 
 	/**
 	 * Test method for {@link Check#get()}
@@ -291,6 +293,16 @@ public class CheckTest
 
 		Check check = Check.get().notNull(Person.builder().build(), name);
 		assertNotNull(check);
+	}
+
+	/**
+	 * Test method for {@link Check} with {@link BeanTester}
+	 */
+	@Test
+	public void testWithBeanTester()
+	{
+		BeanTester beanTester = new BeanTester();
+		beanTester.testBean(Check.class);
 	}
 
 }

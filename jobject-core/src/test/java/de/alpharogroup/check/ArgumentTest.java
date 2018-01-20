@@ -35,6 +35,8 @@ import java.util.Map;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.ExpectedException;
+import org.meanbean.test.BeanTestException;
+import org.meanbean.test.BeanTester;
 
 
 /**
@@ -182,6 +184,17 @@ public class ArgumentTest
 		throwable.expectMessage("Given argument '" + name + "' may not be null.");
 
 		Argument.notNull(null, name);
+	}
+
+	/**
+	 * Test method for {@link Argument} with {@link BeanTester}
+	 */
+	@Test
+	public void testWithBeanTester()
+	{
+		throwable.expect(BeanTestException.class);
+		BeanTester beanTester = new BeanTester();
+		beanTester.testBean(Argument.class);
 	}
 
 }

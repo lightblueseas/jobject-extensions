@@ -32,7 +32,7 @@ import java.lang.reflect.Method;
 import org.apache.commons.beanutils.PropertyUtils;
 
 import de.alpharogroup.check.Check;
-import de.alpharogroup.copy.object.CopyObjectExtensions;
+import de.alpharogroup.copy.object.CopyObjectQuietlyExtensions;
 import de.alpharogroup.lang.ObjectExtensions;
 import de.alpharogroup.reflection.ReflectionExtensions;
 import lombok.experimental.UtilityClass;
@@ -180,7 +180,7 @@ public final class MergeObjectExtensions
 		MERGE_IN merged = mergeQuietly(mergeInObject, withObject);
 		if (merged == null)
 		{
-			merged = CopyObjectExtensions.copyQuietly(withObject, mergeInObject);
+			merged = CopyObjectQuietlyExtensions.copyQuietly(withObject, mergeInObject);
 		}
 		return merged;
 	}

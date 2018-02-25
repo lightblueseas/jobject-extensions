@@ -6,7 +6,7 @@ Version 1.9.0-SNAPSHOT
 
 ADDED:
  
-- 
+- new method setFieldValue in ReflectionExtensions for set value over class
 
 Version 1.8.0
 -------------

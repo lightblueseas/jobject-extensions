@@ -267,7 +267,7 @@ public class ReflectionExtensionsTest
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	@Test
-	public void testSetFieldValue() throws NoSuchFieldException, SecurityException,
+	public void testSetFieldValueObject() throws NoSuchFieldException, SecurityException,
 		IllegalArgumentException, IllegalAccessException
 	{
 		String expected;
@@ -279,4 +279,44 @@ public class ReflectionExtensionsTest
 		assertEquals(expected, actual);
 	}
 
+	/**
+	 * Test method for {@link ReflectionExtensions#setFieldValue(Class, String, Object)}.
+	 *
+	 * @throws NoSuchFieldException
+	 *             is thrown if no such field exists.
+	 * @throws SecurityException
+	 *             is thrown if a security manager says no.
+	 * @throws IllegalArgumentException
+	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
+	 * @throws IllegalAccessException
+	 *             is thrown if an illegal on create an instance or access a method.
+	 */
+	@Test
+	public void testSetFieldValueWithClass() throws NoSuchFieldException, SecurityException,
+		IllegalArgumentException, IllegalAccessException
+	{
+		String expected;
+		String actual;
+
+		ReflectionExtensions.setFieldValue(StaticBox.class, "value", "Leo");
+		actual = StaticBox.getValue();
+		expected = "Leo";
+		assertEquals(expected, actual);
+
+		ReflectionExtensions.setFieldValue(StaticBox.class, "value", null);
+		actual = StaticBox.getValue();
+		expected = null;
+		assertEquals(expected, actual);
+	}
+
+}
+
+class StaticBox
+{
+	private static String value;
+
+	public static String getValue()
+	{
+		return value;
+	}
 }

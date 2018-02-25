@@ -33,6 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 
@@ -100,6 +101,35 @@ public final class ReflectionExtensions
 		final Field sourceField = getDeclaredField(source, fieldName);
 		sourceField.setAccessible(true);
 		sourceField.set(source, newValue);
+	}
+
+	/**
+	 * Sets the field value of the given class object over the field name.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param cls
+	 *            The class
+	 * @param fieldName
+	 *            the field name
+	 * @param newValue
+	 *            the new value
+	 * @throws NoSuchFieldException
+	 *             is thrown if no such field exists.
+	 * @throws SecurityException
+	 *             is thrown if a security manager says no.
+	 * @throws IllegalArgumentException
+	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
+	 * @throws IllegalAccessException
+	 *             is thrown if an illegal on create an instance or access a method.
+	 */
+	public static <T> void setFieldValue(final Class<?> cls, final String fieldName,
+		final Object newValue) throws NoSuchFieldException, SecurityException,
+		IllegalArgumentException, IllegalAccessException
+	{
+		final Field sourceField = getDeclaredField(cls, fieldName);
+		sourceField.setAccessible(true);
+		sourceField.set(null, newValue);
 	}
 
 	/**
@@ -258,11 +288,10 @@ public final class ReflectionExtensions
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
 	 */
-	public static <T> Field getDeclaredField(final T object, final String fieldName)
+	public static <T> Field getDeclaredField(@NonNull final T object, final String fieldName)
 		throws NoSuchFieldException, SecurityException
 	{
-		final Field field = object.getClass().getDeclaredField(fieldName);
-		return field;
+		return getDeclaredField(object.getClass(), fieldName);
 	}
 
 	/**

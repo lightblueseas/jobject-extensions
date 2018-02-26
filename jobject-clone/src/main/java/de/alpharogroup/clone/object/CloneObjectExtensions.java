@@ -166,18 +166,18 @@ public final class CloneObjectExtensions
 		// Try to clone the object if it implements Serializable.
 		if (clone == null && object instanceof Serializable)
 		{
-			clone = CopyObjectExtensions.copySerializedObject((Serializable)object);
+			Serializable serializableObject = (Serializable)object;
+			clone = CopyObjectExtensions.copySerializedObject(serializableObject);
 			if (clone != null)
 			{
 				return clone;
 			}
 		}
 		// Try to clone the object by copying all his properties with
-		// the BeanUtils.copyProperties() method.
+		// the BeanUtils.cloneBean() method.
 		if (clone == null)
 		{
-			clone = object.getClass().newInstance();
-			BeanUtils.copyProperties(clone, object);
+			clone = BeanUtils.cloneBean(object);
 		}
 		return clone;
 	}

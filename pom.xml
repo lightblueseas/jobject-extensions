@@ -68,7 +68,7 @@
 	<dependencyManagement>
 
 		<dependencies>
-
+			<!-- COMMONS-BEANUTILS DEPENDENCY -->
 			<dependency>
 				<groupId>commons-beanutils</groupId>
 				<artifactId>commons-beanutils</artifactId>

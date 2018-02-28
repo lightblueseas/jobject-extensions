@@ -8,6 +8,10 @@ ADDED:
  
 - new method setFieldValue in ReflectionExtensions for set value over class
 
+CHANGED:
+
+- update of parent version to 3.8.0
+
 Version 1.8.0
 -------------
 

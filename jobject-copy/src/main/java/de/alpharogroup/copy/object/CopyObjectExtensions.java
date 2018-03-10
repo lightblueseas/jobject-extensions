@@ -3,24 +3,20 @@
  *
  * Copyright (C) 2015 Asterios Raptis
  *
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
- * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package de.alpharogroup.copy.object;
 
@@ -81,7 +77,8 @@ public final class CopyObjectExtensions
 	}
 
 	/**
-	 * Copy the given original object to the given destination object.
+	 * A delegate method to {@link CopyObjectExtensions#copyProperties(Object, Object)} for copy the
+	 * given original object to the given destination object.
 	 *
 	 * @param <DESTINATION>
 	 *            the generic type of the destination object.
@@ -102,6 +99,35 @@ public final class CopyObjectExtensions
 	 *             the relevant converter has not been registered.
 	 */
 	public static final <ORIGINAL, DESTINATION> DESTINATION copy(final ORIGINAL original,
+		final DESTINATION destination)
+		throws IllegalAccessException, InvocationTargetException, IllegalArgumentException
+	{
+		return copyProperties(original, destination);
+	}
+
+	/**
+	 * Copy the given original object to the given destination object. Note: this method decorates
+	 * the method of {@link BeanUtils#copyProperties(Object, Object)}
+	 *
+	 * @param <DESTINATION>
+	 *            the generic type of the destination object.
+	 * @param <ORIGINAL>
+	 *            the generic type of the original object.
+	 * @param original
+	 *            the original object.
+	 * @param destination
+	 *            the destination object.
+	 * @return the destination object.
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InvocationTargetException
+	 *             if the property accessor method throws an exception
+	 * @throws IllegalArgumentException
+	 *             if the <code>destination</code> or <code>original</code> argument is null or if
+	 *             the <code>destination</code> property type is different from the source type and
+	 *             the relevant converter has not been registered.
+	 */
+	public static final <ORIGINAL, DESTINATION> DESTINATION copyProperties(final ORIGINAL original,
 		final DESTINATION destination)
 		throws IllegalAccessException, InvocationTargetException, IllegalArgumentException
 	{

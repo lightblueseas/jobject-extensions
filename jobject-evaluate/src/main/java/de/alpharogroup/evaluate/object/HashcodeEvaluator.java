@@ -123,7 +123,8 @@ public final class HashcodeEvaluator
 		}
 		if (!object.equals(anotherObject))
 		{
-			if(anotherObject == null) {
+			if (anotherObject == null)
+			{
 				return true;
 			}
 			return object.hashCode() != anotherObject.hashCode();

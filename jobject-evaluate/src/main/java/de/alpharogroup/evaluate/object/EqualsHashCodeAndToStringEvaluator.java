@@ -59,7 +59,8 @@ public final class EqualsHashCodeAndToStringEvaluator
 		final T third, final T fourth)
 	{
 		final boolean evaluated = true;
-		if(first == null) {
+		if (first == null)
+		{
 			return false;
 		}
 		if (first.equals(second))
@@ -239,7 +240,8 @@ public final class EqualsHashCodeAndToStringEvaluator
 		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
 		InstantiationException, IOException
 	{
-		if(cls == null) {
+		if (cls == null)
+		{
 			return false;
 		}
 		final T first = EnhancedRandom.random(cls);

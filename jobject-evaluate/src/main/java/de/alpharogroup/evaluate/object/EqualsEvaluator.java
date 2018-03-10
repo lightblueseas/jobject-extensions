@@ -79,7 +79,7 @@ public final class EqualsEvaluator
 	 */
 	public static <T> boolean evaluateSymmetric(T object, T anotherObject)
 	{
-		if (object == null)
+		if (object == null || anotherObject == null)
 		{
 			return false;
 		}
@@ -112,7 +112,7 @@ public final class EqualsEvaluator
 	 */
 	public static <T> boolean evaluateTransitivity(T a, T b, T c)
 	{
-		if (a == null)
+		if (a == null || b == null)
 		{
 			return false;
 		}
@@ -205,7 +205,7 @@ public final class EqualsEvaluator
 	 */
 	public static <T> boolean evaluateConsistency(T object, T anotherObject, int iterations)
 	{
-		if (object == null)
+		if (object == null || anotherObject == null)
 		{
 			return false;
 		}

@@ -4,6 +4,10 @@
 Version 1.10.0-SNAPSHOT
 -------------
 
+CHANGED:
+
+- removed deprecated method closeOutputStream
+
 Version 1.9.1
 -------------
 

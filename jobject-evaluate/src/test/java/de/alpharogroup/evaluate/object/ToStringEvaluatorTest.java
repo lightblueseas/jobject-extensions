@@ -62,7 +62,7 @@ public class ToStringEvaluatorTest
 	 * Test method for {@link ToStringEvaluator#evaluateConsistency(Object)}.
 	 */
 	@Test
-	public void testEvaluateConsistencyT() throws Exception
+	public void testEvaluateConsistency() throws Exception
 	{
 		boolean expected;
 		boolean actual;
@@ -75,7 +75,7 @@ public class ToStringEvaluatorTest
 	 * Test method for {@link ToStringEvaluator#evaluateConsistency(Object, int)}.
 	 */
 	@Test
-	public void testEvaluateConsistencyTInt() throws Exception
+	public void testEvaluateConsistencyWithIterations() throws Exception
 	{
 		boolean expected;
 		boolean actual;

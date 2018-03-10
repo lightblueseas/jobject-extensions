@@ -22,44 +22,40 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
+/**
+ * 
+ */
 package de.alpharogroup.evaluate.object;
 
-import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
+import static org.testng.AssertJUnit.assertEquals;
 
-import lombok.experimental.UtilityClass;
+import org.testng.annotations.Test;
 
 /**
- * The class {@link SilentEqualsHashCodeAndToStringEvaluator} evaluates classes in a silent manner
+ * The unit test class for the class {@link SilentEqualsHashCodeAndToStringEvaluator}.
  */
-@UtilityClass
-public final class SilentEqualsHashCodeAndToStringEvaluator
+public class SilentEqualsHashCodeAndToStringEvaluatorTest
 {
 
 	/**
-	 * Evaluates all the contract conditions for the methods {@link Object#equals(Object)},
-	 * {@link Object#hashCode()} and {@link Object#toString()} from the given {@link Class}.
-	 *
-	 * @param <T>
-	 *            the generic type
-	 * @param cls
-	 *            the class
-	 * @return true, if all contract conditions for the methods {@link Object#equals(Object)},
-	 *         {@link Object#hashCode()} and {@link Object#toString()} is given otherwise false
+	 * Test method for {@link SilentEqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeAndToStringQuietly(Class)}.
 	 */
-	public static <T> boolean evaluateEqualsHashcodeAndToStringQuietly(Class<T> cls)
+	@Test
+	public void testEvaluateEqualsHashcodeAndToStringQuietly() throws Exception
 	{
-		boolean evaluated;
-		try
-		{
-			evaluated = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(cls);
-		}
-		catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException
-			| InstantiationException | IOException e)
-		{
-			evaluated = false;
-		}
-		return evaluated;
+		boolean expected;
+		boolean actual;
+		actual = SilentEqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToStringQuietly(Integer.class);
+		expected = true;
+		assertEquals(expected, actual);
+
+		actual = SilentEqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToStringQuietly(String.class);
+		expected = true;
+		assertEquals(expected, actual);
+
+		actual = SilentEqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToStringQuietly(null);
+		expected = false;
+		assertEquals(expected, actual);
 	}
 
 }

@@ -180,7 +180,7 @@ public class EqualsEvaluatorTest
 	 * Test method for {@link EqualsEvaluator#evaluateConsistency(Object, Object, int)}.
 	 */
 	@Test
-	public void testEvaluateConsistencyWithInt() throws Exception
+	public void testEvaluateConsistencyWithIterations() throws Exception
 	{
 		boolean expected;
 		boolean actual;

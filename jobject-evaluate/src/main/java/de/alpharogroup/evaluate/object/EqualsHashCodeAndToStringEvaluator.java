@@ -27,8 +27,7 @@ package de.alpharogroup.evaluate.object;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.commons.beanutils.BeanUtils;
-
+import de.alpharogroup.clone.object.CloneObjectQuietlyExtensions;
 import io.github.benas.randombeans.api.EnhancedRandom;
 import lombok.experimental.UtilityClass;
 
@@ -60,6 +59,9 @@ public final class EqualsHashCodeAndToStringEvaluator
 		final T third, final T fourth)
 	{
 		final boolean evaluated = true;
+		if(first == null) {
+			return false;
+		}
 		if (first.equals(second))
 		{
 			return false;
@@ -237,10 +239,13 @@ public final class EqualsHashCodeAndToStringEvaluator
 		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
 		InstantiationException, IOException
 	{
+		if(cls == null) {
+			return false;
+		}
 		final T first = EnhancedRandom.random(cls);
 		final T second = EnhancedRandom.random(cls);
-		final T third = (T)BeanUtils.cloneBean(first);
-		final T fourth = (T)BeanUtils.cloneBean(third);
+		final T third = (T)CloneObjectQuietlyExtensions.cloneObjectQuietly(first);
+		final T fourth = (T)CloneObjectQuietlyExtensions.cloneObjectQuietly(third);
 
 		return EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(first, second,
 			third, fourth);

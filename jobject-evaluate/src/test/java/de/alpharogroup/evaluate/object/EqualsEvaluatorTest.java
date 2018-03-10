@@ -5,7 +5,7 @@ import static org.testng.AssertJUnit.assertEquals;
 import org.testng.annotations.Test;
 
 /**
- * The unit test class for the class {@link EqualsEvaluatorTest}.
+ * The unit test class for the class {@link EqualsEvaluator}.
  */
 public class EqualsEvaluatorTest
 {

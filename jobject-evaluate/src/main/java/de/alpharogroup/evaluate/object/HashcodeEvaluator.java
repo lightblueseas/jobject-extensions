@@ -119,6 +119,9 @@ public final class HashcodeEvaluator
 		}
 		if (!object.equals(anotherObject))
 		{
+			if(anotherObject == null) {
+				return true;
+			}
 			return object.hashCode() != anotherObject.hashCode();
 		}
 		throw new IllegalArgumentException(

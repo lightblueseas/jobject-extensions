@@ -1,16 +1,18 @@
 ## Change log
 ----------------------
 
-Version 1.9.0-SNAPSHOT
+Version 1.9.0
 -------------
 
 ADDED:
- 
+
+- new project created for evaluate java objects
 - new method setFieldValue in ReflectionExtensions for set value over class
+- new methods for copy and clone created
 
 CHANGED:
 
-- update of parent version to 3.8.0
+- update of parent version to 3.9.0
 
 Version 1.8.0
 -------------

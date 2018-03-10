@@ -53,12 +53,13 @@ Than you can add the dependency to your dependencies:
 	<properties>
 			...
 		<!-- JOBJECT-EXTENSIONS versions -->
-		<jobject-extensions.version>1.8.0</jobject-extensions.version>		
+		<jobject-extensions.version>1.9.0</jobject-extensions.version>		
 		<jobject-clone.version>${jobject-extensions.version}</jobject-clone.version>
 		<jobject-compare.version>${jobject-extensions.version}</jobject-compare.version>
 		<jobject-copy.version>${jobject-extensions.version}</jobject-copy.version>
 		<jobject-core.version>${jobject-extensions.version}</jobject-core.version>
 		<jobject-diff.version>${jobject-extensions.version}</jobject-diff.version>
+		<jobject-evaluate.version>${jobject-extensions.version}</jobject-evaluate.version>
 		<jobject-merge.version>${jobject-extensions.version}</jobject-merge.version>
 			...
 	</properties>
@@ -134,6 +135,20 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 		</dependencies>
 
 
+Add the following maven dependency to your project `pom.xml` if you want to import only the jobject-evaluate:
+
+		<dependencies>
+			...
+			<!-- JOBJECT-EVALUATE DEPENDENCY -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-evaluate</artifactId>
+				<version>${jobject-evaluate.version}</version>
+			</dependency>
+			...
+		</dependencies>
+
+
 Add the following maven dependency to your project `pom.xml` if you want to import only the jobject-merge:
 
 		<dependencies>
@@ -182,6 +197,12 @@ You can of course import all dependencies of jobject-extensions:
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-diff</artifactId>
 				<version>${jobject-diff.version}</version>
+			</dependency>
+			<!-- JOBJECT-EVALUATE DEPENDENCY -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-evaluate</artifactId>
+				<version>${jobject-evaluate.version}</version>
 			</dependency>
 			<!-- JOBJECT-MERGE DEPENDENCY -->
 			<dependency>

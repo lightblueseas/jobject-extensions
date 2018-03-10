@@ -3,24 +3,20 @@
  *
  * Copyright (C) 2015 Asterios Raptis
  *
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
- * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package de.alpharogroup.reflection;
 
@@ -33,6 +29,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 
@@ -103,12 +100,41 @@ public final class ReflectionExtensions
 	}
 
 	/**
-	 * Gets all fieldnames from the given class as an String array.
+	 * Sets the field value of the given class object over the field name.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param cls
+	 *            The class
+	 * @param fieldName
+	 *            the field name
+	 * @param newValue
+	 *            the new value
+	 * @throws NoSuchFieldException
+	 *             is thrown if no such field exists.
+	 * @throws SecurityException
+	 *             is thrown if a security manager says no.
+	 * @throws IllegalArgumentException
+	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
+	 * @throws IllegalAccessException
+	 *             is thrown if an illegal on create an instance or access a method.
+	 */
+	public static <T> void setFieldValue(final Class<?> cls, final String fieldName,
+		final Object newValue) throws NoSuchFieldException, SecurityException,
+		IllegalArgumentException, IllegalAccessException
+	{
+		final Field sourceField = getDeclaredField(cls, fieldName);
+		sourceField.setAccessible(true);
+		sourceField.set(null, newValue);
+	}
+
+	/**
+	 * Gets all field names from the given class as an String list.
 	 *
 	 * @param cls
-	 *            The class object to get the fieldnames.
+	 *            The class object to get the field names.
 	 *
-	 * @return Gets all fieldnames from the given class as an String array.
+	 * @return Gets all field names from the given class as an String list.
 	 */
 	public static List<String> getFieldNames(final Class<?> cls)
 	{
@@ -122,12 +148,12 @@ public final class ReflectionExtensions
 	}
 
 	/**
-	 * Gets all methodnames from the given class as an String array.
+	 * Gets all method names from the given class as an String array.
 	 *
 	 * @param cls
-	 *            The class object to get the methodnames.
+	 *            The class object to get the method names.
 	 *
-	 * @return Gets all methodnames from the given class as an String array.
+	 * @return Gets all method names from the given class as an String array.
 	 */
 	public static String[] getMethodNames(final Class<?> cls)
 	{
@@ -142,12 +168,12 @@ public final class ReflectionExtensions
 
 	/**
 	 * Generates a Map with the fieldName as key and the method as value. Concatenates the given
-	 * prefix and the fieldname and puts the result into the map.
+	 * prefix and the field name and puts the result into the map.
 	 *
 	 * @param fieldNames
-	 *            A list with the fieldNames.
+	 *            A list with the field names.
 	 * @param prefix
-	 *            The prefix for the methodname.
+	 *            The prefix for the method name.
 	 *
 	 * @return the method names with prefix from field names
 	 */
@@ -202,23 +228,23 @@ public final class ReflectionExtensions
 	 *
 	 * @param <T>
 	 *            the generic type
-	 * @param obj
-	 *            the obj
+	 * @param object
+	 *            the object
 	 * @return the new instance
 	 * @throws ClassNotFoundException
 	 *             is thrown if the class cannot be located
 	 * @throws IllegalAccessException
-	 *             is thrown if the class or its nullary constructor is not accessible.
+	 *             is thrown if the class or its default constructor is not accessible.
 	 * @throws InstantiationException
 	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
-	 *             array class, a primitive type, or void; or if the class has no nullary
+	 *             array class, a primitive type, or void; or if the class has no default
 	 *             constructor; or if the instantiation fails for some other reason.
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T newInstance(final T obj)
+	public static <T> T newInstance(final T object)
 		throws InstantiationException, IllegalAccessException, ClassNotFoundException
 	{
-		return newInstance((Class<T>)Class.forName(obj.getClass().getCanonicalName()));
+		return newInstance((Class<T>)Class.forName(object.getClass().getCanonicalName()));
 	}
 
 	/**
@@ -230,10 +256,10 @@ public final class ReflectionExtensions
 	 *            the Class object
 	 * @return the new instance
 	 * @throws IllegalAccessException
-	 *             is thrown if the class or its nullary constructor is not accessible.
+	 *             is thrown if the class or its default constructor is not accessible.
 	 * @throws InstantiationException
 	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
-	 *             array class, a primitive type, or void; or if the class has no nullary
+	 *             array class, a primitive type, or void; or if the class has no default
 	 *             constructor; or if the instantiation fails for some other reason.
 	 */
 
@@ -258,18 +284,17 @@ public final class ReflectionExtensions
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
 	 */
-	public static <T> Field getDeclaredField(final T object, final String fieldName)
+	public static <T> Field getDeclaredField(@NonNull final T object, final String fieldName)
 		throws NoSuchFieldException, SecurityException
 	{
-		final Field field = object.getClass().getDeclaredField(fieldName);
-		return field;
+		return getDeclaredField(object.getClass(), fieldName);
 	}
 
 	/**
 	 * Gets the {@link Field} that match to the given field name that exists in the given class.
 	 *
 	 * @param cls
-	 *            the cls
+	 *            the class object
 	 * @param fieldName
 	 *            the field name
 	 * @return the declared field

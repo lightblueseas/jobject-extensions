@@ -3,24 +3,20 @@
  *
  * Copyright (C) 2015 Asterios Raptis
  *
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
- * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package de.alpharogroup.clone.object;
 
@@ -28,8 +24,9 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 
+import org.meanbean.test.BeanTestException;
+import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.date.CreateDateExtensions;
@@ -44,20 +41,19 @@ public class CloneObjectExtensionsTest
 {
 
 	/**
-	 * Factory method for create new {@link Array} from the given optional elements.
+	 * Factory method for create new Array from the given optional elements.
 	 *
 	 * @param <T>
 	 *            the generic type of the elements
 	 * @param elements
-	 *            the optional elements to be added in the new {@link ArrayList}.
-	 * @return the new {@link Array}.
+	 *            the optional elements to be added in the new Array.
+	 * @return the new Array.
 	 */
 	@SafeVarargs
 	public static <T> T[] newArray(final T... elements)
 	{
 		return elements;
 	}
-
 
 	/**
 	 * Test method for {@link CloneObjectExtensions#clone(Object)}.
@@ -110,16 +106,20 @@ public class CloneObjectExtensionsTest
 		actual = CloneObjectExtensions.clone(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
+		expected = null;
+		actual = CloneObjectExtensions.clone(null);
+		assertEquals(expected, actual);
 
 	}
 
-
+	/**
+	 * Test method for {@link CloneObjectExtensions#clone(Object)} with an array.
+	 */
 	@Test(enabled = true)
 	public void testCloneArray() throws NoSuchMethodException, SecurityException,
 		IllegalAccessException, IllegalArgumentException, InvocationTargetException,
 		ClassNotFoundException, InstantiationException, IOException
 	{
-		// TODO create szenario with no serializable...
 		String[] expected;
 		String[] actual;
 
@@ -187,53 +187,38 @@ public class CloneObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link CloneObjectExtensions#cloneObjectQuietly(Object)}.
+	 * Test method for {@link CloneObjectExtensions#clone(Object)} with an array with primitive
+	 * values.
 	 */
 	@Test(enabled = true)
-	public void testCloneObjectQuietly()
+	public void testClonePrimitiveArray() throws NoSuchMethodException, SecurityException,
+		IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+		ClassNotFoundException, InstantiationException, IOException
 	{
+		// TODO create szenario with no serializable...
+		int[] expected;
+		int[] actual;
 
-		Object expected;
-		Object actual;
-
-		expected = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 04);
-		actual = CloneObjectExtensions.cloneObjectQuietly(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
-
-
-		expected = "Hy there...";
-		actual = CloneObjectExtensions.cloneObjectQuietly(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
-
-		expected = A.builder().a("a").build();
-		actual = CloneObjectExtensions.cloneObjectQuietly(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
-
+		expected = new int[2];
+		expected[0] = 1;
+		expected[1] = 2;
+		actual = CloneObjectExtensions.clone(expected);
+		for (int i = 0; i < actual.length; i++)
+		{
+			assertEquals("Cloned object should be equal with the source object.", expected[i],
+				actual[i]);
+		}
 	}
 
 	/**
-	 * Test method for {@link CloneObjectExtensions#cloneQuietly(Object)}.
+	 * Test method for {@link CloneObjectExtensions} with {@link BeanTester}
 	 */
-	@Test(enabled = true)
-	public void testCloneQuietly()
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
+	public void testWithBeanTester()
 	{
-
-		Object expected;
-		Object actual;
-
-		expected = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 04);
-		actual = CloneObjectExtensions.cloneQuietly(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
-
-
-		expected = "Hy there...";
-		actual = CloneObjectExtensions.cloneQuietly(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
-
-		expected = A.builder().a("a").build();
-		actual = CloneObjectExtensions.cloneQuietly(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
-
+		final BeanTester beanTester = new BeanTester();
+		beanTester.testBean(CloneObjectExtensions.class);
 	}
 
 }

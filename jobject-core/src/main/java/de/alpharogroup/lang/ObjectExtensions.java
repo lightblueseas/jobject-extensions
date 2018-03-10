@@ -3,24 +3,20 @@
  *
  * Copyright (C) 2015 Asterios Raptis
  *
- * Permission is hereby granted, free of charge, to any person obtaining
- * a copy of this software and associated documentation files (the
- * "Software"), to deal in the Software without restriction, including
- * without limitation the rights to use, copy, modify, merge, publish,
- * distribute, sublicense, and/or sell copies of the Software, and to
- * permit persons to whom the Software is furnished to do so, subject to
- * the following conditions:
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
  *
- * The above copyright notice and this permission notice shall be
- * included in all copies or substantial portions of the Software.
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
  *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
- * EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
- * MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
- * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
- * LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
- * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
- * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
 package de.alpharogroup.lang;
 
@@ -31,32 +27,11 @@ import lombok.experimental.UtilityClass;
 
 /**
  * The class {@link ObjectExtensions} provides extension methods to check if the object is the
- * default value. It also provides methods to find changed data between Objects.
+ * default value.
  */
 @UtilityClass
 public final class ObjectExtensions
 {
-
-	/**
-	 * Checks if the given object has the default value.
-	 *
-	 * @param <T>
-	 *            the generic type
-	 * @param object
-	 *            the object
-	 * @return true, if is default value
-	 * @deprecated use instead the same name method with class and object arguments
-	 */
-	@SuppressWarnings("unchecked")
-	@Deprecated
-	public static final <T> boolean isDefaultValue(final T object)
-	{
-		if (object == null)
-		{
-			return true;
-		}
-		return isDefaultValue((Class<T>)object.getClass(), object);
-	}
 
 	/**
 	 * Checks if the given object has the default value.
@@ -69,13 +44,13 @@ public final class ObjectExtensions
 	 *            the object
 	 * @return true, if is default value
 	 */
-	public static final <T> boolean isDefaultValue(final Class<T> fieldClass, final T object)
+	public static final <T> boolean isDefaultValue(final Class<?> fieldClass, final T object)
 	{
 		if (object == null)
 		{
 			return true;
 		}
-		final T defaultValue = DefaultValue.get(fieldClass);
+		final Object defaultValue = DefaultValue.get(fieldClass);
 		if (defaultValue != null)
 		{
 			return DefaultValue.get(fieldClass).equals(object);
@@ -88,31 +63,13 @@ public final class ObjectExtensions
 	 *
 	 * @param <T>
 	 *            the generic type
-	 * @param object
-	 *            the object
-	 * @return true, if the given object has not the default value
-	 * @deprecated use instead the same name method with class and object arguments
-	 */
-	@Deprecated
-	public static final <T> boolean isNotDefaultValue(final T object)
-	{
-		return !isDefaultValue(object);
-	}
-
-	/**
-	 * Checks if the given object has not the default value.
-	 *
-	 * @param <T>
-	 *            the generic type
 	 * @param fieldClass
 	 *            the field class
 	 * @param object
 	 *            the object
 	 * @return true, if the given object has not the default value
-	 * @deprecated use instead the same name method with class and object arguments
 	 */
-	@Deprecated
-	public static final <T> boolean isNotDefaultValue(final Class<T> fieldClass, final T object)
+	public static final <T> boolean isNotDefaultValue(final Class<?> fieldClass, final T object)
 	{
 		return !isDefaultValue(fieldClass, object);
 	}
@@ -128,6 +85,10 @@ public final class ObjectExtensions
 	 */
 	public static <T> ClassType getClassType(final Class<T> clazz)
 	{
+		if (clazz == null)
+		{
+			return null;
+		}
 		if (clazz.isArray())
 		{
 			return ClassType.ARRAY;

@@ -6,11 +6,11 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>mvn-java-parent</artifactId>
-		<version>3.3.0</version>
+		<version>3.9.0</version>
 	</parent>
 
 	<artifactId>jobject-extensions</artifactId>
-	<version>1.5.0</version>
+	<version>1.9.0</version>
 	<packaging>pom</packaging>
 
 	<name>${project.artifactId}</name>
@@ -18,12 +18,14 @@
 	<description>
 		Project that holds different utility classes and extension methods for operating on java objects like clone, compare, copy, diff and merge.
 	</description>
-	
+
 	<url>https://github.com/lightblueseas/jobject-extensions</url>
 
 	<properties>
+		<!-- VINTAGE-TIME version -->
 		<vintage-time.version>4.11.0</vintage-time.version>
-		<test-objects.version>4.17.0</test-objects.version>
+		<!-- TEST-OBJECTS version -->
+		<test-objects.version>4.24.0</test-objects.version>
 		<!-- EXTERNAL LIBRARIES versions -->
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 	</properties>
@@ -34,6 +36,7 @@
 		<module>jobject-clone</module>
 		<module>jobject-core</module>
 		<module>jobject-diff</module>
+		<module>jobject-evaluate</module>
 		<module>jobject-merge</module>
 	</modules>
 
@@ -64,43 +67,43 @@
 	<dependencyManagement>
 
 		<dependencies>
-
+			<!-- COMMONS-BEANUTILS DEPENDENCY -->
 			<dependency>
 				<groupId>commons-beanutils</groupId>
 				<artifactId>commons-beanutils</artifactId>
 				<version>${commons-beanutils.version}</version>
 			</dependency>
-
+			<!-- VINTAGE-TIME DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>vintage-time</artifactId>
 				<version>${vintage-time.version}</version>
 			</dependency>
-
+			<!-- TEST-OBJECTS DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>test-objects</artifactId>
 				<version>${test-objects.version}</version>
 			</dependency>
-
+			<!-- JOBJECT-COPY DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-copy</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
+			<!-- JOBJECT-COMPARE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-compare</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
+			<!-- JOBJECT-CLONE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-clone</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-
+			<!-- JOBJECT-CORE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-core</artifactId>
@@ -110,5 +113,127 @@
 		</dependencies>
 
 	</dependencyManagement>
+
+	<dependencies>
+
+		<!-- MEANBEAN DEPENDENCY -->
+		<dependency>
+			<groupId>org.meanbean</groupId>
+			<artifactId>meanbean</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+	</dependencies>
+
+	<build>
+
+		<resources>
+
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/main/java</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.java</exclude>
+					<exclude>**/package.html</exclude>
+				</excludes>
+			</resource>
+
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/main/resources</directory>
+			</resource>
+
+			<resource>
+				<filtering>false</filtering>
+				<directory>src/site</directory>
+			</resource>
+
+		</resources>
+
+		<testResources>
+
+			<testResource>
+				<filtering>false</filtering>
+				<directory>src/test/java</directory>
+				<includes>
+					<include>**</include>
+				</includes>
+				<excludes>
+					<exclude>**/*.java</exclude>
+					<exclude>**/package.html</exclude>
+				</excludes>
+			</testResource>
+			<testResource>
+				<filtering>false</filtering>
+				<directory>src/test/resources</directory>
+			</testResource>
+
+		</testResources>
+
+		<pluginManagement>
+
+			<plugins>
+
+				<plugin>
+					<groupId>org.codehaus.mojo</groupId>
+					<artifactId>cobertura-maven-plugin</artifactId>
+					<configuration>
+						<instrumentation>
+							<excludes>
+								<!-- enums -->
+								<!-- beans -->
+								<exclude>de/alpharogroup/diff/beans/**/*.class</exclude>
+								<!-- interfaces -->
+								<!-- exceptions -->
+								<!-- deprecated -->
+								<!-- constant classes with only constants -->
+								<!-- explicit bean classes -->
+								<exclude>de/alpharogroup/clone/object/CloneObjectQuietlyExtensions.class</exclude>
+								<exclude>de/alpharogroup/copy/object/CopyObjectQuietlyExtensions.class</exclude>
+								<!-- explicit deprecated classes -->
+								<!-- explicit enums -->
+								<exclude>de/alpharogroup/lang/ClassType.class</exclude>
+								<!-- explicit interfaces -->
+								<!-- explicit constant classes with only constants -->
+								<!-- explicit delegation classes -->
+							</excludes>
+						</instrumentation>
+					</configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>clean</goal>
+							</goals>
+						</execution>
+					</executions>
+				</plugin>
+
+			</plugins>
+
+		</pluginManagement>
+
+		<plugins>
+
+			<plugin>
+				<inherited>true</inherited>
+				<artifactId>maven-compiler-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<inherited>true</inherited>
+				<artifactId>maven-source-plugin</artifactId>
+			</plugin>
+
+			<plugin>
+				<inherited>true</inherited>
+				<artifactId>maven-eclipse-plugin</artifactId>
+			</plugin>
+
+		</plugins>
+
+	</build>
 
 </project>

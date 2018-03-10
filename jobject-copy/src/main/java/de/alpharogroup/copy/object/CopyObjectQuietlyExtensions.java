@@ -20,8 +20,6 @@
  */
 package de.alpharogroup.copy.object;
 
-import java.io.IOException;
-import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
 
 import lombok.experimental.UtilityClass;
@@ -122,49 +120,6 @@ public final class CopyObjectQuietlyExtensions
 			log.error(e.getLocalizedMessage(), e);
 		}
 		return null;
-	}
-
-	/**
-	 * Closes the given OutputStream.
-	 *
-	 * @param out
-	 *            The OutputStream to close.
-	 * @deprecated use instead the try-with-resources Statement. Note: will be removed on next minor
-	 *             version
-	 * @return Returns true if the OutputStream is closed otherwise false.
-	 */
-	public static boolean closeOutputStream(OutputStream out)
-	{
-		boolean closed = true;
-		try
-		{
-			if (out != null)
-			{
-				out.flush();
-				out.close();
-				out = null;
-			}
-		}
-		catch (final IOException e)
-		{
-			closed = false;
-		}
-		finally
-		{
-			try
-			{
-				if (out != null)
-				{
-					out.flush();
-					out.close();
-				}
-			}
-			catch (final IOException e)
-			{
-				closed = false;
-			}
-		}
-		return closed;
 	}
 
 }

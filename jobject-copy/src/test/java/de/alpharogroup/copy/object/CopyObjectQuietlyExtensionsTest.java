@@ -22,14 +22,7 @@ package de.alpharogroup.copy.object;
 
 import static org.testng.AssertJUnit.assertEquals;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.OutputStream;
 import java.lang.reflect.InvocationTargetException;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
@@ -44,34 +37,6 @@ import de.alpharogroup.test.objects.enums.Gender;
  */
 public class CopyObjectQuietlyExtensionsTest
 {
-
-	/**
-	 * Test method for {@link CopyObjectExtensions#closeOutputStream(OutputStream)}.
-	 */
-	@Test(enabled = true)
-	public void testCloseOutputStream() throws FileNotFoundException, URISyntaxException
-	{
-		boolean expected;
-		boolean actual;
-		final URL url = getClass().getClassLoader().getResource("log4j2-test.xml");
-		final OutputStream os = new FileOutputStream(new File(url.toURI()));
-		expected = true;
-		actual = CopyObjectQuietlyExtensions.closeOutputStream(os);
-		assertEquals(expected, actual);
-	}
-
-	/**
-	 * Test method for {@link CopyObjectExtensions#closeOutputStream(OutputStream)}.
-	 */
-	@Test(enabled = true)
-	public void testCloseOutputStreamNull() throws IOException, URISyntaxException
-	{
-		boolean expected;
-		boolean actual;
-		actual = CopyObjectQuietlyExtensions.closeOutputStream(null);
-		expected = true;
-		assertEquals(expected, actual);
-	}
 
 	/**
 	 * Test method for {@link CopyObjectQuietlyExtensions#copyQuietly(Object, Object)}.

@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>mvn-java-parent</artifactId>
-		<version>3.8.0</version>
+		<version>3.9.0</version>
 	</parent>
 
 	<artifactId>jobject-extensions</artifactId>
@@ -25,7 +25,7 @@
 		<!-- VINTAGE-TIME version -->
 		<vintage-time.version>4.11.0</vintage-time.version>
 		<!-- TEST-OBJECTS version -->
-		<test-objects.version>4.23.0</test-objects.version>
+		<test-objects.version>4.24.0</test-objects.version>
 		<!-- EXTERNAL LIBRARIES versions -->
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 	</properties>
@@ -36,6 +36,7 @@
 		<module>jobject-clone</module>
 		<module>jobject-core</module>
 		<module>jobject-diff</module>
+		<module>jobject-evaluate</module>
 		<module>jobject-merge</module>
 	</modules>
 

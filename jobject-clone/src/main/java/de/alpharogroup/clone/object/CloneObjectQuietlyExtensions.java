@@ -27,6 +27,7 @@ package de.alpharogroup.clone.object;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
+import org.apache.commons.beanutils.BeanUtils;
 import org.apache.log4j.Logger;
 
 import lombok.experimental.UtilityClass;
@@ -120,6 +121,31 @@ public final class CloneObjectQuietlyExtensions
 			LOG.error("Try to clone the object with "
 				+ "CopyObjectExtensions.copySerializedObject((Serializable)object) "
 				+ "caused an IOException.", e);
+		}
+		return clone;
+	}
+
+	/**
+	 * Clone the given object quietly.
+	 *
+	 * @param <T>
+	 *            the generic type of the given bean
+	 * @param object
+	 *            the object to clone
+	 * @return the cloned object or null if the clone process failed.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T cloneBeanQuietly(T object)
+	{
+		T clone;
+		try
+		{
+			clone = (T)BeanUtils.cloneBean(object);
+		}
+		catch (IllegalAccessException | InstantiationException | InvocationTargetException
+			| NoSuchMethodException e)
+		{
+			clone = null;
 		}
 		return clone;
 	}

@@ -6,6 +6,7 @@ Version 1.10.0-SNAPSHOT
 
 ADDED:
 
+- new dependency of uk.com.robust-it:cloning in version 1.9.9
 - new clone method for cloneable objects
 - new methods for clone silently 
 - new copyProperties method with single object

@@ -20,8 +20,13 @@
  */
 package de.alpharogroup.copy.object;
 
+import java.io.IOException;
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
+import org.apache.commons.beanutils.BeanUtils;
+
+import de.alpharogroup.reflection.ReflectionExtensions;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,6 +38,48 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public final class CopyObjectQuietlyExtensions
 {
+
+	/**
+	 * Copy the given original object to the given destination object. This also works on private
+	 * fields.
+	 *
+	 * @param <ORIGINAL>
+	 *            the generic type of the original object.
+	 * @param <DESTINATION>
+	 *            the generic type of the destination object.
+	 * @param original
+	 *            the original object.
+	 * @param destination
+	 *            the destination object.
+	 * @param fieldName
+	 *            the field name
+	 * @return the destination object
+	 */
+	public static final <ORIGINAL, DESTINATION> DESTINATION copyPropertyWithReflectionQuietly(
+		final ORIGINAL original, final DESTINATION destination, final String fieldName)
+	{
+		try
+		{
+			ReflectionExtensions.copyFieldValue(original, destination, fieldName);
+		}
+		catch (NoSuchFieldException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (SecurityException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (IllegalArgumentException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (IllegalAccessException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		return destination;
+	}
 
 	/**
 	 * Copy quietly the given original object to the given destination object.
@@ -57,18 +104,16 @@ public final class CopyObjectQuietlyExtensions
 		catch (final IllegalAccessException e)
 		{
 			log.error(e.getLocalizedMessage(), e);
-			return null;
 		}
 		catch (final InvocationTargetException e)
 		{
 			log.error(e.getLocalizedMessage(), e);
-			return null;
 		}
 		catch (final IllegalArgumentException e)
 		{
 			log.error(e.getLocalizedMessage(), e);
-			return null;
 		}
+		return null;
 	}
 
 	/**
@@ -116,6 +161,60 @@ public final class CopyObjectQuietlyExtensions
 			log.error(e.getLocalizedMessage(), e);
 		}
 		catch (InvocationTargetException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		return null;
+	}
+
+	/**
+	 * Copy the given object and return a copy of it. Note: this method decorates the method of
+	 * {@link BeanUtils#copyProperties(Object, Object)} and create a new object for the returned
+	 * object.
+	 *
+	 * @param <T>
+	 *            the generic type of the given object.
+	 * @param original
+	 *            the original object.
+	 * @return the new object that is a copy of the given object.
+	 */
+	public static final <T> T copyPropertiesQuietly(final T original)
+	{
+		T destination = null;
+		try
+		{
+			destination = CopyObjectExtensions.copyProperties(original);
+		}
+		catch (IllegalAccessException | InvocationTargetException | IllegalArgumentException
+			| InstantiationException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		return destination;
+	}
+
+	/**
+	 * Copy quietly the given Object and returns the copy from the object or null if the object
+	 * can't be serialized.
+	 *
+	 * @param <T>
+	 *            the generic type of the given object
+	 * @param orig
+	 *            The object to copy.
+	 * @return Returns a copy from the original object or null if the object can't be serialized.
+	 */
+	public static <T extends Serializable> T copySerializedObjectQuietly(final T orig)
+	{
+		try
+		{
+			T serializedObject = CopyObjectExtensions.copySerializedObject(orig);
+			return serializedObject;
+		}
+		catch (ClassNotFoundException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
+		}
+		catch (IOException e)
 		{
 			log.error(e.getLocalizedMessage(), e);
 		}

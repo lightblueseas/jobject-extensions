@@ -4,6 +4,13 @@
 Version 1.10.0-SNAPSHOT
 -------------
 
+ADDED:
+
+- new clone method for cloneable objects
+- new methods for clone silently 
+- new copyProperties method with single object
+- new methods for copy silently
+
 CHANGED:
 
 - removed deprecated method closeOutputStream

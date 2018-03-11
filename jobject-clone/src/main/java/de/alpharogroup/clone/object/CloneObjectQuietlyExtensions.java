@@ -23,6 +23,8 @@ package de.alpharogroup.clone.object;
 import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
+import com.rits.cloning.Cloner;
+
 import de.alpharogroup.copy.object.CopyObjectQuietlyExtensions;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -92,6 +94,13 @@ public final class CloneObjectQuietlyExtensions
 		{
 			clone = CopyObjectQuietlyExtensions.copyPropertiesQuietly(object);
 		}
+
+		// Try to clone the object with deep cloning with the Cloner class...
+		if (clone == null)
+		{
+			Cloner cloner = new Cloner();
+			clone = cloner.deepClone(object);
+		}
 		return clone;
 	}
 
@@ -125,14 +134,6 @@ public final class CloneObjectQuietlyExtensions
 	 * @param object
 	 *            The object to clone.
 	 * @return The cloned object or null if the clone process failed.
-	 * @throws NoSuchMethodException
-	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
-	 *             "&lt;clinit&gt;".
-	 * @throws IllegalAccessException
-	 *             Thrown if this {@code Method} object is enforcing Java language access control
-	 *             and the underlying method is inaccessible.
-	 * @throws InvocationTargetException
-	 *             Thrown if the property accessor method throws an exception
 	 */
 	public static Object cloneCloneableQuietly(final Object object)
 	{

@@ -28,6 +28,7 @@
 		<test-objects.version>4.24.0</test-objects.version>
 		<!-- EXTERNAL LIBRARIES versions -->
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
+		<cloning.version>1.9.9</cloning.version>
 	</properties>
 
 	<modules>
@@ -67,6 +68,12 @@
 	<dependencyManagement>
 
 		<dependencies>
+			<!-- CLONING DEPENDENCY -->
+			<dependency>
+				<groupId>uk.com.robust-it</groupId>
+				<artifactId>cloning</artifactId>
+				<version>${cloning.version}</version>
+			</dependency>
 			<!-- COMMONS-BEANUTILS DEPENDENCY -->
 			<dependency>
 				<groupId>commons-beanutils</groupId>

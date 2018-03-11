@@ -20,25 +20,23 @@
  */
 package de.alpharogroup.clone.object;
 
-import java.io.IOException;
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
+import com.rits.cloning.Cloner;
 
+import de.alpharogroup.copy.object.CopyObjectQuietlyExtensions;
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link CloneObjectQuietlyExtensions} provide methods for clone object in a quietly
  * manner as the name let presume.
  */
 @UtilityClass
+@Slf4j
 public final class CloneObjectQuietlyExtensions
 {
-
-	/** The logger constant. */
-	private static final Logger LOG = Logger
-		.getLogger(CloneObjectQuietlyExtensions.class.getName());
 
 	/**
 	 * Try to clone the given generic object.
@@ -64,59 +62,44 @@ public final class CloneObjectQuietlyExtensions
 	 */
 	public static Object cloneObjectQuietly(final Object object)
 	{
+		if (object == null)
+		{
+			return object;
+		}
 		Object clone = null;
-		try
+
+		// Try to clone the object if it is Cloneble.
+		if (object instanceof Cloneable)
 		{
-			clone = CloneObjectExtensions.cloneObject(object);
+			clone = cloneCloneableQuietly(object);
 		}
-		catch (final NoSuchMethodException e)
+
+		// Try to clone the object if it implements Serializable.
+		if (clone == null && object instanceof Serializable)
 		{
-			LOG.error("Try to clone the object with " + "reflection and call the clone method. "
-				+ "Thrown exception: NoSuchMethodException", e);
+			Serializable serializableObject = (Serializable)object;
+			clone = CopyObjectQuietlyExtensions.copySerializedObjectQuietly(serializableObject);
 		}
-		catch (final SecurityException e)
+
+		// Try to clone the object by copying all his properties with
+		// the BeanUtils.cloneBean(Object) method.
+		if (clone == null)
 		{
-			LOG.error("Try to clone the object with " + "reflection and call the clone method. "
-				+ "Thrown exception: SecurityException", e);
+			clone = cloneBeanQuietly(object);
 		}
-		catch (final IllegalAccessException e)
+
+		// Try to clone the object by copying all his properties with
+		// the BeanUtils.copyProperties(Object, Object) method.
+		if (clone == null)
 		{
-			LOG.error(
-				"Try to clone the object with " + "org.apache.commons.beanutils.BeanUtils failed "
-					+ "cause of IllegalAccessException. Could not found from ReflectionExtensions.",
-				e);
+			clone = CopyObjectQuietlyExtensions.copyPropertiesQuietly(object);
 		}
-		catch (final IllegalArgumentException e)
+
+		// Try to clone the object with deep cloning with the Cloner class...
+		if (clone == null)
 		{
-			LOG.error("Try to clone the object with " + "reflection and call the clone method. "
-				+ "Thrown exception: IllegalArgumentException", e);
-		}
-		catch (final InvocationTargetException e)
-		{
-			LOG.error(
-				"Try to clone the object with " + "org.apache.commons.beanutils.BeanUtils failed "
-					+ "cause of InvocationTargetException. Could not found from ReflectionExtensions.",
-				e);
-		}
-		catch (final ClassNotFoundException e)
-		{
-			LOG.error(
-				"Try to clone the object with " + "org.apache.commons.beanutils.BeanUtils failed "
-					+ "cause of ClassNotFoundException. Could not found from ReflectionExtensions.",
-				e);
-		}
-		catch (final InstantiationException e)
-		{
-			LOG.error(
-				"Try to clone the object with " + "org.apache.commons.beanutils.BeanUtils failed "
-					+ "cause of InstantiationException. Could not found from ReflectionExtensions.",
-				e);
-		}
-		catch (final IOException e)
-		{
-			LOG.error("Try to clone the object with "
-				+ "CopyObjectExtensions.copySerializedObject((Serializable)object) "
-				+ "caused an IOException.", e);
+			Cloner cloner = new Cloner();
+			clone = cloner.deepClone(object);
 		}
 		return clone;
 	}
@@ -130,18 +113,38 @@ public final class CloneObjectQuietlyExtensions
 	 *            the object to clone
 	 * @return the cloned object or null if the clone process failed.
 	 */
-	@SuppressWarnings("unchecked")
 	public static <T> T cloneBeanQuietly(T object)
 	{
-		T clone;
+		T clone = null;
 		try
 		{
-			clone = (T)BeanUtils.cloneBean(object);
+			clone = CloneObjectExtensions.cloneBean(object);
 		}
 		catch (IllegalAccessException | InstantiationException | InvocationTargetException
 			| NoSuchMethodException e)
 		{
-			clone = null;
+			log.error(e.getLocalizedMessage(), e);
+		}
+		return clone;
+	}
+
+	/**
+	 * Try to clone the given object that implements {@link Cloneable}.
+	 *
+	 * @param object
+	 *            The object to clone.
+	 * @return The cloned object or null if the clone process failed.
+	 */
+	public static Object cloneCloneableQuietly(final Object object)
+	{
+		Object clone = null;
+		try
+		{
+			clone = CloneObjectExtensions.cloneCloneable(object);
+		}
+		catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException e)
+		{
+			log.error(e.getLocalizedMessage(), e);
 		}
 		return clone;
 	}

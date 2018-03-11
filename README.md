@@ -39,6 +39,8 @@ The source code comes under the liberal MIT License, making jobject-extensions g
 
 [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-diff.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-diff) jobject-diff
 
+[![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-evaluate.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-evaluate) jobject-evaluate
+
 [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-merge.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-merge) jobject-merge
 
 ## Maven dependency
@@ -53,7 +55,7 @@ Than you can add the dependency to your dependencies:
 	<properties>
 			...
 		<!-- JOBJECT-EXTENSIONS versions -->
-		<jobject-extensions.version>1.9.1</jobject-extensions.version>		
+		<jobject-extensions.version>1.9.2</jobject-extensions.version>		
 		<jobject-clone.version>${jobject-extensions.version}</jobject-clone.version>
 		<jobject-compare.version>${jobject-extensions.version}</jobject-compare.version>
 		<jobject-copy.version>${jobject-extensions.version}</jobject-copy.version>

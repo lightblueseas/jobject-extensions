@@ -1,6 +1,21 @@
 ## Change log
 ----------------------
 
+Version 1.9.2
+-------------
+
+ADDED:
+
+- new dependency of uk.com.robust-it:cloning in version 1.9.9
+- new clone method for cloneable objects
+- new methods for clone silently 
+- new copyProperties method with single object
+- new methods for copy silently
+
+CHANGED:
+
+- removed deprecated method closeOutputStream
+
 Version 1.9.1
 -------------
 

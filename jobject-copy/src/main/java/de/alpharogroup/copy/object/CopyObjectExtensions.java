@@ -55,7 +55,7 @@ public final class CopyObjectExtensions
 	 *            the destination object.
 	 * @param fieldName
 	 *            the field name
-	 * @return the destination object or null if the copy process failed.
+	 * @return the destination object
 	 * @throws NoSuchFieldException
 	 *             is thrown if no such field exists.
 	 * @throws SecurityException
@@ -133,6 +133,44 @@ public final class CopyObjectExtensions
 	{
 		BeanUtils.copyProperties(destination, original);
 		return destination;
+	}
+
+	/**
+	 * Copy the given object and return a copy of it. Note: this method decorates the method of
+	 * {@link BeanUtils#copyProperties(Object, Object)} and create a new object for the returned
+	 * object.
+	 *
+	 * @param <T>
+	 *            the generic type of the given object.
+	 * @param original
+	 *            the original object.
+	 * @return the new object that is a copy of the given object.
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InvocationTargetException
+	 *             if the property accessor method throws an exception
+	 * @throws IllegalArgumentException
+	 *             if the <code>destination</code> or <code>original</code> argument is null or if
+	 *             the <code>destination</code> property type is different from the source type and
+	 *             the relevant converter has not been registered.
+	 * @throws InstantiationException
+	 *             Thrown if one of the following reasons: the class object
+	 *             <ul>
+	 *             <li>represents an abstract class</li>
+	 *             <li>represents an interface</li>
+	 *             <li>represents an array class</li>
+	 *             <li>represents a primitive type</li>
+	 *             <li>represents {@code void}</li>
+	 *             <li>has no nullary constructor</li>
+	 *             </ul>
+	 */
+	@SuppressWarnings("unchecked")
+	public static final <T> T copyProperties(final T original) throws IllegalAccessException,
+		InvocationTargetException, IllegalArgumentException, InstantiationException
+	{
+		Object destination = original.getClass().newInstance();
+		BeanUtils.copyProperties(destination, original);
+		return (T)destination;
 	}
 
 	/**

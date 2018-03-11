@@ -79,6 +79,10 @@ public class CloneObjectQuietlyExtensionsTest
 		actual = CloneObjectQuietlyExtensions.cloneObjectQuietly(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
+		expected = null;
+		actual = CloneObjectQuietlyExtensions.cloneObjectQuietly(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
+
 	}
 
 	/**

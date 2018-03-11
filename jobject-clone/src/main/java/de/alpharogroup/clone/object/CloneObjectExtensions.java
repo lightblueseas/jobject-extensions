@@ -127,54 +127,70 @@ public final class CloneObjectExtensions
 		// Try to clone the object if it is Cloneble.
 		if (object instanceof Cloneable)
 		{
-
-			if (object.getClass().isArray())
-			{
-				final Class<?> componentType = object.getClass().getComponentType();
-				if (componentType.isPrimitive())
-				{
-					int length = Array.getLength(object);
-					clone = Array.newInstance(componentType, length);
-					while (length-- > 0)
-					{
-						Array.set(clone, length, Array.get(object, length));
-					}
-				}
-				else
-				{
-					clone = ((Object[])object).clone();
-				}
-				if (clone != null)
-				{
-					return clone;
-				}
-			}
-
-			final Class<?> clazz = object.getClass();
-			final Method cloneMethod = clazz.getDeclaredMethod("clone");
-			cloneMethod.setAccessible(true);
-			clone = cloneMethod.invoke(object, (Object[])null);
-			if (clone != null)
-			{
-				return clone;
-			}
+			clone = cloneCloneable(object);
 		}
+
 		// Try to clone the object if it implements Serializable.
 		if (clone == null && object instanceof Serializable)
 		{
 			Serializable serializableObject = (Serializable)object;
 			clone = CopyObjectExtensions.copySerializedObject(serializableObject);
-			if (clone != null)
-			{
-				return clone;
-			}
 		}
+
 		// Try to clone the object by copying all his properties with
 		// the BeanUtils.cloneBean() method.
 		if (clone == null)
 		{
 			clone = cloneBean(object);
 		}
+		return clone;
+	}
+
+	/**
+	 * Try to clone the given object that implements {@link Cloneable}.
+	 *
+	 * @param object
+	 *            The object to clone.
+	 * @return The cloned object or null if the clone process failed.
+	 * @throws NoSuchMethodException
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
+	 * @throws IllegalAccessException
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
+	 * @throws InvocationTargetException
+	 *             Thrown if the property accessor method throws an exception
+	 */
+	public static Object cloneCloneable(final Object object)
+		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException
+	{
+		Object clone;
+		if (object.getClass().isArray())
+		{
+			final Class<?> componentType = object.getClass().getComponentType();
+			if (componentType.isPrimitive())
+			{
+				int length = Array.getLength(object);
+				clone = Array.newInstance(componentType, length);
+				while (length-- > 0)
+				{
+					Array.set(clone, length, Array.get(object, length));
+				}
+			}
+			else
+			{
+				clone = ((Object[])object).clone();
+			}
+			if (clone != null)
+			{
+				return clone;
+			}
+		}
+
+		final Class<?> clazz = object.getClass();
+		final Method cloneMethod = clazz.getDeclaredMethod("clone");
+		cloneMethod.setAccessible(true);
+		clone = cloneMethod.invoke(object, (Object[])null);
 		return clone;
 	}
 

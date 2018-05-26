@@ -28,7 +28,7 @@
 		<test-objects.version>4.26</test-objects.version>
 		<!-- EXTERNAL LIBRARIES versions -->
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
-		<cloning.version>1.9.9</cloning.version>
+		<cloning.version>1.9.10</cloning.version>
 	</properties>
 
 	<modules>

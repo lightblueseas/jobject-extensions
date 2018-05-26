@@ -1,14 +1,19 @@
 ## Change log
 ----------------------
 
-Version 1.11.0-SNAPSHOT
+Version 1.11-SNAPSHOT
 -------------
+
+ADDED:
+
+- new dependency jobject-evaluate in dependency-management section
+- new section 'Semantic Versioning' in README.md file
 
 CHANGED:
 
 - update of parent version to 3.11
 - removed unneeded .0 at the end of version
-- update of test-objects dependency version from 4.24.0 to 4.25 
+- update of test-objects dependency version from 4.24.0 to 4.26 
 
 Version 1.10.0
 -------------

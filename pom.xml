@@ -25,7 +25,7 @@
 		<!-- VINTAGE-TIME version -->
 		<vintage-time.version>4.11.0</vintage-time.version>
 		<!-- TEST-OBJECTS version -->
-		<test-objects.version>4.25</test-objects.version>
+		<test-objects.version>4.26</test-objects.version>
 		<!-- EXTERNAL LIBRARIES versions -->
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 		<cloning.version>1.9.9</cloning.version>
@@ -114,6 +114,12 @@
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-core</artifactId>
+				<version>${project.version}</version>
+			</dependency>
+			<!-- JOBJECT-EVALUATE DEPENDENCY -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobject-evaluate</artifactId>
 				<version>${project.version}</version>
 			</dependency>
 

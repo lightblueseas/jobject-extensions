@@ -1,6 +1,50 @@
 ## Change log
 ----------------------
 
+Version 1.11
+-------------
+
+ADDED:
+
+- new dependency jobject-evaluate in dependency-management section
+- new section 'Semantic Versioning' in README.md file
+
+CHANGED:
+
+- update of parent version to 3.11
+- removed unneeded .0 at the end of version
+- update of test-objects dependency version from 4.24.0 to 4.26 
+- update of cloning dependency version from 1.9.9 to 1.9.10 
+- changed order of cloning object, first BeanUtils and the Cloner
+
+Version 1.10.0
+-------------
+
+ADDED:
+
+- new dependency of uk.com.robust-it:cloning in version 1.9.9
+- new clone method for cloneable objects
+- new methods for clone silently 
+- new copyProperties method with single object
+- new methods for copy silently
+
+CHANGED:
+
+- removed deprecated method closeOutputStream
+
+Version 1.9.1
+-------------
+
+ADDED:
+
+- new project created for evaluate java objects
+- new method setFieldValue in ReflectionExtensions for set value over class
+- new methods for copy and clone created
+
+CHANGED:
+
+- update of parent version to 3.9.0
+
 Version 1.8.0
 -------------
 

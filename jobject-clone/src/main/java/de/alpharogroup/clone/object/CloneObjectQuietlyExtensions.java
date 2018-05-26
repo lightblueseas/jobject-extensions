@@ -81,18 +81,18 @@ public final class CloneObjectQuietlyExtensions
 			clone = CopyObjectQuietlyExtensions.copySerializedObjectQuietly(serializableObject);
 		}
 
-		// Try to clone the object with deep cloning with the Cloner class...
-		if (clone == null)
-		{
-			Cloner cloner = new Cloner();
-			clone = cloner.deepClone(object);
-		}
-
 		// Try to clone the object by copying all his properties with
 		// the BeanUtils.cloneBean(Object) method.
 		if (clone == null)
 		{
 			clone = cloneBeanQuietly(object);
+		}
+
+		// Try to clone the object with deep cloning with the Cloner class...
+		if (clone == null)
+		{
+			Cloner cloner = new Cloner();
+			clone = cloner.deepClone(object);
 		}
 
 		// Try to clone the object by copying all his properties with

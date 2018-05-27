@@ -12,14 +12,14 @@
 
 The jobject-extensions project provides main operation that you can do with java objects.
 
-When programming with java you have offen to clone or copy to compare or to diff and some times you have even merge objects. 
+When programming with java you have offen to clone or copy to compare or to diff and some times you have even merge objects. For some reasons you have to evaluate bean classes.
 Thats exactly the functionality what this library provides. 
 There are several extension methods for the java core class Object. The feature extension methods can be provided over the lombok library. 
 
 ## Key features:
 
 1. very small size
-2. extension methods for java core class Object for clone, compare, copy, diff and merge
+2. extension methods for java core class Object for clone, compare, copy, diff, evaluate and merge
 3. modularizable, import only the functionality you need
 4. simple to use
 
@@ -55,7 +55,7 @@ Than you can add the dependency to your dependencies:
 	<properties>
 			...
 		<!-- JOBJECT-EXTENSIONS versions -->
-		<jobject-extensions.version>1.10.0</jobject-extensions.version>		
+		<jobject-extensions.version>1.11</jobject-extensions.version>		
 		<jobject-clone.version>${jobject-extensions.version}</jobject-clone.version>
 		<jobject-compare.version>${jobject-extensions.version}</jobject-compare.version>
 		<jobject-copy.version>${jobject-extensions.version}</jobject-copy.version>
@@ -223,17 +223,7 @@ Release version numbers will be incremented in the following format:
 
 `<major>.<minor>.<patch>`
 
-The only exception from the official guidelines are the following:
-
-If the minor and patch version ends with a zero then the minor and the patch can be omitted.
- 
-For instance if the project version is '1.0.0' we will write '1'. So we omit the '.0.0'.
-
-The same applies if only the patch version ends with a zero then the patch can be omitted.
- 
-For instance if the project version is '1.1.0' we will write '1.1'. So we omit the '.0'.
-
-For more information on SemVer you can visit [semver.org](http://semver.org/).	
+For detailed information on versioning you can visit the [wiki page](https://github.com/lightblueseas/mvn-parent-projects/wiki/Semantic-Versioning).
 
 ## Want to Help and improve it? ###
 

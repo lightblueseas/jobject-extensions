@@ -4,6 +4,10 @@
 Version 1.12-SNAPSHOT
 -------------
 
+ADDED:
+
+- new deploy scripts for module projects jobject-diff and jobject-evaluate
+
 
 Version 1.11
 -------------

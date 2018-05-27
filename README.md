@@ -263,6 +263,11 @@ or over flattr: <a href="https://flattr.com/submit/auto?fid=r7vp62&url=https%3A%
 <img src="http://button.flattr.com/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0">
 </a>
 
+# Similar projects
+
+- [cloning](https://github.com/kostaskougios/cloning) deep clone java objects
+- [JaVers](https://github.com/javers/javers) JaVers - Object auditing and diff framework for Java
+
 ## Credits
 
 |Travis CI|

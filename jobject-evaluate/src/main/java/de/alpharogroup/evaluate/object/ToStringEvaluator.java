@@ -23,12 +23,14 @@ package de.alpharogroup.evaluate.object;
 import java.lang.reflect.Method;
 
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link ToStringEvaluator} provides algorithms for evaluate the
  * {@link Object#toString()} method.
  */
 @UtilityClass
+@Slf4j
 public final class ToStringEvaluator
 {
 
@@ -44,8 +46,9 @@ public final class ToStringEvaluator
 		Method toString;
 		if (clazz == null)
 		{
+			log.error(
+				"evaluation of toString method failed because the given class object is null");
 			return false;
-
 		}
 		try
 		{
@@ -53,10 +56,12 @@ public final class ToStringEvaluator
 		}
 		catch (NoSuchMethodException ex)
 		{
+			log.error("evaluation of toString method failed because it does not exists.", ex);
 			return false;
 		}
 		if (!String.class.equals(toString.getReturnType()))
 		{
+			log.error("evaluation of toString method failed because the return type is not string");
 			return false;
 		}
 		return true;
@@ -94,6 +99,8 @@ public final class ToStringEvaluator
 	{
 		if (object == null)
 		{
+			log.error(
+				"evaluation of toString method consistency failed because the first given object is null");
 			return false;
 		}
 		final String initialToStringResult = object.toString();
@@ -103,6 +110,7 @@ public final class ToStringEvaluator
 			String currentToStringResult = object.toString();
 			if (!initialToStringResult.equals(currentToStringResult))
 			{
+				log.error("evaluation of toString method consistency failed on iteration " + i);
 				return false;
 			}
 		}

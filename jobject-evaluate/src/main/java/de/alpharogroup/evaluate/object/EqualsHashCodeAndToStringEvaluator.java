@@ -26,11 +26,13 @@ import java.lang.reflect.InvocationTargetException;
 import de.alpharogroup.clone.object.CloneObjectQuietlyExtensions;
 import io.github.benas.randombeans.api.EnhancedRandom;
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link EqualsHashCodeAndToStringEvaluator} is a combination of all evaluators.
  */
 @UtilityClass
+@Slf4j
 public final class EqualsHashCodeAndToStringEvaluator
 {
 
@@ -57,14 +59,20 @@ public final class EqualsHashCodeAndToStringEvaluator
 		final boolean evaluated = true;
 		if (first == null)
 		{
+			log.error(
+				"first is null in EqualsHashCodeAndToStringEvaluator#evaluateEqualsAndHashcode");
 			return false;
 		}
 		if (first.equals(second))
 		{
+			log.error(
+				"first equals second in EqualsHashCodeAndToStringEvaluator#evaluateEqualsAndHashcode");
 			return false;
 		}
 		if (!first.equals(third))
 		{
+			log.error(
+				"first equals third in EqualsHashCodeAndToStringEvaluator#evaluateEqualsAndHashcode");
 			return false;
 		}
 
@@ -238,6 +246,8 @@ public final class EqualsHashCodeAndToStringEvaluator
 	{
 		if (cls == null)
 		{
+			log.error(
+				"evaluation of all contract conditions failed because the given class object is null");
 			return false;
 		}
 		final T first = EnhancedRandom.random(cls);

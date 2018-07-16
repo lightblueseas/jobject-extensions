@@ -21,7 +21,7 @@
 /**
  * 
  */
-package de.alpharogroup.evaluate.object;
+package de.alpharogroup.evaluate.object.evaluators;
 
 import static org.testng.AssertJUnit.assertEquals;
 
@@ -31,68 +31,48 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
+import de.alpharogroup.evaluate.object.evaluators.SilentEqualsHashCodeAndToStringEvaluator;
+
 /**
- * The unit test class for the class {@link ToStringEvaluator}.
+ * The unit test class for the class {@link SilentEqualsHashCodeAndToStringEvaluator}.
  */
-public class ToStringEvaluatorTest
+public class SilentEqualsHashCodeAndToStringEvaluatorTest
 {
 
 	/**
-	 * Test method for {@link ToStringEvaluator#evaluate(Class)}.
+	 * Test method for
+	 * {@link SilentEqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeAndToStringQuietly(Class)}.
 	 */
 	@Test
-	public void testEvaluate() throws Exception
+	public void testEvaluateEqualsHashcodeAndToStringQuietly() throws Exception
 	{
 		boolean expected;
 		boolean actual;
-		actual = ToStringEvaluator.evaluate(Integer.class);
+		actual = SilentEqualsHashCodeAndToStringEvaluator
+			.evaluateEqualsHashcodeAndToStringQuietly(Integer.class);
 		expected = true;
 		assertEquals(expected, actual);
 
-		actual = ToStringEvaluator.evaluate(String.class);
+		actual = SilentEqualsHashCodeAndToStringEvaluator
+			.evaluateEqualsHashcodeAndToStringQuietly(String.class);
 		expected = true;
 		assertEquals(expected, actual);
 
-		actual = ToStringEvaluator.evaluate(null);
+		actual = SilentEqualsHashCodeAndToStringEvaluator
+			.evaluateEqualsHashcodeAndToStringQuietly(null);
 		expected = false;
 		assertEquals(expected, actual);
 	}
 
 	/**
-	 * Test method for {@link ToStringEvaluator#evaluateConsistency(Object)}.
-	 */
-	@Test
-	public void testEvaluateConsistency() throws Exception
-	{
-		boolean expected;
-		boolean actual;
-		actual = ToStringEvaluator.evaluateConsistency(Integer.valueOf(1));
-		expected = true;
-		assertEquals(expected, actual);
-	}
-
-	/**
-	 * Test method for {@link ToStringEvaluator#evaluateConsistency(Object, int)}.
-	 */
-	@Test
-	public void testEvaluateConsistencyWithIterations() throws Exception
-	{
-		boolean expected;
-		boolean actual;
-		actual = ToStringEvaluator.evaluateConsistency(Integer.valueOf(1), 10);
-		expected = true;
-		assertEquals(expected, actual);
-	}
-
-	/**
-	 * Test method for {@link ToStringEvaluator} with {@link BeanTester}
+	 * Test method for {@link SilentEqualsHashCodeAndToStringEvaluator} with {@link BeanTester}
 	 */
 	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
 			UnsupportedOperationException.class })
 	public void testWithBeanTester()
 	{
 		final BeanTester beanTester = new BeanTester();
-		beanTester.testBean(ToStringEvaluator.class);
+		beanTester.testBean(SilentEqualsHashCodeAndToStringEvaluator.class);
 	}
 
 }

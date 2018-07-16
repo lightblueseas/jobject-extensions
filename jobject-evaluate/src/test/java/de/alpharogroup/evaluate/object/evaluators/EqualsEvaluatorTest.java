@@ -18,7 +18,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.evaluate.object;
+package de.alpharogroup.evaluate.object.evaluators;
 
 import static org.testng.AssertJUnit.assertEquals;
 
@@ -27,6 +27,8 @@ import java.lang.reflect.InvocationTargetException;
 import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
+
+import de.alpharogroup.evaluate.object.evaluators.EqualsEvaluator;
 
 /**
  * The unit test class for the class {@link EqualsEvaluator}.

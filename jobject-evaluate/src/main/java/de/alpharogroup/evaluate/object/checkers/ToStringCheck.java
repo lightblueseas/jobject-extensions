@@ -18,20 +18,23 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.evaluate.object;
+package de.alpharogroup.evaluate.object.checkers;
 
 import java.lang.reflect.Method;
+import java.util.Optional;
 
+import de.alpharogroup.evaluate.object.api.ContractViolation;
+import de.alpharogroup.evaluate.object.enums.ToStringContractViolation;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * The class {@link ToStringEvaluator} provides algorithms for evaluate the
- * {@link Object#toString()} method.
+ * The class {@link ToStringCheck} provides algorithms for evaluate the {@link Object#toString()}
+ * method.
  */
 @UtilityClass
 @Slf4j
-public final class ToStringEvaluator
+public final class ToStringCheck
 {
 
 	/**
@@ -39,16 +42,17 @@ public final class ToStringEvaluator
 	 *
 	 * @param clazz
 	 *            the class
-	 * @return true, if successful
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static boolean evaluate(Class<?> clazz)
+	public static Optional<ContractViolation> evaluate(Class<?> clazz)
 	{
 		Method toString;
 		if (clazz == null)
 		{
 			log.error(
 				"evaluation of toString method failed because the given class object is null");
-			return false;
+			return Optional.of(ToStringContractViolation.CLASS_NULL_ARGUMENT);
 		}
 		try
 		{
@@ -57,14 +61,14 @@ public final class ToStringEvaluator
 		catch (NoSuchMethodException ex)
 		{
 			log.error("evaluation of toString method failed because it does not exists.", ex);
-			return false;
+			return Optional.of(ToStringContractViolation.NOT_EXISTENT);
 		}
 		if (!String.class.equals(toString.getReturnType()))
 		{
 			log.error("evaluation of toString method failed because the return type is not string");
-			return false;
+			return Optional.of(ToStringContractViolation.RETURNTYPE_NOT_STRING);
 		}
-		return true;
+		return Optional.empty();
 	}
 
 	/**
@@ -76,12 +80,12 @@ public final class ToStringEvaluator
 	 *            the generic type
 	 * @param object
 	 *            the object
-	 * @return true, if consistency of method {@link Object#toString()} for the given objects is
-	 *         given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateConsistency(T object)
+	public static <T> Optional<ContractViolation> consistency(T object)
 	{
-		return evaluateConsistency(object, 7);
+		return consistency(object, 7);
 	}
 
 	/**
@@ -93,28 +97,29 @@ public final class ToStringEvaluator
 	 *            the object
 	 * @param iterations
 	 *            the iterations of call of equals method.
-	 * @return true, if consistency of method {@link Object#toString()} is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateConsistency(T object, int iterations)
+	public static <T> Optional<ContractViolation> consistency(T object,
+		int iterations)
 	{
 		if (object == null)
 		{
 			log.error(
 				"evaluation of toString method consistency failed because the first given object is null");
-			return false;
+			return Optional.of(ToStringContractViolation.CONSISTENCY_NULL_ARGUMENT);
 		}
 		final String initialToStringResult = object.toString();
-		boolean valid = true;
 		for (int i = 0; i < iterations; i++)
 		{
 			String currentToStringResult = object.toString();
 			if (!initialToStringResult.equals(currentToStringResult))
 			{
 				log.error("evaluation of toString method consistency failed on iteration " + i);
-				return false;
+				return Optional.of(ToStringContractViolation.CONSISTENCY);
 			}
 		}
-		return valid;
+		return Optional.empty();
 	}
 
 }

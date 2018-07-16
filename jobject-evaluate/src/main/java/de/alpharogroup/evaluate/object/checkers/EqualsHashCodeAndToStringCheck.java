@@ -407,7 +407,7 @@ public final class EqualsHashCodeAndToStringCheck
 	 *         of hash code from the given objects is given and if reflexivity, non null, symmetric,
 	 *         consistency and transitivity contract conditions is given otherwise false
 	 */
-	public static <T> Optional<ContractViolation> evaluateEqualsHashcodeEqualityAndToString(final T object,
+	public static <T> Optional<ContractViolation> equalsHashcodeEqualityAndToString(final T object,
 		final T otherObject, final T anotherObject)
 	{
 		Optional<ContractViolation> evaluated;

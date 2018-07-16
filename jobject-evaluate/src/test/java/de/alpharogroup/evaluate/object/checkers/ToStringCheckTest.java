@@ -21,6 +21,9 @@ import de.alpharogroup.evaluate.object.enums.ToStringContractViolation;
 public class ToStringCheckTest extends AbstractTestCase<Optional<ContractViolation>, Optional<ContractViolation>>
 {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@BeforeMethod
 	@Override
 	protected void setUp() throws Exception
@@ -28,19 +31,21 @@ public class ToStringCheckTest extends AbstractTestCase<Optional<ContractViolati
 		super.setUp();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@AfterMethod
 	@Override
 	protected void tearDown() throws Exception
 	{
 		super.tearDown();
 	}
-
 	
 	/**
-	 * Test method for {@link ToStringCheck#evaluate(Class)}.
+	 * Test method for {@link ToStringCheck#evaluate(Class)}
 	 */
 	@Test
-	public void testEvaluate() throws Exception
+	public void testEvaluate() 
 	{
 		actual = ToStringCheck.evaluate(Integer.class);
 		expected = Optional.empty();
@@ -56,10 +61,10 @@ public class ToStringCheckTest extends AbstractTestCase<Optional<ContractViolati
 	}
 
 	/**
-	 * Test method for {@link ToStringCheck#consistency(Object)}.
+	 * Test method for {@link ToStringCheck#consistency(Object)}
 	 */
 	@Test
-	public void testConsistency() throws Exception
+	public void testConsistency() 
 	{
 		actual = ToStringCheck.consistency(Integer.valueOf(1));
 		expected = Optional.empty();
@@ -67,10 +72,10 @@ public class ToStringCheckTest extends AbstractTestCase<Optional<ContractViolati
 	}
 
 	/**
-	 * Test method for {@link ToStringCheck#consistency(Object, int)}.
+	 * Test method for {@link ToStringCheck#consistency(Object, int)}
 	 */
 	@Test
-	public void testConsistencyWithIterations() throws Exception
+	public void testConsistencyWithIterations() 
 	{
 		actual = ToStringCheck.consistency(Integer.valueOf(1), 10);
 		expected = Optional.empty();

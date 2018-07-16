@@ -42,7 +42,6 @@ public class ToStringCheckTest extends AbstractTestCase<Optional<ContractViolati
 	@Test
 	public void testEvaluate() throws Exception
 	{
-		// TODO ...
 		actual = ToStringCheck.evaluate(Integer.class);
 		expected = Optional.empty();
 		assertEquals(expected, actual);
@@ -62,7 +61,6 @@ public class ToStringCheckTest extends AbstractTestCase<Optional<ContractViolati
 	@Test
 	public void testConsistency() throws Exception
 	{
-		// TODO ...
 		actual = ToStringCheck.consistency(Integer.valueOf(1));
 		expected = Optional.empty();
 		assertEquals(expected, actual);
@@ -74,7 +72,6 @@ public class ToStringCheckTest extends AbstractTestCase<Optional<ContractViolati
 	@Test
 	public void testConsistencyWithIterations() throws Exception
 	{
-		// TODO ...
 		actual = ToStringCheck.consistency(Integer.valueOf(1), 10);
 		expected = Optional.empty();
 		assertEquals(expected, actual);

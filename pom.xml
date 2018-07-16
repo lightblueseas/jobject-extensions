@@ -197,9 +197,11 @@
 						<instrumentation>
 							<excludes>
 								<!-- enums -->
+								<exclude>de/alpharogroup/evaluate/object/enums/**/*.class</exclude>
 								<!-- beans -->
 								<exclude>de/alpharogroup/diff/beans/**/*.class</exclude>
 								<!-- interfaces -->
+								<exclude>de/alpharogroup/evaluate/object/api/**/*.class</exclude>
 								<!-- exceptions -->
 								<!-- deprecated -->
 								<!-- constant classes with only constants -->

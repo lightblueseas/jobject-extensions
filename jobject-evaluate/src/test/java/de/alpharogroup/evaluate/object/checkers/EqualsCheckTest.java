@@ -7,19 +7,33 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.util.Optional;
 
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import de.alpharogroup.AbstractTestCase;
 import de.alpharogroup.evaluate.object.api.ContractViolation;
 import de.alpharogroup.evaluate.object.enums.EqualsContractViolation;
 
 /**
  * The unit test class for the class {@link EqualsCheck}
  */
-public class EqualsCheckTest 
+public class EqualsCheckTest extends AbstractTestCase<Optional<ContractViolation>, Optional<ContractViolation>>
 {
 
-	Optional<ContractViolation> actual;
-	Optional<ContractViolation> expected;
+	@BeforeMethod
+	@Override
+	protected void setUp() throws Exception
+	{
+		super.setUp();
+	}
+
+	@AfterMethod
+	@Override
+	protected void tearDown() throws Exception
+	{
+		super.tearDown();
+	}
 	
 	/**
 	 * Test method for {@link EqualsCheck#consistency(Object, Object)}.
@@ -246,7 +260,6 @@ public class EqualsCheckTest
 	@Test
 	public void testSymmetricAndConsistency()
 	{
-		// TODO throw new RuntimeException("not yet implemented");
 		actual = EqualsCheck.symmetricAndConsistency(Integer.valueOf(0),
 			Integer.valueOf(0));
 		expected = Optional.empty();
@@ -277,7 +290,6 @@ public class EqualsCheckTest
 	@Test
 	public void testTransitivity()
 	{
-		// TODO throw new RuntimeException("not yet implemented");
 		actual = EqualsCheck.transitivity(Integer.valueOf(0), Integer.valueOf(0),
 			Integer.valueOf(0));
 		expected = Optional.empty();

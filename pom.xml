@@ -135,6 +135,12 @@
 			<artifactId>meanbean</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- TEST-OBJECTS DEPENDENCY -->
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>test-objects</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 

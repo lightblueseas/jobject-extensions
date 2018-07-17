@@ -12,7 +12,7 @@
 
 The jobject-extensions project provides main operation that you can do with java objects.
 
-When programming with java you have offen to clone or copy to compare or to diff and some times you have even merge objects. 
+When programming with java you have offen to clone or copy to compare or to diff and some times you have even merge objects. For some reasons you have to evaluate bean classes.
 Thats exactly the functionality what this library provides. 
 There are several extension methods for the java core class Object. The feature extension methods can be provided over the lombok library. 
 
@@ -223,17 +223,7 @@ Release version numbers will be incremented in the following format:
 
 `<major>.<minor>.<patch>`
 
-The only exception from the official guidelines are the following:
-
-If the minor and patch version ends with a zero then the minor and the patch can be omitted.
- 
-For instance if the project version is '1.0.0' we will write '1'. So we omit the '.0.0'.
-
-The same applies if only the patch version ends with a zero then the patch can be omitted.
- 
-For instance if the project version is '1.1.0' we will write '1.1'. So we omit the '.0'.
-
-For more information on SemVer you can visit [semver.org](http://semver.org/).	
+For detailed information on versioning you can visit the [wiki page](https://github.com/lightblueseas/mvn-parent-projects/wiki/Semantic-Versioning).
 
 ## Want to Help and improve it? ###
 
@@ -272,6 +262,11 @@ or over ether with:
 or over flattr: <a href="https://flattr.com/submit/auto?fid=r7vp62&url=https%3A%2F%2Fgithub.com%2Flightblueseas%2Fjobject-extensions" target="_blank">
 <img src="http://button.flattr.com/flattr-badge-large.png" alt="Flattr this" title="Flattr this" border="0">
 </a>
+
+# Similar projects
+
+- [cloning](https://github.com/kostaskougios/cloning) deep clone java objects
+- [JaVers](https://github.com/javers/javers) JaVers - Object auditing and diff framework for Java
 
 ## Credits
 

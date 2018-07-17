@@ -19,7 +19,7 @@ There are several extension methods for the java core class Object. The feature 
 ## Key features:
 
 1. very small size
-2. extension methods for java core class Object for clone, compare, copy, diff, evaluate and merge
+2. extension methods for java core class Object for clone, compare, copy, diff, check, evaluate and merge
 3. modularizable, import only the functionality you need
 4. simple to use
 

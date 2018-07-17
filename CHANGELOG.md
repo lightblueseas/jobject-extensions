@@ -7,12 +7,15 @@ Version 1.12-SNAPSHOT
 ADDED:
 
 - new deploy scripts for module projects jobject-diff and jobject-evaluate
+- new checker classes for objects created with a declarative enum return type if a violation occurs
 
 CHANGED:
 
 - update of parent version to 4
 - update of test-objects dependency version from 4.26 to 4.28 
 - update of vintage-time dependency version from 4.11.0 to 4.12 
+- remove of experimental lombok annotation ExtensionMethod
+- unit tests extended for improve code coverage
 
 Version 1.11
 -------------

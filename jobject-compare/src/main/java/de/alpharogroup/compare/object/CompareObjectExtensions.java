@@ -26,7 +26,6 @@ import java.util.Map;
 
 import org.apache.commons.beanutils.BeanComparator;
 import org.apache.commons.beanutils.BeanUtils;
-import org.apache.log4j.Logger;
 
 import de.alpharogroup.comparators.ComparatorExtensions;
 import lombok.experimental.UtilityClass;
@@ -38,9 +37,6 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class CompareObjectExtensions
 {
-
-	/** The logger constant. */
-	private static final Logger LOG = Logger.getLogger(CompareObjectExtensions.class.getName());
 
 	/**
 	 * Compares the given two objects.
@@ -162,59 +158,6 @@ public final class CompareObjectExtensions
 		}
 		return new BeanComparator(property).compare(sourceOjbect, objectToCompare);
 	}
-
-	/**
-	 * Compares the given object over the given property quietly.
-	 *
-	 * @param sourceOjbect
-	 *            the source ojbect
-	 * @param objectToCompare
-	 *            the object to compare
-	 * @param property
-	 *            the property
-	 * @return the int
-	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public static int compareToQuietly(final Object sourceOjbect, final Object objectToCompare,
-		final String property)
-	{
-		Map<?, ?> beanDescription = null;
-		try
-		{
-			beanDescription = BeanUtils.describe(sourceOjbect);
-		}
-		catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e)
-		{
-			LOG.error("BeanUtils.describe(sourceOjbect) throws an exception...", e);
-			return 0;
-		}
-		Map<?, ?> clonedBeanDescription = null;
-		try
-		{
-			clonedBeanDescription = BeanUtils.describe(objectToCompare);
-		}
-		catch (IllegalAccessException | InvocationTargetException | NoSuchMethodException e)
-		{
-			LOG.error("BeanUtils.describe(objectToCompare) throws an exception...", e);
-			return 0;
-		}
-		final Object sourceAttribute = beanDescription.get(property);
-		final Object changedAttribute = clonedBeanDescription.get(property);
-		if (sourceAttribute == null && changedAttribute == null)
-		{
-			return 0;
-		}
-		if (sourceAttribute != null && changedAttribute == null)
-		{
-			return 1;
-		}
-		else if (sourceAttribute == null && changedAttribute != null)
-		{
-			return -1;
-		}
-		return new BeanComparator(property).compare(sourceOjbect, objectToCompare);
-	}
-
 
 	/**
 	 * Gets the compare to result.

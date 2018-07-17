@@ -163,7 +163,7 @@ public class CompareObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link CompareObjectExtensions#compareTo(Object, Object)}.
+	 * Test method for {@link CompareObjectExtensions#compareTo(Object, Object)}
 	 *
 	 * @throws IllegalAccessException
 	 *             Thrown if this {@code Method} object is enforcing Java language access control
@@ -179,13 +179,14 @@ public class CompareObjectExtensionsTest
 	public void testCompareTo()
 		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
 	{
-
 		int expected;
 		int actual;
+		Person sourceOjbect;
+		Person objectToCompare;
 		// create a person...
-		final Person sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();
+		sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();
 		// make a clone of it...
-		final Person objectToCompare = Person.builder().gender(Gender.MALE).name("obelix").build();
+		objectToCompare = Person.builder().gender(Gender.MALE).name("obelix").build();
 
 		expected = 0;
 		actual = CompareObjectExtensions.compareTo(sourceOjbect, objectToCompare);
@@ -195,8 +196,90 @@ public class CompareObjectExtensionsTest
 		expected = 3;
 		actual = CompareObjectExtensions.compareTo(sourceOjbect, objectToCompare);
 		assertEquals("Given objects should not be equal.", expected, actual);
+	}
 
+	/**
+	 * Test method for {@link CompareObjectExtensions#compareTo(Object, Object)} that throws an
+	 * IllegalArgumentException
+	 *
+	 * @throws IllegalAccessException
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
+	 * @throws InvocationTargetException
+	 *             Thrown if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
+	 *
+	 */
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public void testCompareToThrowIllegalArgumentException01()
+		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+	{
+		Person sourceOjbect;
+		Person objectToCompare;
+		// create a person...
+		sourceOjbect = null;
+		// make a clone of it...
+		objectToCompare = Person.builder().gender(Gender.MALE).name("obelix").build();
 
+		CompareObjectExtensions.compareTo(sourceOjbect, objectToCompare);
+	}
+
+	/**
+	 * Test method for {@link CompareObjectExtensions#compareTo(Object, Object)} that throws an
+	 * IllegalArgumentException
+	 *
+	 * @throws IllegalAccessException
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
+	 * @throws InvocationTargetException
+	 *             Thrown if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
+	 *
+	 */
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public void testCompareToThrowIllegalArgumentException02()
+		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+	{
+		Person sourceOjbect;
+		Person objectToCompare;
+		// create a person...
+		sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();;
+		// make a clone of it...
+		objectToCompare = null;
+
+		CompareObjectExtensions.compareTo(sourceOjbect, objectToCompare);
+	}
+
+	/**
+	 * Test method for {@link CompareObjectExtensions#compareTo(Object, Object)} that throws an
+	 * IllegalArgumentException
+	 *
+	 * @throws IllegalAccessException
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
+	 * @throws InvocationTargetException
+	 *             Thrown if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
+	 *
+	 */
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public void testCompareToThrowIllegalArgumentException03()
+		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+	{
+		Person sourceOjbect;
+		String objectToCompare;
+		// create a person...
+		sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();;
+		// make a clone of it...
+		objectToCompare = "";
+
+		CompareObjectExtensions.compareTo(sourceOjbect, objectToCompare);
 	}
 
 	/**
@@ -218,13 +301,15 @@ public class CompareObjectExtensionsTest
 	{
 		int expected;
 		int actual;
-		final List<Person> persons = new ArrayList<>();
-		final Person obelix = Person.builder().gender(Gender.MALE).name("obelix").build();
+		Person obelix;
+		Person asterix;
+		Person miraculix;
+		List<Person> persons;
 
-		final Person asterix = Person.builder().gender(Gender.MALE).name("asterix").build();
-
-		final Person miraculix = Person.builder().gender(Gender.MALE).name("miraculix").build();
-
+		persons = new ArrayList<>();
+		obelix = Person.builder().gender(Gender.MALE).name("obelix").build();
+		asterix = Person.builder().gender(Gender.MALE).name("asterix").build();
+		miraculix = Person.builder().gender(Gender.MALE).name("miraculix").build();
 		// 1. scenario...
 		actual = CompareObjectExtensions.compareTo(asterix, obelix, "name");
 
@@ -268,35 +353,6 @@ public class CompareObjectExtensionsTest
 		assertEquals(persons.get(0), obelix);
 		assertEquals(persons.get(1), miraculix);
 		assertEquals(persons.get(2), asterix);
-	}
-
-	/**
-	 * Test method for {@link CompareObjectExtensions#compareToQuietly(Object, Object, String)}.
-	 */
-	@Test
-	public void testCompareToQuietly()
-	{
-		int expected;
-		int actual;
-
-		final Person obelix = Person.builder().gender(Gender.MALE).name("obelix").build();
-
-		final Person asterix = Person.builder().gender(Gender.MALE).name("asterix").build();
-
-		actual = CompareObjectExtensions.compareToQuietly(asterix, obelix, "name");
-
-		final Comparator<String> comp = new Comparator<String>()
-		{
-
-			@Override
-			public int compare(final String o1, final String o2)
-			{
-				return o1.compareTo(o2);
-			}
-		};
-		expected = comp.compare(asterix.getName(), obelix.getName());
-
-		assertEquals("Result of compared properties should be equal.", expected, actual);
 	}
 
 	/**

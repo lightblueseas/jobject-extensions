@@ -38,6 +38,8 @@ import org.testng.annotations.Test;
 import de.alpharogroup.AbstractTestCase;
 import de.alpharogroup.evaluate.object.api.ContractViolation;
 import de.alpharogroup.evaluate.object.enums.ToStringContractViolation;
+import de.alpharogroup.test.objects.Person;
+import io.github.benas.randombeans.api.EnhancedRandom;
 
 /**
  * The unit test class for the class {@link ToStringCheck}
@@ -75,6 +77,19 @@ public class ToStringCheckTest
 	{
 		actual = ToStringCheck.consistency(Integer.valueOf(1));
 		expected = Optional.empty();
+		assertEquals(expected, actual);
+
+		actual = ToStringCheck.consistency(new Person()
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public String toString()
+			{
+				return EnhancedRandom.random(String.class);
+			}
+		});
+		expected = Optional.of(ToStringContractViolation.CONSISTENCY);
 		assertEquals(expected, actual);
 	}
 

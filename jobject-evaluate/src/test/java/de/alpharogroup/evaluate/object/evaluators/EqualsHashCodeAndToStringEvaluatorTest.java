@@ -29,6 +29,8 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
+import de.alpharogroup.test.objects.Person;
+
 /**
  * The unit test class for the class {@link EqualsHashCodeAndToStringEvaluator}.
  */
@@ -222,6 +224,21 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 		actual = EqualsHashCodeAndToStringEvaluator
 			.evaluateEqualsHashcodeAndToString((Class<?>)null);
 		expected = false;
+		assertEquals(expected, actual);
+
+		actual = EqualsHashCodeAndToStringEvaluator
+			.evaluateEqualsHashcodeAndToString(Person.class);
+		expected = true;
+		assertEquals(expected, actual);
+
+		actual = EqualsHashCodeAndToStringEvaluator
+			.evaluateEqualsHashcodeAndToString(Integer.class);
+		expected = true;
+		assertEquals(expected, actual);
+
+		actual = EqualsHashCodeAndToStringEvaluator
+			.evaluateEqualsHashcodeAndToString(String.class);
+		expected = true;
 		assertEquals(expected, actual);
 	}
 

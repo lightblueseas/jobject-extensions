@@ -32,6 +32,9 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
+import de.alpharogroup.test.objects.Person;
+import io.github.benas.randombeans.api.EnhancedRandom;
+
 /**
  * The unit test class for the class {@link ToStringEvaluator}.
  */
@@ -71,8 +74,22 @@ public class ToStringEvaluatorTest
 	{
 		boolean expected;
 		boolean actual;
+		
 		actual = ToStringEvaluator.evaluateConsistency(Integer.valueOf(1));
 		expected = true;
+		assertEquals(expected, actual);
+		
+		actual = ToStringEvaluator.evaluateConsistency(new Person()
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public String toString()
+			{
+				return EnhancedRandom.random(String.class);
+			}
+		});
+		expected = false;
 		assertEquals(expected, actual);
 	}
 

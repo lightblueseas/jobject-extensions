@@ -34,6 +34,8 @@ import org.testng.annotations.Test;
 import de.alpharogroup.AbstractTestCase;
 import de.alpharogroup.evaluate.object.api.ContractViolation;
 import de.alpharogroup.evaluate.object.enums.HashcodeContractViolation;
+import de.alpharogroup.test.objects.Person;
+import io.github.benas.randombeans.api.EnhancedRandom;
 
 /**
  * The unit test class for the class {@link HashcodeCheck}
@@ -84,6 +86,19 @@ public class HashcodeCheckTest
 		actual = HashcodeCheck.consistency(null);
 		expected = Optional.of(HashcodeContractViolation.CONSISTENCY_NULL_ARGUMENT);
 		assertEquals(expected, actual);
+
+		actual = HashcodeCheck.consistency(new Person()
+		{
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			public int hashCode()
+			{
+				return EnhancedRandom.random(Integer.class);
+			}
+		});
+		expected = Optional.of(HashcodeContractViolation.CONSISTENCY);
+		assertEquals(expected, actual);
 	}
 
 	/**
@@ -102,6 +117,28 @@ public class HashcodeCheckTest
 
 		actual = HashcodeCheck.equality(Integer.valueOf(1), Integer.valueOf(1));
 		expected = Optional.empty();
+		assertEquals(expected, actual);
+
+		actual = HashcodeCheck.equality(new Person()
+		{
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			public int hashCode()
+			{
+				return EnhancedRandom.random(Integer.class);
+			}
+		}, new Person()
+		{
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			public int hashCode()
+			{
+				return EnhancedRandom.random(Integer.class);
+			}
+		});
+		expected = Optional.of(HashcodeContractViolation.EQAUALITY);
 		assertEquals(expected, actual);
 	}
 
@@ -125,6 +162,28 @@ public class HashcodeCheckTest
 
 		actual = HashcodeCheck.unequality(Integer.valueOf(1), null);
 		expected = Optional.empty();
+		assertEquals(expected, actual);
+
+		actual = HashcodeCheck.unequality(new Person()
+		{
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			public int hashCode()
+			{
+				return EnhancedRandom.random(Integer.class);
+			}
+		}, new Person()
+		{
+			private static final long serialVersionUID = 1L;
+			
+			@Override
+			public int hashCode()
+			{
+				return EnhancedRandom.random(Integer.class);
+			}
+		});
+		expected = Optional.of(HashcodeContractViolation.UNEQAUALITY);
 		assertEquals(expected, actual);
 	}
 

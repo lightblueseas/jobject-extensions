@@ -27,17 +27,20 @@ import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
 
 import java.lang.reflect.Field;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import org.meanbean.test.BeanTestException;
+import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.test.objects.A;
 import de.alpharogroup.test.objects.Person;
 
 /**
- * The unit test class for the class {@link ReflectionExtensions}.
+ * The unit test class for the class {@link ReflectionExtensions}
  */
 public class ReflectionExtensionsTest
 {
@@ -303,6 +306,17 @@ public class ReflectionExtensionsTest
 		actual = StaticBox.getValue();
 		expected = null;
 		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions} with {@link BeanTester}
+	 */
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
+	public void testWithBeanTester()
+	{
+		BeanTester beanTester = new BeanTester();
+		beanTester.testBean(ReflectionExtensions.class);
 	}
 
 }

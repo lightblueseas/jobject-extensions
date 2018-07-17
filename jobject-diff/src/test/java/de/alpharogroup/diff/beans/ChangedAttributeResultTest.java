@@ -18,7 +18,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.diff;
+package de.alpharogroup.diff.beans;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotSame;
@@ -32,7 +32,7 @@ import de.alpharogroup.evaluate.object.evaluators.HashcodeEvaluator;
 import de.alpharogroup.evaluate.object.evaluators.ToStringEvaluator;
 
 /**
- * The unit test class for the class {@link ChangedAttributeResult}.
+ * The unit test class for the class {@link ChangedAttributeResult}
  */
 public class ChangedAttributeResultTest
 {

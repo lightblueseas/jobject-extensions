@@ -31,12 +31,10 @@ import org.testng.annotations.Test;
 import de.alpharogroup.date.CreateDateExtensions;
 import de.alpharogroup.test.objects.A;
 import de.alpharogroup.test.objects.NotSerializable;
-import lombok.experimental.ExtensionMethod;
 
 /**
  * The unit test class for the class {@link CloneObjectQuietlyExtensions}.
  */
-@ExtensionMethod(CloneObjectQuietlyExtensions.class)
 public class CloneObjectQuietlyExtensionsTest
 {
 

@@ -27,12 +27,10 @@ import static org.testng.AssertJUnit.assertTrue;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.test.objects.Person;
-import lombok.experimental.ExtensionMethod;
 
 /**
  * The unit test class for the class {@link ComparatorExtensions}.
  */
-@ExtensionMethod({ ComparatorExtensions.class })
 public class ComparatorExtensionsTest
 {
 
@@ -42,9 +40,11 @@ public class ComparatorExtensionsTest
 	@Test
 	public void testCompare()
 	{
+		int actual;
+
 		final Person person = Person.builder().name("al").build();
 		final Person otherPerson = Person.builder().name("bert").build();
-		final int actual = person.compare(otherPerson);
+		actual = ComparatorExtensions.compare(person, otherPerson);
 		assertTrue(actual == -1);
 	}
 
@@ -54,11 +54,13 @@ public class ComparatorExtensionsTest
 	@Test
 	public void testCompareSortOrder()
 	{
+		int actual;
+
 		final Person person = Person.builder().name("al").build();
 		final Person otherPerson = Person.builder().name("bert").build();
-		int actual = person.compare(otherPerson, SortOrder.DESCENDING);
+		actual = ComparatorExtensions.compare(person, otherPerson, SortOrder.DESCENDING);
 		assertTrue(actual == 1);
-		actual = person.compare(otherPerson, SortOrder.ASCENDING);
+		actual = ComparatorExtensions.compare(person, otherPerson, SortOrder.ASCENDING);
 		assertTrue(actual == -1);
 	}
 
@@ -70,6 +72,7 @@ public class ComparatorExtensionsTest
 	{
 		Boolean expected;
 		Boolean actual;
+
 		final Person person = Person.builder().name("al").build();
 		final Person otherPerson = Person.builder().name("bert").build();
 
@@ -99,18 +102,20 @@ public class ComparatorExtensionsTest
 	@Test
 	public void testNullCheck()
 	{
-		Integer actual = ComparatorExtensions.nullCheck(Person.builder().build(), null);
+		Integer actual;
+
+		actual = ComparatorExtensions.nullCheck(Person.builder().build(), null);
 		assertTrue(actual == 1);
 		Person person = Person.builder().build();
-		actual = person.nullCheck(null);
+		actual = ComparatorExtensions.nullCheck(person, null);
 		assertTrue(actual == 1);
 		final Person otherPerson = Person.builder().name("s").build();
-		actual = person.nullCheck(otherPerson);
+		actual = ComparatorExtensions.nullCheck(person, otherPerson);
 		assertTrue(actual == null);
 		person = null;
-		actual = person.nullCheck(null);
+		actual = ComparatorExtensions.nullCheck(person, null);
 		assertTrue(actual == 0);
-		actual = person.nullCheck(otherPerson);
+		actual = ComparatorExtensions.nullCheck(person, otherPerson);
 		assertTrue(actual == -1);
 	}
 
@@ -120,32 +125,33 @@ public class ComparatorExtensionsTest
 	@Test
 	public void testNullCheckWithNullFlag()
 	{
+		Integer actual;
 		// false case...
-		Integer actual = ComparatorExtensions.nullCheck(Person.builder().build(), null, false);
+		actual = ComparatorExtensions.nullCheck(Person.builder().build(), null, false);
 		assertTrue(actual == 1);
 		Person person = Person.builder().build();
-		actual = person.nullCheck(null, false);
+		actual = ComparatorExtensions.nullCheck(person, null, false);
 		assertTrue(actual == 1);
 		final Person otherPerson = Person.builder().name("s").build();
-		actual = person.nullCheck(otherPerson, false);
+		actual = ComparatorExtensions.nullCheck(person, otherPerson, false);
 		assertTrue(actual == null);
 		person = null;
-		actual = person.nullCheck(null, false);
+		actual = ComparatorExtensions.nullCheck(person, null, false);
 		assertTrue(actual == 0);
-		actual = person.nullCheck(otherPerson, false);
+		actual = ComparatorExtensions.nullCheck(person, otherPerson, false);
 		assertTrue(actual == -1);
 		// true case...
 		actual = ComparatorExtensions.nullCheck(Person.builder().build(), null, true);
 		assertTrue(actual == -1);
 		person = Person.builder().build();
-		actual = person.nullCheck(null, true);
+		actual = ComparatorExtensions.nullCheck(person, null, true);
 		assertTrue(actual == -1);
-		actual = person.nullCheck(otherPerson, true);
+		actual = ComparatorExtensions.nullCheck(person, otherPerson, true);
 		assertTrue(actual == null);
 		person = null;
-		actual = person.nullCheck(null, true);
+		actual = ComparatorExtensions.nullCheck(person, null, true);
 		assertTrue(actual == 0);
-		actual = person.nullCheck(otherPerson, true);
+		actual = ComparatorExtensions.nullCheck(person, otherPerson, true);
 		assertTrue(actual == 1);
 	}
 

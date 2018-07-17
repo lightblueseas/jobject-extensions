@@ -31,12 +31,10 @@ import org.testng.annotations.Test;
 
 import de.alpharogroup.date.CreateDateExtensions;
 import de.alpharogroup.test.objects.A;
-import lombok.experimental.ExtensionMethod;
 
 /**
  * The unit test class for the class {@link CloneObjectExtensions}.
  */
-@ExtensionMethod(CloneObjectExtensions.class)
 public class CloneObjectExtensionsTest
 {
 

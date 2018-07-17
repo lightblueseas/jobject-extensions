@@ -25,6 +25,7 @@ package de.alpharogroup.evaluate.object.evaluators;
 
 import static org.testng.AssertJUnit.assertEquals;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
 import org.meanbean.test.BeanTestException;
@@ -54,6 +55,10 @@ public class ToStringEvaluatorTest
 		assertEquals(expected, actual);
 
 		actual = ToStringEvaluator.evaluate(null);
+		expected = false;
+		assertEquals(expected, actual);
+
+		actual = ToStringEvaluator.evaluate(Serializable.class);
 		expected = false;
 		assertEquals(expected, actual);
 	}

@@ -25,6 +25,7 @@ package de.alpharogroup.evaluate.object.checkers;
 
 import static org.testng.Assert.assertEquals;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
@@ -104,6 +105,10 @@ public class ToStringCheckTest
 
 		actual = ToStringCheck.evaluate(null);
 		expected = Optional.of(ToStringContractViolation.CLASS_NULL_ARGUMENT);
+		assertEquals(expected, actual);
+
+		actual = ToStringCheck.evaluate(Serializable.class);
+		expected = Optional.of(ToStringContractViolation.NOT_EXISTENT);
 		assertEquals(expected, actual);
 	}
 

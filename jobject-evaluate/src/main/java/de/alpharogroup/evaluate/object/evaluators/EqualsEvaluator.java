@@ -54,8 +54,8 @@ public final class EqualsEvaluator
 	{
 		if (object == null)
 		{
-			log.error(
-				"evaluation of contract condition reflexivity in equals method failed because given object is null");
+			log.error("evaluation of contract condition reflexivity in equals method failed "
+				+ "because given object is null");
 			return false;
 		}
 		return object.equals(object);
@@ -85,8 +85,8 @@ public final class EqualsEvaluator
 	{
 		if (object == null || anotherObject == null)
 		{
-			log.error(
-				"evaluation of contract condition symmetric in equals method failed because one of the given objects is null");
+			log.error("evaluation of contract condition symmetric in equals method failed "
+				+ "because one of the given objects is null");
 			return false;
 		}
 		boolean even = object.equals(anotherObject);
@@ -120,8 +120,8 @@ public final class EqualsEvaluator
 	{
 		if (a == null || b == null)
 		{
-			log.error(
-				"evaluation of contract condition transitivity in equals method failed because one of the first two given objects is null");
+			log.error("evaluation of contract condition transitivity in equals method failed "
+				+ "because one of the first two given objects is null");
 			return false;
 		}
 		boolean aEqualsB = a.equals(b);
@@ -152,8 +152,8 @@ public final class EqualsEvaluator
 	{
 		if (object == null)
 		{
-			log.error(
-				"evaluation of contract condition non-null reference in equals method failed because given object is null");
+			log.error("evaluation of contract condition non-null reference in equals method failed "
+				+ "because given object is null");
 			return false;
 		}
 		// negate because the valid result is false and if it is valid we want to return true...
@@ -217,8 +217,8 @@ public final class EqualsEvaluator
 	{
 		if (object == null || anotherObject == null)
 		{
-			log.error(
-				"evaluation of contract condition consistency in equals method failed because one of the given objects is null");
+			log.error("evaluation of contract condition consistency in equals method failed "
+				+ "because one of the given objects is null");
 			return false;
 		}
 		final boolean initialEqualsResult = object.equals(anotherObject);
@@ -228,9 +228,8 @@ public final class EqualsEvaluator
 			boolean currentEqualsResult = object.equals(anotherObject);
 			if (initialEqualsResult != currentEqualsResult)
 			{
-				log.error(
-					"evaluation of contract condition consistency in equals method failed on iteration "
-						+ i);
+				log.error("evaluation of contract condition consistency in equals method failed "
+					+ "on iteration " + i);
 				return false;
 			}
 		}

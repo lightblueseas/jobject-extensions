@@ -25,6 +25,8 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import java.lang.reflect.InvocationTargetException;
 
+import org.meanbean.test.BeanTestException;
+import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.date.CreateDateExtensions;
@@ -33,12 +35,10 @@ import de.alpharogroup.date.SqlTimestampDecorator;
 import de.alpharogroup.test.objects.Employee;
 import de.alpharogroup.test.objects.Person;
 import de.alpharogroup.test.objects.enums.Gender;
-import lombok.experimental.ExtensionMethod;
 
 /**
  * The unit test class for the class {@link MergeObjectExtensions}.
  */
-@ExtensionMethod(MergeObjectExtensions.class)
 public class MergeObjectExtensionsTest
 {
 
@@ -60,39 +60,17 @@ public class MergeObjectExtensionsTest
 		final Employee with = Employee.builder().person(person).id("23").build();
 
 		Employee mergeInObject = Employee.builder().build();
-		mergeInObject.merge(with);
+		MergeObjectExtensions.merge(mergeInObject, with);
 
 		assertTrue("", mergeInObject.getId().equals("23"));
 		assertTrue("", mergeInObject.getPerson().equals(person));
 
 		mergeInObject = Employee.builder().id("22").person(Person.builder().build()).build();
-		mergeInObject.merge(with);
+		MergeObjectExtensions.merge(mergeInObject, with);
 
 		assertTrue("", mergeInObject.getId().equals("23"));
 		assertTrue("", mergeInObject.getPerson().equals(person));
 
-	}
-
-	/**
-	 * Test method for {@link MergeObjectExtensions#merge(Object, Object)}.
-	 *
-	 * @throws InvocationTargetException
-	 *             the invocation target exception
-	 * @throws IllegalAccessException
-	 *             the illegal access exception
-	 */
-	@Test(enabled = true)
-	public void testMergeOrCopyQuietly() throws InvocationTargetException, IllegalAccessException
-	{
-		final DateDecorator dateDecorator = DateDecorator.builder().date(CreateDateExtensions.now())
-			.build();
-
-		final SqlTimestampDecorator timestampDecorator = SqlTimestampDecorator.builder().build();
-
-		timestampDecorator.mergeOrCopyQuietly(dateDecorator);
-
-		assertTrue("Time should be equal.",
-			timestampDecorator.getDate().getTime() == dateDecorator.getDate().getTime());
 	}
 
 	/**
@@ -138,38 +116,6 @@ public class MergeObjectExtensionsTest
 			condition);
 	}
 
-
-	/**
-	 * Test method for {@link MergeObjectExtensions#mergeQuietly(Object, Object)}.
-	 *
-	 * @throws InvocationTargetException
-	 *             the invocation target exception
-	 * @throws IllegalAccessException
-	 *             the illegal access exception
-	 */
-	@Test
-	public void testMergeQuietly()
-	{
-
-		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
-			.about("About what...").nickname("beast").build();
-
-		final Employee with = Employee.builder().person(person).id("23").build();
-
-		Employee mergeInObject = Employee.builder().build();
-		mergeInObject.mergeQuietly(with);
-
-		assertTrue("", mergeInObject.getId().equals("23"));
-		assertTrue("", mergeInObject.getPerson().equals(person));
-
-		mergeInObject = Employee.builder().id("22").person(Person.builder().build()).build();
-		mergeInObject.mergeQuietly(with);
-
-		assertTrue("", mergeInObject.getId().equals("23"));
-		assertTrue("", mergeInObject.getPerson().equals(person));
-
-	}
-
 	/**
 	 * Test method for {@link MergeObjectExtensions#merge(Object, Object)}.
 	 *
@@ -186,8 +132,18 @@ public class MergeObjectExtensionsTest
 			.build();
 
 		final SqlTimestampDecorator timestampDecorator = SqlTimestampDecorator.builder().build();
+		MergeObjectExtensions.merge(timestampDecorator, dateDecorator);
+	}
 
-		timestampDecorator.merge(dateDecorator);
+	/**
+	 * Test method for {@link MergeObjectExtensions} with {@link BeanTester}
+	 */
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
+	public void testWithBeanTester()
+	{
+		final BeanTester beanTester = new BeanTester();
+		beanTester.testBean(MergeObjectExtensions.class);
 	}
 
 }

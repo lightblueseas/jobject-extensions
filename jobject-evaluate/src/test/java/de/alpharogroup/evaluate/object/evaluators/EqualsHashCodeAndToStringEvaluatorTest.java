@@ -226,8 +226,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 		expected = false;
 		assertEquals(expected, actual);
 
-		actual = EqualsHashCodeAndToStringEvaluator
-			.evaluateEqualsHashcodeAndToString(Person.class);
+		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(Person.class);
 		expected = true;
 		assertEquals(expected, actual);
 
@@ -236,8 +235,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 		expected = true;
 		assertEquals(expected, actual);
 
-		actual = EqualsHashCodeAndToStringEvaluator
-			.evaluateEqualsHashcodeAndToString(String.class);
+		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(String.class);
 		expected = true;
 		assertEquals(expected, actual);
 	}

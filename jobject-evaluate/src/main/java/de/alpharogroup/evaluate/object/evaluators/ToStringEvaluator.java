@@ -44,7 +44,7 @@ public final class ToStringEvaluator
 		if (clazz == null)
 		{
 			log.error(
-				"evaluation of toString method failed because the given class object is null");
+				"evaluation of toString method failed " + "because the given class object is null");
 			return false;
 		}
 		try
@@ -53,7 +53,7 @@ public final class ToStringEvaluator
 		}
 		catch (NoSuchMethodException ex)
 		{
-			log.error("evaluation of toString method failed because it does not exists.", ex);
+			log.error("evaluation of toString method failed " + "because it does not exists.", ex);
 			return false;
 		}
 		return true;
@@ -91,8 +91,8 @@ public final class ToStringEvaluator
 	{
 		if (object == null)
 		{
-			log.error(
-				"evaluation of toString method consistency failed because the first given object is null");
+			log.error("evaluation of toString method consistency failed "
+				+ "because the first given object is null");
 			return false;
 		}
 		final String initialToStringResult = object.toString();
@@ -102,7 +102,8 @@ public final class ToStringEvaluator
 			String currentToStringResult = object.toString();
 			if (!initialToStringResult.equals(currentToStringResult))
 			{
-				log.error("evaluation of toString method consistency failed on iteration " + i);
+				log.error(
+					"evaluation of toString method consistency failed " + "on iteration " + i);
 				return false;
 			}
 		}

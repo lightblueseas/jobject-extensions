@@ -219,15 +219,15 @@ public class EqualsHashCodeAndToStringCheckTest
 		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(null);
 		expected = Optional.of(ToStringContractViolation.CLASS_NULL_ARGUMENT);
 		assertEquals(expected, actual);
-		
+
 		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(Person.class);
 		expected = Optional.empty();
 		assertEquals(expected, actual);
-		
+
 		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(Integer.class);
 		expected = Optional.empty();
 		assertEquals(expected, actual);
-		
+
 		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(String.class);
 		expected = Optional.empty();
 		assertEquals(expected, actual);

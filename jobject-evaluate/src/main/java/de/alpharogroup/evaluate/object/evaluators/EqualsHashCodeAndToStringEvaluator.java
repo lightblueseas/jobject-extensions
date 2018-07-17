@@ -59,20 +59,17 @@ public final class EqualsHashCodeAndToStringEvaluator
 		final boolean evaluated = true;
 		if (first == null)
 		{
-			log.error(
-				"first is null in EqualsHashCodeAndToStringEvaluator#evaluateEqualsAndHashcode");
+			log.error("first argument is null");
 			return false;
 		}
 		if (first.equals(second))
 		{
-			log.error(
-				"first equals second in EqualsHashCodeAndToStringEvaluator#evaluateEqualsAndHashcode");
+			log.error("first argument equals second argument");
 			return false;
 		}
 		if (!first.equals(third))
 		{
-			log.error(
-				"first equals third in EqualsHashCodeAndToStringEvaluator#evaluateEqualsAndHashcode");
+			log.error("first argument equals third argument");
 			return false;
 		}
 
@@ -245,8 +242,8 @@ public final class EqualsHashCodeAndToStringEvaluator
 	{
 		if (cls == null)
 		{
-			log.error(
-				"evaluation of all contract conditions failed because the given class object is null");
+			log.error("evaluation of all contract conditions failed "
+				+ "because the given class object is null");
 			return false;
 		}
 		final T first = EnhancedRandom.random(cls);

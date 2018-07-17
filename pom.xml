@@ -214,6 +214,7 @@
 								<!-- explicit bean classes -->
 								<exclude>de/alpharogroup/clone/object/CloneObjectQuietlyExtensions.class</exclude>
 								<exclude>de/alpharogroup/copy/object/CopyObjectQuietlyExtensions.class</exclude>
+								<exclude>de/alpharogroup/evaluate/object/evaluators/SilentEqualsHashCodeAndToStringEvaluator.class</exclude>
 								<!-- explicit deprecated classes -->
 								<!-- explicit enums -->
 								<exclude>de/alpharogroup/lang/ClassType.class</exclude>

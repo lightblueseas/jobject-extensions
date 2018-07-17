@@ -5,8 +5,11 @@ package de.alpharogroup.evaluate.object.checkers;
 
 import static org.testng.Assert.assertEquals;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
+import org.meanbean.test.BeanTestException;
+import org.meanbean.test.BeanTester;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -80,6 +83,17 @@ public class ToStringCheckTest extends AbstractTestCase<Optional<ContractViolati
 		actual = ToStringCheck.consistency(Integer.valueOf(1), 10);
 		expected = Optional.empty();
 		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link ToStringCheck} with {@link BeanTester}
+	 */
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
+	public void testWithBeanTester()
+	{
+		final BeanTester beanTester = new BeanTester();
+		beanTester.testBean(ToStringCheck.class);
 	}
 
 }

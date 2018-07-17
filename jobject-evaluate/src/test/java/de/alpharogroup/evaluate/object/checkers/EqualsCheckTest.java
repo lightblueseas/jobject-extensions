@@ -5,8 +5,11 @@ package de.alpharogroup.evaluate.object.checkers;
 
 import static org.testng.AssertJUnit.assertEquals;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
+import org.meanbean.test.BeanTestException;
+import org.meanbean.test.BeanTester;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -21,6 +24,9 @@ import de.alpharogroup.evaluate.object.enums.EqualsContractViolation;
 public class EqualsCheckTest extends AbstractTestCase<Optional<ContractViolation>, Optional<ContractViolation>>
 {
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@BeforeMethod
 	@Override
 	protected void setUp() throws Exception
@@ -28,6 +34,9 @@ public class EqualsCheckTest extends AbstractTestCase<Optional<ContractViolation
 		super.setUp();
 	}
 
+	/**
+	 * {@inheritDoc}
+	 */
 	@AfterMethod
 	@Override
 	protected void tearDown() throws Exception
@@ -316,6 +325,17 @@ public class EqualsCheckTest extends AbstractTestCase<Optional<ContractViolation
 		actual = EqualsCheck.transitivity(Integer.valueOf(1), Integer.valueOf(1), null);
 		expected = Optional.of(EqualsContractViolation.TRANSITIVITY);
 		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link EqualsCheck} with {@link BeanTester}
+	 */
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
+	public void testWithBeanTester()
+	{
+		final BeanTester beanTester = new BeanTester();
+		beanTester.testBean(EqualsCheck.class);
 	}
 
 }

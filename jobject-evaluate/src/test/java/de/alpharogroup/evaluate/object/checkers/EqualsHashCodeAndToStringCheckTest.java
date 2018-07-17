@@ -6,6 +6,8 @@ import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
+import org.meanbean.test.BeanTestException;
+import org.meanbean.test.BeanTester;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -222,6 +224,17 @@ public class EqualsHashCodeAndToStringCheckTest
 			Integer.valueOf(0), Integer.valueOf(0));
 		expected = Optional.empty();
 		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link EqualsHashCodeAndToStringCheck} with {@link BeanTester}
+	 */
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
+	public void testWithBeanTester()
+	{
+		final BeanTester beanTester = new BeanTester();
+		beanTester.testBean(EqualsHashCodeAndToStringCheck.class);
 	}
 
 }

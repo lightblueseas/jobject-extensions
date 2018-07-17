@@ -77,7 +77,7 @@ public class EqualsHashCodeAndToStringCheckTest
 	{
 		actual = EqualsHashCodeAndToStringCheck.equalsAndHashcode(Integer.valueOf(0),
 			Integer.valueOf(1), Integer.valueOf(0), Integer.valueOf(0));
-		expected = Optional.of(HashcodeContractViolation.UNEQAUALITY);
+		expected = Optional.empty();
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringCheck.equalsAndHashcode(Integer.valueOf(0),
@@ -169,7 +169,7 @@ public class EqualsHashCodeAndToStringCheckTest
 	{
 		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(Integer.valueOf(0),
 			Integer.valueOf(1), Integer.valueOf(0), Integer.valueOf(0));
-		expected = Optional.of(HashcodeContractViolation.UNEQAUALITY);
+		expected = Optional.empty();
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(Integer.valueOf(0),

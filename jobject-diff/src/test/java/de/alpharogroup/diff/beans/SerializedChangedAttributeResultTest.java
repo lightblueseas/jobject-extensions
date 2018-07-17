@@ -18,8 +18,9 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.diff;
+package de.alpharogroup.diff.beans;
 
+import static org.testng.Assert.assertNotNull;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotSame;
 import static org.testng.AssertJUnit.assertTrue;
@@ -30,12 +31,38 @@ import de.alpharogroup.diff.beans.SerializedChangedAttributeResult;
 import de.alpharogroup.evaluate.object.evaluators.EqualsEvaluator;
 import de.alpharogroup.evaluate.object.evaluators.HashcodeEvaluator;
 import de.alpharogroup.evaluate.object.evaluators.ToStringEvaluator;
+import de.alpharogroup.test.objects.Permission;
 
 /**
  * The unit test class for the class {@link SerializedChangedAttributeResult}.
  */
 public class SerializedChangedAttributeResultTest
 {
+
+	/**
+	 * Test method for {@link SerializedChangedAttributeResult} constructors
+	 */
+	@Test
+	public final void testConstructors()
+	{
+		SerializedChangedAttributeResult model = new SerializedChangedAttributeResult();
+		assertNotNull(model);
+		model = new SerializedChangedAttributeResult("foo", "name", "value");
+		assertNotNull(model);
+		model = SerializedChangedAttributeResult.builder().attributeName("foo").sourceAttribute("")
+			.changedAttribute("").build();
+		assertNotNull(model);
+	}
+
+	/**
+	 * Test method for {@link SerializedChangedAttributeResult} constructors that throws an
+	 * IllegalArgumentException
+	 */
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public final void testConstructorsThrowIllegalArgumentException01()
+	{
+		new SerializedChangedAttributeResult(Permission.builder().build(), "name", "value");
+	}
 
 	/**
 	 * Test method for {@link SerializedChangedAttributeResult#equals(Object)}

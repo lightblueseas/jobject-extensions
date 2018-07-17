@@ -49,9 +49,9 @@ public class GenericChangedAttribute<SOURCE, CHANGED>
 	/** The attribute name. */
 	private String attributeName;
 
-	/** The source attribute. */
-	private SOURCE sourceAttribute;
-
 	/** The changed attribute. */
 	private CHANGED changedAttribute;
+
+	/** The source attribute. */
+	private SOURCE sourceAttribute;
 }

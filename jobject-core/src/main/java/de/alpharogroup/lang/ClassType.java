@@ -38,6 +38,9 @@ public enum ClassType
 	/** The collection class type. */
 	COLLECTION,
 
+	/** The default class type. */
+	DEFAULT,
+
 	/** The enum class type. */
 	ENUM,
 
@@ -57,8 +60,5 @@ public enum ClassType
 	PRIMITIVE,
 
 	/** The synthetic class type. */
-	SYNTHETIC,
-
-	/** The default class type. */
-	DEFAULT;
+	SYNTHETIC;
 }

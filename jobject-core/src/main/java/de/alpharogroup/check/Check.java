@@ -30,11 +30,11 @@ import java.util.Map;
 public final class Check implements Serializable
 {
 
-	/** The serialVersionUID. */
-	private static final long serialVersionUID = 1L;
-
 	/** The Constant instance. */
 	private static final Check instance = new Check();
+
+	/** The serialVersionUID. */
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * Gets the single Check instance.

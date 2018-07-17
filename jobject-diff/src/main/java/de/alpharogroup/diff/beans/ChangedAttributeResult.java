@@ -41,16 +41,16 @@ import lombok.ToString;
 @Builder(toBuilder = true)
 public class ChangedAttributeResult
 {
-	/** The parent if exists. */
-	private ChangedAttributeResult parent;
-
 	/** The attribute name. */
 	private Object attributeName;
 
-	/** The source attribute. */
-	private Object sourceAttribute;
-
 	/** The changed attribute. */
 	private Object changedAttribute;
+
+	/** The parent if exists. */
+	private ChangedAttributeResult parent;
+
+	/** The source attribute. */
+	private Object sourceAttribute;
 
 }

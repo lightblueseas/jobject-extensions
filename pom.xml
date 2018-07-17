@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>jobject-extensions</artifactId>
-	<version>1.12-SNAPSHOT</version>
+	<version>1.12</version>
 	<packaging>pom</packaging>
 
 	<name>${project.artifactId}</name>

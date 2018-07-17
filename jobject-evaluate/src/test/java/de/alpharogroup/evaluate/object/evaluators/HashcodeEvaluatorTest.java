@@ -28,8 +28,6 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.evaluate.object.evaluators.HashcodeEvaluator;
-
 /**
  * The unit test class for the class {@link HashcodeEvaluator}.
  */
@@ -40,7 +38,7 @@ public class HashcodeEvaluatorTest
 	 * Test method for {@link HashcodeEvaluator#evaluateConsistency(Object)}.
 	 */
 	@Test
-	public void testEvaluateConsistency() throws Exception
+	public void testEvaluateConsistency()
 	{
 		boolean expected;
 		boolean actual;
@@ -65,7 +63,7 @@ public class HashcodeEvaluatorTest
 	 * Test method for {@link HashcodeEvaluator#evaluateEquality(Object, Object)}.
 	 */
 	@Test
-	public void testEvaluateEquality() throws Exception
+	public void testEvaluateEquality()
 	{
 		boolean expected;
 		boolean actual;
@@ -86,7 +84,7 @@ public class HashcodeEvaluatorTest
 	 * Test method for {@link HashcodeEvaluator#evaluateEquality(Object, Object)}.
 	 */
 	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateEqualityExpectedException01() throws Exception
+	public void testEvaluateEqualityExpectedException01()
 	{
 		HashcodeEvaluator.evaluateEquality(Integer.valueOf(1), Integer.valueOf(0));
 	}
@@ -95,7 +93,7 @@ public class HashcodeEvaluatorTest
 	 * Test method for {@link HashcodeEvaluator#evaluateEquality(Object, Object)}.
 	 */
 	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateEqualityExpectedException02() throws Exception
+	public void testEvaluateEqualityExpectedException02()
 	{
 		HashcodeEvaluator.evaluateEquality(Integer.valueOf(1), null);
 	}
@@ -104,7 +102,7 @@ public class HashcodeEvaluatorTest
 	 * Test method for {@link HashcodeEvaluator#evaluateUnequality(Object, Object)}.
 	 */
 	@Test
-	public void testEvaluateUnequality() throws Exception
+	public void testEvaluateUnequality()
 	{
 		boolean expected;
 		boolean actual;
@@ -129,7 +127,7 @@ public class HashcodeEvaluatorTest
 	 * Test method for {@link HashcodeEvaluator#evaluateUnequality(Object, Object)}.
 	 */
 	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateUnequalityExpectedException01() throws Exception
+	public void testEvaluateUnequalityExpectedException01()
 	{
 		HashcodeEvaluator.evaluateUnequality(Integer.valueOf(0), Integer.valueOf(0));
 	}

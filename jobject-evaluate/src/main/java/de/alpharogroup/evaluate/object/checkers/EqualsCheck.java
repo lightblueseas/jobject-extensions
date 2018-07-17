@@ -25,7 +25,6 @@ import java.util.Optional;
 import de.alpharogroup.evaluate.object.api.ContractViolation;
 import de.alpharogroup.evaluate.object.enums.EqualsContractViolation;
 import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link EqualsCheck} provides algorithms for check the <a href=
@@ -33,7 +32,6 @@ import lombok.extern.slf4j.Slf4j;
  * contract</a> of an given object.
  */
 @UtilityClass
-@Slf4j
 public final class EqualsCheck
 {
 
@@ -59,8 +57,6 @@ public final class EqualsCheck
 	{
 		if (object == null)
 		{
-			log.error(
-				"evaluation of contract condition reflexivity in equals method failed because given object is null");
 			return Optional.of(EqualsContractViolation.REFLEXIVITY_NULL_ARGUMENT);
 		}
 		return object.equals(object)
@@ -93,8 +89,6 @@ public final class EqualsCheck
 	{
 		if (object == null || anotherObject == null)
 		{
-			log.error(
-				"evaluation of contract condition symmetric in equals method failed because one of the given objects is null");
 			return Optional.of(EqualsContractViolation.SYMMETRICITY_NULL_ARGUMENT);
 		}
 		boolean even = object.equals(anotherObject);
@@ -103,8 +97,8 @@ public final class EqualsCheck
 	}
 
 	/**
-	 * Checks the contract condition for transitivity of the given objects, that means according
-	 * to {@link Object#equals(Object)} that this method should evaluate the following contract
+	 * Checks the contract condition for transitivity of the given objects, that means according to
+	 * {@link Object#equals(Object)} that this method should evaluate the following contract
 	 * condition:
 	 * <ul>
 	 * <li>It is <i>transitive</i>: for any non-null reference values {@code x}, {@code y}, and
@@ -129,8 +123,6 @@ public final class EqualsCheck
 	{
 		if (a == null || b == null)
 		{
-			log.error("evaluation of contract condition transitivity in equals method failed "
-				+ "because one of the first two given objects is null");
 			return Optional.of(EqualsContractViolation.TRANSITIVITY_NULL_ARGUMENT);
 		}
 		boolean aEqualsB = a.equals(b);
@@ -142,9 +134,9 @@ public final class EqualsCheck
 	}
 
 	/**
-	 * Checks the contract condition for non-null condition is given of the given object, that
-	 * means according to {@link Object#equals(Object)} that this method should evaluate the
-	 * following contract condition:
+	 * Checks the contract condition for non-null condition is given of the given object, that means
+	 * according to {@link Object#equals(Object)} that this method should evaluate the following
+	 * contract condition:
 	 * <ul>
 	 * <li>For any non-null reference value {@code x}, {@code x.equals(null)} should return
 	 * {@code false}.
@@ -164,8 +156,6 @@ public final class EqualsCheck
 	{
 		if (object == null)
 		{
-			log.error("evaluation of contract condition non-null reference in equals method failed "
-				+ "because given object is null");
 			return Optional.of(EqualsContractViolation.NON_NULL_NULL_ARGUMENT);
 		}
 		// negate because the valid result is false and if it is valid we want to return true...
@@ -174,8 +164,8 @@ public final class EqualsCheck
 	}
 
 	/**
-	 * Checks the contract condition for consistency of the given objects, that means according
-	 * to {@link Object#equals(Object)} that this method should evaluate the following contract
+	 * Checks the contract condition for consistency of the given objects, that means according to
+	 * {@link Object#equals(Object)} that this method should evaluate the following contract
 	 * condition:
 	 * <ul>
 	 * <li>It is <i>consistent</i>: for any non-null reference values {@code x} and {@code y},
@@ -195,7 +185,8 @@ public final class EqualsCheck
 	 *            the object
 	 * @param anotherObject
 	 *            the another object
-	 * @return true, if consistency contract condition is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
 	public static <T> Optional<ContractViolation> consistency(T object, T anotherObject)
 	{
@@ -203,8 +194,8 @@ public final class EqualsCheck
 	}
 
 	/**
-	 * Checks the contract condition for consistency of the given objects, that means according
-	 * to {@link Object#equals(Object)} that this method should evaluate the following contract
+	 * Checks the contract condition for consistency of the given objects, that means according to
+	 * {@link Object#equals(Object)} that this method should evaluate the following contract
 	 * condition:
 	 * <ul>
 	 * <li>It is <i>consistent</i>: for any non-null reference values {@code x} and {@code y},
@@ -231,8 +222,6 @@ public final class EqualsCheck
 	{
 		if (object == null || anotherObject == null)
 		{
-			log.error("evaluation of contract condition consistency in equals method failed "
-				+ "because one of the given objects is null");
 			return Optional.of(EqualsContractViolation.CONSISTENCY_NULL_ARGUMENT);
 		}
 		final boolean initialEqualsResult = object.equals(anotherObject);
@@ -241,9 +230,6 @@ public final class EqualsCheck
 			boolean currentEqualsResult = object.equals(anotherObject);
 			if (initialEqualsResult != currentEqualsResult)
 			{
-				log.error(
-					"evaluation of contract condition consistency in equals method failed on iteration "
-						+ i);
 				return Optional.of(EqualsContractViolation.CONSISTENCY);
 			}
 		}
@@ -287,9 +273,9 @@ public final class EqualsCheck
 	}
 
 	/**
-	 * Checks the contract conditions for symmetric and consistency of the given objects, that
-	 * means according to {@link Object#equals(Object)} that this method should evaluate the
-	 * following contract condition:
+	 * Checks the contract conditions for symmetric and consistency of the given objects, that means
+	 * according to {@link Object#equals(Object)} that this method should evaluate the following
+	 * contract condition:
 	 * <ul>
 	 * <li>It is <i>symmetric</i>: for any non-null reference values {@code x} and {@code y},
 	 * {@code x.equals(y)} should return {@code true} if and only if {@code y.equals(x)} returns
@@ -308,7 +294,8 @@ public final class EqualsCheck
 	 *            the object
 	 * @param anotherObject
 	 *            the another object
-	 * @return true, if symmetric and consistency contract conditions is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
 	public static <T> Optional<ContractViolation> symmetricAndConsistency(T object, T anotherObject)
 	{
@@ -352,11 +339,11 @@ public final class EqualsCheck
 	 *            the object
 	 * @param otherObject
 	 *            the other object
-	 * @return true, if reflexivity, non null, symmetric and consistency contract conditions is
-	 *         given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> Optional<ContractViolation> reflexivityNonNullSymmetricAndConsistency(T object,
-		T otherObject)
+	public static <T> Optional<ContractViolation> reflexivityNonNullSymmetricAndConsistency(
+		T object, T otherObject)
 	{
 		Optional<ContractViolation> evaluated;
 		evaluated = reflexivityAndNonNull(object);
@@ -403,8 +390,8 @@ public final class EqualsCheck
 	 *            the other object
 	 * @param anotherObject
 	 *            the another object
-	 * @return true, if reflexivity, non null, symmetric, consistency and transitivity contract
-	 *         conditions is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
 	public static <T> Optional<ContractViolation> reflexivityNonNullSymmetricConsistencyAndTransitivity(
 		T object, T otherObject, T anotherObject)

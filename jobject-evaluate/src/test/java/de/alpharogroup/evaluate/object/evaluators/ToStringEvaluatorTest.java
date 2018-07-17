@@ -31,8 +31,6 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.evaluate.object.evaluators.ToStringEvaluator;
-
 /**
  * The unit test class for the class {@link ToStringEvaluator}.
  */
@@ -43,7 +41,7 @@ public class ToStringEvaluatorTest
 	 * Test method for {@link ToStringEvaluator#evaluate(Class)}.
 	 */
 	@Test
-	public void testEvaluate() throws Exception
+	public void testEvaluate()
 	{
 		boolean expected;
 		boolean actual;
@@ -64,7 +62,7 @@ public class ToStringEvaluatorTest
 	 * Test method for {@link ToStringEvaluator#evaluateConsistency(Object)}.
 	 */
 	@Test
-	public void testEvaluateConsistency() throws Exception
+	public void testEvaluateConsistency()
 	{
 		boolean expected;
 		boolean actual;
@@ -77,7 +75,7 @@ public class ToStringEvaluatorTest
 	 * Test method for {@link ToStringEvaluator#evaluateConsistency(Object, int)}.
 	 */
 	@Test
-	public void testEvaluateConsistencyWithIterations() throws Exception
+	public void testEvaluateConsistencyWithIterations()
 	{
 		boolean expected;
 		boolean actual;

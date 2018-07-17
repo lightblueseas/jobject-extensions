@@ -1,4 +1,24 @@
 /**
+ * The MIT License
+ *
+ * Copyright (C) 2015 Asterios Raptis
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
+/**
  * 
  */
 package de.alpharogroup.evaluate.object.checkers;
@@ -21,7 +41,9 @@ import de.alpharogroup.evaluate.object.enums.EqualsContractViolation;
 /**
  * The unit test class for the class {@link EqualsCheck}
  */
-public class EqualsCheckTest extends AbstractTestCase<Optional<ContractViolation>, Optional<ContractViolation>>
+public class EqualsCheckTest
+	extends
+		AbstractTestCase<Optional<ContractViolation>, Optional<ContractViolation>>
 {
 
 	/**
@@ -43,7 +65,7 @@ public class EqualsCheckTest extends AbstractTestCase<Optional<ContractViolation
 	{
 		super.tearDown();
 	}
-	
+
 	/**
 	 * Test method for {@link EqualsCheck#consistency(Object, Object)}.
 	 */
@@ -165,32 +187,32 @@ public class EqualsCheckTest extends AbstractTestCase<Optional<ContractViolation
 		actual = EqualsCheck.reflexivityAndNonNull(null);
 		expected = Optional.of(EqualsContractViolation.REFLEXIVITY_NULL_ARGUMENT);
 		assertEquals(expected, actual);
-	
+
 	}
 
 	/**
-	 * Test method for {@link EqualsCheck#reflexivityNonNullSymmetricAndConsistency(Object, Object)}.
+	 * Test method for
+	 * {@link EqualsCheck#reflexivityNonNullSymmetricAndConsistency(Object, Object)}.
 	 */
 	@Test
 	public void testReflexivityNonNullSymmetricAndConsistency()
 	{
-		actual = EqualsCheck.reflexivityNonNullSymmetricAndConsistency(
-			Integer.valueOf(0), Integer.valueOf(0));
-		expected = Optional.empty();
-		assertEquals(expected, actual);
-
-		actual = EqualsCheck.reflexivityNonNullSymmetricAndConsistency(
-			Integer.valueOf(1), Integer.valueOf(0));
-		expected = Optional.empty();
-		assertEquals(expected, actual);
-
-		actual = EqualsCheck.reflexivityNonNullSymmetricAndConsistency(
-			Integer.valueOf(1), Integer.valueOf(1));
-		expected = Optional.empty();
-		assertEquals(expected, actual);
-
-		actual = EqualsCheck.reflexivityNonNullSymmetricAndConsistency(null,
+		actual = EqualsCheck.reflexivityNonNullSymmetricAndConsistency(Integer.valueOf(0),
 			Integer.valueOf(0));
+		expected = Optional.empty();
+		assertEquals(expected, actual);
+
+		actual = EqualsCheck.reflexivityNonNullSymmetricAndConsistency(Integer.valueOf(1),
+			Integer.valueOf(0));
+		expected = Optional.empty();
+		assertEquals(expected, actual);
+
+		actual = EqualsCheck.reflexivityNonNullSymmetricAndConsistency(Integer.valueOf(1),
+			Integer.valueOf(1));
+		expected = Optional.empty();
+		assertEquals(expected, actual);
+
+		actual = EqualsCheck.reflexivityNonNullSymmetricAndConsistency(null, Integer.valueOf(0));
 		expected = Optional.of(EqualsContractViolation.REFLEXIVITY_NULL_ARGUMENT);
 		assertEquals(expected, actual);
 
@@ -200,7 +222,8 @@ public class EqualsCheckTest extends AbstractTestCase<Optional<ContractViolation
 	}
 
 	/**
-	 * Test method for {@link EqualsCheck#reflexivityNonNullSymmetricConsistencyAndTransitivity(Object, Object, Object)}.
+	 * Test method for
+	 * {@link EqualsCheck#reflexivityNonNullSymmetricConsistencyAndTransitivity(Object, Object, Object)}.
 	 */
 	@Test
 	public void testReflexivityNonNullSymmetricConsistencyAndTransitivity()
@@ -269,18 +292,15 @@ public class EqualsCheckTest extends AbstractTestCase<Optional<ContractViolation
 	@Test
 	public void testSymmetricAndConsistency()
 	{
-		actual = EqualsCheck.symmetricAndConsistency(Integer.valueOf(0),
-			Integer.valueOf(0));
+		actual = EqualsCheck.symmetricAndConsistency(Integer.valueOf(0), Integer.valueOf(0));
 		expected = Optional.empty();
 		assertEquals(expected, actual);
 
-		actual = EqualsCheck.symmetricAndConsistency(Integer.valueOf(1),
-			Integer.valueOf(0));
+		actual = EqualsCheck.symmetricAndConsistency(Integer.valueOf(1), Integer.valueOf(0));
 		expected = Optional.empty();
 		assertEquals(expected, actual);
 
-		actual = EqualsCheck.symmetricAndConsistency(Integer.valueOf(1),
-			Integer.valueOf(1));
+		actual = EqualsCheck.symmetricAndConsistency(Integer.valueOf(1), Integer.valueOf(1));
 		expected = Optional.empty();
 		assertEquals(expected, actual);
 

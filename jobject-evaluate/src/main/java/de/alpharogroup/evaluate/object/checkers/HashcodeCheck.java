@@ -25,7 +25,6 @@ import java.util.Optional;
 import de.alpharogroup.evaluate.object.api.ContractViolation;
 import de.alpharogroup.evaluate.object.enums.HashcodeContractViolation;
 import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link HashcodeCheck} provides algorithms for check the
@@ -33,7 +32,6 @@ import lombok.extern.slf4j.Slf4j;
  * contract</a> of an given object.
  */
 @UtilityClass
-@Slf4j
 public final class HashcodeCheck
 {
 
@@ -61,8 +59,6 @@ public final class HashcodeCheck
 	{
 		if (object == null)
 		{
-			log.error("evaluation of contract condition consistency in hashCode method failed "
-				+ "because the given objects is null");
 			return Optional.of(HashcodeContractViolation.CONSISTENCY_NULL_ARGUMENT);
 		}
 		boolean equalHashcode = object.hashCode() == object.hashCode();
@@ -93,8 +89,6 @@ public final class HashcodeCheck
 	{
 		if (object == null)
 		{
-			log.error("evaluation of contract condition equality in hashCode method failed "
-				+ "because the first given objects is null");
 			return Optional.of(HashcodeContractViolation.EQAUALITY_NULL_ARGUMENT);
 		}
 		if (object.equals(anotherObject))
@@ -104,7 +98,6 @@ public final class HashcodeCheck
 				? Optional.empty()
 				: Optional.of(HashcodeContractViolation.EQAUALITY);
 		}
-		log.error("Given arguments should be equal for evaluate equality of hash code");
 		return Optional.of(HashcodeContractViolation.EQAUALITY);
 	}
 
@@ -133,8 +126,6 @@ public final class HashcodeCheck
 	{
 		if (object == null)
 		{
-			log.error("evaluation of contract condition unequality in hashCode method failed "
-				+ "because the first given objects is null");
 			return Optional.of(HashcodeContractViolation.UNEQAUALITY_NULL_ARGUMENT);
 		}
 		if (!object.equals(anotherObject))
@@ -148,7 +139,6 @@ public final class HashcodeCheck
 				? Optional.empty()
 				: Optional.of(HashcodeContractViolation.UNEQAUALITY);
 		}
-		log.error("Given arguments should be unequal for evaluate unequality of hash code");
 		return Optional.of(HashcodeContractViolation.UNEQAUALITY);
 	}
 

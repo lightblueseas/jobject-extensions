@@ -28,8 +28,6 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.evaluate.object.evaluators.ComparableEvaluator;
-
 /**
  * The unit test class for the class {@link ComparableEvaluator}.
  */
@@ -40,7 +38,7 @@ public class ComparableEvaluatorTest
 	 * Test method for {@link ComparableEvaluator#evaluateConsistency(Comparable, Comparable)}.
 	 */
 	@Test(enabled = true)
-	public void testEvaluateConsistency() throws Exception
+	public void testEvaluateConsistency()
 	{
 		boolean expected;
 		boolean actual;
@@ -63,7 +61,7 @@ public class ComparableEvaluatorTest
 	 * {@link ComparableEvaluator#evaluateReversalComparison(Comparable, Comparable)}.
 	 */
 	@Test(enabled = true)
-	public void testEvaluateReversalComparison() throws Exception
+	public void testEvaluateReversalComparison()
 	{
 		boolean expected;
 		boolean actual;
@@ -88,7 +86,7 @@ public class ComparableEvaluatorTest
 	 * {@link ComparableEvaluator#evaluateTransitivity(Comparable, Comparable, Comparable)}.
 	 */
 	@Test(enabled = true)
-	public void testEvaluateTransitivity() throws Exception
+	public void testEvaluateTransitivity()
 	{
 		boolean expected;
 		boolean actual;

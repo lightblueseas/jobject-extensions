@@ -28,8 +28,6 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.evaluate.object.evaluators.EqualsEvaluator;
-
 /**
  * The unit test class for the class {@link EqualsEvaluator}.
  */
@@ -40,7 +38,7 @@ public class EqualsEvaluatorTest
 	 * Test method for {@link EqualsEvaluator#evaluateConsistency(Object, Object)}.
 	 */
 	@Test
-	public void testEvaluateConsistency() throws Exception
+	public void testEvaluateConsistency()
 	{
 		boolean expected;
 		boolean actual;
@@ -69,7 +67,7 @@ public class EqualsEvaluatorTest
 	 * Test method for {@link EqualsEvaluator#evaluateConsistency(Object, Object, int)}.
 	 */
 	@Test
-	public void testEvaluateConsistencyWithIterations() throws Exception
+	public void testEvaluateConsistencyWithIterations()
 	{
 		boolean expected;
 		boolean actual;
@@ -98,7 +96,7 @@ public class EqualsEvaluatorTest
 	 * Test method for {@link EqualsEvaluator#evaluateNonNull(Object)}.
 	 */
 	@Test
-	public void testEvaluateNonNull() throws Exception
+	public void testEvaluateNonNull()
 	{
 		boolean expected;
 		boolean actual;
@@ -123,7 +121,7 @@ public class EqualsEvaluatorTest
 	 * Test method for {@link EqualsEvaluator#evaluateReflexivity(Object)}.
 	 */
 	@Test
-	public void testEvaluateReflexivity() throws Exception
+	public void testEvaluateReflexivity()
 	{
 		boolean expected;
 		boolean actual;
@@ -149,7 +147,7 @@ public class EqualsEvaluatorTest
 	 * Test method for {@link EqualsEvaluator#evaluateReflexivityAndNonNull(Object)}.
 	 */
 	@Test
-	public void testEvaluateReflexivityAndNonNull() throws Exception
+	public void testEvaluateReflexivityAndNonNull()
 	{
 		boolean expected;
 		boolean actual;
@@ -175,7 +173,7 @@ public class EqualsEvaluatorTest
 	 * {@link EqualsEvaluator#evaluateReflexivityNonNullSymmetricAndConsistency(Object, Object)}.
 	 */
 	@Test
-	public void testEvaluateReflexivityNonNullSymmetricAndConsistency() throws Exception
+	public void testEvaluateReflexivityNonNullSymmetricAndConsistency()
 	{
 		boolean expected;
 		boolean actual;
@@ -210,7 +208,7 @@ public class EqualsEvaluatorTest
 	 * {@link EqualsEvaluator#evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(Object, Object, Object)}.
 	 */
 	@Test
-	public void testEvaluateReflexivityNonNullSymmetricConsistencyAndTransitivity() throws Exception
+	public void testEvaluateReflexivityNonNullSymmetricConsistencyAndTransitivity()
 	{
 		boolean expected;
 		boolean actual;
@@ -249,7 +247,7 @@ public class EqualsEvaluatorTest
 	 * Test method for {@link EqualsEvaluator#evaluateSymmetric(Object, Object)}.
 	 */
 	@Test
-	public void testEvaluateSymmetric() throws Exception
+	public void testEvaluateSymmetric()
 	{
 		boolean expected;
 		boolean actual;
@@ -278,7 +276,7 @@ public class EqualsEvaluatorTest
 	 * Test method for {@link EqualsEvaluator#evaluateSymmetricAndConsistency(Object, Object)}.
 	 */
 	@Test
-	public void testEvaluateSymmetricAndConsistency() throws Exception
+	public void testEvaluateSymmetricAndConsistency()
 	{
 		boolean expected;
 		boolean actual;
@@ -310,7 +308,7 @@ public class EqualsEvaluatorTest
 	 * Test method for {@link EqualsEvaluator#evaluateTransitivity(Object, Object, Object)}.
 	 */
 	@Test
-	public void testEvaluateTransitivity() throws Exception
+	public void testEvaluateTransitivity()
 	{
 		boolean expected;
 		boolean actual;

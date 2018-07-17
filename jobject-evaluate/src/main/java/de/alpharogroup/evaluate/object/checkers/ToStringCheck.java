@@ -26,19 +26,17 @@ import java.util.Optional;
 import de.alpharogroup.evaluate.object.api.ContractViolation;
 import de.alpharogroup.evaluate.object.enums.ToStringContractViolation;
 import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link ToStringCheck} provides algorithms for evaluate the {@link Object#toString()}
  * method.
  */
 @UtilityClass
-@Slf4j
 public final class ToStringCheck
 {
 
 	/**
-	 * Evaluate if the given class implements the toString method.
+	 * Checks if the given class implements the toString method.
 	 *
 	 * @param clazz
 	 *            the class
@@ -50,8 +48,6 @@ public final class ToStringCheck
 		Method toString;
 		if (clazz == null)
 		{
-			log.error(
-				"evaluation of toString method failed because the given class object is null");
 			return Optional.of(ToStringContractViolation.CLASS_NULL_ARGUMENT);
 		}
 		try
@@ -60,19 +56,17 @@ public final class ToStringCheck
 		}
 		catch (NoSuchMethodException ex)
 		{
-			log.error("evaluation of toString method failed because it does not exists.", ex);
 			return Optional.of(ToStringContractViolation.NOT_EXISTENT);
 		}
 		if (!String.class.equals(toString.getReturnType()))
 		{
-			log.error("evaluation of toString method failed because the return type is not string");
 			return Optional.of(ToStringContractViolation.RETURNTYPE_NOT_STRING);
 		}
 		return Optional.empty();
 	}
 
 	/**
-	 * Evaluate consistency of method {@link Object#toString()} for the given objects <br>
+	 * Checks consistency of method {@link Object#toString()} for the given objects <br>
 	 * This method calls the same name method with default iterations of 7<br>
 	 * <br>
 	 *
@@ -89,7 +83,7 @@ public final class ToStringCheck
 	}
 
 	/**
-	 * Evaluate consistency of method {@link Object#toString()} for the given objects <br>
+	 * Checks consistency of method {@link Object#toString()} for the given objects <br>
 	 *
 	 * @param <T>
 	 *            the generic type
@@ -100,13 +94,10 @@ public final class ToStringCheck
 	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
 	 *         specific violation type
 	 */
-	public static <T> Optional<ContractViolation> consistency(T object,
-		int iterations)
+	public static <T> Optional<ContractViolation> consistency(T object, int iterations)
 	{
 		if (object == null)
 		{
-			log.error(
-				"evaluation of toString method consistency failed because the first given object is null");
 			return Optional.of(ToStringContractViolation.CONSISTENCY_NULL_ARGUMENT);
 		}
 		final String initialToStringResult = object.toString();
@@ -115,7 +106,6 @@ public final class ToStringCheck
 			String currentToStringResult = object.toString();
 			if (!initialToStringResult.equals(currentToStringResult))
 			{
-				log.error("evaluation of toString method consistency failed on iteration " + i);
 				return Optional.of(ToStringContractViolation.CONSISTENCY);
 			}
 		}

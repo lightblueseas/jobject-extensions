@@ -227,7 +227,6 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 * @return true, if all contract conditions for the methods {@link Object#equals(Object)},
 	 *         {@link Object#hashCode()} and {@link Object#toString()} is given otherwise false
 	 *
-	 *
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
 	 * @throws InstantiationException

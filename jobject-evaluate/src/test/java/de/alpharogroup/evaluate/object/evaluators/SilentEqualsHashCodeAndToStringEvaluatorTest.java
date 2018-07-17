@@ -31,8 +31,6 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.evaluate.object.evaluators.SilentEqualsHashCodeAndToStringEvaluator;
-
 /**
  * The unit test class for the class {@link SilentEqualsHashCodeAndToStringEvaluator}.
  */
@@ -41,10 +39,10 @@ public class SilentEqualsHashCodeAndToStringEvaluatorTest
 
 	/**
 	 * Test method for
-	 * {@link SilentEqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeAndToStringQuietly(Class)}.
+	 * {@link SilentEqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeAndToStringQuietly(Class)}
 	 */
 	@Test
-	public void testEvaluateEqualsHashcodeAndToStringQuietly() throws Exception
+	public void testEvaluateEqualsHashcodeAndToStringQuietly()
 	{
 		boolean expected;
 		boolean actual;

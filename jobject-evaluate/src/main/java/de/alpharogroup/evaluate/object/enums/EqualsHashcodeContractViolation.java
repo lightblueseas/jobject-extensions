@@ -21,39 +21,33 @@
 package de.alpharogroup.evaluate.object.enums;
 
 import de.alpharogroup.evaluate.object.api.ContractViolation;
+import de.alpharogroup.evaluate.object.checkers.EqualsHashCodeAndToStringCheck;
 
 /**
- * The enum {@link EqualsContractViolation} represents a contract violation as the name let presume
+ * The enum {@link EqualsHashcodeContractViolation} represents a contract violation as the name let
+ * presume
  */
-public enum EqualsContractViolation implements ContractViolation
+public enum EqualsHashcodeContractViolation implements ContractViolation
 {
-	/** This value represents the consistency contract violation. */
-	CONSISTENCY,
 
-	/** This value represents that the given argument is null for the consistency evaluation. */
-	CONSISTENCY_NULL_ARGUMENT,
+	/**
+	 * This value represents the contract violation if the first and second argument in
+	 * {@link EqualsHashCodeAndToStringCheck#equalsAndHashcode(Object, Object, Object, Object)} are
+	 * equal.
+	 */
+	FIRST_AND_SECOND_EQUAL,
 
-	/** This value represents the non null contract violation. */
-	NON_NULL,
+	/**
+	 * This value represents the contract violation if the first and third argument in
+	 * {@link EqualsHashCodeAndToStringCheck#equalsAndHashcode(Object, Object, Object, Object)} are
+	 * unequal.
+	 */
+	FIRST_AND_THIRD_UNEQUAL,
 
-	/** This value represents that the given argument is null for the non null evaluation. */
-	NON_NULL_NULL_ARGUMENT,
-
-	/** This value represents the reflexivity contract violation. */
-	REFLEXIVITY,
-
-	/** This value represents that the given argument is null for the reflexivity evaluation. */
-	REFLEXIVITY_NULL_ARGUMENT,
-
-	/** This value represents the symmetric contract violation. */
-	SYMMETRICITY,
-
-	/** This value represents that the given argument is null for the symmetric evaluation. */
-	SYMMETRICITY_NULL_ARGUMENT,
-
-	/** This value represents the transitivity contract violation. */
-	TRANSITIVITY,
-
-	/** This value represents that the given argument is null for the transitivity evaluation. */
-	TRANSITIVITY_NULL_ARGUMENT;
+	/**
+	 * This value represents the contract violation if the first argument in
+	 * {@link EqualsHashCodeAndToStringCheck#equalsAndHashcode(Object, Object, Object, Object)} is
+	 * null.
+	 */
+	FIRST_ARG_NULL;
 }

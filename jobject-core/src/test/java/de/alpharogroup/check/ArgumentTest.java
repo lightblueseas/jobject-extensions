@@ -41,7 +41,7 @@ public class ArgumentTest
 {
 
 	String name;
-	
+
 	/**
 	 * Test method for {@link Argument#isInRange(Comparable, Comparable, Comparable, String)}
 	 */
@@ -51,7 +51,7 @@ public class ArgumentTest
 		Double min;
 		Double max;
 		Double value;
-		
+
 		min = 0.0d;
 		max = 5.0d;
 		value = 6.0d;
@@ -70,7 +70,7 @@ public class ArgumentTest
 		Double min;
 		Double max;
 		Double value;
-		
+
 		min = 0.0d;
 		max = 5.0d;
 		value = 4.0d;
@@ -88,7 +88,7 @@ public class ArgumentTest
 	public void testNotEmptyCollection()
 	{
 		List<String> list;
-		
+
 		name = "list";
 		list = new ArrayList<>();
 
@@ -103,7 +103,7 @@ public class ArgumentTest
 	{
 		List<String> expected;
 		List<String> actual;
-		
+
 		name = "list";
 		expected = new ArrayList<>();
 		expected.add("foo");
@@ -120,7 +120,7 @@ public class ArgumentTest
 	public void testNotEmptyMap()
 	{
 		Map<String, String> emptyMap;
-		
+
 		name = "map";
 		emptyMap = new HashMap<>();
 		Argument.notEmpty(emptyMap, name);
@@ -134,7 +134,7 @@ public class ArgumentTest
 	{
 		Map<String, String> expected;
 		Map<String, String> actual;
-		
+
 		name = "map";
 		expected = new HashMap<>();
 		expected.put("foo", "bar");
@@ -151,7 +151,7 @@ public class ArgumentTest
 	public void testNotEmptyString()
 	{
 		String argument;
-		
+
 		name = "parameter";
 		argument = "";
 		Argument.notEmpty(argument, name);
@@ -165,7 +165,7 @@ public class ArgumentTest
 	{
 		String expected;
 		String actual;
-		
+
 		name = "parameter";
 		expected = "foo";
 		actual = Argument.notEmpty(expected, name);

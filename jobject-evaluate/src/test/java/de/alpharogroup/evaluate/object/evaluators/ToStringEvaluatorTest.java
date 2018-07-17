@@ -74,11 +74,11 @@ public class ToStringEvaluatorTest
 	{
 		boolean expected;
 		boolean actual;
-		
+
 		actual = ToStringEvaluator.evaluateConsistency(Integer.valueOf(1));
 		expected = true;
 		assertEquals(expected, actual);
-		
+
 		actual = ToStringEvaluator.evaluateConsistency(new Person()
 		{
 			private static final long serialVersionUID = 1L;

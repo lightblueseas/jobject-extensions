@@ -34,8 +34,8 @@ public class GenericChangedAttributeTest
 	}
 
 	/**
-	 * Test method for {@link GenericChangedAttribute#equals(Object)} , {@link GenericChangedAttribute#hashCode()} and
-	 * {@link GenericChangedAttribute#toString()}
+	 * Test method for {@link GenericChangedAttribute#equals(Object)} ,
+	 * {@link GenericChangedAttribute#hashCode()} and {@link GenericChangedAttribute#toString()}
 	 *
 	 * @throws NoSuchMethodException
 	 *             if an accessor method for this property cannot be found

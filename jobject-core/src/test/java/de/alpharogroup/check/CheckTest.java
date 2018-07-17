@@ -233,7 +233,7 @@ public class CheckTest
 	public void testNotEmptyMap()
 	{
 		Map<String, String> emptyMap;
-		
+
 		name = "map";
 		emptyMap = new HashMap<>();
 
@@ -247,7 +247,7 @@ public class CheckTest
 	public void testNotEmptyMapNormalCase()
 	{
 		Map<String, String> map;
-		
+
 		name = "map";
 		map = new HashMap<>();
 		map.put("foo", "bar");
@@ -262,7 +262,7 @@ public class CheckTest
 	public void testNotEmptyString()
 	{
 		String argument;
-		
+
 		name = "parameter";
 		argument = "";
 
@@ -276,7 +276,7 @@ public class CheckTest
 	public void testNotEmptyStringNormalCase()
 	{
 		String argument;
-		
+
 		name = "parameter";
 		argument = "foo";
 

@@ -30,8 +30,8 @@ import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * The class {@link CompareObjectQuietlyExtensions} provide methods for compare an object with another
- * given object.
+ * The class {@link CompareObjectQuietlyExtensions} provide methods for compare an object with
+ * another given object.
  */
 @UtilityClass
 @Slf4j

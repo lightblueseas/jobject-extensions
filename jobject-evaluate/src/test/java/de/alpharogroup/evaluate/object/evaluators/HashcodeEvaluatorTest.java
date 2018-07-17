@@ -64,7 +64,7 @@ public class HashcodeEvaluatorTest
 		actual = HashcodeEvaluator.evaluateConsistency(new Person()
 		{
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public int hashCode()
 			{
@@ -98,7 +98,7 @@ public class HashcodeEvaluatorTest
 		actual = HashcodeEvaluator.evaluateEquality(new Person()
 		{
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public int hashCode()
 			{
@@ -107,7 +107,7 @@ public class HashcodeEvaluatorTest
 		}, new Person()
 		{
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public int hashCode()
 			{

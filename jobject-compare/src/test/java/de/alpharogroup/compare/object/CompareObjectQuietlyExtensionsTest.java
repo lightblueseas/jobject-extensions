@@ -39,7 +39,8 @@ public class CompareObjectQuietlyExtensionsTest
 {
 
 	/**
-	 * Test method for {@link CompareObjectQuietlyExtensions#compareToQuietly(Object, Object, String)}.
+	 * Test method for
+	 * {@link CompareObjectQuietlyExtensions#compareToQuietly(Object, Object, String)}.
 	 */
 	@Test
 	public void testCompareToQuietly()

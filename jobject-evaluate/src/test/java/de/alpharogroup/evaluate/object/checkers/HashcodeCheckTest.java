@@ -90,7 +90,7 @@ public class HashcodeCheckTest
 		actual = HashcodeCheck.consistency(new Person()
 		{
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public int hashCode()
 			{
@@ -122,7 +122,7 @@ public class HashcodeCheckTest
 		actual = HashcodeCheck.equality(new Person()
 		{
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public int hashCode()
 			{
@@ -131,7 +131,7 @@ public class HashcodeCheckTest
 		}, new Person()
 		{
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public int hashCode()
 			{
@@ -167,7 +167,7 @@ public class HashcodeCheckTest
 		actual = HashcodeCheck.unequality(new Person()
 		{
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public int hashCode()
 			{
@@ -176,7 +176,7 @@ public class HashcodeCheckTest
 		}, new Person()
 		{
 			private static final long serialVersionUID = 1L;
-			
+
 			@Override
 			public int hashCode()
 			{

@@ -26,7 +26,6 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import org.testng.annotations.Test;
 
-import de.alpharogroup.diff.beans.ChangedAttributeResult;
 import de.alpharogroup.evaluate.object.evaluators.EqualsEvaluator;
 import de.alpharogroup.evaluate.object.evaluators.HashcodeEvaluator;
 import de.alpharogroup.evaluate.object.evaluators.ToStringEvaluator;

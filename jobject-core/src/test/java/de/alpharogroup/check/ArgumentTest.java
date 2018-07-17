@@ -23,16 +23,15 @@ package de.alpharogroup.check;
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotNull;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
+import org.testng.annotations.Test;
 
 
 /**
@@ -40,25 +39,23 @@ import org.meanbean.test.BeanTester;
  */
 public class ArgumentTest
 {
-	/**
-	 * A rule for expecting exceptions
-	 */
-	@Rule
-	public ExpectedException throwable = ExpectedException.none();
 
+	String name;
+	
 	/**
 	 * Test method for {@link Argument#isInRange(Comparable, Comparable, Comparable, String)}
 	 */
-	@Test
+	@Test(expectedExceptions = { IllegalArgumentException.class })
 	public void testIsInRange()
 	{
-		final Double min = 0.0d;
-		final Double max = 5.0d;
-		final Double value = 6.0d;
-		final String name = "parameter";
-		throwable.expect(IllegalArgumentException.class);
-		throwable.expectMessage("Given argument '" + name + "' should have a value between " + min
-			+ " - " + max + ", but given argument is currently:" + value + "");
+		Double min;
+		Double max;
+		Double value;
+		
+		min = 0.0d;
+		max = 5.0d;
+		value = 6.0d;
+		name = "parameter";
 		Argument.isInRange(min, max, value, name);
 	}
 
@@ -70,10 +67,14 @@ public class ArgumentTest
 	{
 		Double expected;
 		Double actual;
-		final Double min = 0.0d;
-		final Double max = 5.0d;
-		final Double value = 4.0d;
-		final String name = "parameter";
+		Double min;
+		Double max;
+		Double value;
+		
+		min = 0.0d;
+		max = 5.0d;
+		value = 4.0d;
+		name = "parameter";
 
 		expected = value;
 		actual = Argument.isInRange(min, max, value, name);
@@ -83,13 +84,13 @@ public class ArgumentTest
 	/**
 	 * Test method for {@link Argument#notEmpty(java.util.Collection, String)}
 	 */
-	@Test
+	@Test(expectedExceptions = { IllegalArgumentException.class })
 	public void testNotEmptyCollection()
 	{
-		final String name = "list";
-		final List<String> list = new ArrayList<>();
-		throwable.expect(IllegalArgumentException.class);
-		throwable.expectMessage("Given collection '" + name + "' may not be empty.");
+		List<String> list;
+		
+		name = "list";
+		list = new ArrayList<>();
 
 		Argument.notEmpty(list, name);
 	}
@@ -102,7 +103,8 @@ public class ArgumentTest
 	{
 		List<String> expected;
 		List<String> actual;
-		final String name = "list";
+		
+		name = "list";
 		expected = new ArrayList<>();
 		expected.add("foo");
 
@@ -114,13 +116,13 @@ public class ArgumentTest
 	/**
 	 * Test method for {@link Argument#notEmpty(Map, String)}
 	 */
-	@Test
+	@Test(expectedExceptions = { IllegalArgumentException.class })
 	public void testNotEmptyMap()
 	{
-		final String name = "map";
-		final Map<String, String> emptyMap = new HashMap<>();
-		throwable.expect(IllegalArgumentException.class);
-		throwable.expectMessage("Given map '" + name + "' may not be empty.");
+		Map<String, String> emptyMap;
+		
+		name = "map";
+		emptyMap = new HashMap<>();
 		Argument.notEmpty(emptyMap, name);
 	}
 
@@ -132,7 +134,8 @@ public class ArgumentTest
 	{
 		Map<String, String> expected;
 		Map<String, String> actual;
-		final String name = "map";
+		
+		name = "map";
 		expected = new HashMap<>();
 		expected.put("foo", "bar");
 
@@ -144,13 +147,13 @@ public class ArgumentTest
 	/**
 	 * Test method for {@link Argument#notEmpty(CharSequence, String)}
 	 */
-	@Test
+	@Test(expectedExceptions = { IllegalArgumentException.class })
 	public void testNotEmptyString()
 	{
-		final String name = "parameter";
-		final String argument = "";
-		throwable.expect(IllegalArgumentException.class);
-		throwable.expectMessage("Given argument '" + name + "' may not be empty.");
+		String argument;
+		
+		name = "parameter";
+		argument = "";
 		Argument.notEmpty(argument, name);
 	}
 
@@ -162,7 +165,8 @@ public class ArgumentTest
 	{
 		String expected;
 		String actual;
-		final String name = "parameter";
+		
+		name = "parameter";
 		expected = "foo";
 		actual = Argument.notEmpty(expected, name);
 		assertNotNull(actual);
@@ -172,12 +176,10 @@ public class ArgumentTest
 	/**
 	 * Test method for {@link Argument#notNull(Object, String)}
 	 */
-	@Test
+	@Test(expectedExceptions = { IllegalArgumentException.class })
 	public void testNotNull()
 	{
-		final String name = "parameter";
-		throwable.expect(IllegalArgumentException.class);
-		throwable.expectMessage("Given argument '" + name + "' may not be null.");
+		name = "parameter";
 
 		Argument.notNull(null, name);
 	}
@@ -185,10 +187,10 @@ public class ArgumentTest
 	/**
 	 * Test method for {@link Argument} with {@link BeanTester}
 	 */
-	@Test
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
 	public void testWithBeanTester()
 	{
-		throwable.expect(BeanTestException.class);
 		BeanTester beanTester = new BeanTester();
 		beanTester.testBean(Argument.class);
 	}

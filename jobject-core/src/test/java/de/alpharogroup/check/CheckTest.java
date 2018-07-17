@@ -20,31 +20,26 @@
  */
 package de.alpharogroup.check;
 
-import static org.testng.AssertJUnit.assertNotNull;
+
+import static org.testng.Assert.assertNotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.junit.Rule;
-import org.junit.Test;
-import org.junit.rules.ExpectedException;
 import org.meanbean.test.BeanTester;
+import org.testng.annotations.Test;
 
 import de.alpharogroup.test.objects.Person;
 
 /**
- * The unit test class for the class {@link Check}.
+ * The unit test class for the class {@link Check}
  */
 public class CheckTest
 {
-	/**
-	 * A rule for expecting exceptions
-	 */
-	@Rule
-	public ExpectedException throwable = ExpectedException.none();
 
+	String name;
 
 	/**
 	 * Test method for {@link Check#get()}
@@ -59,17 +54,17 @@ public class CheckTest
 	/**
 	 * Test method for {@link Check#isInRange(Double, Double, Double, String)}
 	 */
-	@Test
+	@Test(expectedExceptions = { IllegalArgumentException.class })
 	public void testIsInRangeDouble()
 	{
-		final Double min = 0.0d;
-		final Double max = 5.0d;
-		final Double value = 6.0d;
-		final String name = "parameter";
-		throwable.expect(IllegalArgumentException.class);
-		throwable.expectMessage("Given argument '" + name + "' should have a value between " + min
-			+ " - " + max + ", but given argument is currently:" + value + "");
+		Double min;
+		Double max;
+		Double value;
 
+		min = 0.0d;
+		max = 5.0d;
+		value = 6.0d;
+		name = "parameter";
 		Check.get().isInRange(min, max, value, name);
 	}
 
@@ -79,10 +74,14 @@ public class CheckTest
 	@Test
 	public void testIsInRangeDoubleNormalCase()
 	{
-		final Double min = 0.0d;
-		final Double max = 5.0d;
-		final Double value = 4.0d;
-		final String name = "parameter";
+		Double min;
+		Double max;
+		Double value;
+
+		min = 0.0d;
+		max = 5.0d;
+		value = 4.0d;
+		name = "parameter";
 
 		Check check = Check.get().isInRange(min, max, value, name);
 		assertNotNull(check);
@@ -91,17 +90,17 @@ public class CheckTest
 	/**
 	 * Test method for {@link Check#isInRange(Float, Float, Float, String)}
 	 */
-	@Test
+	@Test(expectedExceptions = { IllegalArgumentException.class })
 	public void testIsInRangeFloat()
 	{
-		final Float min = 0.0f;
-		final Float max = 5.0f;
-		final Float value = 6.0f;
-		final String name = "parameter";
-		throwable.expect(IllegalArgumentException.class);
-		throwable.expectMessage("Given argument '" + name + "' should have a value between " + min
-			+ " - " + max + ", but given argument is currently:" + value + "");
+		Float min;
+		Float max;
+		Float value;
 
+		min = 0.0f;
+		max = 5.0f;
+		value = 6.0f;
+		name = "parameter";
 		Check.get().isInRange(min, max, value, name);
 	}
 
@@ -111,10 +110,14 @@ public class CheckTest
 	@Test
 	public void testIsInRangeFloatNormalCase()
 	{
-		final Float min = 0.0f;
-		final Float max = 5.0f;
-		final Float value = 4.0f;
-		final String name = "parameter";
+		Float min;
+		Float max;
+		Float value;
+
+		min = 0.0f;
+		max = 5.0f;
+		value = 4.0f;
+		name = "parameter";
 
 		Check check = Check.get().isInRange(min, max, value, name);
 		assertNotNull(check);
@@ -123,17 +126,17 @@ public class CheckTest
 	/**
 	 * Test method for {@link Check#isInRange(Integer, Integer, Integer, String)}
 	 */
-	@Test
+	@Test(expectedExceptions = { IllegalArgumentException.class })
 	public void testIsInRangeInteger()
 	{
-		final Integer min = 0;
-		final Integer max = 5;
-		final Integer value = 6;
-		final String name = "parameter";
-		throwable.expect(IllegalArgumentException.class);
-		throwable.expectMessage("Given argument '" + name + "' should have a value between " + min
-			+ " - " + max + ", but given argument is currently:" + value + "");
+		Integer min;
+		Integer max;
+		Integer value;
 
+		min = 0;
+		max = 5;
+		value = 6;
+		name = "parameter";
 		Check.get().isInRange(min, max, value, name);
 	}
 
@@ -143,10 +146,14 @@ public class CheckTest
 	@Test
 	public void testIsInRangeIntegerNormalCase()
 	{
-		final Integer min = 0;
-		final Integer max = 5;
-		final Integer value = 2;
-		final String name = "parameter";
+		Integer min;
+		Integer max;
+		Integer value;
+
+		min = 0;
+		max = 5;
+		value = 2;
+		name = "parameter";
 
 		Check check = Check.get().isInRange(min, max, value, name);
 		assertNotNull(check);
@@ -155,16 +162,17 @@ public class CheckTest
 	/**
 	 * Test method for {@link Check#isInRange(Long, Long, Long, String)}
 	 */
-	@Test
+	@Test(expectedExceptions = { IllegalArgumentException.class })
 	public void testIsInRangeLong()
 	{
-		final Long min = 0l;
-		final Long max = 5l;
-		final Long value = 6l;
-		final String name = "parameter";
-		throwable.expect(IllegalArgumentException.class);
-		throwable.expectMessage("Given argument '" + name + "' should have a value between " + min
-			+ " - " + max + ", but given argument is currently:" + value + "");
+		Long min;
+		Long max;
+		Long value;
+
+		min = 0l;
+		max = 5l;
+		value = 6l;
+		name = "parameter";
 
 		Check.get().isInRange(min, max, value, name);
 	}
@@ -175,10 +183,14 @@ public class CheckTest
 	@Test
 	public void testIsInRangeLongNormalCase()
 	{
-		final Long min = 0l;
-		final Long max = 5l;
-		final Long value = 3l;
-		final String name = "parameter";
+		Long min;
+		Long max;
+		Long value;
+
+		min = 0l;
+		max = 5l;
+		value = 3l;
+		name = "parameter";
 
 		Check check = Check.get().isInRange(min, max, value, name);
 		assertNotNull(check);
@@ -187,13 +199,13 @@ public class CheckTest
 	/**
 	 * Test method for {@link Check#notEmpty(java.util.Collection, String)}
 	 */
-	@Test
+	@Test(expectedExceptions = { IllegalArgumentException.class })
 	public void testNotEmptyCollection()
 	{
-		final String name = "list";
-		final List<String> list = new ArrayList<>();
-		throwable.expect(IllegalArgumentException.class);
-		throwable.expectMessage("Given collection '" + name + "' may not be empty.");
+		List<String> list;
+
+		name = "list";
+		list = new ArrayList<>();
 
 		Check.get().notEmpty(list, name);
 	}
@@ -204,8 +216,10 @@ public class CheckTest
 	@Test
 	public void testNotEmptyCollectionNormalCase()
 	{
-		final String name = "list";
-		final List<String> list = new ArrayList<>();
+		List<String> list;
+
+		name = "list";
+		list = new ArrayList<>();
 		list.add("foo");
 
 		Check check = Check.get().notEmpty(list, name);
@@ -215,13 +229,13 @@ public class CheckTest
 	/**
 	 * Test method for {@link Check#notEmpty(java.util.Collection, String)}
 	 */
-	@Test
+	@Test(expectedExceptions = { IllegalArgumentException.class })
 	public void testNotEmptyMap()
 	{
-		final String name = "map";
-		final Map<String, String> emptyMap = new HashMap<>();
-		throwable.expect(IllegalArgumentException.class);
-		throwable.expectMessage("Given map '" + name + "' may not be empty.");
+		Map<String, String> emptyMap;
+		
+		name = "map";
+		emptyMap = new HashMap<>();
 
 		Check.get().notEmpty(emptyMap, name);
 	}
@@ -232,8 +246,10 @@ public class CheckTest
 	@Test
 	public void testNotEmptyMapNormalCase()
 	{
-		final String name = "map";
-		final Map<String, String> map = new HashMap<>();
+		Map<String, String> map;
+		
+		name = "map";
+		map = new HashMap<>();
 		map.put("foo", "bar");
 		Check check = Check.get().notEmpty(map, name);
 		assertNotNull(check);
@@ -242,13 +258,13 @@ public class CheckTest
 	/**
 	 * Test method for {@link Check#notEmpty(CharSequence, String)}
 	 */
-	@Test
+	@Test(expectedExceptions = { IllegalArgumentException.class })
 	public void testNotEmptyString()
 	{
-		final String name = "parameter";
-		final String argument = "";
-		throwable.expect(IllegalArgumentException.class);
-		throwable.expectMessage("Given argument '" + name + "' may not be empty.");
+		String argument;
+		
+		name = "parameter";
+		argument = "";
 
 		Check.get().notEmpty(argument, name);
 	}
@@ -259,8 +275,10 @@ public class CheckTest
 	@Test
 	public void testNotEmptyStringNormalCase()
 	{
-		final String name = "parameter";
-		final String argument = "foo";
+		String argument;
+		
+		name = "parameter";
+		argument = "foo";
 
 		Check check = Check.get().notEmpty(argument, name);
 		assertNotNull(check);
@@ -269,12 +287,10 @@ public class CheckTest
 	/**
 	 * Test method for {@link Check#notNull(Object, String)}
 	 */
-	@Test
+	@Test(expectedExceptions = { IllegalArgumentException.class })
 	public void testNotNull()
 	{
-		final String name = "parameter";
-		throwable.expect(IllegalArgumentException.class);
-		throwable.expectMessage("Given argument '" + name + "' may not be null.");
+		name = "parameter";
 
 		Check.get().notNull(null, name);
 	}
@@ -285,7 +301,7 @@ public class CheckTest
 	@Test
 	public void testNotNullNormalCase()
 	{
-		final String name = "parameter";
+		name = "parameter";
 
 		Check check = Check.get().notNull(Person.builder().build(), name);
 		assertNotNull(check);

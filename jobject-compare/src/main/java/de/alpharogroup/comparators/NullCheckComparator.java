@@ -24,7 +24,6 @@ import java.io.Serializable;
 import java.util.Comparator;
 
 import lombok.Builder;
-import lombok.EqualsAndHashCode;
 
 /**
  * The class {@link NullCheckComparator} decorates another {@link Comparator} object to compare null
@@ -35,7 +34,6 @@ import lombok.EqualsAndHashCode;
  * @param <T>
  *            the generic type of the {@link Comparator} object that will be decorated
  */
-@EqualsAndHashCode
 @Builder
 public class NullCheckComparator<T> implements Comparator<T>, Serializable
 {

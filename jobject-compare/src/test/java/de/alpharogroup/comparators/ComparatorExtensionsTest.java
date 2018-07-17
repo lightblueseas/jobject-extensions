@@ -24,6 +24,10 @@ import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertNull;
 import static org.testng.AssertJUnit.assertTrue;
 
+import java.lang.reflect.InvocationTargetException;
+
+import org.meanbean.test.BeanTestException;
+import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.test.objects.Person;
@@ -153,6 +157,17 @@ public class ComparatorExtensionsTest
 		assertTrue(actual == 0);
 		actual = ComparatorExtensions.nullCheck(person, otherPerson, true);
 		assertTrue(actual == 1);
+	}
+
+	/**
+	 * Test method for {@link ComparatorExtensions} with {@link BeanTester}
+	 */
+	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
+			UnsupportedOperationException.class })
+	public void testWithBeanTester()
+	{
+		final BeanTester beanTester = new BeanTester();
+		beanTester.testBean(ComparatorExtensions.class);
 	}
 
 }

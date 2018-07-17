@@ -80,11 +80,24 @@ public class NullCheckComparatorTest
 		expected = 1;
 		assertEquals(expected, actual);
 
+		actual = localeComparator.compare(Locale.CANADA, Locale.GERMAN);
+		expected = 1;
+		assertEquals(expected, actual);
+
+		localeComparator = new NullCheckComparator<>(new TestLocaleComparator());
+
+		actual = localeComparator.compare(Locale.CANADA, null);
+		expected = 1;
+		assertEquals(expected, actual);
+
+		actual = localeComparator.compare(Locale.CANADA, Locale.GERMAN);
+		expected = 1;
+		assertEquals(expected, actual);
+
 	}
 
-
 	/**
-	 * Test method for {@link TestStringComparator#compare(String, String)}.
+	 * Test method for {@link NullCheckComparator#compare(String, String)}.
 	 */
 	@Test
 	public void testCompareStringComparator()

@@ -18,21 +18,25 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.evaluate.object;
+package de.alpharogroup.evaluate.object.checkers;
 
+import java.util.Optional;
+
+import de.alpharogroup.evaluate.object.api.ContractViolation;
+import de.alpharogroup.evaluate.object.enums.EqualsContractViolation;
 import lombok.experimental.UtilityClass;
 
 /**
- * The class {@link EqualsEvaluator} provides algorithms for evaluate the <a href=
+ * The class {@link EqualsCheck} provides algorithms for check the <a href=
  * "https://docs.oracle.com/javase/8/docs/api/java/lang/Object.html#equals-java.lang.Object-">equals
  * contract</a> of an given object.
  */
 @UtilityClass
-public final class EqualsEvaluator
+public final class EqualsCheck
 {
 
 	/**
-	 * Evaluates the contract condition for reflexivity of the given object, that means according to
+	 * Checks the contract condition for reflexivity of the given object, that means according to
 	 * {@link Object#equals(Object)} that this method should evaluate the following contract
 	 * condition:
 	 * <ul>
@@ -46,19 +50,22 @@ public final class EqualsEvaluator
 	 *            the generic type
 	 * @param object
 	 *            the object
-	 * @return true, if reflexivity contract condition is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateReflexivity(T object)
+	public static <T> Optional<ContractViolation> reflexivity(T object)
 	{
 		if (object == null)
 		{
-			return false;
+			return Optional.of(EqualsContractViolation.REFLEXIVITY_NULL_ARGUMENT);
 		}
-		return object.equals(object);
+		return object.equals(object)
+			? Optional.empty()
+			: Optional.of(EqualsContractViolation.REFLEXIVITY);
 	}
 
 	/**
-	 * Evaluates the contract condition for symmetric of the given objects, that means according to
+	 * Checks the contract condition for symmetric of the given objects, that means according to
 	 * {@link Object#equals(Object)} that this method should evaluate the following contract
 	 * condition:
 	 * <ul>
@@ -75,22 +82,23 @@ public final class EqualsEvaluator
 	 *            the object
 	 * @param anotherObject
 	 *            the another object
-	 * @return true, if symmetric contract condition is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateSymmetric(T object, T anotherObject)
+	public static <T> Optional<ContractViolation> symmetric(T object, T anotherObject)
 	{
 		if (object == null || anotherObject == null)
 		{
-			return false;
+			return Optional.of(EqualsContractViolation.SYMMETRICITY_NULL_ARGUMENT);
 		}
 		boolean even = object.equals(anotherObject);
 		boolean odd = anotherObject.equals(object);
-		return even == odd;
+		return even == odd ? Optional.empty() : Optional.of(EqualsContractViolation.SYMMETRICITY);
 	}
 
 	/**
-	 * Evaluates the contract condition for transitivity of the given objects, that means according
-	 * to {@link Object#equals(Object)} that this method should evaluate the following contract
+	 * Checks the contract condition for transitivity of the given objects, that means according to
+	 * {@link Object#equals(Object)} that this method should evaluate the following contract
 	 * condition:
 	 * <ul>
 	 * <li>It is <i>transitive</i>: for any non-null reference values {@code x}, {@code y}, and
@@ -108,24 +116,27 @@ public final class EqualsEvaluator
 	 *            other object
 	 * @param c
 	 *            another object
-	 * @return true, if transitivity contract condition is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateTransitivity(T a, T b, T c)
+	public static <T> Optional<ContractViolation> transitivity(T a, T b, T c)
 	{
 		if (a == null || b == null)
 		{
-			return false;
+			return Optional.of(EqualsContractViolation.TRANSITIVITY_NULL_ARGUMENT);
 		}
 		boolean aEqualsB = a.equals(b);
 		boolean bEqualsC = b.equals(c);
 		boolean aEqualsC = a.equals(c);
-		return aEqualsB && bEqualsC && aEqualsC;
+		return aEqualsB && bEqualsC && aEqualsC
+			? Optional.empty()
+			: Optional.of(EqualsContractViolation.TRANSITIVITY);
 	}
 
 	/**
-	 * Evaluates the contract condition for non-null condition is given of the given object, that
-	 * means according to {@link Object#equals(Object)} that this method should evaluate the
-	 * following contract condition:
+	 * Checks the contract condition for non-null condition is given of the given object, that means
+	 * according to {@link Object#equals(Object)} that this method should evaluate the following
+	 * contract condition:
 	 * <ul>
 	 * <li>For any non-null reference value {@code x}, {@code x.equals(null)} should return
 	 * {@code false}.
@@ -138,22 +149,23 @@ public final class EqualsEvaluator
 	 *
 	 * @param object
 	 *            the object
-	 * @return true, if non-null contract condition is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateNonNull(T object)
+	public static <T> Optional<ContractViolation> nonNull(T object)
 	{
 		if (object == null)
 		{
-			return false;
+			return Optional.of(EqualsContractViolation.NON_NULL_NULL_ARGUMENT);
 		}
 		// negate because the valid result is false and if it is valid we want to return true...
 		boolean result = !object.equals(null);
-		return result;
+		return result ? Optional.empty() : Optional.of(EqualsContractViolation.NON_NULL);
 	}
 
 	/**
-	 * Evaluates the contract condition for consistency of the given objects, that means according
-	 * to {@link Object#equals(Object)} that this method should evaluate the following contract
+	 * Checks the contract condition for consistency of the given objects, that means according to
+	 * {@link Object#equals(Object)} that this method should evaluate the following contract
 	 * condition:
 	 * <ul>
 	 * <li>It is <i>consistent</i>: for any non-null reference values {@code x} and {@code y},
@@ -173,16 +185,17 @@ public final class EqualsEvaluator
 	 *            the object
 	 * @param anotherObject
 	 *            the another object
-	 * @return true, if consistency contract condition is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateConsistency(T object, T anotherObject)
+	public static <T> Optional<ContractViolation> consistency(T object, T anotherObject)
 	{
-		return evaluateConsistency(object, anotherObject, 7);
+		return consistency(object, anotherObject, 7);
 	}
 
 	/**
-	 * Evaluates the contract condition for consistency of the given objects, that means according
-	 * to {@link Object#equals(Object)} that this method should evaluate the following contract
+	 * Checks the contract condition for consistency of the given objects, that means according to
+	 * {@link Object#equals(Object)} that this method should evaluate the following contract
 	 * condition:
 	 * <ul>
 	 * <li>It is <i>consistent</i>: for any non-null reference values {@code x} and {@code y},
@@ -201,29 +214,30 @@ public final class EqualsEvaluator
 	 *            the another object
 	 * @param iterations
 	 *            the iterations of call of equals method.
-	 * @return true, if consistency contract condition is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateConsistency(T object, T anotherObject, int iterations)
+	public static <T> Optional<ContractViolation> consistency(T object, T anotherObject,
+		int iterations)
 	{
 		if (object == null || anotherObject == null)
 		{
-			return false;
+			return Optional.of(EqualsContractViolation.CONSISTENCY_NULL_ARGUMENT);
 		}
 		final boolean initialEqualsResult = object.equals(anotherObject);
-		boolean valid = true;
 		for (int i = 0; i < iterations; i++)
 		{
 			boolean currentEqualsResult = object.equals(anotherObject);
 			if (initialEqualsResult != currentEqualsResult)
 			{
-				return false;
+				return Optional.of(EqualsContractViolation.CONSISTENCY);
 			}
 		}
-		return valid;
+		return Optional.empty();
 	}
 
 	/**
-	 * Evaluates the contract conditions for reflexivity and non null, that means according to
+	 * Checks the contract conditions for reflexivity and non null, that means according to
 	 * {@link Object#equals(Object)} that this method should evaluate the following contract
 	 * condition:
 	 * <ul>
@@ -239,28 +253,29 @@ public final class EqualsEvaluator
 	 *            the generic type
 	 * @param object
 	 *            the object
-	 * @return true, if reflexivity and non-null contract conditions is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateReflexivityAndNonNull(T object)
+	public static <T> Optional<ContractViolation> reflexivityAndNonNull(T object)
 	{
-		boolean evaluated;
-		evaluated = evaluateReflexivity(object);
-		if (!evaluated)
+		Optional<ContractViolation> evaluated;
+		evaluated = reflexivity(object);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-		evaluated = evaluateNonNull(object);
-		if (!evaluated)
+		evaluated = nonNull(object);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
 		return evaluated;
 	}
 
 	/**
-	 * Evaluates the contract conditions for symmetric and consistency of the given objects, that
-	 * means according to {@link Object#equals(Object)} that this method should evaluate the
-	 * following contract condition:
+	 * Checks the contract conditions for symmetric and consistency of the given objects, that means
+	 * according to {@link Object#equals(Object)} that this method should evaluate the following
+	 * contract condition:
 	 * <ul>
 	 * <li>It is <i>symmetric</i>: for any non-null reference values {@code x} and {@code y},
 	 * {@code x.equals(y)} should return {@code true} if and only if {@code y.equals(x)} returns
@@ -279,26 +294,27 @@ public final class EqualsEvaluator
 	 *            the object
 	 * @param anotherObject
 	 *            the another object
-	 * @return true, if symmetric and consistency contract conditions is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateSymmetricAndConsistency(T object, T anotherObject)
+	public static <T> Optional<ContractViolation> symmetricAndConsistency(T object, T anotherObject)
 	{
-		boolean evaluated;
-		evaluated = evaluateSymmetric(object, anotherObject);
-		if (!evaluated)
+		Optional<ContractViolation> evaluated;
+		evaluated = symmetric(object, anotherObject);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-		evaluated = evaluateConsistency(object, anotherObject);
-		if (!evaluated)
+		evaluated = consistency(object, anotherObject);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
 		return evaluated;
 	}
 
 	/**
-	 * Evaluates the contract conditions for reflexivity, non null, symmetric and consistency of the
+	 * Checks the contract conditions for reflexivity, non null, symmetric and consistency of the
 	 * given objects, that means according to {@link Object#equals(Object)} that this method should
 	 * evaluate the following contract condition:
 	 * <ul>
@@ -323,28 +339,28 @@ public final class EqualsEvaluator
 	 *            the object
 	 * @param otherObject
 	 *            the other object
-	 * @return true, if reflexivity, non null, symmetric and consistency contract conditions is
-	 *         given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateReflexivityNonNullSymmetricAndConsistency(T object,
-		T otherObject)
+	public static <T> Optional<ContractViolation> reflexivityNonNullSymmetricAndConsistency(
+		T object, T otherObject)
 	{
-		boolean evaluated;
-		evaluated = evaluateReflexivityAndNonNull(object);
-		if (!evaluated)
+		Optional<ContractViolation> evaluated;
+		evaluated = reflexivityAndNonNull(object);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-		evaluated = evaluateSymmetricAndConsistency(object, otherObject);
-		if (!evaluated)
+		evaluated = symmetricAndConsistency(object, otherObject);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
 		return evaluated;
 	}
 
 	/**
-	 * Evaluates the contract conditions for reflexivity, non null, symmetric, consistency and
+	 * Checks the contract conditions for reflexivity, non null, symmetric, consistency and
 	 * transitivity of the given objects, that means according to {@link Object#equals(Object)} that
 	 * this method should evaluate the following contract condition:
 	 * <ul>
@@ -374,22 +390,22 @@ public final class EqualsEvaluator
 	 *            the other object
 	 * @param anotherObject
 	 *            the another object
-	 * @return true, if reflexivity, non null, symmetric, consistency and transitivity contract
-	 *         conditions is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(
+	public static <T> Optional<ContractViolation> reflexivityNonNullSymmetricConsistencyAndTransitivity(
 		T object, T otherObject, T anotherObject)
 	{
-		boolean evaluated;
-		evaluated = evaluateReflexivityNonNullSymmetricAndConsistency(otherObject, otherObject);
-		if (!evaluated)
+		Optional<ContractViolation> evaluated;
+		evaluated = reflexivityNonNullSymmetricAndConsistency(otherObject, otherObject);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-		evaluated = evaluateTransitivity(object, otherObject, anotherObject);
-		if (!evaluated)
+		evaluated = transitivity(object, otherObject, anotherObject);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
 		return evaluated;
 	}

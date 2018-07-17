@@ -18,7 +18,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.evaluate.object;
+package de.alpharogroup.evaluate.object.evaluators;
 
 import static org.testng.AssertJUnit.assertEquals;
 
@@ -38,7 +38,7 @@ public class ComparableEvaluatorTest
 	 * Test method for {@link ComparableEvaluator#evaluateConsistency(Comparable, Comparable)}.
 	 */
 	@Test(enabled = true)
-	public void testEvaluateConsistency() throws Exception
+	public void testEvaluateConsistency()
 	{
 		boolean expected;
 		boolean actual;
@@ -61,7 +61,7 @@ public class ComparableEvaluatorTest
 	 * {@link ComparableEvaluator#evaluateReversalComparison(Comparable, Comparable)}.
 	 */
 	@Test(enabled = true)
-	public void testEvaluateReversalComparison() throws Exception
+	public void testEvaluateReversalComparison()
 	{
 		boolean expected;
 		boolean actual;
@@ -86,7 +86,7 @@ public class ComparableEvaluatorTest
 	 * {@link ComparableEvaluator#evaluateTransitivity(Comparable, Comparable, Comparable)}.
 	 */
 	@Test(enabled = true)
-	public void testEvaluateTransitivity() throws Exception
+	public void testEvaluateTransitivity()
 	{
 		boolean expected;
 		boolean actual;

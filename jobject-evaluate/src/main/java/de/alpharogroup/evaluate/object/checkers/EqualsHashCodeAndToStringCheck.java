@@ -18,24 +18,28 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.evaluate.object;
+package de.alpharogroup.evaluate.object.checkers;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Optional;
 
 import de.alpharogroup.clone.object.CloneObjectQuietlyExtensions;
+import de.alpharogroup.evaluate.object.api.ContractViolation;
+import de.alpharogroup.evaluate.object.enums.EqualsHashcodeContractViolation;
+import de.alpharogroup.evaluate.object.enums.ToStringContractViolation;
 import io.github.benas.randombeans.api.EnhancedRandom;
 import lombok.experimental.UtilityClass;
 
 /**
- * The class {@link EqualsHashCodeAndToStringEvaluator} is a combination of all evaluators.
+ * The class {@link EqualsHashCodeAndToStringCheck} is a combination of all checks.
  */
 @UtilityClass
-public final class EqualsHashCodeAndToStringEvaluator
+public final class EqualsHashCodeAndToStringCheck
 {
 
 	/**
-	 * Evaluates the all the contract conditions for the methods {@link Object#equals(Object)} and
+	 * Checks all the contract conditions for the methods {@link Object#equals(Object)} and
 	 * {@link Object#hashCode()}.
 	 *
 	 * @param <T>
@@ -48,56 +52,56 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 *            the third object have to be equal to first object and fourth object
 	 * @param fourth
 	 *            the fourth object have to be equal to first object and third object
-	 * @return true, if all contract conditions for the methods {@link Object#equals(Object)} and
-	 *         {@link Object#hashCode()} is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateEqualsAndHashcode(final T first, final T second,
+	public static <T> Optional<ContractViolation> equalsAndHashcode(final T first, final T second,
 		final T third, final T fourth)
 	{
-		final boolean evaluated = true;
+		Optional<ContractViolation> evaluated;
 		if (first == null)
 		{
-			return false;
+			return Optional.of(EqualsHashcodeContractViolation.FIRST_ARG_NULL);
 		}
 		if (first.equals(second))
 		{
-			return false;
+			return Optional.of(EqualsHashcodeContractViolation.FIRST_AND_SECOND_EQUAL);
 		}
 		if (!first.equals(third))
 		{
-			return false;
+			return Optional.of(EqualsHashcodeContractViolation.FIRST_AND_THIRD_UNEQUAL);
 		}
-
-		if (!EqualsEvaluator.evaluateReflexivityNonNullSymmetricAndConsistency(first, second))
+		evaluated = EqualsCheck.reflexivityNonNullSymmetricAndConsistency(first, second);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-
-		if (!EqualsEvaluator.evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(first,
-			third, fourth))
+		evaluated = EqualsCheck.reflexivityNonNullSymmetricConsistencyAndTransitivity(first, third,
+			fourth);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-
-		if (!HashcodeEvaluator.evaluateEquality(first, fourth))
+		evaluated = HashcodeCheck.equality(first, fourth);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-
-		if (!HashcodeEvaluator.evaluateUnequality(first, second))
+		evaluated = HashcodeCheck.unequality(first, second);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-
-		if (!HashcodeEvaluator.evaluateConsistency(first))
+		evaluated = HashcodeCheck.consistency(first);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
 		return evaluated;
 	}
 
 	/**
-	 * Evaluates the contract conditions for reflexivity, non null, symmetric and consistency of the
+	 * Checks the contract conditions for reflexivity, non null, symmetric and consistency of the
 	 * given objects, that means according to {@link Object#equals(Object)} that this method should
 	 * evaluate the following contract condition:
 	 * <ul>
@@ -130,28 +134,28 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 *            the object
 	 * @param otherObject
 	 *            the other object
-	 * @return true, if reflexivity, non null, symmetric and consistency contract conditions and
-	 *         equality of hash code from the given objects is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateEqualsAndHashcodeEquality(final T object, final T otherObject)
+	public static <T> Optional<ContractViolation> equalsAndHashcodeEquality(final T object,
+		final T otherObject)
 	{
-		boolean evaluated;
-		evaluated = EqualsEvaluator.evaluateReflexivityNonNullSymmetricAndConsistency(object,
-			otherObject);
-		if (!evaluated)
+		Optional<ContractViolation> evaluated;
+		evaluated = EqualsCheck.reflexivityNonNullSymmetricAndConsistency(object, otherObject);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-		evaluated = HashcodeEvaluator.evaluateEquality(object, otherObject);
-		if (!evaluated)
+		evaluated = HashcodeCheck.equality(object, otherObject);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
 		return evaluated;
 	}
 
 	/**
-	 * Evaluates the contract conditions for reflexivity, non null, symmetric and consistency of the
+	 * Checks the contract conditions for reflexivity, non null, symmetric and consistency of the
 	 * given objects, that means according to {@link Object#equals(Object)} that this method should
 	 * evaluate the following contract condition:
 	 * <ul>
@@ -187,38 +191,36 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 *            the object
 	 * @param otherObject
 	 *            the other object
-	 * @return true, if reflexivity, non null, symmetric and consistency contract conditions and
-	 *         unequality of hash code from the given objects is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateEqualsAndHashcodeUnequality(final T object,
+	public static <T> Optional<ContractViolation> equalsAndHashcodeUnequality(final T object,
 		final T otherObject)
 	{
-		boolean evaluated;
-		evaluated = EqualsEvaluator.evaluateReflexivityNonNullSymmetricAndConsistency(object,
-			otherObject);
-		if (!evaluated)
+		Optional<ContractViolation> evaluated;
+		evaluated = EqualsCheck.reflexivityNonNullSymmetricAndConsistency(object, otherObject);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-		evaluated = HashcodeEvaluator.evaluateUnequality(object, otherObject);
-		if (!evaluated)
+		evaluated = HashcodeCheck.unequality(object, otherObject);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
 		return evaluated;
 	}
 
 	/**
-	 * Evaluates all the contract conditions for the methods {@link Object#equals(Object)},
+	 * Checks all the contract conditions for the methods {@link Object#equals(Object)},
 	 * {@link Object#hashCode()} and {@link Object#toString()} from the given {@link Class}.
 	 *
 	 * @param <T>
 	 *            the generic type
 	 * @param cls
 	 *            the class
-	 * @return true, if all contract conditions for the methods {@link Object#equals(Object)},
-	 *         {@link Object#hashCode()} and {@link Object#toString()} is given otherwise false
-	 *
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 *
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
@@ -229,28 +231,28 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 * @throws NoSuchMethodException
 	 *             if an accessor method for this property cannot be found
 	 * @throws IOException
-	 *             Signals that an I/O exception has occurred.
+	 *             Signals that an I/O exception has occurred
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> boolean evaluateEqualsHashcodeAndToString(Class<T> cls)
+	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(Class<T> cls)
 		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
 		InstantiationException, IOException
 	{
 		if (cls == null)
 		{
-			return false;
+			return Optional.of(ToStringContractViolation.CLASS_NULL_ARGUMENT);
 		}
 		final T first = EnhancedRandom.random(cls);
 		final T second = EnhancedRandom.random(cls);
 		final T third = (T)CloneObjectQuietlyExtensions.cloneObjectQuietly(first);
 		final T fourth = (T)CloneObjectQuietlyExtensions.cloneObjectQuietly(third);
 
-		return EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(first, second,
-			third, fourth);
+		return EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(first, second, third,
+			fourth);
 	}
 
 	/**
-	 * Evaluates the contract conditions for reflexivity and non null, that means according to
+	 * Checks the contract conditions for reflexivity and non null, that means according to
 	 * {@link Object#equals(Object)} that this method should evaluate the following contract
 	 * condition:
 	 * <ul>
@@ -278,34 +280,32 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 *            the generic type
 	 * @param object
 	 *            the object
-	 * @return true, if reflexivity and non-null contract conditions from
-	 *         {@link Object#equals(Object)} and the consistency contract condition of
-	 *         {@link Object#hashCode()} is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateEqualsHashcodeAndToString(final T object)
+	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(final T object)
 	{
-		boolean evaluated;
-		evaluated = EqualsEvaluator.evaluateReflexivityAndNonNull(object);
-		if (!evaluated)
+		Optional<ContractViolation> evaluated;
+		evaluated = EqualsCheck.reflexivityAndNonNull(object);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-		evaluated = HashcodeEvaluator.evaluateConsistency(object);
-		if (!evaluated)
+		evaluated = HashcodeCheck.consistency(object);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-		evaluated = ToStringEvaluator.evaluateConsistency(object);
-		if (!evaluated)
+		evaluated = ToStringCheck.consistency(object);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
 		return evaluated;
 	}
 
-
 	/**
-	 * Evaluates the all the contract conditions for the methods {@link Object#equals(Object)},
+	 * Checks the all the contract conditions for the methods {@link Object#equals(Object)},
 	 * {@link Object#hashCode()} and {@link Object#toString()}.
 	 *
 	 * @param <T>
@@ -321,23 +321,23 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 * @return true, if all contract conditions for the methods {@link Object#equals(Object)},
 	 *         {@link Object#hashCode()} and {@link Object#toString()} is given otherwise false
 	 */
-	public static <T> boolean evaluateEqualsHashcodeAndToString(final T first, final T second,
-		final T third, final T fourth)
+	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(final T first,
+		final T second, final T third, final T fourth)
 	{
-		final boolean evaluated = evaluateEqualsAndHashcode(first, second, third, fourth);
-		if (!evaluated)
+		Optional<ContractViolation> evaluated = equalsAndHashcode(first, second, third, fourth);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-
-		if (!ToStringEvaluator.evaluate(first.getClass()))
+		evaluated = ToStringCheck.evaluate(first.getClass());
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-
-		if (!ToStringEvaluator.evaluateConsistency(first))
+		evaluated = ToStringCheck.consistency(first);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
 		return evaluated;
 	}
@@ -365,7 +365,7 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 * {@code hashCode} method on each of the two objects must produce the same integer result.
 	 * </ul>
 	 *
-	 * Evaluates the contract conditions for reflexivity, non null, symmetric, consistency and
+	 * Checks the contract conditions for reflexivity, non null, symmetric, consistency and
 	 * transitivity of the given objects, that means according to {@link Object#equals(Object)} that
 	 * this method should evaluate the following contract condition:
 	 * <ul>
@@ -395,35 +395,33 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 *            the other object
 	 * @param anotherObject
 	 *            the another object
-	 * @return true, if consistency of method {@link Object#toString()} for the given objects and if
-	 *         consistency contract condition of {@link Object#hashCode()} is given and if equality
-	 *         of hash code from the given objects is given and if reflexivity, non null, symmetric,
-	 *         consistency and transitivity contract conditions is given otherwise false
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
 	 */
-	public static <T> boolean evaluateEqualsHashcodeEqualityAndToString(final T object,
+	public static <T> Optional<ContractViolation> equalsHashcodeEqualityAndToString(final T object,
 		final T otherObject, final T anotherObject)
 	{
-		boolean evaluated;
-		evaluated = ToStringEvaluator.evaluateConsistency(object);
-		if (!evaluated)
+		Optional<ContractViolation> evaluated;
+		evaluated = ToStringCheck.consistency(object);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-		evaluated = HashcodeEvaluator.evaluateConsistency(object);
-		if (!evaluated)
+		evaluated = HashcodeCheck.consistency(object);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-		evaluated = HashcodeEvaluator.evaluateEquality(object, otherObject);
-		if (!evaluated)
+		evaluated = HashcodeCheck.equality(object, otherObject);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
-		evaluated = EqualsEvaluator.evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(
-			otherObject, otherObject, anotherObject);
-		if (!evaluated)
+		evaluated = EqualsCheck.reflexivityNonNullSymmetricConsistencyAndTransitivity(otherObject,
+			otherObject, anotherObject);
+		if (evaluated.isPresent())
 		{
-			return false;
+			return evaluated;
 		}
 		return evaluated;
 	}

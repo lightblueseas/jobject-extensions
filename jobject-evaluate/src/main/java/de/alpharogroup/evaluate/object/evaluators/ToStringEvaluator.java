@@ -18,17 +18,17 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.evaluate.object;
-
-import java.lang.reflect.Method;
+package de.alpharogroup.evaluate.object.evaluators;
 
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link ToStringEvaluator} provides algorithms for evaluate the
  * {@link Object#toString()} method.
  */
 @UtilityClass
+@Slf4j
 public final class ToStringEvaluator
 {
 
@@ -41,22 +41,19 @@ public final class ToStringEvaluator
 	 */
 	public static boolean evaluate(Class<?> clazz)
 	{
-		Method toString;
 		if (clazz == null)
 		{
+			log.error(
+				"evaluation of toString method failed " + "because the given class object is null");
 			return false;
-
 		}
 		try
 		{
-			toString = clazz.getDeclaredMethod("toString");
+			clazz.getDeclaredMethod("toString");
 		}
 		catch (NoSuchMethodException ex)
 		{
-			return false;
-		}
-		if (!String.class.equals(toString.getReturnType()))
-		{
+			log.error("evaluation of toString method failed " + "because it does not exists.", ex);
 			return false;
 		}
 		return true;
@@ -94,6 +91,8 @@ public final class ToStringEvaluator
 	{
 		if (object == null)
 		{
+			log.error("evaluation of toString method consistency failed "
+				+ "because the first given object is null");
 			return false;
 		}
 		final String initialToStringResult = object.toString();
@@ -103,6 +102,8 @@ public final class ToStringEvaluator
 			String currentToStringResult = object.toString();
 			if (!initialToStringResult.equals(currentToStringResult))
 			{
+				log.error(
+					"evaluation of toString method consistency failed " + "on iteration " + i);
 				return false;
 			}
 		}

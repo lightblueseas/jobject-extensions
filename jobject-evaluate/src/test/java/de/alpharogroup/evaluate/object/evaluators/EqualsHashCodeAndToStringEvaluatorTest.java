@@ -18,15 +18,18 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.evaluate.object;
+package de.alpharogroup.evaluate.object.evaluators;
 
 import static org.testng.AssertJUnit.assertEquals;
 
+import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 
 import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
+
+import de.alpharogroup.test.objects.Person;
 
 /**
  * The unit test class for the class {@link EqualsHashCodeAndToStringEvaluator}.
@@ -39,7 +42,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsAndHashcode(Object, Object, Object, Object)}.
 	 */
 	@Test
-	public void testEvaluateEqualsAndHashcode() throws Exception
+	public void testEvaluateEqualsAndHashcode()
 	{
 		boolean expected;
 		boolean actual;
@@ -79,7 +82,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsAndHashcodeEquality(Object, Object)}.
 	 */
 	@Test
-	public void testEvaluateEqualsAndHashcodeEquality() throws Exception
+	public void testEvaluateEqualsAndHashcodeEquality()
 	{
 		boolean expected;
 		boolean actual;
@@ -109,7 +112,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsAndHashcodeEquality(Object, Object)}.
 	 */
 	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateEqualsAndHashcodeEqualityExpectedException01() throws Exception
+	public void testEvaluateEqualsAndHashcodeEqualityExpectedException01()
 	{
 		EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcodeEquality(Integer.valueOf(0),
 			Integer.valueOf(1));
@@ -120,7 +123,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsAndHashcodeUnequality(Object, Object)}.
 	 */
 	@Test(enabled = true)
-	public void testEvaluateEqualsAndHashcodeUnequality() throws Exception
+	public void testEvaluateEqualsAndHashcodeUnequality()
 	{
 		boolean expected;
 		boolean actual;
@@ -150,7 +153,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsAndHashcodeUnequality(Object, Object)}.
 	 */
 	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateEqualsAndHashcodeUnequalityExpectedException01() throws Exception
+	public void testEvaluateEqualsAndHashcodeUnequalityExpectedException01()
 	{
 		EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcodeUnequality(Integer.valueOf(0),
 			Integer.valueOf(0));
@@ -161,7 +164,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeAndToString(Object, Object, Object, Object)}.
 	 */
 	@Test(enabled = true)
-	public void testEvaluateEqualsHashcodeAndToString() throws Exception
+	public void testEvaluateEqualsHashcodeAndToString()
 	{
 		boolean expected;
 		boolean actual;
@@ -198,10 +201,51 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 
 	/**
 	 * Test method for
+	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeAndToString(Class)}
+	 * 
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InstantiationException
+	 *             if a new instance of the bean's class cannot be instantiated
+	 * @throws InvocationTargetException
+	 *             if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             if an accessor method for this property cannot be found
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	@Test(enabled = true)
+	public void testEvaluateEqualsHashcodeAndToStringClass() throws NoSuchMethodException,
+		IllegalAccessException, InvocationTargetException, InstantiationException, IOException
+	{
+		boolean expected;
+		boolean actual;
+
+		actual = EqualsHashCodeAndToStringEvaluator
+			.evaluateEqualsHashcodeAndToString((Class<?>)null);
+		expected = false;
+		assertEquals(expected, actual);
+
+		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(Person.class);
+		expected = true;
+		assertEquals(expected, actual);
+
+		actual = EqualsHashCodeAndToStringEvaluator
+			.evaluateEqualsHashcodeAndToString(Integer.class);
+		expected = true;
+		assertEquals(expected, actual);
+
+		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(String.class);
+		expected = true;
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for
 	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeAndToString(Object)}.
 	 */
 	@Test(enabled = true)
-	public void testEvaluateEqualsHashcodeAndToStringSingleObject() throws Exception
+	public void testEvaluateEqualsHashcodeAndToStringSingleObject()
 	{
 		boolean expected;
 		boolean actual;
@@ -215,7 +259,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 		expected = true;
 		assertEquals(expected, actual);
 
-		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(null);
+		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString((Object)null);
 		expected = false;
 		assertEquals(expected, actual);
 	}
@@ -225,7 +269,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeEqualityAndToString(Object, Object, Object)}.
 	 */
 	@Test(enabled = true)
-	public void testEvaluateEqualsHashcodeEqualityAndToString() throws Exception
+	public void testEvaluateEqualsHashcodeEqualityAndToString()
 	{
 		boolean expected;
 		boolean actual;
@@ -246,7 +290,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeEqualityAndToString(Object, Object, Object)}.
 	 */
 	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateEqualsHashcodeEqualityAndToStringExpectedException01() throws Exception
+	public void testEvaluateEqualsHashcodeEqualityAndToStringExpectedException01()
 	{
 		EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeEqualityAndToString(
 			Integer.valueOf(0), Integer.valueOf(1), null);
@@ -257,7 +301,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeEqualityAndToString(Object, Object, Object)}.
 	 */
 	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateEqualsHashcodeEqualityAndToStringExpectedException02() throws Exception
+	public void testEvaluateEqualsHashcodeEqualityAndToStringExpectedException02()
 	{
 		EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeEqualityAndToString(
 			Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(0));
@@ -268,7 +312,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeEqualityAndToString(Object, Object, Object)}.
 	 */
 	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateEqualsHashcodeEqualityAndToStringExpectedException03() throws Exception
+	public void testEvaluateEqualsHashcodeEqualityAndToStringExpectedException03()
 	{
 		EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeEqualityAndToString(
 			Integer.valueOf(0), null, Integer.valueOf(0));

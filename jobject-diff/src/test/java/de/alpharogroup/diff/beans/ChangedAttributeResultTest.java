@@ -18,7 +18,7 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.diff;
+package de.alpharogroup.diff.beans;
 
 import static org.testng.AssertJUnit.assertEquals;
 import static org.testng.AssertJUnit.assertNotSame;
@@ -26,60 +26,54 @@ import static org.testng.AssertJUnit.assertTrue;
 
 import org.testng.annotations.Test;
 
-import de.alpharogroup.diff.beans.SerializedChangedAttributeResult;
-import de.alpharogroup.evaluate.object.EqualsEvaluator;
-import de.alpharogroup.evaluate.object.HashcodeEvaluator;
-import de.alpharogroup.evaluate.object.ToStringEvaluator;
+import de.alpharogroup.evaluate.object.evaluators.EqualsEvaluator;
+import de.alpharogroup.evaluate.object.evaluators.HashcodeEvaluator;
+import de.alpharogroup.evaluate.object.evaluators.ToStringEvaluator;
 
 /**
- * The unit test class for the class {@link SerializedChangedAttributeResult}.
+ * The unit test class for the class {@link ChangedAttributeResult}
  */
-public class SerializedChangedAttributeResultTest
+public class ChangedAttributeResultTest
 {
 
 	/**
-	 * Test method for {@link SerializedChangedAttributeResult#equals(Object)}
+	 * Test method for {@link ChangedAttributeResult#equals(Object)}
 	 */
 	@Test
 	public void testEqualsObject()
 	{
-		final SerializedChangedAttributeResult expected = SerializedChangedAttributeResult.builder()
-			.attributeName("foo").sourceAttribute("").changedAttribute("").build();
-		final SerializedChangedAttributeResult actual = new SerializedChangedAttributeResult();
+		final ChangedAttributeResult expected = ChangedAttributeResult.builder()
+			.attributeName("foo").build();
+		final ChangedAttributeResult actual = new ChangedAttributeResult();
 
 		assertNotSame(expected, actual);
-		final SerializedChangedAttributeResult attributeResult = new SerializedChangedAttributeResult();
+		final ChangedAttributeResult attributeResult = new ChangedAttributeResult();
 		attributeResult.setAttributeName("foo");
-		attributeResult.setSourceAttribute("");
-		attributeResult.setChangedAttribute("");
 		assertEquals(expected, attributeResult);
 		assertTrue(
 			EqualsEvaluator.evaluateReflexivityNonNullSymmetricAndConsistency(expected, actual));
-		assertTrue(EqualsEvaluator.evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(
-			expected, attributeResult, SerializedChangedAttributeResult.builder()
-				.attributeName("foo").sourceAttribute("").changedAttribute("").build()));
+		assertTrue(
+			EqualsEvaluator.evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(expected,
+				attributeResult, ChangedAttributeResult.builder().attributeName("foo").build()));
 	}
 
 	/**
-	 * Test method for {@link SerializedChangedAttributeResult#hashCode()}
+	 * Test method for {@link ChangedAttributeResult#hashCode()}
 	 */
 	@Test
 	public void testHashcode()
 	{
 		boolean expected;
 		boolean actual;
-		final SerializedChangedAttributeResult attributeResult1 = SerializedChangedAttributeResult
-			.builder().attributeName("foo").sourceAttribute("").changedAttribute("").build();
-		final SerializedChangedAttributeResult attributeResult2 = SerializedChangedAttributeResult
-			.builder().attributeName("foo").sourceAttribute("").changedAttribute("").build();
+		final ChangedAttributeResult attributeResult1 = ChangedAttributeResult.builder().build();
+		final ChangedAttributeResult attributeResult2 = ChangedAttributeResult.builder().build();
 		actual = HashcodeEvaluator.evaluateEquality(attributeResult1, attributeResult2);
 		expected = true;
 		assertEquals(expected, actual);
 
 		expected = true;
 		actual = HashcodeEvaluator.evaluateUnequality(attributeResult1,
-			SerializedChangedAttributeResult.builder().attributeName("bar").sourceAttribute("")
-				.changedAttribute("").build());
+			ChangedAttributeResult.builder().attributeName("foo").build());
 		assertEquals(expected, actual);
 
 		actual = HashcodeEvaluator.evaluateConsistency(attributeResult1);
@@ -88,19 +82,18 @@ public class SerializedChangedAttributeResultTest
 	}
 
 	/**
-	 * Test method for {@link SerializedChangedAttributeResult#toString()}
+	 * Test method for {@link ChangedAttributeResult#toString()}
 	 */
 	@Test
 	public void testToString()
 	{
 		boolean expected;
 		boolean actual;
-		actual = ToStringEvaluator.evaluate(SerializedChangedAttributeResult.class);
+		actual = ToStringEvaluator.evaluate(ChangedAttributeResult.class);
 		expected = true;
 		assertEquals(expected, actual);
 
-		final SerializedChangedAttributeResult integerBox = SerializedChangedAttributeResult
-			.builder().attributeName("foo").sourceAttribute("").changedAttribute("").build();
+		final ChangedAttributeResult integerBox = ChangedAttributeResult.builder().build();
 
 		actual = ToStringEvaluator.evaluateConsistency(integerBox);
 		expected = true;

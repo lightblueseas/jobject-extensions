@@ -21,15 +21,19 @@
 /**
  * 
  */
-package de.alpharogroup.evaluate.object;
+package de.alpharogroup.evaluate.object.evaluators;
 
 import static org.testng.AssertJUnit.assertEquals;
 
+import java.io.Serializable;
 import java.lang.reflect.InvocationTargetException;
 
 import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
+
+import de.alpharogroup.test.objects.Person;
+import io.github.benas.randombeans.api.EnhancedRandom;
 
 /**
  * The unit test class for the class {@link ToStringEvaluator}.
@@ -41,7 +45,7 @@ public class ToStringEvaluatorTest
 	 * Test method for {@link ToStringEvaluator#evaluate(Class)}.
 	 */
 	@Test
-	public void testEvaluate() throws Exception
+	public void testEvaluate()
 	{
 		boolean expected;
 		boolean actual;
@@ -56,18 +60,36 @@ public class ToStringEvaluatorTest
 		actual = ToStringEvaluator.evaluate(null);
 		expected = false;
 		assertEquals(expected, actual);
+
+		actual = ToStringEvaluator.evaluate(Serializable.class);
+		expected = false;
+		assertEquals(expected, actual);
 	}
 
 	/**
 	 * Test method for {@link ToStringEvaluator#evaluateConsistency(Object)}.
 	 */
 	@Test
-	public void testEvaluateConsistency() throws Exception
+	public void testEvaluateConsistency()
 	{
 		boolean expected;
 		boolean actual;
+
 		actual = ToStringEvaluator.evaluateConsistency(Integer.valueOf(1));
 		expected = true;
+		assertEquals(expected, actual);
+
+		actual = ToStringEvaluator.evaluateConsistency(new Person()
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public String toString()
+			{
+				return EnhancedRandom.random(String.class);
+			}
+		});
+		expected = false;
 		assertEquals(expected, actual);
 	}
 
@@ -75,7 +97,7 @@ public class ToStringEvaluatorTest
 	 * Test method for {@link ToStringEvaluator#evaluateConsistency(Object, int)}.
 	 */
 	@Test
-	public void testEvaluateConsistencyWithIterations() throws Exception
+	public void testEvaluateConsistencyWithIterations()
 	{
 		boolean expected;
 		boolean actual;

@@ -18,40 +18,36 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.diff.beans;
+package de.alpharogroup.evaluate.object.enums;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import de.alpharogroup.evaluate.object.api.ContractViolation;
+import de.alpharogroup.evaluate.object.checkers.EqualsHashCodeAndToStringCheck;
 
 /**
- * The class {@link GenericChangedAttribute} is a bean class that encapsulated the difference of the
- * attribute from two objects.
- *
- * @param <SOURCE>
- *            the generic type of the source attribute
- * @param <CHANGED>
- *            the generic type of the changed attribute
+ * The enum {@link EqualsHashcodeContractViolation} represents a contract violation as the name let
+ * presume
  */
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder(toBuilder = true)
-public class GenericChangedAttribute<SOURCE, CHANGED>
+public enum EqualsHashcodeContractViolation implements ContractViolation
 {
-	/** The attribute name. */
-	private String attributeName;
 
-	/** The changed attribute. */
-	private CHANGED changedAttribute;
+	/**
+	 * This value represents the contract violation if the first and second argument in
+	 * {@link EqualsHashCodeAndToStringCheck#equalsAndHashcode(Object, Object, Object, Object)} are
+	 * equal.
+	 */
+	FIRST_AND_SECOND_EQUAL,
 
-	/** The source attribute. */
-	private SOURCE sourceAttribute;
+	/**
+	 * This value represents the contract violation if the first and third argument in
+	 * {@link EqualsHashCodeAndToStringCheck#equalsAndHashcode(Object, Object, Object, Object)} are
+	 * unequal.
+	 */
+	FIRST_AND_THIRD_UNEQUAL,
+
+	/**
+	 * This value represents the contract violation if the first argument in
+	 * {@link EqualsHashCodeAndToStringCheck#equalsAndHashcode(Object, Object, Object, Object)} is
+	 * null.
+	 */
+	FIRST_ARG_NULL;
 }

@@ -28,19 +28,16 @@ import java.lang.reflect.Method;
 import org.apache.commons.beanutils.PropertyUtils;
 
 import de.alpharogroup.check.Check;
-import de.alpharogroup.copy.object.CopyObjectQuietlyExtensions;
 import de.alpharogroup.lang.ObjectExtensions;
 import de.alpharogroup.reflection.ReflectionExtensions;
 import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link MergeObjectExtensions} provide extension methods for merge a source object with
  * another object.
  */
 @UtilityClass
-@Slf4j
-public final class MergeObjectExtensions
+public class MergeObjectExtensions
 {
 
 	/**
@@ -117,68 +114,6 @@ public final class MergeObjectExtensions
 			mergeProperty(mergeInObject, withObject, descriptor);
 		}
 		return mergeInObject;
-	}
-
-	/**
-	 * Merge quietly the given merge in object(destination) with the given 'with' object.
-	 *
-	 * @param <MERGE_IN>
-	 *            the generic type of the object to merge in
-	 * @param <WITH>
-	 *            the generic type of the object to merge with
-	 * @param mergeInObject
-	 *            the object to merge in
-	 * @param withObject
-	 *            the object to merge with
-	 * @return the merged object or null if the merge process failed.
-	 */
-	public static final <MERGE_IN, WITH> MERGE_IN mergeQuietly(final MERGE_IN mergeInObject,
-		final WITH withObject)
-	{
-		try
-		{
-			return merge(mergeInObject, withObject);
-		}
-		catch (final InvocationTargetException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
-			return null;
-		}
-		catch (final IllegalAccessException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
-			return null;
-		}
-		catch (final IllegalArgumentException e)
-		{
-			log.error(e.getLocalizedMessage(), e);
-			return null;
-		}
-	}
-
-	/**
-	 * Try first to merge quietly the given merge in object(destination) with the given 'with'
-	 * object, if this fails try to copy.
-	 *
-	 * @param <MERGE_IN>
-	 *            the generic type of the object to merge in
-	 * @param <WITH>
-	 *            the generic type of the object to merge with
-	 * @param mergeInObject
-	 *            the object to merge in
-	 * @param withObject
-	 *            the object to merge with
-	 * @return the merged object or null if the merge process failed.
-	 */
-	public static final <MERGE_IN, WITH> MERGE_IN mergeOrCopyQuietly(final MERGE_IN mergeInObject,
-		final WITH withObject)
-	{
-		MERGE_IN merged = mergeQuietly(mergeInObject, withObject);
-		if (merged == null)
-		{
-			merged = CopyObjectQuietlyExtensions.copyQuietly(withObject, mergeInObject);
-		}
-		return merged;
 	}
 
 	/**

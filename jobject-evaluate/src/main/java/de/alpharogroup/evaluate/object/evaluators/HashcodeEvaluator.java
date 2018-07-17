@@ -18,9 +18,10 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.evaluate.object;
+package de.alpharogroup.evaluate.object.evaluators;
 
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link HashcodeEvaluator} provides algorithms for evaluate the
@@ -28,6 +29,7 @@ import lombok.experimental.UtilityClass;
  * contract</a> of an given object.
  */
 @UtilityClass
+@Slf4j
 public final class HashcodeEvaluator
 {
 
@@ -55,6 +57,9 @@ public final class HashcodeEvaluator
 	{
 		if (object == null)
 		{
+			log.error(
+				"evaluation of contract condition consistency in hashCode method failed because "
+					+ "the given objects is null");
 			return false;
 		}
 		return object.hashCode() == object.hashCode();
@@ -81,6 +86,8 @@ public final class HashcodeEvaluator
 	{
 		if (object == null)
 		{
+			log.error("evaluation of contract condition equality in hashCode method failed "
+				+ "because the first given objects is null");
 			return false;
 		}
 		if (object.equals(anotherObject))
@@ -115,6 +122,8 @@ public final class HashcodeEvaluator
 	{
 		if (object == null)
 		{
+			log.error("evaluation of contract condition unequality in hashCode method failed "
+				+ "because the first given objects is null");
 			return false;
 		}
 		if (!object.equals(anotherObject))

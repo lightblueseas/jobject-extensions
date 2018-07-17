@@ -36,12 +36,10 @@ import de.alpharogroup.test.objects.Company;
 import de.alpharogroup.test.objects.annotations.Mandatory;
 import de.alpharogroup.test.objects.annotations.interfaces.AnnotatedInterface;
 import de.alpharogroup.test.objects.enums.Gender;
-import lombok.experimental.ExtensionMethod;
 
 /**
  * The unit test class for the class {@link ObjectExtensions}.
  */
-@ExtensionMethod(ObjectExtensions.class)
 public class ObjectExtensionsTest
 {
 

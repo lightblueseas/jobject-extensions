@@ -30,7 +30,7 @@ import lombok.experimental.UtilityClass;
  * The class {@link Argument} that can assert conditions on arguments.
  */
 @UtilityClass
-public final class Argument
+public class Argument
 {
 
 	/**

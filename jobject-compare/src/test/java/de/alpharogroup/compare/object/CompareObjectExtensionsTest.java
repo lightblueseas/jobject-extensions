@@ -64,10 +64,12 @@ public class CompareObjectExtensionsTest
 	{
 		boolean expected;
 		boolean actual;
+		Person sourceOjbect;
+		Person objectToCompare;
 		// create a person...
-		final Person sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();
+		sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();
 		// make a clone of it...
-		final Person objectToCompare = Person.builder().gender(Gender.MALE).name("obelix").build();
+		objectToCompare = Person.builder().gender(Gender.MALE).name("obelix").build();
 		// 1. scenario...
 		// expected: the compare method should return true...
 		// explanation of expected: compared object are equal
@@ -89,7 +91,79 @@ public class CompareObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link CompareObjectExtensions#compareTo(Object, Object)}.
+	 * Test method for {@link CompareObjectExtensions#compare(Object, Object)} that throws an
+	 * IllegalArgumentException
+	 *
+	 * @throws IllegalAccessException
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
+	 * @throws InvocationTargetException
+	 *             Thrown if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
+	 */
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public void testCompareThrowIllegalArgumentException01()
+		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+	{
+		Person sourceOjbect;
+		Person objectToCompare;
+		sourceOjbect = null;
+		objectToCompare = Person.builder().gender(Gender.MALE).name("obelix").build();
+		CompareObjectExtensions.compare(sourceOjbect, objectToCompare);
+	}
+
+	/**
+	 * Test method for {@link CompareObjectExtensions#compare(Object, Object)} that throws an
+	 * IllegalArgumentException
+	 *
+	 * @throws IllegalAccessException
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
+	 * @throws InvocationTargetException
+	 *             Thrown if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
+	 */
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public void testCompareThrowIllegalArgumentException02()
+		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+	{
+		Person sourceOjbect;
+		Person objectToCompare;
+		sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();
+		objectToCompare = null;
+		CompareObjectExtensions.compare(sourceOjbect, objectToCompare);
+	}
+
+	/**
+	 * Test method for {@link CompareObjectExtensions#compare(Object, Object)} that throws an
+	 * IllegalArgumentException
+	 *
+	 * @throws IllegalAccessException
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
+	 * @throws InvocationTargetException
+	 *             Thrown if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
+	 */
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public void testCompareThrowIllegalArgumentException03()
+		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+	{
+		Person sourceOjbect;
+		String objectToCompare;
+		sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();
+		objectToCompare = "foo";
+		CompareObjectExtensions.compare(sourceOjbect, objectToCompare);
+	}
+
+	/**
+	 * Test method for {@link CompareObjectExtensions#compareTo(Object, Object)}
 	 *
 	 * @throws IllegalAccessException
 	 *             Thrown if this {@code Method} object is enforcing Java language access control
@@ -105,13 +179,14 @@ public class CompareObjectExtensionsTest
 	public void testCompareTo()
 		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
 	{
-
 		int expected;
 		int actual;
+		Person sourceOjbect;
+		Person objectToCompare;
 		// create a person...
-		final Person sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();
+		sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();
 		// make a clone of it...
-		final Person objectToCompare = Person.builder().gender(Gender.MALE).name("obelix").build();
+		objectToCompare = Person.builder().gender(Gender.MALE).name("obelix").build();
 
 		expected = 0;
 		actual = CompareObjectExtensions.compareTo(sourceOjbect, objectToCompare);
@@ -121,8 +196,6 @@ public class CompareObjectExtensionsTest
 		expected = 3;
 		actual = CompareObjectExtensions.compareTo(sourceOjbect, objectToCompare);
 		assertEquals("Given objects should not be equal.", expected, actual);
-
-
 	}
 
 	/**
@@ -144,13 +217,15 @@ public class CompareObjectExtensionsTest
 	{
 		int expected;
 		int actual;
-		final List<Person> persons = new ArrayList<>();
-		final Person obelix = Person.builder().gender(Gender.MALE).name("obelix").build();
+		Person obelix;
+		Person asterix;
+		Person miraculix;
+		List<Person> persons;
 
-		final Person asterix = Person.builder().gender(Gender.MALE).name("asterix").build();
-
-		final Person miraculix = Person.builder().gender(Gender.MALE).name("miraculix").build();
-
+		persons = new ArrayList<>();
+		obelix = Person.builder().gender(Gender.MALE).name("obelix").build();
+		asterix = Person.builder().gender(Gender.MALE).name("asterix").build();
+		miraculix = Person.builder().gender(Gender.MALE).name("miraculix").build();
 		// 1. scenario...
 		actual = CompareObjectExtensions.compareTo(asterix, obelix, "name");
 
@@ -197,32 +272,89 @@ public class CompareObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link CompareObjectExtensions#compareToQuietly(Object, Object, String)}.
+	 * Test method for {@link CompareObjectExtensions#compareTo(Object, Object)} that throws an
+	 * IllegalArgumentException
+	 *
+	 * @throws IllegalAccessException
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
+	 * @throws InvocationTargetException
+	 *             Thrown if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
+	 *
 	 */
-	@Test
-	public void testCompareToQuietly()
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public void testCompareToThrowIllegalArgumentException01()
+		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
 	{
-		int expected;
-		int actual;
+		Person sourceOjbect;
+		Person objectToCompare;
+		// create a person...
+		sourceOjbect = null;
+		// make a clone of it...
+		objectToCompare = Person.builder().gender(Gender.MALE).name("obelix").build();
 
-		final Person obelix = Person.builder().gender(Gender.MALE).name("obelix").build();
+		CompareObjectExtensions.compareTo(sourceOjbect, objectToCompare);
+	}
 
-		final Person asterix = Person.builder().gender(Gender.MALE).name("asterix").build();
+	/**
+	 * Test method for {@link CompareObjectExtensions#compareTo(Object, Object)} that throws an
+	 * IllegalArgumentException
+	 *
+	 * @throws IllegalAccessException
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
+	 * @throws InvocationTargetException
+	 *             Thrown if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
+	 *
+	 */
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public void testCompareToThrowIllegalArgumentException02()
+		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+	{
+		Person sourceOjbect;
+		Person objectToCompare;
+		// create a person...
+		sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();
+		;
+		// make a clone of it...
+		objectToCompare = null;
 
-		actual = CompareObjectExtensions.compareToQuietly(asterix, obelix, "name");
+		CompareObjectExtensions.compareTo(sourceOjbect, objectToCompare);
+	}
 
-		final Comparator<String> comp = new Comparator<String>()
-		{
+	/**
+	 * Test method for {@link CompareObjectExtensions#compareTo(Object, Object)} that throws an
+	 * IllegalArgumentException
+	 *
+	 * @throws IllegalAccessException
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
+	 * @throws InvocationTargetException
+	 *             Thrown if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
+	 *
+	 */
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public void testCompareToThrowIllegalArgumentException03()
+		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+	{
+		Person sourceOjbect;
+		String objectToCompare;
+		// create a person...
+		sourceOjbect = Person.builder().gender(Gender.MALE).name("obelix").build();
+		;
+		// make a clone of it...
+		objectToCompare = "";
 
-			@Override
-			public int compare(final String o1, final String o2)
-			{
-				return o1.compareTo(o2);
-			}
-		};
-		expected = comp.compare(asterix.getName(), obelix.getName());
-
-		assertEquals("Result of compared properties should be equal.", expected, actual);
+		CompareObjectExtensions.compareTo(sourceOjbect, objectToCompare);
 	}
 
 	/**
@@ -243,10 +375,12 @@ public class CompareObjectExtensionsTest
 	{
 		int expected;
 		int actual;
+		Person obelix;
+		Person asterix;
 
-		final Person obelix = Person.builder().gender(Gender.MALE).name("obelix").build();
+		obelix = Person.builder().gender(Gender.MALE).name("obelix").build();
 
-		final Person asterix = Person.builder().gender(Gender.MALE).name("asterix").build();
+		asterix = Person.builder().gender(Gender.MALE).name("asterix").build();
 		Map<String, Integer> compareToResult = CompareObjectExtensions.getCompareToResult(asterix,
 			obelix);
 
@@ -255,6 +389,84 @@ public class CompareObjectExtensionsTest
 		actual = compareToResult.size();
 
 		assertEquals("size of map should be 5 but is " + actual + ".", expected, actual);
+	}
+
+	/**
+	 * Test method for {@link CompareObjectExtensions#getCompareToResult(Object, Object)} that
+	 * throws an IllegalArgumentException
+	 *
+	 * @throws IllegalAccessException
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
+	 * @throws InvocationTargetException
+	 *             Thrown if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
+	 */
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public void testGetCompareToResultThrowIllegalArgumentException01()
+		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+	{
+		Person obelix;
+		Person asterix;
+
+		obelix = null;
+
+		asterix = Person.builder().gender(Gender.MALE).name("asterix").build();
+		CompareObjectExtensions.getCompareToResult(asterix, obelix);
+	}
+
+	/**
+	 * Test method for {@link CompareObjectExtensions#getCompareToResult(Object, Object)} that
+	 * throws an IllegalArgumentException
+	 *
+	 * @throws IllegalAccessException
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
+	 * @throws InvocationTargetException
+	 *             Thrown if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
+	 */
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public void testGetCompareToResultThrowIllegalArgumentException02()
+		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+	{
+		Person obelix;
+		Person asterix;
+
+		obelix = Person.builder().gender(Gender.MALE).name("asterix").build();
+
+		asterix = null;
+		CompareObjectExtensions.getCompareToResult(asterix, obelix);
+	}
+
+	/**
+	 * Test method for {@link CompareObjectExtensions#getCompareToResult(Object, Object)} that
+	 * throws an IllegalArgumentException
+	 *
+	 * @throws IllegalAccessException
+	 *             Thrown if this {@code Method} object is enforcing Java language access control
+	 *             and the underlying method is inaccessible.
+	 * @throws InvocationTargetException
+	 *             Thrown if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
+	 *             "&lt;clinit&gt;".
+	 */
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public void testGetCompareToResultThrowIllegalArgumentException03()
+		throws IllegalAccessException, InvocationTargetException, NoSuchMethodException
+	{
+		String obelix;
+		Person asterix;
+
+		obelix = "foo";
+
+		asterix = Person.builder().gender(Gender.MALE).name("asterix").build();
+		CompareObjectExtensions.getCompareToResult(asterix, obelix);
 	}
 
 	/**

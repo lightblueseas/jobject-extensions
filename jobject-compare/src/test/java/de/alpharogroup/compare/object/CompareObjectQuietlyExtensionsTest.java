@@ -18,59 +18,68 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-/**
- * 
- */
-package de.alpharogroup.evaluate.object;
+package de.alpharogroup.compare.object;
 
 import static org.testng.AssertJUnit.assertEquals;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Comparator;
 
 import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
+import de.alpharogroup.test.objects.Person;
+import de.alpharogroup.test.objects.enums.Gender;
+
 /**
- * The unit test class for the class {@link SilentEqualsHashCodeAndToStringEvaluator}.
+ * The unit test class for the class {@link CompareObjectQuietlyExtensions}.
  */
-public class SilentEqualsHashCodeAndToStringEvaluatorTest
+public class CompareObjectQuietlyExtensionsTest
 {
 
 	/**
 	 * Test method for
-	 * {@link SilentEqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeAndToStringQuietly(Class)}.
+	 * {@link CompareObjectQuietlyExtensions#compareToQuietly(Object, Object, String)}.
 	 */
 	@Test
-	public void testEvaluateEqualsHashcodeAndToStringQuietly() throws Exception
+	public void testCompareToQuietly()
 	{
-		boolean expected;
-		boolean actual;
-		actual = SilentEqualsHashCodeAndToStringEvaluator
-			.evaluateEqualsHashcodeAndToStringQuietly(Integer.class);
-		expected = true;
-		assertEquals(expected, actual);
+		int expected;
+		int actual;
+		Person obelix;
+		Person asterix;
 
-		actual = SilentEqualsHashCodeAndToStringEvaluator
-			.evaluateEqualsHashcodeAndToStringQuietly(String.class);
-		expected = true;
-		assertEquals(expected, actual);
+		obelix = Person.builder().gender(Gender.MALE).name("obelix").build();
 
-		actual = SilentEqualsHashCodeAndToStringEvaluator
-			.evaluateEqualsHashcodeAndToStringQuietly(null);
-		expected = false;
-		assertEquals(expected, actual);
+		asterix = Person.builder().gender(Gender.MALE).name("asterix").build();
+
+		actual = CompareObjectQuietlyExtensions.compareToQuietly(asterix, obelix, "name");
+
+		final Comparator<String> comp = new Comparator<String>()
+		{
+
+			@Override
+			public int compare(final String o1, final String o2)
+			{
+				return o1.compareTo(o2);
+			}
+		};
+		expected = comp.compare(asterix.getName(), obelix.getName());
+
+		assertEquals("Result of compared properties should be equal.", expected, actual);
 	}
 
 	/**
-	 * Test method for {@link SilentEqualsHashCodeAndToStringEvaluator} with {@link BeanTester}
+	 * Test method for {@link CompareObjectQuietlyExtensions} with {@link BeanTester}
 	 */
 	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
 			UnsupportedOperationException.class })
 	public void testWithBeanTester()
 	{
-		final BeanTester beanTester = new BeanTester();
-		beanTester.testBean(SilentEqualsHashCodeAndToStringEvaluator.class);
+		BeanTester beanTester = new BeanTester();
+		beanTester.testBean(CompareObjectQuietlyExtensions.class);
 	}
 
 }
+

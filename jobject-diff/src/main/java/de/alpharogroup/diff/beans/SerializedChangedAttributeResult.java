@@ -48,11 +48,11 @@ public class SerializedChangedAttributeResult implements Serializable
 	/** The attribute name. */
 	private Object attributeName;
 
-	/** The source attribute. */
-	private Object sourceAttribute;
-
 	/** The changed attribute. */
 	private Object changedAttribute;
+
+	/** The source attribute. */
+	private Object sourceAttribute;
 
 	/**
 	 * Instantiates a new changed attribute result.

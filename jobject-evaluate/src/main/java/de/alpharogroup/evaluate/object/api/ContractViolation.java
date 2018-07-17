@@ -18,40 +18,11 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.diff.beans;
-
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+package de.alpharogroup.evaluate.object.api;
 
 /**
- * The class {@link GenericChangedAttribute} is a bean class that encapsulated the difference of the
- * attribute from two objects.
- *
- * @param <SOURCE>
- *            the generic type of the source attribute
- * @param <CHANGED>
- *            the generic type of the changed attribute
+ * The interface {@link ContractViolation} is a marker interface
  */
-@Getter
-@Setter
-@EqualsAndHashCode
-@ToString
-@NoArgsConstructor
-@AllArgsConstructor
-@Builder(toBuilder = true)
-public class GenericChangedAttribute<SOURCE, CHANGED>
+public interface ContractViolation
 {
-	/** The attribute name. */
-	private String attributeName;
-
-	/** The changed attribute. */
-	private CHANGED changedAttribute;
-
-	/** The source attribute. */
-	private SOURCE sourceAttribute;
 }

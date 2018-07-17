@@ -6,11 +6,11 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>mvn-java-parent</artifactId>
-		<version>3.11</version>
+		<version>4</version>
 	</parent>
 
 	<artifactId>jobject-extensions</artifactId>
-	<version>1.11</version>
+	<version>1.12</version>
 	<packaging>pom</packaging>
 
 	<name>${project.artifactId}</name>
@@ -23,9 +23,9 @@
 
 	<properties>
 		<!-- VINTAGE-TIME version -->
-		<vintage-time.version>4.11.0</vintage-time.version>
+		<vintage-time.version>4.12</vintage-time.version>
 		<!-- TEST-OBJECTS version -->
-		<test-objects.version>4.26</test-objects.version>
+		<test-objects.version>4.28</test-objects.version>
 		<!-- EXTERNAL LIBRARIES versions -->
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 		<cloning.version>1.9.10</cloning.version>
@@ -135,6 +135,12 @@
 			<artifactId>meanbean</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<!-- TEST-OBJECTS DEPENDENCY -->
+		<dependency>
+			<groupId>de.alpharogroup</groupId>
+			<artifactId>test-objects</artifactId>
+			<scope>test</scope>
+		</dependency>
 
 	</dependencies>
 
@@ -197,15 +203,19 @@
 						<instrumentation>
 							<excludes>
 								<!-- enums -->
+								<exclude>de/alpharogroup/evaluate/object/enums/**/*.class</exclude>
 								<!-- beans -->
-								<exclude>de/alpharogroup/diff/beans/**/*.class</exclude>
 								<!-- interfaces -->
+								<exclude>de/alpharogroup/evaluate/object/api/**/*.class</exclude>
 								<!-- exceptions -->
 								<!-- deprecated -->
 								<!-- constant classes with only constants -->
 								<!-- explicit bean classes -->
 								<exclude>de/alpharogroup/clone/object/CloneObjectQuietlyExtensions.class</exclude>
+								<exclude>de/alpharogroup/compare/object/CompareObjectQuietlyExtensions.class</exclude>
 								<exclude>de/alpharogroup/copy/object/CopyObjectQuietlyExtensions.class</exclude>
+								<exclude>de/alpharogroup/merge/object/MergeObjectQuietlyExtensions.class</exclude>
+								<exclude>de/alpharogroup/evaluate/object/evaluators/SilentEqualsHashCodeAndToStringEvaluator.class</exclude>
 								<!-- explicit deprecated classes -->
 								<!-- explicit enums -->
 								<exclude>de/alpharogroup/lang/ClassType.class</exclude>

@@ -145,6 +145,7 @@ public final class CopyObjectExtensions
 	 * @param original
 	 *            the original object.
 	 * @return the new object that is a copy of the given object.
+	 * 
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
 	 * @throws InvocationTargetException

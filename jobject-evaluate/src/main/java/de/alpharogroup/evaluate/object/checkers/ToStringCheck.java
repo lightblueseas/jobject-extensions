@@ -20,7 +20,6 @@
  */
 package de.alpharogroup.evaluate.object.checkers;
 
-import java.lang.reflect.Method;
 import java.util.Optional;
 
 import de.alpharogroup.evaluate.object.api.ContractViolation;
@@ -45,22 +44,17 @@ public final class ToStringCheck
 	 */
 	public static Optional<ContractViolation> evaluate(Class<?> clazz)
 	{
-		Method toString;
 		if (clazz == null)
 		{
 			return Optional.of(ToStringContractViolation.CLASS_NULL_ARGUMENT);
 		}
 		try
 		{
-			toString = clazz.getDeclaredMethod("toString");
+			clazz.getDeclaredMethod("toString");
 		}
 		catch (NoSuchMethodException ex)
 		{
 			return Optional.of(ToStringContractViolation.NOT_EXISTENT);
-		}
-		if (!String.class.equals(toString.getReturnType()))
-		{
-			return Optional.of(ToStringContractViolation.RETURNTYPE_NOT_STRING);
 		}
 		return Optional.empty();
 	}

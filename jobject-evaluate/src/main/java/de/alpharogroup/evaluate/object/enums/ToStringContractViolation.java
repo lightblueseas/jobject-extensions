@@ -38,8 +38,5 @@ public enum ToStringContractViolation implements ContractViolation
 	CONSISTENCY_NULL_ARGUMENT,
 
 	/** This value represents that the method does not exists. */
-	NOT_EXISTENT,
-
-	/** This value represents that the method does not return a {@link String} object. */
-	RETURNTYPE_NOT_STRING;
+	NOT_EXISTENT;
 }

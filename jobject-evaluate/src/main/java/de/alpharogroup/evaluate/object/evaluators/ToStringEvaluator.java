@@ -20,8 +20,6 @@
  */
 package de.alpharogroup.evaluate.object.evaluators;
 
-import java.lang.reflect.Method;
-
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
@@ -43,7 +41,6 @@ public final class ToStringEvaluator
 	 */
 	public static boolean evaluate(Class<?> clazz)
 	{
-		Method toString;
 		if (clazz == null)
 		{
 			log.error(
@@ -52,16 +49,11 @@ public final class ToStringEvaluator
 		}
 		try
 		{
-			toString = clazz.getDeclaredMethod("toString");
+			clazz.getDeclaredMethod("toString");
 		}
 		catch (NoSuchMethodException ex)
 		{
 			log.error("evaluation of toString method failed because it does not exists.", ex);
-			return false;
-		}
-		if (!String.class.equals(toString.getReturnType()))
-		{
-			log.error("evaluation of toString method failed because the return type is not string");
 			return false;
 		}
 		return true;

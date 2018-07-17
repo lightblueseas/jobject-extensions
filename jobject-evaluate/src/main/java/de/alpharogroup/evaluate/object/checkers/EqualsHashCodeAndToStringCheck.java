@@ -87,7 +87,7 @@ public final class EqualsHashCodeAndToStringCheck
 		{
 			return evaluated;
 		}
-		evaluated = HashcodeCheck.unequality(first, fourth);
+		evaluated = HashcodeCheck.unequality(first, second);
 		if (evaluated.isPresent())
 		{
 			return evaluated;

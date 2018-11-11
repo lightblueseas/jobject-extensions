@@ -4,6 +4,10 @@
 Version 2-SNAPSHOT
 -------------
 
+ADDED:
+
+- new method in class ReflectionExtensions created for get the value of an object over reflection 
+
 
 Version 1.12
 -------------

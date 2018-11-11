@@ -252,6 +252,32 @@ public class ReflectionExtensionsTest
 		expected = A.builder().build();
 		assertEquals(expected, actual);
 	}
+	
+
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getFieldValue(Object, String, Object)}.
+	 *
+	 * @throws NoSuchFieldException
+	 *             is thrown if no such field exists.
+	 * @throws SecurityException
+	 *             is thrown if a security manager says no.
+	 * @throws IllegalArgumentException
+	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
+	 * @throws IllegalAccessException
+	 *             is thrown if an illegal on create an instance or access a method.
+	 */
+	@Test
+	public void testGetFieldValueObject() throws NoSuchFieldException, SecurityException,
+		IllegalArgumentException, IllegalAccessException
+	{
+		String expected;
+		String actual;
+		final Person person = Person.builder().name("Alex").build();
+		expected = "Alex";
+		actual = (String)ReflectionExtensions.getFieldValue(person, "name");
+		assertEquals(expected, actual);
+	}
 
 	/**
 	 * Test method for {@link ReflectionExtensions#setFieldValue(Object, String, Object)}.

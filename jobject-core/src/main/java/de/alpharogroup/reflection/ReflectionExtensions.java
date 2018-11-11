@@ -100,6 +100,34 @@ public final class ReflectionExtensions
 	}
 
 	/**
+	 * Gets the field value of the given source object over the field name.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param source
+	 *            the source
+	 * @param newValue
+	 *            the new value
+	 * @return the field value
+	 * @throws NoSuchFieldException
+	 *             is thrown if no such field exists.
+	 * @throws SecurityException
+	 *             is thrown if a security manager says no.
+	 * @throws IllegalArgumentException
+	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
+	 * @throws IllegalAccessException
+	 *             is thrown if an illegal on create an instance or access a method.
+	 */
+	public static <T> Object getFieldValue(final T source, final String fieldName)
+		throws NoSuchFieldException, SecurityException, IllegalArgumentException,
+		IllegalAccessException
+	{
+		final Field sourceField = getDeclaredField(source, fieldName);
+		sourceField.setAccessible(true);
+		return sourceField.get(source);
+	}
+
+	/**
 	 * Sets the field value of the given class object over the field name.
 	 *
 	 * @param <T>

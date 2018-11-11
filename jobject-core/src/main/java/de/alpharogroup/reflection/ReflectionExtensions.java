@@ -106,8 +106,8 @@ public final class ReflectionExtensions
 	 *            the generic type
 	 * @param source
 	 *            the source
-	 * @param newValue
-	 *            the new value
+	 * @param fieldName
+	 *            the field name
 	 * @return the field value
 	 * @throws NoSuchFieldException
 	 *             is thrown if no such field exists.

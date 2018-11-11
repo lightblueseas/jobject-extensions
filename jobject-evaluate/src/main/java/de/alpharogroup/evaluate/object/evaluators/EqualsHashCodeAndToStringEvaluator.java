@@ -22,6 +22,7 @@ package de.alpharogroup.evaluate.object.evaluators;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.function.Function;
 
 import de.alpharogroup.clone.object.CloneObjectQuietlyExtensions;
 import io.github.benas.randombeans.api.EnhancedRandom;
@@ -235,10 +236,40 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
 	 */
-	@SuppressWarnings("unchecked")
 	public static <T> boolean evaluateEqualsHashcodeAndToString(Class<T> cls)
 		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
 		InstantiationException, IOException
+	{
+		return evaluateEqualsHashcodeAndToString(cls, EnhancedRandom::random);
+	}
+
+	/**
+	 * Evaluates all the contract conditions for the methods {@link Object#equals(Object)},
+	 * {@link Object#hashCode()} and {@link Object#toString()} from the given {@link Class}.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param cls
+	 *            the class
+	 * @param function
+	 *            the function that can create random objects
+	 * @return true, if all contract conditions for the methods {@link Object#equals(Object)},
+	 *         {@link Object#hashCode()} and {@link Object#toString()} is given otherwise false
+	 * @throws NoSuchMethodException
+	 *             if an accessor method for this property cannot be found
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InvocationTargetException
+	 *             if the property accessor method throws an exception
+	 * @throws InstantiationException
+	 *             if a new instance of the bean's class cannot be instantiated
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> boolean evaluateEqualsHashcodeAndToString(Class<T> cls,
+		Function<Class<T>, T> function) throws NoSuchMethodException, IllegalAccessException,
+		InvocationTargetException, InstantiationException, IOException
 	{
 		if (cls == null)
 		{
@@ -246,8 +277,8 @@ public final class EqualsHashCodeAndToStringEvaluator
 				+ "because the given class object is null");
 			return false;
 		}
-		final T first = EnhancedRandom.random(cls);
-		final T second = EnhancedRandom.random(cls);
+		final T first = function.apply(cls);
+		final T second = function.apply(cls);
 		final T third = (T)CloneObjectQuietlyExtensions.cloneObjectQuietly(first);
 		final T fourth = (T)CloneObjectQuietlyExtensions.cloneObjectQuietly(third);
 

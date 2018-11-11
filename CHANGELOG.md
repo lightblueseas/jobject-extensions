@@ -1,6 +1,19 @@
 ## Change log
 ----------------------
 
+Version 2
+-------------
+
+ADDED:
+
+- new method in classes EqualsHashCodeAndToStringEvaluator and SilentEqualsHashCodeAndToStringEvaluator with new function parameter for create random objects
+- new method in class ReflectionExtensions created for get the value of an object over reflection 
+
+CHANGED:
+
+- update of parent version to 4.2
+- update of silly-collections version to 4.35
+
 Version 1.12
 -------------
 

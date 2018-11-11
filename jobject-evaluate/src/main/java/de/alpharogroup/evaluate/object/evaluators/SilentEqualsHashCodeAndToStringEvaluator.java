@@ -22,6 +22,7 @@ package de.alpharogroup.evaluate.object.evaluators;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.function.Function;
 
 import lombok.experimental.UtilityClass;
 
@@ -49,6 +50,36 @@ public final class SilentEqualsHashCodeAndToStringEvaluator
 		try
 		{
 			evaluated = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(cls);
+		}
+		catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException
+			| InstantiationException | IOException e)
+		{
+			evaluated = false;
+		}
+		return evaluated;
+	}
+
+	/**
+	 * Evaluates all the contract conditions for the methods {@link Object#equals(Object)},
+	 * {@link Object#hashCode()} and {@link Object#toString()} from the given {@link Class}.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param cls
+	 *            the class
+	 * @param function
+	 *            the function that can create random objects
+	 * @return true, if all contract conditions for the methods {@link Object#equals(Object)},
+	 *         {@link Object#hashCode()} and {@link Object#toString()} is given otherwise false
+	 */
+	public static <T> boolean evaluateEqualsHashcodeAndToStringQuietly(Class<T> cls,
+		Function<Class<T>, T> function)
+	{
+		boolean evaluated;
+		try
+		{
+			evaluated = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(cls,
+				function);
 		}
 		catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException
 			| InstantiationException | IOException e)

@@ -29,6 +29,7 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
+import de.alpharogroup.collections.array.ArrayFactory;
 import de.alpharogroup.date.CreateDateExtensions;
 import de.alpharogroup.test.objects.A;
 
@@ -37,21 +38,6 @@ import de.alpharogroup.test.objects.A;
  */
 public class CloneObjectExtensionsTest
 {
-
-	/**
-	 * Factory method for create new Array from the given optional elements.
-	 *
-	 * @param <T>
-	 *            the generic type of the elements
-	 * @param elements
-	 *            the optional elements to be added in the new Array.
-	 * @return the new Array.
-	 */
-	@SafeVarargs
-	public static <T> T[] newArray(final T... elements)
-	{
-		return elements;
-	}
 
 	/**
 	 * Test method for {@link CloneObjectExtensions#clone(Object)}.
@@ -121,7 +107,7 @@ public class CloneObjectExtensionsTest
 		String[] expected;
 		String[] actual;
 
-		expected = newArray("foo", "bar");
+		expected = ArrayFactory.newArray("foo", "bar");
 		actual = CloneObjectExtensions.clone(expected);
 		for (int i = 0; i < actual.length; i++)
 		{
@@ -194,8 +180,8 @@ public class CloneObjectExtensionsTest
 		ClassNotFoundException, InstantiationException, IOException
 	{
 		// TODO create szenario with no serializable...
-		int[] expected;
 		int[] actual;
+		int[] expected;
 
 		expected = new int[2];
 		expected[0] = 1;

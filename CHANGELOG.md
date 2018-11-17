@@ -4,6 +4,10 @@
 Version 2.1-SNAPSHOT
 -------------
 
+CHANGED:
+
+- update the configuration files to log4j2 version
+
 Version 2
 -------------
 

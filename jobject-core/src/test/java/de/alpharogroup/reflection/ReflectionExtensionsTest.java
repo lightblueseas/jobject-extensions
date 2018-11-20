@@ -32,6 +32,9 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import de.alpharogroup.test.objects.Customer;
+import de.alpharogroup.test.objects.Member;
+
 import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
@@ -332,6 +335,28 @@ public class ReflectionExtensionsTest
 		expected = null;
 		assertEquals(expected, actual);
 	}
+	
+	/**
+	 * Test method for {@link ReflectionExtensions#getAllDeclaredFields(Class)}
+	 */
+	@Test
+	public void testGetAllDeclaredFields()
+	{
+		int expected;
+		int actual;
+		Field[] allDeclaredFields;
+
+		allDeclaredFields = ReflectionExtensions.getAllDeclaredFields(Person.class);
+		expected = 6;
+		actual = allDeclaredFields.length;
+		assertEquals(expected, actual);
+
+		allDeclaredFields = ReflectionExtensions.getAllDeclaredFields(Member.class);
+		expected = 9;
+		actual = allDeclaredFields.length;
+		assertEquals(expected, actual);
+	}
+
 
 	/**
 	 * Test method for {@link ReflectionExtensions} with {@link BeanTester}

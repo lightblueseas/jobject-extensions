@@ -149,10 +149,6 @@ public final class EqualsHashCodeAndToStringEvaluator
 			return false;
 		}
 		evaluated = HashcodeEvaluator.evaluateEquality(object, otherObject);
-		if (!evaluated)
-		{
-			return false;
-		}
 		return evaluated;
 	}
 
@@ -207,10 +203,6 @@ public final class EqualsHashCodeAndToStringEvaluator
 			return false;
 		}
 		evaluated = HashcodeEvaluator.evaluateUnequality(object, otherObject);
-		if (!evaluated)
-		{
-			return false;
-		}
 		return evaluated;
 	}
 
@@ -333,10 +325,6 @@ public final class EqualsHashCodeAndToStringEvaluator
 			return false;
 		}
 		evaluated = ToStringEvaluator.evaluateConsistency(object);
-		if (!evaluated)
-		{
-			return false;
-		}
 		return evaluated;
 	}
 
@@ -458,10 +446,6 @@ public final class EqualsHashCodeAndToStringEvaluator
 		}
 		evaluated = EqualsEvaluator.evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(
 			otherObject, otherObject, anotherObject);
-		if (!evaluated)
-		{
-			return false;
-		}
 		return evaluated;
 	}
 

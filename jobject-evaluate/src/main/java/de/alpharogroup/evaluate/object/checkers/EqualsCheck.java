@@ -265,10 +265,6 @@ public final class EqualsCheck
 			return evaluated;
 		}
 		evaluated = nonNull(object);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 
@@ -306,10 +302,6 @@ public final class EqualsCheck
 			return evaluated;
 		}
 		evaluated = consistency(object, anotherObject);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 
@@ -352,10 +344,6 @@ public final class EqualsCheck
 			return evaluated;
 		}
 		evaluated = symmetricAndConsistency(object, otherObject);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 
@@ -403,10 +391,6 @@ public final class EqualsCheck
 			return evaluated;
 		}
 		evaluated = transitivity(object, otherObject, anotherObject);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 

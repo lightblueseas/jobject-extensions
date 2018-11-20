@@ -93,10 +93,6 @@ public final class EqualsHashCodeAndToStringCheck
 			return evaluated;
 		}
 		evaluated = HashcodeCheck.consistency(first);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 
@@ -147,10 +143,6 @@ public final class EqualsHashCodeAndToStringCheck
 			return evaluated;
 		}
 		evaluated = HashcodeCheck.equality(object, otherObject);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 
@@ -204,10 +196,6 @@ public final class EqualsHashCodeAndToStringCheck
 			return evaluated;
 		}
 		evaluated = HashcodeCheck.unequality(object, otherObject);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 
@@ -297,10 +285,6 @@ public final class EqualsHashCodeAndToStringCheck
 			return evaluated;
 		}
 		evaluated = ToStringCheck.consistency(object);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 
@@ -335,10 +319,6 @@ public final class EqualsHashCodeAndToStringCheck
 			return evaluated;
 		}
 		evaluated = ToStringCheck.consistency(first);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 
@@ -419,10 +399,6 @@ public final class EqualsHashCodeAndToStringCheck
 		}
 		evaluated = EqualsCheck.reflexivityNonNullSymmetricConsistencyAndTransitivity(otherObject,
 			otherObject, anotherObject);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 

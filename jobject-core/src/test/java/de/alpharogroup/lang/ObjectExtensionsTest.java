@@ -104,6 +104,14 @@ public class ObjectExtensionsTest
 		}.getClass());
 		assertEquals(expected, actual);
 
+		class Local {
+			Local(String name){
+			}
+		}
+		expected = ClassType.LOCAL;
+		actual = ObjectExtensions.getClassType(Local.class);
+		assertEquals(expected, actual);
+
 	}
 
 	/**

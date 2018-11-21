@@ -329,7 +329,8 @@ public final class EqualsHashCodeAndToStringCheck
 	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(final T first,
 		final T second, final T third, final T fourth)
 	{
-		Optional<ContractViolation> evaluated = equalsAndHashcode(first, second, third, fourth);
+		Optional<ContractViolation> evaluated;
+		evaluated = equalsAndHashcode(first, second, third, fourth);
 		if (evaluated.isPresent())
 		{
 			return evaluated;

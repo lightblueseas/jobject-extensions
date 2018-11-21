@@ -135,9 +135,9 @@ public final class HashcodeCheck
 				return Optional.empty();
 			}
 			boolean unequalHashcode = object.hashCode() != anotherObject.hashCode();
-			return unequalHashcode
-				? Optional.empty()
-				: Optional.of(HashcodeContractViolation.UNEQAUALITY);
+			if(unequalHashcode) {
+				return Optional.empty();
+			}
 		}
 		return Optional.of(HashcodeContractViolation.UNEQAUALITY);
 	}

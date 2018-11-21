@@ -82,6 +82,27 @@ public final class EqualsHashCodeAndToStringCheck
 		{
 			return evaluated;
 		}
+		return hashcodeCheck(first, second, fourth);
+	}
+
+	/**
+	 * Checks all the contract conditions for the method {@link Object#hashCode()}
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param first
+	 *            the first object
+	 * @param second
+	 *            the second object that have to be uneqal to the first object
+	 * @param fourth
+	 *            the fourth object have to be equal to first object and third object
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
+	 */
+	public static <T> Optional<ContractViolation> hashcodeCheck(final T first, final T second,
+		final T fourth)
+	{
+		Optional<ContractViolation> evaluated;
 		evaluated = HashcodeCheck.equality(first, fourth);
 		if (evaluated.isPresent())
 		{

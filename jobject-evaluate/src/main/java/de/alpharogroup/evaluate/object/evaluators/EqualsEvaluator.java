@@ -265,12 +265,6 @@ public final class EqualsEvaluator
 			return false;
 		}
 		evaluated = evaluateNonNull(object);
-		if (!evaluated)
-		{
-			log.error(
-				"evaluation of contract condition non-null reference in equals method failed");
-			return false;
-		}
 		return evaluated;
 	}
 
@@ -308,11 +302,6 @@ public final class EqualsEvaluator
 			return false;
 		}
 		evaluated = evaluateConsistency(object, anotherObject);
-		if (!evaluated)
-		{
-			log.error("evaluation of contract condition consistency in equals method failed");
-			return false;
-		}
 		return evaluated;
 	}
 

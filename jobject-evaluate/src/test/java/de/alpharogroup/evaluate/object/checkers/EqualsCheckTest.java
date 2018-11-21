@@ -28,6 +28,9 @@ import static org.testng.AssertJUnit.assertEquals;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
+import de.alpharogroup.test.objects.Person;
+import io.github.benas.randombeans.api.EnhancedRandom;
+
 import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.AfterMethod;
@@ -90,6 +93,20 @@ public class EqualsCheckTest
 
 		actual = EqualsCheck.consistency(Integer.valueOf(0), null);
 		expected = Optional.of(EqualsContractViolation.CONSISTENCY_NULL_ARGUMENT);
+		assertEquals(expected, actual);
+
+		actual = EqualsCheck.consistency(new Person(){
+			@Override
+			public int hashCode() {
+				return EnhancedRandom.random(Integer.class);
+			}
+
+			@Override
+			public boolean equals(Object o) {
+				return EnhancedRandom.random(boolean.class);
+			}
+		}, Person.builder().build());
+		expected = Optional.of(EqualsContractViolation.CONSISTENCY);
 		assertEquals(expected, actual);
 	}
 
@@ -163,6 +180,20 @@ public class EqualsCheckTest
 
 		actual = EqualsCheck.reflexivity(null);
 		expected = Optional.of(EqualsContractViolation.REFLEXIVITY_NULL_ARGUMENT);
+		assertEquals(expected, actual);
+
+		actual = EqualsCheck.reflexivity(new Person(){
+			@Override
+			public int hashCode() {
+				return EnhancedRandom.random(Integer.class);
+			}
+
+			@Override
+			public boolean equals(Object o) {
+				return EnhancedRandom.random(boolean.class);
+			}
+		});
+		expected = Optional.of(EqualsContractViolation.REFLEXIVITY);
 		assertEquals(expected, actual);
 	}
 

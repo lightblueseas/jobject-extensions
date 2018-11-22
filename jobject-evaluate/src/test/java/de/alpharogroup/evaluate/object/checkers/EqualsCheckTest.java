@@ -184,29 +184,46 @@ public class EqualsCheckTest
 		actual = EqualsCheck.reflexivity(null);
 		expected = Optional.of(EqualsContractViolation.REFLEXIVITY_NULL_ARGUMENT);
 		assertEquals(expected, actual);
-		// new scenario ...
-		// provocate a contract violation.
-		// while loop cause of randomness of hashCode and equals
-//		do
-//		{
-//			actual = EqualsCheck.reflexivity(new Person()
-//			{
-//				@Override
-//				public int hashCode()
-//				{
-//					return EnhancedRandom.random(Integer.class);
-//				}
-//
-//				@Override
-//				public boolean equals(Object o)
-//				{
-//					return EnhancedRandom.random(boolean.class);
-//				}
-//			});
-//		} while (actual.equals(Optional.of(EqualsContractViolation.REFLEXIVITY)));
-//
-//		expected = Optional.of(EqualsContractViolation.REFLEXIVITY);
-//		assertEquals(expected, actual);
+        // new scenario ...
+        // provocate a reflexivity contract violation ...
+        class Weird {
+            String name;
+
+            @Override
+            public int hashCode() {
+                return EnhancedRandom.random(Integer.class);
+            }
+
+            @Override
+            public boolean equals(Object o) {
+                boolean randomBoolean = EnhancedRandom.random(boolean.class);
+                return randomBoolean;
+            }
+
+            @Override
+            public String toString() {
+                return EnhancedRandom.random(String.class);
+            }
+        }
+        // while loop for provocate a reflexivity contract violation.
+        // Note: Because of randomness of hashCode and equals this is not always the case
+        int maxIteration = 100;
+        int count = 0;
+        do {
+            actual = EqualsCheck.reflexivity(new Weird());
+
+            if (actual.isPresent()) {
+                ContractViolation contractViolation = actual.get();
+                if (contractViolation.equals(EqualsContractViolation.REFLEXIVITY)) {
+                    break;
+                }
+            }
+            count++;
+
+        } while (true && count < maxIteration);
+
+        expected = Optional.of(EqualsContractViolation.REFLEXIVITY);
+        assertEquals(expected, actual);
 	}
 
 	/**

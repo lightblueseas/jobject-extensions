@@ -233,38 +233,7 @@ public class EqualsHashCodeAndToStringCheckTest
 		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(Integer.valueOf(0),
 			Integer.valueOf(1), Integer.valueOf(0), null);
 		expected = Optional.of(EqualsContractViolation.TRANSITIVITY);
-		assertEquals(expected, actual);
-
-		@EqualsAndHashCode
-		class Weird
-		{
-			String name;
-			@Override
-			public String toString()
-			{
-				return EnhancedRandom.random(String.class);
-			}
-		}
-		Weird weird = new Weird();
-		Weird weird2 = new Weird() {
-
-			@Override
-			public int hashCode()
-			{
-				return EnhancedRandom.random(Integer.class);
-			}
-
-			@Override
-			public boolean equals(Object o)
-			{
-				return EnhancedRandom.random(boolean.class);
-			}
-		};
-		weird2.name = "foo";
-		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(weird, weird2,
-			weird, weird);
-		expected = Optional.of(EqualsContractViolation.SYMMETRICITY);
-		assertEquals(expected, actual);
+		assertEquals(expected, actual);	
 	}
 
 	/**

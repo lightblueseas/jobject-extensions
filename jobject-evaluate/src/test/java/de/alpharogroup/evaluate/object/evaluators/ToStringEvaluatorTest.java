@@ -101,8 +101,13 @@ public class ToStringEvaluatorTest
 	{
 		boolean expected;
 		boolean actual;
+
 		actual = ToStringEvaluator.evaluateConsistency(Integer.valueOf(1), 10);
 		expected = true;
+		assertEquals(expected, actual);
+
+		actual = ToStringEvaluator.evaluateConsistency(null, 10);
+		expected = false;
 		assertEquals(expected, actual);
 	}
 

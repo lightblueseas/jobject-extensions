@@ -23,6 +23,7 @@ package de.alpharogroup.evaluate.object.checkers;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
+import java.util.function.Function;
 
 import de.alpharogroup.clone.object.CloneObjectQuietlyExtensions;
 import de.alpharogroup.evaluate.object.api.ContractViolation;
@@ -247,17 +248,50 @@ public final class EqualsHashCodeAndToStringCheck
 		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
 		InstantiationException, IOException
 	{
+		return equalsHashcodeAndToString(cls, EnhancedRandom::random);
+	}
+
+	/**
+	 * Checks all the contract conditions for the methods {@link Object#equals(Object)},
+	 * {@link Object#hashCode()} and {@link Object#toString()} from the given {@link Class}.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param cls
+	 *            the class
+	 * @param function
+	 *            the function that can create random objects
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
+	 *
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InstantiationException
+	 *             if a new instance of the bean's class cannot be instantiated
+	 * @throws InvocationTargetException
+	 *             if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             if an accessor method for this property cannot be found
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(Class<T> cls,
+																			Function<Class<T>, T> function)
+			throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
+			InstantiationException, IOException
+	{
 		if (cls == null)
 		{
 			return Optional.of(ToStringContractViolation.CLASS_NULL_ARGUMENT);
 		}
-		final T first = EnhancedRandom.random(cls);
-		final T second = EnhancedRandom.random(cls);
+		final T first = function.apply(cls);
+		final T second = function.apply(cls);
 		final T third = (T)CloneObjectQuietlyExtensions.cloneObjectQuietly(first);
 		final T fourth = (T)CloneObjectQuietlyExtensions.cloneObjectQuietly(third);
 
 		return EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(first, second, third,
-			fourth);
+				fourth);
 	}
 
 	/**

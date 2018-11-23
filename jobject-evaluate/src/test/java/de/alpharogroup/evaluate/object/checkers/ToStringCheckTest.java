@@ -79,6 +79,10 @@ public class ToStringCheckTest
 		expected = Optional.empty();
 		assertEquals(expected, actual);
 
+		actual = ToStringCheck.consistency(null);
+		expected = Optional.of(ToStringContractViolation.CONSISTENCY_NULL_ARGUMENT);
+		assertEquals(expected, actual);
+
 		actual = ToStringCheck.consistency(new Person()
 		{
 			private static final long serialVersionUID = 1L;
@@ -103,6 +107,31 @@ public class ToStringCheckTest
 		expected = Optional.empty();
 		assertEquals(expected, actual);
 	}
+
+	/**
+	 * Test method for {@link ToStringCheck#evaluateAndConsistency(Object)}
+	 */
+	@Test
+	public void testEvaluateAndConsistency()
+	{
+
+		actual = ToStringCheck.evaluateAndConsistency(Integer.class);
+		expected = Optional.empty();
+		assertEquals(expected, actual);
+
+		actual = ToStringCheck.evaluateAndConsistency(String.class);
+		expected = Optional.empty();
+		assertEquals(expected, actual);
+
+		actual = ToStringCheck.evaluateAndConsistency(null);
+		expected = Optional.of(ToStringContractViolation.CLASS_NULL_ARGUMENT);
+		assertEquals(expected, actual);
+
+		actual = ToStringCheck.evaluateAndConsistency(new Serializable(){});
+		expected = Optional.of(ToStringContractViolation.NOT_EXISTENT);
+		assertEquals(expected, actual);
+	}
+
 
 	/**
 	 * Test method for {@link ToStringCheck#evaluate(Class)}

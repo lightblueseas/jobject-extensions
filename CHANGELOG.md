@@ -9,7 +9,6 @@ CHANGED:
 - update the configuration files to log4j2 version
 - unit tests extended for improve of code coverage to 99%
 - tagged unused methods as deprecated
-- update of test-objects dependency version to 4.29
 
 Version 2
 -------------

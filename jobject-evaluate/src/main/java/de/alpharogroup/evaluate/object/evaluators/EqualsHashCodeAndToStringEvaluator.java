@@ -284,19 +284,11 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 */
 	public static <T> boolean evaluateEqualsHashcodeAndToString(final T object)
 	{
-		boolean evaluated;
-		evaluated = EqualsEvaluator.evaluateReflexivityAndNonNull(object);
-		if (!evaluated)
-		{
+		Optional<ContractViolation> contractViolation = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(object);
+		if(contractViolation.isPresent()) {
 			return false;
 		}
-		evaluated = HashcodeEvaluator.evaluateConsistency(object);
-		if (!evaluated)
-		{
-			return false;
-		}
-		evaluated = ToStringEvaluator.evaluateConsistency(object);
-		return evaluated;
+		return true;
 	}
 
 
@@ -320,22 +312,11 @@ public final class EqualsHashCodeAndToStringEvaluator
 	public static <T> boolean evaluateEqualsHashcodeAndToString(final T first, final T second,
 		final T third, final T fourth)
 	{
-		final boolean evaluated = evaluateEqualsAndHashcode(first, second, third, fourth);
-		if (!evaluated)
-		{
+		Optional<ContractViolation> contractViolation = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(first, second, third, fourth);
+		if(contractViolation.isPresent()) {
 			return false;
 		}
-
-		if (!ToStringEvaluator.evaluate(first.getClass()))
-		{
-			return false;
-		}
-
-		if (!ToStringEvaluator.evaluateConsistency(first))
-		{
-			return false;
-		}
-		return evaluated;
+		return true;
 	}
 
 	/**
@@ -399,25 +380,11 @@ public final class EqualsHashCodeAndToStringEvaluator
 	public static <T> boolean evaluateEqualsHashcodeEqualityAndToString(final T object,
 		final T otherObject, final T anotherObject)
 	{
-		boolean evaluated;
-		evaluated = ToStringEvaluator.evaluateConsistency(object);
-		if (!evaluated)
-		{
+		Optional<ContractViolation> contractViolation = EqualsHashCodeAndToStringCheck.equalsHashcodeEqualityAndToString(object, otherObject, anotherObject);
+		if(contractViolation.isPresent()) {
 			return false;
 		}
-		evaluated = HashcodeEvaluator.evaluateConsistency(object);
-		if (!evaluated)
-		{
-			return false;
-		}
-		evaluated = HashcodeEvaluator.evaluateEquality(object, otherObject);
-		if (!evaluated)
-		{
-			return false;
-		}
-		evaluated = EqualsEvaluator.evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(
-			otherObject, otherObject, anotherObject);
-		return evaluated;
+		return true;
 	}
 
 }

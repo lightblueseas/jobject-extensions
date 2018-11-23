@@ -22,9 +22,12 @@ package de.alpharogroup.evaluate.object.evaluators;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Optional;
 import java.util.function.Function;
 
 import de.alpharogroup.clone.object.CloneObjectQuietlyExtensions;
+import de.alpharogroup.evaluate.object.api.ContractViolation;
+import de.alpharogroup.evaluate.object.checkers.EqualsHashCodeAndToStringCheck;
 import io.github.benas.randombeans.api.EnhancedRandom;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -57,49 +60,13 @@ public final class EqualsHashCodeAndToStringEvaluator
 	public static <T> boolean evaluateEqualsAndHashcode(final T first, final T second,
 		final T third, final T fourth)
 	{
-		final boolean evaluated = true;
-		if (first == null)
-		{
-			log.error("first argument is null");
-			return false;
-		}
-		if (first.equals(second))
-		{
-			log.error("first argument equals second argument");
-			return false;
-		}
-		if (!first.equals(third))
-		{
-			log.error("first argument equals third argument");
-			return false;
-		}
-
-		if (!EqualsEvaluator.evaluateReflexivityNonNullSymmetricAndConsistency(first, second))
+		Optional<ContractViolation> contractViolation = EqualsHashCodeAndToStringCheck
+			.equalsAndHashcode(first, second, third, fourth);
+		if (contractViolation.isPresent())
 		{
 			return false;
 		}
-
-		if (!EqualsEvaluator.evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(first,
-			third, fourth))
-		{
-			return false;
-		}
-
-		if (!HashcodeEvaluator.evaluateEquality(first, fourth))
-		{
-			return false;
-		}
-
-		if (!HashcodeEvaluator.evaluateUnequality(first, second))
-		{
-			return false;
-		}
-
-		if (!HashcodeEvaluator.evaluateConsistency(first))
-		{
-			return false;
-		}
-		return evaluated;
+		return true;
 	}
 
 	/**
@@ -149,10 +116,6 @@ public final class EqualsHashCodeAndToStringEvaluator
 			return false;
 		}
 		evaluated = HashcodeEvaluator.evaluateEquality(object, otherObject);
-		if (!evaluated)
-		{
-			return false;
-		}
 		return evaluated;
 	}
 
@@ -207,10 +170,6 @@ public final class EqualsHashCodeAndToStringEvaluator
 			return false;
 		}
 		evaluated = HashcodeEvaluator.evaluateUnequality(object, otherObject);
-		if (!evaluated)
-		{
-			return false;
-		}
 		return evaluated;
 	}
 
@@ -318,26 +277,23 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 * @return true, if reflexivity and non-null contract conditions from
 	 *         {@link Object#equals(Object)} and the consistency contract condition of
 	 *         {@link Object#hashCode()} is given otherwise false
+	 *
+	 * @deprecated use instead the <code>EqualsEvaluator.evaluateReflexivityAndNonNull</code> method
+	 *             in combination with the <code>HashcodeEvaluator.evaluateConsistency</code> and
+	 *             the <code>ToStringEvaluator.evaluateConsistency</code> method. <br>
+	 *             <br>
+	 *             Note: will be removed in the next minor version
 	 */
+	@Deprecated
 	public static <T> boolean evaluateEqualsHashcodeAndToString(final T object)
 	{
-		boolean evaluated;
-		evaluated = EqualsEvaluator.evaluateReflexivityAndNonNull(object);
-		if (!evaluated)
+		Optional<ContractViolation> contractViolation = EqualsHashCodeAndToStringCheck
+			.equalsHashcodeAndToString(object);
+		if (contractViolation.isPresent())
 		{
 			return false;
 		}
-		evaluated = HashcodeEvaluator.evaluateConsistency(object);
-		if (!evaluated)
-		{
-			return false;
-		}
-		evaluated = ToStringEvaluator.evaluateConsistency(object);
-		if (!evaluated)
-		{
-			return false;
-		}
-		return evaluated;
+		return true;
 	}
 
 
@@ -361,22 +317,13 @@ public final class EqualsHashCodeAndToStringEvaluator
 	public static <T> boolean evaluateEqualsHashcodeAndToString(final T first, final T second,
 		final T third, final T fourth)
 	{
-		final boolean evaluated = evaluateEqualsAndHashcode(first, second, third, fourth);
-		if (!evaluated)
+		Optional<ContractViolation> contractViolation = EqualsHashCodeAndToStringCheck
+			.equalsHashcodeAndToString(first, second, third, fourth);
+		if (contractViolation.isPresent())
 		{
 			return false;
 		}
-
-		if (!ToStringEvaluator.evaluate(first.getClass()))
-		{
-			return false;
-		}
-
-		if (!ToStringEvaluator.evaluateConsistency(first))
-		{
-			return false;
-		}
-		return evaluated;
+		return true;
 	}
 
 	/**
@@ -436,33 +383,22 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 *         consistency contract condition of {@link Object#hashCode()} is given and if equality
 	 *         of hash code from the given objects is given and if reflexivity, non null, symmetric,
 	 *         consistency and transitivity contract conditions is given otherwise false
+	 *
+	 * @deprecated use instead the <code>evaluateEqualsHashcodeAndToString</code> method <br>
+	 *             <br>
+	 *             Note: will be removed in the next minor version
 	 */
+	@Deprecated
 	public static <T> boolean evaluateEqualsHashcodeEqualityAndToString(final T object,
 		final T otherObject, final T anotherObject)
 	{
-		boolean evaluated;
-		evaluated = ToStringEvaluator.evaluateConsistency(object);
-		if (!evaluated)
+		Optional<ContractViolation> contractViolation = EqualsHashCodeAndToStringCheck
+			.equalsHashcodeEqualityAndToString(object, otherObject, anotherObject);
+		if (contractViolation.isPresent())
 		{
 			return false;
 		}
-		evaluated = HashcodeEvaluator.evaluateConsistency(object);
-		if (!evaluated)
-		{
-			return false;
-		}
-		evaluated = HashcodeEvaluator.evaluateEquality(object, otherObject);
-		if (!evaluated)
-		{
-			return false;
-		}
-		evaluated = EqualsEvaluator.evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(
-			otherObject, otherObject, anotherObject);
-		if (!evaluated)
-		{
-			return false;
-		}
-		return evaluated;
+		return true;
 	}
 
 }

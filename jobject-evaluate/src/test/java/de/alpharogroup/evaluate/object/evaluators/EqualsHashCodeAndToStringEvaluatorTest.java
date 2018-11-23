@@ -244,6 +244,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	 * Test method for
 	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeAndToString(Object)}.
 	 */
+	@SuppressWarnings("deprecation")
 	@Test(enabled = true)
 	public void testEvaluateEqualsHashcodeAndToStringSingleObject()
 	{
@@ -268,6 +269,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	 * Test method for
 	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeEqualityAndToString(Object, Object, Object)}.
 	 */
+	@SuppressWarnings("deprecation")
 	@Test(enabled = true)
 	public void testEvaluateEqualsHashcodeEqualityAndToString()
 	{
@@ -283,39 +285,6 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 			Integer.valueOf(0), Integer.valueOf(0));
 		expected = false;
 		assertEquals(expected, actual);
-	}
-
-	/**
-	 * Test method for
-	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeEqualityAndToString(Object, Object, Object)}.
-	 */
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateEqualsHashcodeEqualityAndToStringExpectedException01()
-	{
-		EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeEqualityAndToString(
-			Integer.valueOf(0), Integer.valueOf(1), null);
-	}
-
-	/**
-	 * Test method for
-	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeEqualityAndToString(Object, Object, Object)}.
-	 */
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateEqualsHashcodeEqualityAndToStringExpectedException02()
-	{
-		EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeEqualityAndToString(
-			Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(0));
-	}
-
-	/**
-	 * Test method for
-	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeEqualityAndToString(Object, Object, Object)}.
-	 */
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateEqualsHashcodeEqualityAndToStringExpectedException03()
-	{
-		EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeEqualityAndToString(
-			Integer.valueOf(0), null, Integer.valueOf(0));
 	}
 
 	/**

@@ -338,4 +338,29 @@ public final class ReflectionExtensions
 		return field;
 	}
 
+	/**
+	 * Gets all the declared fields which means from all superclasses from the given class object
+	 *
+	 * @param cls
+	 *            the class object
+	 * @return all the declared fields
+	 */
+	public static Field[] getAllDeclaredFields(final @NonNull Class<?> cls)
+	{
+		List<Field> fields = new ArrayList<Field>();
+		fields.addAll(Arrays.asList(cls.getDeclaredFields()));
+		Class<?> superClass = cls.getSuperclass();
+		if (superClass != null && superClass.equals(Object.class))
+		{
+			return fields.toArray(new Field[] { });
+		}
+		while ((superClass.getSuperclass() != null
+			&& superClass.getSuperclass().equals(Object.class)))
+		{
+			fields.addAll(Arrays.asList(superClass.getDeclaredFields()));
+			superClass = superClass.getSuperclass();
+		}
+		return fields.toArray(new Field[] { });
+	}
+
 }

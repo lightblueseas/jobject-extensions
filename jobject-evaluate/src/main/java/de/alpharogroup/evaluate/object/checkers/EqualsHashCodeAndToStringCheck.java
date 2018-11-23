@@ -23,6 +23,7 @@ package de.alpharogroup.evaluate.object.checkers;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
+import java.util.function.Function;
 
 import de.alpharogroup.clone.object.CloneObjectQuietlyExtensions;
 import de.alpharogroup.evaluate.object.api.ContractViolation;
@@ -82,6 +83,27 @@ public final class EqualsHashCodeAndToStringCheck
 		{
 			return evaluated;
 		}
+		return hashcodeCheck(first, second, fourth);
+	}
+
+	/**
+	 * Checks all the contract conditions for the method {@link Object#hashCode()}
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param first
+	 *            the first object
+	 * @param second
+	 *            the second object that have to be uneqal to the first object
+	 * @param fourth
+	 *            the fourth object have to be equal to first object and third object
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
+	 */
+	public static <T> Optional<ContractViolation> hashcodeCheck(final T first, final T second,
+		final T fourth)
+	{
+		Optional<ContractViolation> evaluated;
 		evaluated = HashcodeCheck.equality(first, fourth);
 		if (evaluated.isPresent())
 		{
@@ -93,10 +115,6 @@ public final class EqualsHashCodeAndToStringCheck
 			return evaluated;
 		}
 		evaluated = HashcodeCheck.consistency(first);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 
@@ -147,10 +165,6 @@ public final class EqualsHashCodeAndToStringCheck
 			return evaluated;
 		}
 		evaluated = HashcodeCheck.equality(object, otherObject);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 
@@ -204,10 +218,6 @@ public final class EqualsHashCodeAndToStringCheck
 			return evaluated;
 		}
 		evaluated = HashcodeCheck.unequality(object, otherObject);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 
@@ -233,17 +243,48 @@ public final class EqualsHashCodeAndToStringCheck
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred
 	 */
-	@SuppressWarnings("unchecked")
 	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(Class<T> cls)
 		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
 		InstantiationException, IOException
+	{
+		return equalsHashcodeAndToString(cls, EnhancedRandom::random);
+	}
+
+	/**
+	 * Checks all the contract conditions for the methods {@link Object#equals(Object)},
+	 * {@link Object#hashCode()} and {@link Object#toString()} from the given {@link Class}.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param cls
+	 *            the class
+	 * @param function
+	 *            the function that can create random objects
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
+	 *
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InstantiationException
+	 *             if a new instance of the bean's class cannot be instantiated
+	 * @throws InvocationTargetException
+	 *             if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             if an accessor method for this property cannot be found
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(Class<T> cls,
+		Function<Class<T>, T> function) throws NoSuchMethodException, IllegalAccessException,
+		InvocationTargetException, InstantiationException, IOException
 	{
 		if (cls == null)
 		{
 			return Optional.of(ToStringContractViolation.CLASS_NULL_ARGUMENT);
 		}
-		final T first = EnhancedRandom.random(cls);
-		final T second = EnhancedRandom.random(cls);
+		final T first = function.apply(cls);
+		final T second = function.apply(cls);
 		final T third = (T)CloneObjectQuietlyExtensions.cloneObjectQuietly(first);
 		final T fourth = (T)CloneObjectQuietlyExtensions.cloneObjectQuietly(third);
 
@@ -297,10 +338,6 @@ public final class EqualsHashCodeAndToStringCheck
 			return evaluated;
 		}
 		evaluated = ToStringCheck.consistency(object);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 
@@ -324,22 +361,13 @@ public final class EqualsHashCodeAndToStringCheck
 	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(final T first,
 		final T second, final T third, final T fourth)
 	{
-		Optional<ContractViolation> evaluated = equalsAndHashcode(first, second, third, fourth);
+		Optional<ContractViolation> evaluated;
+		evaluated = equalsAndHashcode(first, second, third, fourth);
 		if (evaluated.isPresent())
 		{
 			return evaluated;
 		}
-		evaluated = ToStringCheck.evaluate(first.getClass());
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
-		evaluated = ToStringCheck.consistency(first);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
-		return evaluated;
+		return ToStringCheck.evaluateAndConsistency(first);
 	}
 
 	/**
@@ -397,7 +425,16 @@ public final class EqualsHashCodeAndToStringCheck
 	 *            the another object
 	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
 	 *         specific violation type
+	 *
+	 * @deprecated use instead the <code>ToStringCheck.consistency</code> method in combination with
+	 *             the <code>HashcodeCheck.consistency</code>, the
+	 *             <code>HashcodeCheck.equality</code> method and the
+	 *             <code>EqualsCheck.reflexivityNonNullSymmetricConsistencyAndTransitivity</code>
+	 *             method. <br>
+	 *             <br>
+	 *             Note: will be removed in the next minor version
 	 */
+	@Deprecated
 	public static <T> Optional<ContractViolation> equalsHashcodeEqualityAndToString(final T object,
 		final T otherObject, final T anotherObject)
 	{
@@ -419,10 +456,6 @@ public final class EqualsHashCodeAndToStringCheck
 		}
 		evaluated = EqualsCheck.reflexivityNonNullSymmetricConsistencyAndTransitivity(otherObject,
 			otherObject, anotherObject);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 

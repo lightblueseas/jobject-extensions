@@ -1,6 +1,15 @@
 ## Change log
 ----------------------
 
+Version 2.1
+-------------
+
+CHANGED:
+
+- update the configuration files to log4j2 version
+- unit tests extended for improve of code coverage to 99%
+- tagged unused methods as deprecated
+
 Version 2
 -------------
 

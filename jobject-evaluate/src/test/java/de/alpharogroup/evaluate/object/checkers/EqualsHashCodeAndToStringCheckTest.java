@@ -39,6 +39,7 @@ import de.alpharogroup.evaluate.object.enums.EqualsHashcodeContractViolation;
 import de.alpharogroup.evaluate.object.enums.HashcodeContractViolation;
 import de.alpharogroup.evaluate.object.enums.ToStringContractViolation;
 import de.alpharogroup.test.objects.Person;
+import io.github.benas.randombeans.api.EnhancedRandom;
 
 /**
  * The unit test class for the class {@link EqualsHashCodeAndToStringCheck}
@@ -67,6 +68,7 @@ public class EqualsHashCodeAndToStringCheckTest
 	{
 		super.tearDown();
 	}
+
 
 	/**
 	 * Test method for
@@ -250,12 +252,26 @@ public class EqualsHashCodeAndToStringCheckTest
 		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString((Object)null);
 		expected = Optional.of(EqualsContractViolation.REFLEXIVITY_NULL_ARGUMENT);
 		assertEquals(expected, actual);
+
+		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(new Person()
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public int hashCode()
+			{
+				return EnhancedRandom.random(Integer.class);
+			}
+		});
+		expected = Optional.of(HashcodeContractViolation.CONSISTENCY);
+		assertEquals(expected, actual);
 	}
 
 	/**
 	 * Test method for
 	 * {@link EqualsHashCodeAndToStringCheck#equalsHashcodeEqualityAndToString(Object, Object, Object)}
 	 */
+	@SuppressWarnings("deprecation")
 	@Test(enabled = true)
 	public void testEqualsHashcodeEqualityAndToString()
 	{
@@ -268,6 +284,41 @@ public class EqualsHashCodeAndToStringCheckTest
 			Integer.valueOf(0), Integer.valueOf(0));
 		expected = Optional.of(ToStringContractViolation.CONSISTENCY_NULL_ARGUMENT);
 		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link EqualsHashCodeAndToStringCheck#hashcodeCheck(Object, Object, Object)}
+	 */
+	@Test(enabled = true)
+	public void testHashcodeCheck()
+	{
+		actual = EqualsHashCodeAndToStringCheck.hashcodeCheck(Integer.valueOf(0),
+			Integer.valueOf(0), Integer.valueOf(0));
+		expected = Optional.of(HashcodeContractViolation.UNEQAUALITY);
+		assertEquals(expected, actual);
+
+		actual = EqualsHashCodeAndToStringCheck.hashcodeCheck(new Person()
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public int hashCode()
+			{
+				return EnhancedRandom.random(Integer.class);
+			}
+		}, Person.builder().build(), new Person()
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public int hashCode()
+			{
+				return EnhancedRandom.random(Integer.class);
+			}
+		});
+		expected = Optional.of(HashcodeContractViolation.EQAUALITY);
+		assertEquals(expected, actual);
+
 	}
 
 	/**

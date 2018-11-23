@@ -310,6 +310,11 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 * @return true, if reflexivity and non-null contract conditions from
 	 *         {@link Object#equals(Object)} and the consistency contract condition of
 	 *         {@link Object#hashCode()} is given otherwise false
+	 *
+	 * @deprecated use instead the <code>EqualsEvaluator.evaluateReflexivityAndNonNull</code> method in combination with
+	 * the <code>HashcodeEvaluator.evaluateConsistency</code> and the <code>ToStringEvaluator.evaluateConsistency</code>
+	 * method. <br><br>
+	 *     Note: will be removed in the next minor version
 	 */
 	public static <T> boolean evaluateEqualsHashcodeAndToString(final T object)
 	{

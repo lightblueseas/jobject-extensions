@@ -325,6 +325,10 @@ public final class EqualsHashCodeAndToStringCheck
 	 *            the fourth object have to be equal to first object and third object
 	 * @return true, if all contract conditions for the methods {@link Object#equals(Object)},
 	 *         {@link Object#hashCode()} and {@link Object#toString()} is given otherwise false
+	 *
+	 * @deprecated use instead the <code>equalsAndHashcode</code> method in combination with
+	 * the <code>ToStringCheck.consistency</code> and the <code>ToStringCheck.evaluate</code> method. <br><br>
+	 *     Note: will be removed in the next minor version.
 	 */
 	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(final T first,
 		final T second, final T third, final T fourth)
@@ -399,6 +403,11 @@ public final class EqualsHashCodeAndToStringCheck
 	 *            the another object
 	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
 	 *         specific violation type
+	 *
+	 * @deprecated use instead the <code>ToStringCheck.consistency</code> method in combination with
+	 * the <code>HashcodeCheck.consistency</code>, the <code>HashcodeCheck.equality</code> method and
+	 * the <code>EqualsCheck.reflexivityNonNullSymmetricConsistencyAndTransitivity</code> method. <br><br>
+	 *     Note: will be removed in the next minor version
 	 */
 	public static <T> Optional<ContractViolation> equalsHashcodeEqualityAndToString(final T object,
 		final T otherObject, final T anotherObject)

@@ -22,9 +22,12 @@ package de.alpharogroup.evaluate.object.evaluators;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Optional;
 import java.util.function.Function;
 
 import de.alpharogroup.clone.object.CloneObjectQuietlyExtensions;
+import de.alpharogroup.evaluate.object.api.ContractViolation;
+import de.alpharogroup.evaluate.object.checkers.EqualsHashCodeAndToStringCheck;
 import io.github.benas.randombeans.api.EnhancedRandom;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
@@ -57,49 +60,12 @@ public final class EqualsHashCodeAndToStringEvaluator
 	public static <T> boolean evaluateEqualsAndHashcode(final T first, final T second,
 		final T third, final T fourth)
 	{
-		final boolean evaluated = true;
-		if (first == null)
-		{
-			log.error("first argument is null");
+		Optional<ContractViolation> contractViolation =
+				EqualsHashCodeAndToStringCheck.equalsAndHashcode(first, second, third, fourth);
+		if(contractViolation.isPresent()) {
 			return false;
 		}
-		if (first.equals(second))
-		{
-			log.error("first argument equals second argument");
-			return false;
-		}
-		if (!first.equals(third))
-		{
-			log.error("first argument equals third argument");
-			return false;
-		}
-
-		if (!EqualsEvaluator.evaluateReflexivityNonNullSymmetricAndConsistency(first, second))
-		{
-			return false;
-		}
-
-		if (!EqualsEvaluator.evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(first,
-			third, fourth))
-		{
-			return false;
-		}
-
-		if (!HashcodeEvaluator.evaluateEquality(first, fourth))
-		{
-			return false;
-		}
-
-		if (!HashcodeEvaluator.evaluateUnequality(first, second))
-		{
-			return false;
-		}
-
-		if (!HashcodeEvaluator.evaluateConsistency(first))
-		{
-			return false;
-		}
-		return evaluated;
+		return true;
 	}
 
 	/**

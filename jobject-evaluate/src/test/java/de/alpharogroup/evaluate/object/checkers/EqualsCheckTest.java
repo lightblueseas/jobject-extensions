@@ -35,6 +35,7 @@ import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.AbstractTestCase;
+import de.alpharogroup.evaluate.object.WeirdBadInconsistencyClass;
 import de.alpharogroup.evaluate.object.api.ContractViolation;
 import de.alpharogroup.evaluate.object.enums.EqualsContractViolation;
 import de.alpharogroup.test.objects.Person;
@@ -98,15 +99,15 @@ public class EqualsCheckTest
 		actual = EqualsCheck.consistency(new Person()
 		{
 			@Override
-			public int hashCode()
-			{
-				return EnhancedRandom.random(Integer.class);
-			}
-
-			@Override
 			public boolean equals(Object o)
 			{
 				return EnhancedRandom.random(boolean.class);
+			}
+
+			@Override
+			public int hashCode()
+			{
+				return EnhancedRandom.random(Integer.class);
 			}
 		}, Person.builder().build());
 		expected = Optional.of(EqualsContractViolation.CONSISTENCY);
@@ -184,46 +185,31 @@ public class EqualsCheckTest
 		actual = EqualsCheck.reflexivity(null);
 		expected = Optional.of(EqualsContractViolation.REFLEXIVITY_NULL_ARGUMENT);
 		assertEquals(expected, actual);
-        // new scenario ...
-        // provocate a reflexivity contract violation ...
-        class Weird {
-            String name;
+		// new scenario ...
+		// provocate a reflexivity contract violation ...
+		// while loop for provocate a reflexivity contract violation.
+		// Note: Because of randomness of hashCode and equals this is not always the case
+		int maxIteration = 100;
+		int count = 0;
+		do
+		{
+			actual = EqualsCheck.reflexivity(new WeirdBadInconsistencyClass());
 
-            @Override
-            public int hashCode() {
-                return EnhancedRandom.random(Integer.class);
-            }
+			if (actual.isPresent())
+			{
+				ContractViolation contractViolation = actual.get();
+				if (contractViolation.equals(EqualsContractViolation.REFLEXIVITY))
+				{
+					break;
+				}
+			}
+			count++;
 
-            @Override
-            public boolean equals(Object o) {
-                boolean randomBoolean = EnhancedRandom.random(boolean.class);
-                return randomBoolean;
-            }
+		}
+		while (true && count < maxIteration);
 
-            @Override
-            public String toString() {
-                return EnhancedRandom.random(String.class);
-            }
-        }
-        // while loop for provocate a reflexivity contract violation.
-        // Note: Because of randomness of hashCode and equals this is not always the case
-        int maxIteration = 100;
-        int count = 0;
-        do {
-            actual = EqualsCheck.reflexivity(new Weird());
-
-            if (actual.isPresent()) {
-                ContractViolation contractViolation = actual.get();
-                if (contractViolation.equals(EqualsContractViolation.REFLEXIVITY)) {
-                    break;
-                }
-            }
-            count++;
-
-        } while (true && count < maxIteration);
-
-        expected = Optional.of(EqualsContractViolation.REFLEXIVITY);
-        assertEquals(expected, actual);
+		expected = Optional.of(EqualsContractViolation.REFLEXIVITY);
+		assertEquals(expected, actual);
 	}
 
 	/**

@@ -60,9 +60,10 @@ public final class EqualsHashCodeAndToStringEvaluator
 	public static <T> boolean evaluateEqualsAndHashcode(final T first, final T second,
 		final T third, final T fourth)
 	{
-		Optional<ContractViolation> contractViolation =
-				EqualsHashCodeAndToStringCheck.equalsAndHashcode(first, second, third, fourth);
-		if(contractViolation.isPresent()) {
+		Optional<ContractViolation> contractViolation = EqualsHashCodeAndToStringCheck
+			.equalsAndHashcode(first, second, third, fourth);
+		if (contractViolation.isPresent())
+		{
 			return false;
 		}
 		return true;
@@ -277,15 +278,19 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 *         {@link Object#equals(Object)} and the consistency contract condition of
 	 *         {@link Object#hashCode()} is given otherwise false
 	 *
-	 * @deprecated use instead the <code>EqualsEvaluator.evaluateReflexivityAndNonNull</code> method in combination with
-	 * the <code>HashcodeEvaluator.evaluateConsistency</code> and the <code>ToStringEvaluator.evaluateConsistency</code>
-	 * method. <br><br>
-	 *     Note: will be removed in the next minor version
+	 * @deprecated use instead the <code>EqualsEvaluator.evaluateReflexivityAndNonNull</code> method
+	 *             in combination with the <code>HashcodeEvaluator.evaluateConsistency</code> and
+	 *             the <code>ToStringEvaluator.evaluateConsistency</code> method. <br>
+	 *             <br>
+	 *             Note: will be removed in the next minor version
 	 */
+	@Deprecated
 	public static <T> boolean evaluateEqualsHashcodeAndToString(final T object)
 	{
-		Optional<ContractViolation> contractViolation = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(object);
-		if(contractViolation.isPresent()) {
+		Optional<ContractViolation> contractViolation = EqualsHashCodeAndToStringCheck
+			.equalsHashcodeAndToString(object);
+		if (contractViolation.isPresent())
+		{
 			return false;
 		}
 		return true;
@@ -312,8 +317,10 @@ public final class EqualsHashCodeAndToStringEvaluator
 	public static <T> boolean evaluateEqualsHashcodeAndToString(final T first, final T second,
 		final T third, final T fourth)
 	{
-		Optional<ContractViolation> contractViolation = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(first, second, third, fourth);
-		if(contractViolation.isPresent()) {
+		Optional<ContractViolation> contractViolation = EqualsHashCodeAndToStringCheck
+			.equalsHashcodeAndToString(first, second, third, fourth);
+		if (contractViolation.isPresent())
+		{
 			return false;
 		}
 		return true;
@@ -377,14 +384,18 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 *         of hash code from the given objects is given and if reflexivity, non null, symmetric,
 	 *         consistency and transitivity contract conditions is given otherwise false
 	 *
-	 * @deprecated use instead the <code>evaluateEqualsHashcodeAndToString</code> method <br><br>
-	 *     Note: will be removed in the next minor version
+	 * @deprecated use instead the <code>evaluateEqualsHashcodeAndToString</code> method <br>
+	 *             <br>
+	 *             Note: will be removed in the next minor version
 	 */
+	@Deprecated
 	public static <T> boolean evaluateEqualsHashcodeEqualityAndToString(final T object,
 		final T otherObject, final T anotherObject)
 	{
-		Optional<ContractViolation> contractViolation = EqualsHashCodeAndToStringCheck.equalsHashcodeEqualityAndToString(object, otherObject, anotherObject);
-		if(contractViolation.isPresent()) {
+		Optional<ContractViolation> contractViolation = EqualsHashCodeAndToStringCheck
+			.equalsHashcodeEqualityAndToString(object, otherObject, anotherObject);
+		if (contractViolation.isPresent())
+		{
 			return false;
 		}
 		return true;

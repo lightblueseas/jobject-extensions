@@ -40,6 +40,7 @@ public class EqualsEvaluatorTest
 	/**
 	 * Test method for {@link EqualsEvaluator#evaluateConsistency(Object, Object)}.
 	 */
+	@SuppressWarnings("serial")
 	@Test
 	public void testEvaluateConsistency()
 	{
@@ -65,16 +66,19 @@ public class EqualsEvaluatorTest
 		expected = false;
 		assertEquals(expected, actual);
 
-		actual = EqualsEvaluator.evaluateConsistency(new Person() {
-		    @Override
-		    public int hashCode() {
-			return EnhancedRandom.random(Integer.class);
-		    }
+		actual = EqualsEvaluator.evaluateConsistency(new Person()
+		{
+			@Override
+			public boolean equals(Object o)
+			{
+				return EnhancedRandom.random(boolean.class);
+			}
 
-		    @Override
-		    public boolean equals(Object o) {
-			return EnhancedRandom.random(boolean.class);
-		    }
+			@Override
+			public int hashCode()
+			{
+				return EnhancedRandom.random(Integer.class);
+			}
 		}, Person.builder().build());
 		expected = false;
 		assertEquals(expected, actual);

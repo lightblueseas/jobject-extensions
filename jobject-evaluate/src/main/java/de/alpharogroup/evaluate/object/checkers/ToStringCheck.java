@@ -113,7 +113,8 @@ public final class ToStringCheck
 	 *            the generic type
 	 * @param object
 	 *            the object
-	 * @return true, if all contract conditions for the methods {@link Object#toString()} is given otherwise false
+	 * @return true, if all contract conditions for the methods {@link Object#toString()} is given
+	 *         otherwise false
 	 */
 	public static <T> Optional<ContractViolation> evaluateAndConsistency(final T object)
 	{

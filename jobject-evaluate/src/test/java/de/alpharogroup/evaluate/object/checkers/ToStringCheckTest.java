@@ -109,31 +109,6 @@ public class ToStringCheckTest
 	}
 
 	/**
-	 * Test method for {@link ToStringCheck#evaluateAndConsistency(Object)}
-	 */
-	@Test
-	public void testEvaluateAndConsistency()
-	{
-
-		actual = ToStringCheck.evaluateAndConsistency(Integer.class);
-		expected = Optional.empty();
-		assertEquals(expected, actual);
-
-		actual = ToStringCheck.evaluateAndConsistency(String.class);
-		expected = Optional.empty();
-		assertEquals(expected, actual);
-
-		actual = ToStringCheck.evaluateAndConsistency(null);
-		expected = Optional.of(ToStringContractViolation.CLASS_NULL_ARGUMENT);
-		assertEquals(expected, actual);
-
-		actual = ToStringCheck.evaluateAndConsistency(new Serializable(){});
-		expected = Optional.of(ToStringContractViolation.NOT_EXISTENT);
-		assertEquals(expected, actual);
-	}
-
-
-	/**
 	 * Test method for {@link ToStringCheck#evaluate(Class)}
 	 */
 	@Test
@@ -152,6 +127,34 @@ public class ToStringCheckTest
 		assertEquals(expected, actual);
 
 		actual = ToStringCheck.evaluate(Serializable.class);
+		expected = Optional.of(ToStringContractViolation.NOT_EXISTENT);
+		assertEquals(expected, actual);
+	}
+
+
+	/**
+	 * Test method for {@link ToStringCheck#evaluateAndConsistency(Object)}
+	 */
+	@SuppressWarnings("serial")
+	@Test
+	public void testEvaluateAndConsistency()
+	{
+
+		actual = ToStringCheck.evaluateAndConsistency(Integer.class);
+		expected = Optional.empty();
+		assertEquals(expected, actual);
+
+		actual = ToStringCheck.evaluateAndConsistency(String.class);
+		expected = Optional.empty();
+		assertEquals(expected, actual);
+
+		actual = ToStringCheck.evaluateAndConsistency(null);
+		expected = Optional.of(ToStringContractViolation.CLASS_NULL_ARGUMENT);
+		assertEquals(expected, actual);
+
+		actual = ToStringCheck.evaluateAndConsistency(new Serializable()
+		{
+		});
 		expected = Optional.of(ToStringContractViolation.NOT_EXISTENT);
 		assertEquals(expected, actual);
 	}

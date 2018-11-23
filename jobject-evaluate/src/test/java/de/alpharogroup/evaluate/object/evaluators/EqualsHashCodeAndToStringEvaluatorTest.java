@@ -244,6 +244,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	 * Test method for
 	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeAndToString(Object)}.
 	 */
+	@SuppressWarnings("deprecation")
 	@Test(enabled = true)
 	public void testEvaluateEqualsHashcodeAndToStringSingleObject()
 	{
@@ -268,6 +269,7 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	 * Test method for
 	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeEqualityAndToString(Object, Object, Object)}.
 	 */
+	@SuppressWarnings("deprecation")
 	@Test(enabled = true)
 	public void testEvaluateEqualsHashcodeEqualityAndToString()
 	{

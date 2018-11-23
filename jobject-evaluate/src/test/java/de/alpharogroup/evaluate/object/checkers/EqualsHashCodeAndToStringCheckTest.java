@@ -40,7 +40,6 @@ import de.alpharogroup.evaluate.object.enums.HashcodeContractViolation;
 import de.alpharogroup.evaluate.object.enums.ToStringContractViolation;
 import de.alpharogroup.test.objects.Person;
 import io.github.benas.randombeans.api.EnhancedRandom;
-import lombok.EqualsAndHashCode;
 
 /**
  * The unit test class for the class {@link EqualsHashCodeAndToStringCheck}
@@ -70,41 +69,6 @@ public class EqualsHashCodeAndToStringCheckTest
 		super.tearDown();
 	}
 
-
-	/**
-	 * Test method for {@link EqualsHashCodeAndToStringCheck#hashcodeCheck(Object, Object, Object)}
-	 */
-	@Test(enabled = true)
-	public void testHashcodeCheck()
-	{
-		actual = EqualsHashCodeAndToStringCheck.hashcodeCheck(Integer.valueOf(0),
-			Integer.valueOf(0), Integer.valueOf(0));
-		expected = Optional.of(HashcodeContractViolation.UNEQAUALITY);
-		assertEquals(expected, actual);
-
-		actual = EqualsHashCodeAndToStringCheck.hashcodeCheck(new Person()
-		{
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public int hashCode()
-			{
-				return EnhancedRandom.random(Integer.class);
-			}
-		}, Person.builder().build(), new Person()
-		{
-			private static final long serialVersionUID = 1L;
-
-			@Override
-			public int hashCode()
-			{
-				return EnhancedRandom.random(Integer.class);
-			}
-		});
-		expected = Optional.of(HashcodeContractViolation.EQAUALITY);
-		assertEquals(expected, actual);
-
-	}
 
 	/**
 	 * Test method for
@@ -233,7 +197,7 @@ public class EqualsHashCodeAndToStringCheckTest
 		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(Integer.valueOf(0),
 			Integer.valueOf(1), Integer.valueOf(0), null);
 		expected = Optional.of(EqualsContractViolation.TRANSITIVITY);
-		assertEquals(expected, actual);	
+		assertEquals(expected, actual);
 	}
 
 	/**
@@ -307,6 +271,7 @@ public class EqualsHashCodeAndToStringCheckTest
 	 * Test method for
 	 * {@link EqualsHashCodeAndToStringCheck#equalsHashcodeEqualityAndToString(Object, Object, Object)}
 	 */
+	@SuppressWarnings("deprecation")
 	@Test(enabled = true)
 	public void testEqualsHashcodeEqualityAndToString()
 	{
@@ -319,6 +284,41 @@ public class EqualsHashCodeAndToStringCheckTest
 			Integer.valueOf(0), Integer.valueOf(0));
 		expected = Optional.of(ToStringContractViolation.CONSISTENCY_NULL_ARGUMENT);
 		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link EqualsHashCodeAndToStringCheck#hashcodeCheck(Object, Object, Object)}
+	 */
+	@Test(enabled = true)
+	public void testHashcodeCheck()
+	{
+		actual = EqualsHashCodeAndToStringCheck.hashcodeCheck(Integer.valueOf(0),
+			Integer.valueOf(0), Integer.valueOf(0));
+		expected = Optional.of(HashcodeContractViolation.UNEQAUALITY);
+		assertEquals(expected, actual);
+
+		actual = EqualsHashCodeAndToStringCheck.hashcodeCheck(new Person()
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public int hashCode()
+			{
+				return EnhancedRandom.random(Integer.class);
+			}
+		}, Person.builder().build(), new Person()
+		{
+			private static final long serialVersionUID = 1L;
+
+			@Override
+			public int hashCode()
+			{
+				return EnhancedRandom.random(Integer.class);
+			}
+		});
+		expected = Optional.of(HashcodeContractViolation.EQAUALITY);
+		assertEquals(expected, actual);
+
 	}
 
 	/**

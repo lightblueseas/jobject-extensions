@@ -59,7 +59,8 @@ public final class EqualsCheck
 		{
 			return Optional.of(EqualsContractViolation.REFLEXIVITY_NULL_ARGUMENT);
 		}
-		if(object.equals(object)) {
+		if (object.equals(object))
+		{
 			return Optional.empty();
 		}
 		return Optional.of(EqualsContractViolation.REFLEXIVITY);

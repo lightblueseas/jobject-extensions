@@ -243,7 +243,6 @@ public final class EqualsHashCodeAndToStringCheck
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred
 	 */
-	@SuppressWarnings("unchecked")
 	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(Class<T> cls)
 		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
 		InstantiationException, IOException
@@ -277,9 +276,8 @@ public final class EqualsHashCodeAndToStringCheck
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(Class<T> cls,
-																			Function<Class<T>, T> function)
-			throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
-			InstantiationException, IOException
+		Function<Class<T>, T> function) throws NoSuchMethodException, IllegalAccessException,
+		InvocationTargetException, InstantiationException, IOException
 	{
 		if (cls == null)
 		{
@@ -291,7 +289,7 @@ public final class EqualsHashCodeAndToStringCheck
 		final T fourth = (T)CloneObjectQuietlyExtensions.cloneObjectQuietly(third);
 
 		return EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(first, second, third,
-				fourth);
+			fourth);
 	}
 
 	/**
@@ -429,10 +427,14 @@ public final class EqualsHashCodeAndToStringCheck
 	 *         specific violation type
 	 *
 	 * @deprecated use instead the <code>ToStringCheck.consistency</code> method in combination with
-	 * the <code>HashcodeCheck.consistency</code>, the <code>HashcodeCheck.equality</code> method and
-	 * the <code>EqualsCheck.reflexivityNonNullSymmetricConsistencyAndTransitivity</code> method. <br><br>
-	 *     Note: will be removed in the next minor version
+	 *             the <code>HashcodeCheck.consistency</code>, the
+	 *             <code>HashcodeCheck.equality</code> method and the
+	 *             <code>EqualsCheck.reflexivityNonNullSymmetricConsistencyAndTransitivity</code>
+	 *             method. <br>
+	 *             <br>
+	 *             Note: will be removed in the next minor version
 	 */
+	@Deprecated
 	public static <T> Optional<ContractViolation> equalsHashcodeEqualityAndToString(final T object,
 		final T otherObject, final T anotherObject)
 	{

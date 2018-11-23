@@ -376,6 +376,9 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 *         consistency contract condition of {@link Object#hashCode()} is given and if equality
 	 *         of hash code from the given objects is given and if reflexivity, non null, symmetric,
 	 *         consistency and transitivity contract conditions is given otherwise false
+	 *
+	 * @deprecated use instead the <code>evaluateEqualsHashcodeAndToString</code> method <br><br>
+	 *     Note: will be removed in the next minor version
 	 */
 	public static <T> boolean evaluateEqualsHashcodeEqualityAndToString(final T object,
 		final T otherObject, final T anotherObject)

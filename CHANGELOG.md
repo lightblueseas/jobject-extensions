@@ -4,6 +4,11 @@
 Version 2.2-SNAPSHOT
 -------------
 
+CHANGED:
+
+- unit tests extended for improve of code coverage to 100%
+- removed deprecated methods
+
 Version 2.1
 -------------
 

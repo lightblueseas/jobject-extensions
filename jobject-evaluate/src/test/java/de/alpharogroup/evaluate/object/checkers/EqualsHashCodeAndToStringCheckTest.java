@@ -268,25 +268,6 @@ public class EqualsHashCodeAndToStringCheckTest
 	}
 
 	/**
-	 * Test method for
-	 * {@link EqualsHashCodeAndToStringCheck#equalsHashcodeEqualityAndToString(Object, Object, Object)}
-	 */
-	@SuppressWarnings("deprecation")
-	@Test(enabled = true)
-	public void testEqualsHashcodeEqualityAndToString()
-	{
-		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeEqualityAndToString(
-			Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
-		expected = Optional.empty();
-		assertEquals(expected, actual);
-
-		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeEqualityAndToString(null,
-			Integer.valueOf(0), Integer.valueOf(0));
-		expected = Optional.of(ToStringContractViolation.CONSISTENCY_NULL_ARGUMENT);
-		assertEquals(expected, actual);
-	}
-
-	/**
 	 * Test method for {@link EqualsHashCodeAndToStringCheck#hashcodeCheck(Object, Object, Object)}
 	 */
 	@Test(enabled = true)

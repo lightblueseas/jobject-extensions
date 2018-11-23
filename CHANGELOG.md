@@ -1,6 +1,14 @@
 ## Change log
 ----------------------
 
+Version 2.2
+-------------
+
+CHANGED:
+
+- unit tests extended for improve of code coverage to 100%
+- removed deprecated methods
+
 Version 2.1
 -------------
 

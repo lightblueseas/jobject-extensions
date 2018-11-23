@@ -266,28 +266,6 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	}
 
 	/**
-	 * Test method for
-	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeEqualityAndToString(Object, Object, Object)}.
-	 */
-	@SuppressWarnings("deprecation")
-	@Test(enabled = true)
-	public void testEvaluateEqualsHashcodeEqualityAndToString()
-	{
-		boolean expected;
-		boolean actual;
-
-		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeEqualityAndToString(
-			Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
-		expected = true;
-		assertEquals(expected, actual);
-
-		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeEqualityAndToString(null,
-			Integer.valueOf(0), Integer.valueOf(0));
-		expected = false;
-		assertEquals(expected, actual);
-	}
-
-	/**
 	 * Test method for {@link EqualsHashCodeAndToStringEvaluator} with {@link BeanTester}
 	 */
 	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,

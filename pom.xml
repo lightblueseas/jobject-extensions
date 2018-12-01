@@ -41,6 +41,7 @@
 		<module>jobject-diff</module>
 		<module>jobject-evaluate</module>
 		<module>jobject-merge</module>
+		<module>jobject-merge-api</module>
 	</modules>
 
 	<licenses>

@@ -20,8 +20,8 @@
  */
 package de.alpharogroup.evaluate.object.evaluators;
 
+import de.alpharogroup.evaluate.object.checkers.EqualsCheck;
 import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link EqualsEvaluator} provides algorithms for evaluate the <a href=
@@ -29,7 +29,6 @@ import lombok.extern.slf4j.Slf4j;
  * contract</a> of an given object.
  */
 @UtilityClass
-@Slf4j
 public final class EqualsEvaluator
 {
 
@@ -52,13 +51,7 @@ public final class EqualsEvaluator
 	 */
 	public static <T> boolean evaluateReflexivity(T object)
 	{
-		if (object == null)
-		{
-			log.error("evaluation of contract condition reflexivity in equals method failed "
-				+ "because given object is null");
-			return false;
-		}
-		return object.equals(object);
+		return !EqualsCheck.reflexivity(object).isPresent();
 	}
 
 	/**
@@ -83,15 +76,7 @@ public final class EqualsEvaluator
 	 */
 	public static <T> boolean evaluateSymmetric(T object, T anotherObject)
 	{
-		if (object == null || anotherObject == null)
-		{
-			log.error("evaluation of contract condition symmetric in equals method failed "
-				+ "because one of the given objects is null");
-			return false;
-		}
-		boolean even = object.equals(anotherObject);
-		boolean odd = anotherObject.equals(object);
-		return even == odd;
+		return !EqualsCheck.symmetric(object, anotherObject).isPresent();
 	}
 
 	/**
@@ -118,16 +103,7 @@ public final class EqualsEvaluator
 	 */
 	public static <T> boolean evaluateTransitivity(T a, T b, T c)
 	{
-		if (a == null || b == null)
-		{
-			log.error("evaluation of contract condition transitivity in equals method failed "
-				+ "because one of the first two given objects is null");
-			return false;
-		}
-		boolean aEqualsB = a.equals(b);
-		boolean bEqualsC = b.equals(c);
-		boolean aEqualsC = a.equals(c);
-		return aEqualsB && bEqualsC && aEqualsC;
+		return !EqualsCheck.transitivity(a, b, c).isPresent();
 	}
 
 	/**
@@ -150,15 +126,7 @@ public final class EqualsEvaluator
 	 */
 	public static <T> boolean evaluateNonNull(T object)
 	{
-		if (object == null)
-		{
-			log.error("evaluation of contract condition non-null reference in equals method failed "
-				+ "because given object is null");
-			return false;
-		}
-		// negate because the valid result is false and if it is valid we want to return true...
-		boolean result = !object.equals(null);
-		return result;
+		return !EqualsCheck.nonNull(object).isPresent();
 	}
 
 	/**
@@ -187,7 +155,7 @@ public final class EqualsEvaluator
 	 */
 	public static <T> boolean evaluateConsistency(T object, T anotherObject)
 	{
-		return evaluateConsistency(object, anotherObject, 7);
+		return !EqualsCheck.consistency(object, anotherObject).isPresent();
 	}
 
 	/**
@@ -215,25 +183,7 @@ public final class EqualsEvaluator
 	 */
 	public static <T> boolean evaluateConsistency(T object, T anotherObject, int iterations)
 	{
-		if (object == null || anotherObject == null)
-		{
-			log.error("evaluation of contract condition consistency in equals method failed "
-				+ "because one of the given objects is null");
-			return false;
-		}
-		final boolean initialEqualsResult = object.equals(anotherObject);
-		boolean valid = true;
-		for (int i = 0; i < iterations; i++)
-		{
-			boolean currentEqualsResult = object.equals(anotherObject);
-			if (initialEqualsResult != currentEqualsResult)
-			{
-				log.error("evaluation of contract condition consistency in equals method failed "
-					+ "on iteration " + i);
-				return false;
-			}
-		}
-		return valid;
+		return !EqualsCheck.consistency(object, anotherObject, iterations).isPresent();
 	}
 
 	/**
@@ -257,15 +207,7 @@ public final class EqualsEvaluator
 	 */
 	public static <T> boolean evaluateReflexivityAndNonNull(T object)
 	{
-		boolean evaluated;
-		evaluated = evaluateReflexivity(object);
-		if (!evaluated)
-		{
-			log.error("evaluation of contract condition reflexivity in equals method failed");
-			return false;
-		}
-		evaluated = evaluateNonNull(object);
-		return evaluated;
+		return !EqualsCheck.reflexivityAndNonNull(object).isPresent();
 	}
 
 	/**
@@ -294,15 +236,7 @@ public final class EqualsEvaluator
 	 */
 	public static <T> boolean evaluateSymmetricAndConsistency(T object, T anotherObject)
 	{
-		boolean evaluated;
-		evaluated = evaluateSymmetric(object, anotherObject);
-		if (!evaluated)
-		{
-			log.error("evaluation of contract condition symmetric in equals method failed");
-			return false;
-		}
-		evaluated = evaluateConsistency(object, anotherObject);
-		return evaluated;
+		return !EqualsCheck.symmetricAndConsistency(object, anotherObject).isPresent();
 	}
 
 	/**
@@ -337,18 +271,8 @@ public final class EqualsEvaluator
 	public static <T> boolean evaluateReflexivityNonNullSymmetricAndConsistency(T object,
 		T otherObject)
 	{
-		boolean evaluated;
-		evaluated = evaluateReflexivityAndNonNull(object);
-		if (!evaluated)
-		{
-			return false;
-		}
-		evaluated = evaluateSymmetricAndConsistency(object, otherObject);
-		if (!evaluated)
-		{
-			return false;
-		}
-		return evaluated;
+		return !EqualsCheck.reflexivityNonNullSymmetricAndConsistency(object, otherObject)
+			.isPresent();
 	}
 
 	/**
@@ -388,19 +312,8 @@ public final class EqualsEvaluator
 	public static <T> boolean evaluateReflexivityNonNullSymmetricConsistencyAndTransitivity(
 		T object, T otherObject, T anotherObject)
 	{
-		boolean evaluated;
-		evaluated = evaluateReflexivityNonNullSymmetricAndConsistency(otherObject, otherObject);
-		if (!evaluated)
-		{
-			return false;
-		}
-		evaluated = evaluateTransitivity(object, otherObject, anotherObject);
-		if (!evaluated)
-		{
-			log.error("evaluation of contract condition transitivity in equals method failed");
-			return false;
-		}
-		return evaluated;
+		return !EqualsCheck.reflexivityNonNullSymmetricConsistencyAndTransitivity(object,
+			otherObject, anotherObject).isPresent();
 	}
 
 }

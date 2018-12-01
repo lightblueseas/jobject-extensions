@@ -119,24 +119,6 @@ public class HashcodeEvaluatorTest
 	}
 
 	/**
-	 * Test method for {@link HashcodeEvaluator#evaluateEquality(Object, Object)}.
-	 */
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateEqualityExpectedException01()
-	{
-		HashcodeEvaluator.evaluateEquality(Integer.valueOf(1), Integer.valueOf(0));
-	}
-
-	/**
-	 * Test method for {@link HashcodeEvaluator#evaluateEquality(Object, Object)}.
-	 */
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateEqualityExpectedException02()
-	{
-		HashcodeEvaluator.evaluateEquality(Integer.valueOf(1), null);
-	}
-
-	/**
 	 * Test method for {@link HashcodeEvaluator#evaluateUnequality(Object, Object)}.
 	 */
 	@Test
@@ -159,15 +141,6 @@ public class HashcodeEvaluatorTest
 		actual = HashcodeEvaluator.evaluateUnequality(Integer.valueOf(1), null);
 		expected = true;
 		assertEquals(expected, actual);
-	}
-
-	/**
-	 * Test method for {@link HashcodeEvaluator#evaluateUnequality(Object, Object)}.
-	 */
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateUnequalityExpectedException01()
-	{
-		HashcodeEvaluator.evaluateUnequality(Integer.valueOf(0), Integer.valueOf(0));
 	}
 
 	/**

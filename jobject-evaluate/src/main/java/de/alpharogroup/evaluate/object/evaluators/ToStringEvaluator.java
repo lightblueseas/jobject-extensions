@@ -20,15 +20,14 @@
  */
 package de.alpharogroup.evaluate.object.evaluators;
 
+import de.alpharogroup.evaluate.object.checkers.ToStringCheck;
 import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link ToStringEvaluator} provides algorithms for evaluate the
  * {@link Object#toString()} method.
  */
 @UtilityClass
-@Slf4j
 public final class ToStringEvaluator
 {
 
@@ -41,22 +40,7 @@ public final class ToStringEvaluator
 	 */
 	public static boolean evaluate(Class<?> clazz)
 	{
-		if (clazz == null)
-		{
-			log.error(
-				"evaluation of toString method failed " + "because the given class object is null");
-			return false;
-		}
-		try
-		{
-			clazz.getDeclaredMethod("toString");
-		}
-		catch (NoSuchMethodException ex)
-		{
-			log.error("evaluation of toString method failed " + "because it does not exists.", ex);
-			return false;
-		}
-		return true;
+		return !ToStringCheck.evaluate(clazz).isPresent();
 	}
 
 	/**
@@ -73,7 +57,7 @@ public final class ToStringEvaluator
 	 */
 	public static <T> boolean evaluateConsistency(T object)
 	{
-		return evaluateConsistency(object, 7);
+		return !ToStringCheck.consistency(object).isPresent();
 	}
 
 	/**
@@ -89,25 +73,7 @@ public final class ToStringEvaluator
 	 */
 	public static <T> boolean evaluateConsistency(T object, int iterations)
 	{
-		if (object == null)
-		{
-			log.error("evaluation of toString method consistency failed "
-				+ "because the first given object is null");
-			return false;
-		}
-		final String initialToStringResult = object.toString();
-		boolean valid = true;
-		for (int i = 0; i < iterations; i++)
-		{
-			String currentToStringResult = object.toString();
-			if (!initialToStringResult.equals(currentToStringResult))
-			{
-				log.error(
-					"evaluation of toString method consistency failed " + "on iteration " + i);
-				return false;
-			}
-		}
-		return valid;
+		return !ToStringCheck.consistency(object, iterations).isPresent();
 	}
 
 }

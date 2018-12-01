@@ -109,17 +109,6 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 
 	/**
 	 * Test method for
-	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsAndHashcodeEquality(Object, Object)}.
-	 */
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateEqualsAndHashcodeEqualityExpectedException01()
-	{
-		EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcodeEquality(Integer.valueOf(0),
-			Integer.valueOf(1));
-	}
-
-	/**
-	 * Test method for
 	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsAndHashcodeUnequality(Object, Object)}.
 	 */
 	@Test(enabled = true)
@@ -146,17 +135,6 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 			.evaluateEqualsAndHashcodeUnequality(Integer.valueOf(0), null);
 		expected = false;
 		assertEquals(expected, actual);
-	}
-
-	/**
-	 * Test method for
-	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsAndHashcodeUnequality(Object, Object)}.
-	 */
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateEqualsAndHashcodeUnequalityExpectedException01()
-	{
-		EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcodeUnequality(Integer.valueOf(0),
-			Integer.valueOf(0));
 	}
 
 	/**
@@ -242,9 +220,8 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 
 	/**
 	 * Test method for
-	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeAndToString(Object)}.
+	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeAndToString(Object)}
 	 */
-	@SuppressWarnings("deprecation")
 	@Test(enabled = true)
 	public void testEvaluateEqualsHashcodeAndToStringSingleObject()
 	{

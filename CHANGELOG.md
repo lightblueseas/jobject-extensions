@@ -1,6 +1,14 @@
 ## Change log
 ----------------------
 
+Version 2.3
+-------------
+
+CHANGED:
+
+- evaluator classes delegate now to the corresponding checker class
+- moved merge interfaces to own project jobject-merge-api
+
 Version 2.2
 -------------
 

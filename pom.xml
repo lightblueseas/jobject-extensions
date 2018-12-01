@@ -10,7 +10,7 @@
 	</parent>
 
 	<artifactId>jobject-extensions</artifactId>
-	<version>2.2</version>
+	<version>2.3</version>
 	<packaging>pom</packaging>
 
 	<name>${project.artifactId}</name>
@@ -41,6 +41,7 @@
 		<module>jobject-diff</module>
 		<module>jobject-evaluate</module>
 		<module>jobject-merge</module>
+		<module>jobject-merge-api</module>
 	</modules>
 
 	<licenses>

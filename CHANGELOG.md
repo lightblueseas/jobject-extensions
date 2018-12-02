@@ -1,13 +1,14 @@
 ## Change log
 ----------------------
 
-Version 2.3.1
+Version 2.3.2
 -------------
 
 CHANGED:
 
 - update of parent version to 4.4
 - added explicit dependency to projects
+- removed dependency test-objects from project jobject-evaluate
 
 Version 2.3
 -------------

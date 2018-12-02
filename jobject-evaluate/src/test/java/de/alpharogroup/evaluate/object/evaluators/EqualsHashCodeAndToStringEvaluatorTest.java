@@ -29,7 +29,7 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.test.objects.Person;
+import de.alpharogroup.evaluate.object.Person;
 
 /**
  * The unit test class for the class {@link EqualsHashCodeAndToStringEvaluator}.

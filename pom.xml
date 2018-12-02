@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>jobject-extensions</artifactId>
-	<version>2.3.1</version>
+	<version>2.3.2</version>
 	<packaging>pom</packaging>
 
 	<name>${project.artifactId}</name>
@@ -28,7 +28,7 @@
 		<!-- SILLY-COLLECTIONS version -->
 		<silly-collections.version>4.35</silly-collections.version>
 		<!-- TEST-OBJECTS version -->
-		<test-objects.version>4.30-SNAPSHOT</test-objects.version>
+		<test-objects.version>4.29.1</test-objects.version>
 		<!-- EXTERNAL LIBRARIES versions -->
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 		<cloning.version>1.9.10</cloning.version>

@@ -28,7 +28,7 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.test.objects.Person;
+import de.alpharogroup.evaluate.object.Person;
 import io.github.benas.randombeans.api.EnhancedRandom;
 
 /**
@@ -40,7 +40,6 @@ public class EqualsEvaluatorTest
 	/**
 	 * Test method for {@link EqualsEvaluator#evaluateConsistency(Object, Object)}.
 	 */
-	@SuppressWarnings("serial")
 	@Test
 	public void testEvaluateConsistency()
 	{

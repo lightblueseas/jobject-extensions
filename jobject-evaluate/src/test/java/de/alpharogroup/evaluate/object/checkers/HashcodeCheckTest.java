@@ -31,38 +31,39 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.AbstractTestCase;
+import de.alpharogroup.evaluate.object.Person;
 import de.alpharogroup.evaluate.object.api.ContractViolation;
 import de.alpharogroup.evaluate.object.enums.HashcodeContractViolation;
-import de.alpharogroup.test.objects.Person;
 import io.github.benas.randombeans.api.EnhancedRandom;
 
 /**
  * The unit test class for the class {@link HashcodeCheck}
  */
 public class HashcodeCheckTest
-	extends
-		AbstractTestCase<Optional<ContractViolation>, Optional<ContractViolation>>
 {
+
+	/** The boolean actual result of the tests. */
+	protected Optional<ContractViolation> actual;
+
+	/** The boolean expected result of the tests. */
+	protected Optional<ContractViolation> expected;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@BeforeMethod
-	@Override
 	protected void setUp() throws Exception
 	{
-		super.setUp();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@AfterMethod
-	@Override
 	protected void tearDown() throws Exception
 	{
-		super.tearDown();
+		actual = null;
+		expected = null;
 	}
 
 	/**
@@ -89,7 +90,6 @@ public class HashcodeCheckTest
 
 		actual = HashcodeCheck.consistency(new Person()
 		{
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public int hashCode()
@@ -121,7 +121,6 @@ public class HashcodeCheckTest
 
 		actual = HashcodeCheck.equality(new Person()
 		{
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public int hashCode()
@@ -130,7 +129,6 @@ public class HashcodeCheckTest
 			}
 		}, new Person()
 		{
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public int hashCode()
@@ -166,7 +164,6 @@ public class HashcodeCheckTest
 
 		actual = HashcodeCheck.unequality(new Person()
 		{
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public int hashCode()
@@ -175,7 +172,6 @@ public class HashcodeCheckTest
 			}
 		}, new Person()
 		{
-			private static final long serialVersionUID = 1L;
 
 			@Override
 			public int hashCode()

@@ -1,6 +1,14 @@
 ## Change log
 ----------------------
 
+Version 2.3.1
+-------------
+
+CHANGED:
+
+- update of parent version to 4.4
+- added explicit dependency to projects
+
 Version 2.3
 -------------
 

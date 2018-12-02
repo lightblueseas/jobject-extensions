@@ -28,7 +28,7 @@
 		<!-- SILLY-COLLECTIONS version -->
 		<silly-collections.version>4.35</silly-collections.version>
 		<!-- TEST-OBJECTS version -->
-		<test-objects.version>4.28</test-objects.version>
+		<test-objects.version>4.30-SNAPSHOT</test-objects.version>
 		<!-- EXTERNAL LIBRARIES versions -->
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 		<cloning.version>1.9.10</cloning.version>
@@ -143,12 +143,6 @@
 		<dependency>
 			<groupId>org.meanbean</groupId>
 			<artifactId>meanbean</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- TEST-OBJECTS DEPENDENCY -->
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>test-objects</artifactId>
 			<scope>test</scope>
 		</dependency>
 

@@ -28,7 +28,7 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.test.objects.Person;
+import de.alpharogroup.evaluate.object.Person;
 import io.github.benas.randombeans.api.EnhancedRandom;
 
 /**
@@ -63,8 +63,6 @@ public class HashcodeEvaluatorTest
 
 		actual = HashcodeEvaluator.evaluateConsistency(new Person()
 		{
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public int hashCode()
 			{
@@ -97,8 +95,6 @@ public class HashcodeEvaluatorTest
 
 		actual = HashcodeEvaluator.evaluateEquality(new Person()
 		{
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public int hashCode()
 			{
@@ -106,8 +102,6 @@ public class HashcodeEvaluatorTest
 			}
 		}, new Person()
 		{
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public int hashCode()
 			{

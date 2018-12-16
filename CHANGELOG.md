@@ -4,6 +4,11 @@
 Version 2.4-SNAPSHOT
 -------------
 
+CHANGED:
+
+- update of vintage-time version to 5.1
+- update of silly-collections version to 4.35.1
+
 Version 2.3.2
 -------------
 

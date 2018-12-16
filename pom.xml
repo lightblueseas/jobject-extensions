@@ -24,9 +24,9 @@
 
 	<properties>
 		<!-- VINTAGE-TIME version -->
-		<vintage-time.version>4.12</vintage-time.version>
+		<vintage-time.version>5.1</vintage-time.version>
 		<!-- SILLY-COLLECTIONS version -->
-		<silly-collections.version>4.35</silly-collections.version>
+		<silly-collections.version>4.35.1</silly-collections.version>
 		<!-- TEST-OBJECTS version -->
 		<test-objects.version>4.29.1</test-objects.version>
 		<!-- EXTERNAL LIBRARIES versions -->

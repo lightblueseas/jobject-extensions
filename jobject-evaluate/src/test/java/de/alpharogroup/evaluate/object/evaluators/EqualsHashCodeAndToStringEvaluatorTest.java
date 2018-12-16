@@ -191,10 +191,13 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	 *             if an accessor method for this property cannot be found
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
+	 * @throws ClassNotFoundException
+	 *             occurs if a given class cannot be located by the specified class loader
 	 */
 	@Test(enabled = true)
-	public void testEvaluateEqualsHashcodeAndToStringClass() throws NoSuchMethodException,
-		IllegalAccessException, InvocationTargetException, InstantiationException, IOException
+	public void testEvaluateEqualsHashcodeAndToStringClass()
+		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
+		InstantiationException, IOException, ClassNotFoundException
 	{
 		boolean expected;
 		boolean actual;

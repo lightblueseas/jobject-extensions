@@ -32,6 +32,9 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * The class {@link CloneObjectQuietlyExtensions} provide methods for clone object in a quietly
  * manner as the name let presume.
+ * 
+ * @deprecated use instead the the verbose class<br>
+ *             Note: will be removed in the next minor release
  */
 @UtilityClass
 @Slf4j

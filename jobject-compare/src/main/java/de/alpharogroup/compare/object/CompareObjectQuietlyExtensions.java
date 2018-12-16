@@ -32,6 +32,9 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * The class {@link CompareObjectQuietlyExtensions} provide methods for compare an object with
  * another given object.
+ * 
+ * @deprecated use instead the the verbose class<br>
+ *             Note: will be removed in the next minor release
  */
 @UtilityClass
 @Slf4j
@@ -53,7 +56,7 @@ public final class CompareObjectQuietlyExtensions
 	public static int compareToQuietly(final Object sourceOjbect, final Object objectToCompare,
 		final String property)
 	{
-		Map<?, ?> beanDescription = null;
+		Map<?, ?> beanDescription;
 		try
 		{
 			beanDescription = BeanUtils.describe(sourceOjbect);
@@ -63,7 +66,7 @@ public final class CompareObjectQuietlyExtensions
 			log.error("BeanUtils.describe(sourceOjbect) throws an exception...", e);
 			return 0;
 		}
-		Map<?, ?> clonedBeanDescription = null;
+		Map<?, ?> clonedBeanDescription;
 		try
 		{
 			clonedBeanDescription = BeanUtils.describe(objectToCompare);
@@ -83,7 +86,7 @@ public final class CompareObjectQuietlyExtensions
 		{
 			return 1;
 		}
-		else if (sourceAttribute == null && changedAttribute != null)
+		else if (sourceAttribute == null)
 		{
 			return -1;
 		}

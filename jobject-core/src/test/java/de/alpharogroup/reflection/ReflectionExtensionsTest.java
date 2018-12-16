@@ -53,14 +53,12 @@ public class ReflectionExtensionsTest
 	 *             is thrown if no such field exists.
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	@Test
 	public void testCopyFieldValue() throws NoSuchFieldException, SecurityException,
-		IllegalArgumentException, IllegalAccessException
+		IllegalAccessException
 	{
 		String expected;
 		String actual;
@@ -174,14 +172,12 @@ public class ReflectionExtensionsTest
 	 *             is thrown if no such field exists.
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	@Test
 	public void testGetFieldValueObject() throws NoSuchFieldException, SecurityException,
-		IllegalArgumentException, IllegalAccessException
+		 IllegalAccessException
 	{
 		String expected;
 		String actual;
@@ -307,14 +303,12 @@ public class ReflectionExtensionsTest
 	 *             is thrown if no such field exists.
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	@Test
 	public void testSetFieldValueObject() throws NoSuchFieldException, SecurityException,
-		IllegalArgumentException, IllegalAccessException
+		IllegalAccessException
 	{
 		String expected;
 		String actual;
@@ -332,14 +326,12 @@ public class ReflectionExtensionsTest
 	 *             is thrown if no such field exists.
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	@Test
 	public void testSetFieldValueWithClass() throws NoSuchFieldException, SecurityException,
-		IllegalArgumentException, IllegalAccessException
+		IllegalAccessException
 	{
 		String expected;
 		String actual;

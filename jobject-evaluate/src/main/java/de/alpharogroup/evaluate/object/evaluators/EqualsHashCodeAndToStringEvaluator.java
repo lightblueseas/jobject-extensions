@@ -169,10 +169,12 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 *             if an accessor method for this property cannot be found
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
+	 * @throws ClassNotFoundException
+	 *             occurs if a given class cannot be located by the specified class loader
 	 */
 	public static <T> boolean evaluateEqualsHashcodeAndToString(Class<T> cls)
 		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
-		InstantiationException, IOException
+		InstantiationException, IOException, ClassNotFoundException
 	{
 		return !EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(cls).isPresent();
 	}
@@ -199,10 +201,13 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 *             if a new instance of the bean's class cannot be instantiated
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
+	 * @throws ClassNotFoundException
+	 *             occurs if a given class cannot be located by the specified class loader
 	 */
 	public static <T> boolean evaluateEqualsHashcodeAndToString(Class<T> cls,
-		Function<Class<T>, T> function) throws NoSuchMethodException, IllegalAccessException,
-		InvocationTargetException, InstantiationException, IOException
+		Function<Class<T>, T> function)
+		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
+		InstantiationException, IOException, ClassNotFoundException
 	{
 		return !EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(cls, function).isPresent();
 	}

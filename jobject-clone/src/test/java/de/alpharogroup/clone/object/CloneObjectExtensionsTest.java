@@ -50,8 +50,6 @@ public class CloneObjectExtensionsTest
 	 * @throws IllegalAccessException
 	 *             Thrown if this {@code Method} object is enforcing Java language access control
 	 *             and the underlying method is inaccessible.
-	 * @throws IllegalArgumentException
-	 *             Thrown if an illegal argument is given
 	 * @throws InvocationTargetException
 	 *             Thrown if the property accessor method throws an exception
 	 * @throws ClassNotFoundException
@@ -71,13 +69,13 @@ public class CloneObjectExtensionsTest
 	 */
 	@Test(enabled = true)
 	public void testClone() throws NoSuchMethodException, SecurityException, IllegalAccessException,
-		IllegalArgumentException, InvocationTargetException, ClassNotFoundException,
+		 InvocationTargetException, ClassNotFoundException,
 		InstantiationException, IOException
 	{
 		Object expected;
 		Object actual;
 
-		expected = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 04);
+		expected = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 4);
 		actual = CloneObjectExtensions.clone(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
@@ -127,8 +125,6 @@ public class CloneObjectExtensionsTest
 	 * @throws IllegalAccessException
 	 *             Thrown if this {@code Method} object is enforcing Java language access control
 	 *             and the underlying method is inaccessible.
-	 * @throws IllegalArgumentException
-	 *             Thrown if an illegal argument is given
 	 * @throws InvocationTargetException
 	 *             Thrown if the property accessor method throws an exception
 	 * @throws ClassNotFoundException
@@ -148,14 +144,14 @@ public class CloneObjectExtensionsTest
 	 */
 	@Test(enabled = true)
 	public void testCloneObject()
-		throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException,
+		throws NoSuchMethodException, IllegalAccessException, 
 		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
 	{
 
 		Object expected;
 		Object actual;
 
-		expected = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 04);
+		expected = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 4);
 		actual = CloneObjectExtensions.cloneObject(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
@@ -176,7 +172,7 @@ public class CloneObjectExtensionsTest
 	 */
 	@Test(enabled = true)
 	public void testClonePrimitiveArray() throws NoSuchMethodException, SecurityException,
-		IllegalAccessException, IllegalArgumentException, InvocationTargetException,
+		IllegalAccessException, InvocationTargetException,
 		ClassNotFoundException, InstantiationException, IOException
 	{
 		// TODO create szenario with no serializable...

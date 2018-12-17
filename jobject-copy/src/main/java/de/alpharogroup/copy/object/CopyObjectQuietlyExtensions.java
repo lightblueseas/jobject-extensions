@@ -33,6 +33,9 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * The class {@link CopyObjectQuietlyExtensions} provide methods for copy an original object to a
  * given destination object in a quietly manner as the name let presume.
+ * 
+ * @deprecated use instead the the verbose class<br>
+ *             Note: will be removed in the next minor release
  */
 @UtilityClass
 @Slf4j
@@ -55,7 +58,7 @@ public final class CopyObjectQuietlyExtensions
 	 *            the field name
 	 * @return the destination object
 	 */
-	public static final <ORIGINAL, DESTINATION> DESTINATION copyPropertyWithReflectionQuietly(
+	public static <ORIGINAL, DESTINATION> DESTINATION copyPropertyWithReflectionQuietly(
 		final ORIGINAL original, final DESTINATION destination, final String fieldName)
 	{
 		try

@@ -30,6 +30,7 @@ import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.evaluate.object.Person;
+import io.github.benas.randombeans.api.EnhancedRandom;
 
 /**
  * The unit test class for the class {@link EqualsHashCodeAndToStringEvaluator}.
@@ -46,34 +47,30 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	{
 		boolean expected;
 		boolean actual;
-		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcode(Integer.valueOf(0),
-			Integer.valueOf(1), Integer.valueOf(0), Integer.valueOf(0));
+		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcode(0,
+			1, 0, 0);
 		expected = true;
 		assertEquals(expected, actual);
 
-		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcode(Integer.valueOf(0),
-			Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
+		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcode(0,
+			0, 0, 0);
 		expected = false;
 		assertEquals(expected, actual);
 
-		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcode(Integer.valueOf(0),
-			null, Integer.valueOf(0), Integer.valueOf(0));
-		expected = false;
+		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcode(0,
+			null, 0, 0);
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcode(null,
-			Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
-		expected = false;
+			0, 0, 0);
 		assertEquals(expected, actual);
 
-		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcode(Integer.valueOf(0),
-			Integer.valueOf(1), null, Integer.valueOf(0));
-		expected = false;
+		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcode(0,
+			0, null, 0);
 		assertEquals(expected, actual);
 
-		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcode(Integer.valueOf(0),
-			Integer.valueOf(1), Integer.valueOf(0), null);
-		expected = false;
+		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcode(0,
+			0, 0,  null);
 		assertEquals(expected, actual);
 	}
 
@@ -87,23 +84,21 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 		boolean expected;
 		boolean actual;
 		actual = EqualsHashCodeAndToStringEvaluator
-			.evaluateEqualsAndHashcodeEquality(Integer.valueOf(0), Integer.valueOf(0));
+			.evaluateEqualsAndHashcodeEquality(0, 0);
 		expected = true;
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringEvaluator
-			.evaluateEqualsAndHashcodeEquality(Integer.valueOf(1), Integer.valueOf(1));
-		expected = true;
+			.evaluateEqualsAndHashcodeEquality(1, 1);
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcodeEquality(null,
-			Integer.valueOf(0));
+			0);
 		expected = false;
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringEvaluator
-			.evaluateEqualsAndHashcodeEquality(Integer.valueOf(0), null);
-		expected = false;
+			.evaluateEqualsAndHashcodeEquality(0, null);
 		assertEquals(expected, actual);
 	}
 
@@ -117,23 +112,21 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 		boolean expected;
 		boolean actual;
 		actual = EqualsHashCodeAndToStringEvaluator
-			.evaluateEqualsAndHashcodeUnequality(Integer.valueOf(0), Integer.valueOf(1));
+			.evaluateEqualsAndHashcodeUnequality(0, 1);
 		expected = true;
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringEvaluator
-			.evaluateEqualsAndHashcodeUnequality(Integer.valueOf(1), Integer.valueOf(0));
-		expected = true;
+			.evaluateEqualsAndHashcodeUnequality(1, 0);
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsAndHashcodeUnequality(null,
-			Integer.valueOf(0));
+			0);
 		expected = false;
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringEvaluator
-			.evaluateEqualsAndHashcodeUnequality(Integer.valueOf(0), null);
-		expected = false;
+			.evaluateEqualsAndHashcodeUnequality(0, null);
 		assertEquals(expected, actual);
 	}
 
@@ -147,33 +140,29 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 		boolean expected;
 		boolean actual;
 		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(
-			Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(0), Integer.valueOf(0));
+			0, 1, 0, 0);
 		expected = true;
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(
-			Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
+			0, 0, 0, 0);
 		expected = false;
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(
-			Integer.valueOf(0), null, Integer.valueOf(0), Integer.valueOf(0));
-		expected = false;
+			0, null, 0, 0);
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(null,
-			Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
-		expected = false;
+			0, 0, 0);
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(
-			Integer.valueOf(0), Integer.valueOf(1), null, Integer.valueOf(0));
-		expected = false;
+			0, 1, null, 0);
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(
-			Integer.valueOf(0), Integer.valueOf(1), Integer.valueOf(0), null);
-		expected = false;
+			0, 1, 0, null);
 		assertEquals(expected, actual);
 	}
 
@@ -191,16 +180,19 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 	 *             if an accessor method for this property cannot be found
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred.
+	 * @throws ClassNotFoundException
+	 *             occurs if a given class cannot be located by the specified class loader
 	 */
 	@Test(enabled = true)
-	public void testEvaluateEqualsHashcodeAndToStringClass() throws NoSuchMethodException,
-		IllegalAccessException, InvocationTargetException, InstantiationException, IOException
+	public void testEvaluateEqualsHashcodeAndToStringClass()
+		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
+		InstantiationException, IOException, ClassNotFoundException
 	{
 		boolean expected;
 		boolean actual;
 
 		actual = EqualsHashCodeAndToStringEvaluator
-			.evaluateEqualsHashcodeAndToString((Class<?>)null);
+			.evaluateEqualsHashcodeAndToString(null);
 		expected = false;
 		assertEquals(expected, actual);
 
@@ -210,11 +202,51 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 
 		actual = EqualsHashCodeAndToStringEvaluator
 			.evaluateEqualsHashcodeAndToString(Integer.class);
-		expected = true;
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(String.class);
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for
+	 * {@link EqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeAndToString(Class, java.util.function.Function)}
+	 * 
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InstantiationException
+	 *             if a new instance of the bean's class cannot be instantiated
+	 * @throws InvocationTargetException
+	 *             if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             if an accessor method for this property cannot be found
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred.
+	 * @throws ClassNotFoundException
+	 *             occurs if a given class cannot be located by the specified class loader
+	 */
+	@Test(enabled = true)
+	public void testEvaluateEqualsHashcodeAndToStringClassAndFuction()
+		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
+		InstantiationException, IOException, ClassNotFoundException
+	{
+		boolean expected;
+		boolean actual;
+
+		actual = EqualsHashCodeAndToStringEvaluator
+			.evaluateEqualsHashcodeAndToString(null, EnhancedRandom::random);
+		expected = false;
+		assertEquals(expected, actual);
+
+		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(Person.class, EnhancedRandom::random);
 		expected = true;
+		assertEquals(expected, actual);
+
+		actual = EqualsHashCodeAndToStringEvaluator
+			.evaluateEqualsHashcodeAndToString(Integer.class, EnhancedRandom::random);
+		assertEquals(expected, actual);
+
+		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(String.class, EnhancedRandom::random);
 		assertEquals(expected, actual);
 	}
 
@@ -228,13 +260,12 @@ public class EqualsHashCodeAndToStringEvaluatorTest
 		boolean expected;
 		boolean actual;
 		actual = EqualsHashCodeAndToStringEvaluator
-			.evaluateEqualsHashcodeAndToString(Integer.valueOf(0));
+			.evaluateEqualsHashcodeAndToString(0);
 		expected = true;
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringEvaluator
-			.evaluateEqualsHashcodeAndToString(String.valueOf("foo"));
-		expected = true;
+			.evaluateEqualsHashcodeAndToString("foo");
 		assertEquals(expected, actual);
 
 		actual = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString((Object)null);

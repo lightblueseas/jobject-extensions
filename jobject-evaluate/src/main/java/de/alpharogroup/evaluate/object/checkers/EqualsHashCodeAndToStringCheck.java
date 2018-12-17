@@ -25,7 +25,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 import java.util.function.Function;
 
-import de.alpharogroup.clone.object.CloneObjectQuietlyExtensions;
+import de.alpharogroup.clone.object.CloneObjectExtensions;
 import de.alpharogroup.evaluate.object.api.ContractViolation;
 import de.alpharogroup.evaluate.object.enums.EqualsHashcodeContractViolation;
 import de.alpharogroup.evaluate.object.enums.ToStringContractViolation;
@@ -242,10 +242,12 @@ public final class EqualsHashCodeAndToStringCheck
 	 *             if an accessor method for this property cannot be found
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred
+	 * @throws ClassNotFoundException 
+	 *             occurs if a given class cannot be located by the specified class loader
 	 */
 	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(Class<T> cls)
 		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
-		InstantiationException, IOException
+		InstantiationException, IOException, ClassNotFoundException
 	{
 		return equalsHashcodeAndToString(cls, EnhancedRandom::random);
 	}
@@ -273,11 +275,13 @@ public final class EqualsHashCodeAndToStringCheck
 	 *             if an accessor method for this property cannot be found
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred
+	 * @throws ClassNotFoundException 
+	 *             occurs if a given class cannot be located by the specified class loader
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(Class<T> cls,
 		Function<Class<T>, T> function) throws NoSuchMethodException, IllegalAccessException,
-		InvocationTargetException, InstantiationException, IOException
+		InvocationTargetException, InstantiationException, IOException, ClassNotFoundException
 	{
 		if (cls == null)
 		{
@@ -285,8 +289,8 @@ public final class EqualsHashCodeAndToStringCheck
 		}
 		final T first = function.apply(cls);
 		final T second = function.apply(cls);
-		final T third = (T)CloneObjectQuietlyExtensions.cloneObjectQuietly(first);
-		final T fourth = (T)CloneObjectQuietlyExtensions.cloneObjectQuietly(third);
+		final T third = (T)CloneObjectExtensions.cloneObject(first);
+		final T fourth = (T)CloneObjectExtensions.cloneObject(third);
 
 		return EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(first, second, third,
 			fourth);

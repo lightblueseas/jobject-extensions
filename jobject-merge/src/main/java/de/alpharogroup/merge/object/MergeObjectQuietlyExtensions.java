@@ -20,7 +20,6 @@
  */
 package de.alpharogroup.merge.object;
 
-
 import java.lang.reflect.InvocationTargetException;
 
 import de.alpharogroup.copy.object.CopyObjectQuietlyExtensions;
@@ -30,6 +29,9 @@ import lombok.extern.slf4j.Slf4j;
 /**
  * The class {@link MergeObjectQuietlyExtensions} provide extension methods for merge a source
  * object with another object.
+ * 
+ * @deprecated use instead the the verbose class<br>
+ *             Note: will be removed in the next minor release
  */
 @UtilityClass
 @Slf4j

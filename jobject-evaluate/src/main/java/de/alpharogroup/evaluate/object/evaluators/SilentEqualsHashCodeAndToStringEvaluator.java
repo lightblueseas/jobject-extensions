@@ -52,7 +52,7 @@ public final class SilentEqualsHashCodeAndToStringEvaluator
 			evaluated = EqualsHashCodeAndToStringEvaluator.evaluateEqualsHashcodeAndToString(cls);
 		}
 		catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException
-			| InstantiationException | IOException e)
+			| InstantiationException | IOException | ClassNotFoundException e)
 		{
 			evaluated = false;
 		}
@@ -82,7 +82,7 @@ public final class SilentEqualsHashCodeAndToStringEvaluator
 				function);
 		}
 		catch (NoSuchMethodException | IllegalAccessException | InvocationTargetException
-			| InstantiationException | IOException e)
+			| InstantiationException | IOException | ClassNotFoundException e)
 		{
 			evaluated = false;
 		}

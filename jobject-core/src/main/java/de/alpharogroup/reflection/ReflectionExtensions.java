@@ -55,13 +55,11 @@ public final class ReflectionExtensions
 	 *             is thrown if no such field exists.
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	public static <T> void copyFieldValue(final T source, final T target, final String fieldName)
-		throws NoSuchFieldException, SecurityException, IllegalArgumentException,
+		throws NoSuchFieldException, SecurityException, 
 		IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(source, fieldName);
@@ -85,14 +83,12 @@ public final class ReflectionExtensions
 	 *             is thrown if no such field exists.
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	public static <T> void setFieldValue(final T source, final String fieldName,
 		final Object newValue) throws NoSuchFieldException, SecurityException,
-		IllegalArgumentException, IllegalAccessException
+		IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(source, fieldName);
 		sourceField.setAccessible(true);
@@ -113,13 +109,11 @@ public final class ReflectionExtensions
 	 *             is thrown if no such field exists.
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	public static <T> Object getFieldValue(final T source, final String fieldName)
-		throws NoSuchFieldException, SecurityException, IllegalArgumentException,
+		throws NoSuchFieldException, SecurityException, 
 		IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(source, fieldName);
@@ -142,14 +136,12 @@ public final class ReflectionExtensions
 	 *             is thrown if no such field exists.
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	public static <T> void setFieldValue(final Class<?> cls, final String fieldName,
 		final Object newValue) throws NoSuchFieldException, SecurityException,
-		IllegalArgumentException, IllegalAccessException
+		 IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(cls, fieldName);
 		sourceField.setAccessible(true);
@@ -205,7 +197,7 @@ public final class ReflectionExtensions
 	 *
 	 * @return the method names with prefix from field names
 	 */
-	public static final Map<String, String> getMethodNamesWithPrefixFromFieldNames(
+	public static Map<String, String> getMethodNamesWithPrefixFromFieldNames(
 		final List<String> fieldNames, final String prefix)
 	{
 		final Map<String, String> fieldNameMethodMapper = new HashMap<>();
@@ -227,7 +219,7 @@ public final class ReflectionExtensions
 	 *            The String to modify.
 	 * @return The modified string.
 	 */
-	public static final String firstCharacterToUpperCase(final String fieldName)
+	public static String firstCharacterToUpperCase(final String fieldName)
 	{
 		String firstCharacter = fieldName.substring(0, 1);
 		firstCharacter = firstCharacter.toUpperCase();
@@ -334,8 +326,7 @@ public final class ReflectionExtensions
 	public static Field getDeclaredField(final Class<?> cls, final String fieldName)
 		throws NoSuchFieldException, SecurityException
 	{
-		final Field field = cls.getDeclaredField(fieldName);
-		return field;
+		return cls.getDeclaredField(fieldName);
 	}
 
 	/**
@@ -347,14 +338,14 @@ public final class ReflectionExtensions
 	 */
 	public static Field[] getAllDeclaredFields(final @NonNull Class<?> cls)
 	{
-		List<Field> fields = new ArrayList<Field>();
-		fields.addAll(Arrays.asList(cls.getDeclaredFields()));
+		List<Field> fields = new ArrayList<>(Arrays.asList(cls.getDeclaredFields()));
 		Class<?> superClass = cls.getSuperclass();
 		if (superClass != null && superClass.equals(Object.class))
 		{
 			return fields.toArray(new Field[] { });
 		}
-		while ((superClass.getSuperclass() != null
+		while ((superClass != null
+			&& superClass.getSuperclass() != null
 			&& superClass.getSuperclass().equals(Object.class)))
 		{
 			fields.addAll(Arrays.asList(superClass.getDeclaredFields()));

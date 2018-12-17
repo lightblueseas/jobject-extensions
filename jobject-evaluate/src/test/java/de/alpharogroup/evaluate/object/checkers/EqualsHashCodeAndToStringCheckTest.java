@@ -214,10 +214,12 @@ public class EqualsHashCodeAndToStringCheckTest
 	 *             if an accessor method for this property cannot be found
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred
+	 * @throws ClassNotFoundException 
+	 *             occurs if a given class cannot be located by the specified class loader
 	 */
 	@Test(enabled = true)
 	public void testEqualsHashcodeAndToStringClass() throws NoSuchMethodException,
-		IllegalAccessException, InvocationTargetException, InstantiationException, IOException
+		IllegalAccessException, InvocationTargetException, InstantiationException, IOException, ClassNotFoundException
 	{
 		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(null);
 		expected = Optional.of(ToStringContractViolation.CLASS_NULL_ARGUMENT);

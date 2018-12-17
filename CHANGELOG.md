@@ -1,6 +1,13 @@
 ## Change log
 ----------------------
 
+Version 2.5-SNAPSHOT
+-------------
+
+CHANGED:
+
+- removed deprecated classes
+
 Version 2.4
 -------------
 

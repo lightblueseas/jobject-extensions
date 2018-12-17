@@ -102,8 +102,8 @@ public class CopyObjectExtensionsTest
 	 *             </ul>
 	 */
 	@Test
-	public void testCopyProperties() throws IllegalAccessException, InvocationTargetException,
-		InstantiationException
+	public void testCopyProperties()
+		throws IllegalAccessException, InvocationTargetException, InstantiationException
 	{
 		Person actual;
 		Person expected;

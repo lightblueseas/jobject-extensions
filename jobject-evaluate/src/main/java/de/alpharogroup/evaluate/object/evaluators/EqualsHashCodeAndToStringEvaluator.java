@@ -205,9 +205,8 @@ public final class EqualsHashCodeAndToStringEvaluator
 	 *             occurs if a given class cannot be located by the specified class loader
 	 */
 	public static <T> boolean evaluateEqualsHashcodeAndToString(Class<T> cls,
-		Function<Class<T>, T> function)
-		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
-		InstantiationException, IOException, ClassNotFoundException
+		Function<Class<T>, T> function) throws NoSuchMethodException, IllegalAccessException,
+		InvocationTargetException, InstantiationException, IOException, ClassNotFoundException
 	{
 		return !EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(cls, function).isPresent();
 	}

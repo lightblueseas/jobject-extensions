@@ -57,8 +57,8 @@ public class ReflectionExtensionsTest
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	@Test
-	public void testCopyFieldValue() throws NoSuchFieldException, SecurityException,
-		IllegalAccessException
+	public void testCopyFieldValue()
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		String expected;
 		String actual;
@@ -176,8 +176,8 @@ public class ReflectionExtensionsTest
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	@Test
-	public void testGetFieldValueObject() throws NoSuchFieldException, SecurityException,
-		 IllegalAccessException
+	public void testGetFieldValueObject()
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		String expected;
 		String actual;
@@ -307,8 +307,8 @@ public class ReflectionExtensionsTest
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	@Test
-	public void testSetFieldValueObject() throws NoSuchFieldException, SecurityException,
-		IllegalAccessException
+	public void testSetFieldValueObject()
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		String expected;
 		String actual;
@@ -330,8 +330,8 @@ public class ReflectionExtensionsTest
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	@Test
-	public void testSetFieldValueWithClass() throws NoSuchFieldException, SecurityException,
-		IllegalAccessException
+	public void testSetFieldValueWithClass()
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		String expected;
 		String actual;

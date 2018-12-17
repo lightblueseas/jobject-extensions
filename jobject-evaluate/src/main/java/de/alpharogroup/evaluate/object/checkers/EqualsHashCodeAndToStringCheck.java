@@ -242,7 +242,7 @@ public final class EqualsHashCodeAndToStringCheck
 	 *             if an accessor method for this property cannot be found
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred
-	 * @throws ClassNotFoundException 
+	 * @throws ClassNotFoundException
 	 *             occurs if a given class cannot be located by the specified class loader
 	 */
 	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(Class<T> cls)
@@ -275,7 +275,7 @@ public final class EqualsHashCodeAndToStringCheck
 	 *             if an accessor method for this property cannot be found
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred
-	 * @throws ClassNotFoundException 
+	 * @throws ClassNotFoundException
 	 *             occurs if a given class cannot be located by the specified class loader
 	 */
 	@SuppressWarnings("unchecked")

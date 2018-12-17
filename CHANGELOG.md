@@ -7,6 +7,7 @@ Version 2.5-SNAPSHOT
 CHANGED:
 
 - removed deprecated classes
+- removed dependency cloning from project jobject-clone
 
 Version 2.4
 -------------

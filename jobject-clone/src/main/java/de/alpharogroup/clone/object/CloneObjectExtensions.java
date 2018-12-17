@@ -72,8 +72,7 @@ public final class CloneObjectExtensions
 	 *             Signals that an I/O exception has occurred.
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T clone(final T object)
-		throws NoSuchMethodException, IllegalAccessException, 
+	public static <T> T clone(final T object) throws NoSuchMethodException, IllegalAccessException,
 		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
 	{
 		return (T)cloneObject(object);
@@ -111,8 +110,8 @@ public final class CloneObjectExtensions
 	 *             Signals that an I/O exception has occurred.
 	 */
 	public static Object cloneObject(final Object object)
-		throws NoSuchMethodException, IllegalAccessException, 
-		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
+		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
+		ClassNotFoundException, InstantiationException, IOException
 	{
 		if (object == null)
 		{

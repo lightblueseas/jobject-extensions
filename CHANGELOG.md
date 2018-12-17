@@ -1,6 +1,15 @@
 ## Change log
 ----------------------
 
+Version 2.5
+-------------
+
+CHANGED:
+
+- removed deprecated classes
+- removed cloning dependency from project jobject-clone
+- removed log4j-to-slf4j dependency from project jobject-compare and jobject-copy
+
 Version 2.4
 -------------
 

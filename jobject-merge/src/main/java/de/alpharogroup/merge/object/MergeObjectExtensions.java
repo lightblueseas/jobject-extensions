@@ -99,8 +99,7 @@ public class MergeObjectExtensions
 	 *             and the relevant converter has not been registered.
 	 */
 	public static final <MERGE_IN, WITH> MERGE_IN merge(final MERGE_IN mergeInObject,
-		final WITH withObject)
-		throws InvocationTargetException, IllegalAccessException
+		final WITH withObject) throws InvocationTargetException, IllegalAccessException
 	{
 		Check.get().notNull(mergeInObject, "mergeInObject").notNull(withObject, "withObject");
 

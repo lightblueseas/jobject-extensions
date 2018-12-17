@@ -59,8 +59,7 @@ public final class ReflectionExtensions
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	public static <T> void copyFieldValue(final T source, final T target, final String fieldName)
-		throws NoSuchFieldException, SecurityException, 
-		IllegalAccessException
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(source, fieldName);
 		sourceField.setAccessible(true);
@@ -87,8 +86,8 @@ public final class ReflectionExtensions
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	public static <T> void setFieldValue(final T source, final String fieldName,
-		final Object newValue) throws NoSuchFieldException, SecurityException,
-		IllegalAccessException
+		final Object newValue)
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(source, fieldName);
 		sourceField.setAccessible(true);
@@ -113,8 +112,7 @@ public final class ReflectionExtensions
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	public static <T> Object getFieldValue(final T source, final String fieldName)
-		throws NoSuchFieldException, SecurityException, 
-		IllegalAccessException
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(source, fieldName);
 		sourceField.setAccessible(true);
@@ -140,8 +138,8 @@ public final class ReflectionExtensions
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	public static <T> void setFieldValue(final Class<?> cls, final String fieldName,
-		final Object newValue) throws NoSuchFieldException, SecurityException,
-		 IllegalAccessException
+		final Object newValue)
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(cls, fieldName);
 		sourceField.setAccessible(true);
@@ -344,8 +342,7 @@ public final class ReflectionExtensions
 		{
 			return fields.toArray(new Field[] { });
 		}
-		while ((superClass != null
-			&& superClass.getSuperclass() != null
+		while ((superClass != null && superClass.getSuperclass() != null
 			&& superClass.getSuperclass().equals(Object.class)))
 		{
 			fields.addAll(Arrays.asList(superClass.getDeclaredFields()));

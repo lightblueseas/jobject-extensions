@@ -65,8 +65,7 @@ public final class CopyObjectExtensions
 	 */
 	public static <ORIGINAL, DESTINATION> DESTINATION copyPropertyWithReflection(
 		final ORIGINAL original, final DESTINATION destination, final String fieldName)
-		throws NoSuchFieldException, SecurityException, 
-		IllegalAccessException
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		ReflectionExtensions.copyFieldValue(original, destination, fieldName);
 		return destination;
@@ -116,8 +115,7 @@ public final class CopyObjectExtensions
 	 *             if the property accessor method throws an exception
 	 */
 	public static <ORIGINAL, DESTINATION> DESTINATION copyProperties(final ORIGINAL original,
-		final DESTINATION destination)
-		throws IllegalAccessException, InvocationTargetException
+		final DESTINATION destination) throws IllegalAccessException, InvocationTargetException
 	{
 		BeanUtils.copyProperties(destination, original);
 		return destination;
@@ -150,8 +148,8 @@ public final class CopyObjectExtensions
 	 *             </ul>
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T copyProperties(final T original) throws IllegalAccessException,
-		InvocationTargetException, InstantiationException
+	public static <T> T copyProperties(final T original)
+		throws IllegalAccessException, InvocationTargetException, InstantiationException
 	{
 		Object destination = original.getClass().newInstance();
 		BeanUtils.copyProperties(destination, original);

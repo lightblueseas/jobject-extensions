@@ -69,8 +69,7 @@ public class CloneObjectExtensionsTest
 	 */
 	@Test(enabled = true)
 	public void testClone() throws NoSuchMethodException, SecurityException, IllegalAccessException,
-		 InvocationTargetException, ClassNotFoundException,
-		InstantiationException, IOException
+		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
 	{
 		Object expected;
 		Object actual;
@@ -143,8 +142,7 @@ public class CloneObjectExtensionsTest
 	 *             Signals that an I/O exception has occurred.
 	 */
 	@Test(enabled = true)
-	public void testCloneObject()
-		throws NoSuchMethodException, IllegalAccessException, 
+	public void testCloneObject() throws NoSuchMethodException, IllegalAccessException,
 		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
 	{
 
@@ -171,9 +169,9 @@ public class CloneObjectExtensionsTest
 	 * values.
 	 */
 	@Test(enabled = true)
-	public void testClonePrimitiveArray() throws NoSuchMethodException, SecurityException,
-		IllegalAccessException, InvocationTargetException,
-		ClassNotFoundException, InstantiationException, IOException
+	public void testClonePrimitiveArray()
+		throws NoSuchMethodException, SecurityException, IllegalAccessException,
+		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
 	{
 		// TODO create szenario with no serializable...
 		int[] actual;

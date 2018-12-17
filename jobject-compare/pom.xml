@@ -13,11 +13,6 @@
 	<artifactId>jobject-compare</artifactId>
 
 	<dependencies>
-		<!-- LOG4J-TO-SLF4J DEPENDENCY -->
-		<dependency>
-			<groupId>org.apache.logging.log4j</groupId>
-			<artifactId>log4j-to-slf4j</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>commons-beanutils</groupId>

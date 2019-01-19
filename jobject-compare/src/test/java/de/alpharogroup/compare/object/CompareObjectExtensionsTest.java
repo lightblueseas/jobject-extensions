@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
 
 import org.apache.commons.beanutils.BeanComparator;
 import org.meanbean.test.BeanTestException;
@@ -37,12 +38,12 @@ import org.testng.annotations.Test;
 
 import de.alpharogroup.test.objects.Person;
 import de.alpharogroup.test.objects.enums.Gender;
-import lombok.extern.slf4j.Slf4j;
+import lombok.extern.java.Log;
 
 /**
  * The unit test class for the class {@link CompareObjectExtensions}.
  */
-@Slf4j
+@Log
 public class CompareObjectExtensionsTest
 {
 
@@ -250,13 +251,13 @@ public class CompareObjectExtensionsTest
 		assertEquals(persons.get(1), asterix);
 		assertEquals(persons.get(2), miraculix);
 
-		log.debug("Unsorted Persons:");
-		log.debug(persons.toString());
+		log.log(Level.FINE, "Unsorted Persons:");
+		log.log(Level.FINE, persons.toString());
 		final Comparator defaultComparator = new BeanComparator("name");
 		Collections.sort(persons, defaultComparator);
 
-		log.debug("Sorted Persons by name:");
-		log.debug(persons.toString());
+		log.log(Level.FINE, "Sorted Persons by name:");
+		log.log(Level.FINE, persons.toString());
 
 		assertEquals(persons.get(0), asterix);
 		assertEquals(persons.get(1), miraculix);
@@ -264,8 +265,8 @@ public class CompareObjectExtensionsTest
 
 		Collections.reverse(persons);
 
-		log.debug("Sorted Persons by name reversed:");
-		log.debug(persons.toString());
+		log.log(Level.FINE, "Sorted Persons by name reversed:");
+		log.log(Level.FINE, persons.toString());
 		assertEquals(persons.get(0), obelix);
 		assertEquals(persons.get(1), miraculix);
 		assertEquals(persons.get(2), asterix);

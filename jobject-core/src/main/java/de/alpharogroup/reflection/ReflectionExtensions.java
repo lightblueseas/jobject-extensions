@@ -28,6 +28,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
@@ -58,7 +59,7 @@ public final class ReflectionExtensions
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
-	public static <T> void copyFieldValue(final T source, final T target, final String fieldName)
+	public static <T> void copyFieldValue(final @NonNull T source, final @NonNull T target, final @NonNull String fieldName)
 		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(source, fieldName);
@@ -85,7 +86,7 @@ public final class ReflectionExtensions
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
-	public static <T> void setFieldValue(final T source, final String fieldName,
+	public static <T> void setFieldValue(final @NonNull T source, final @NonNull String fieldName,
 		final Object newValue)
 		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
@@ -111,7 +112,7 @@ public final class ReflectionExtensions
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
-	public static <T> Object getFieldValue(final T source, final String fieldName)
+	public static <T> Object getFieldValue(final @NonNull T source, final @NonNull String fieldName)
 		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(source, fieldName);
@@ -137,7 +138,7 @@ public final class ReflectionExtensions
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
-	public static <T> void setFieldValue(final Class<?> cls, final String fieldName,
+	public static <T> void setFieldValue(final @NonNull Class<?> cls, final @NonNull String fieldName,
 		final Object newValue)
 		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
@@ -154,15 +155,25 @@ public final class ReflectionExtensions
 	 *
 	 * @return Gets all field names from the given class as an String list.
 	 */
-	public static List<String> getFieldNames(final Class<?> cls)
+	public static List<String> getFieldNames(final @NonNull Class<?> cls)
 	{
-		final Field[] fields = cls.getDeclaredFields();
-		final List<String> fieldNames = new ArrayList<>();
-		for (final Field field : fields)
-		{
-			fieldNames.add(field.getName());
-		}
-		return fieldNames;
+		return Arrays.stream(cls.getDeclaredFields())
+			.map(field -> {return field.getName();})
+			.collect(Collectors.toList());
+	}
+
+	/**
+	 * Gets all the declared field names from the given class object.
+	 *
+	 * Note: without the field names from any superclasses
+	 *
+	 * @param cls
+	 *            the class object
+	 * @return all the declared field names from the given class as an String array
+	 */
+	public static String[] getDeclaredFieldNames(final @NonNull Class<?> cls){
+		List<String> fieldNames = getFieldNames(cls);
+		return fieldNames.toArray(new String[fieldNames.size()]);
 	}
 
 	/**
@@ -173,7 +184,7 @@ public final class ReflectionExtensions
 	 *
 	 * @return Gets all method names from the given class as an String array.
 	 */
-	public static String[] getMethodNames(final Class<?> cls)
+	public static String[] getMethodNames(final @NonNull Class<?> cls)
 	{
 		final Method[] methods = cls.getDeclaredMethods();
 		final String[] methodNames = new String[methods.length];
@@ -196,7 +207,7 @@ public final class ReflectionExtensions
 	 * @return the method names with prefix from field names
 	 */
 	public static Map<String, String> getMethodNamesWithPrefixFromFieldNames(
-		final List<String> fieldNames, final String prefix)
+		final @NonNull List<String> fieldNames, final String prefix)
 	{
 		final Map<String, String> fieldNameMethodMapper = new HashMap<>();
 		for (final String fieldName : fieldNames)
@@ -217,7 +228,7 @@ public final class ReflectionExtensions
 	 *            The String to modify.
 	 * @return The modified string.
 	 */
-	public static String firstCharacterToUpperCase(final String fieldName)
+	public static String firstCharacterToUpperCase(final @NonNull String fieldName)
 	{
 		String firstCharacter = fieldName.substring(0, 1);
 		firstCharacter = firstCharacter.toUpperCase();
@@ -234,7 +245,7 @@ public final class ReflectionExtensions
 	 *            The field to get the modifiers.
 	 * @return A list with the modifiers as String objects from the given Field.
 	 */
-	public static List<String> getModifiers(final Field field)
+	public static List<String> getModifiers(final @NonNull Field field)
 	{
 		final String modifiers = Modifier.toString(field.getModifiers());
 		final String[] modifiersArray = modifiers.split(" ");
@@ -259,7 +270,7 @@ public final class ReflectionExtensions
 	 *             constructor; or if the instantiation fails for some other reason.
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T newInstance(final T object)
+	public static <T> T newInstance(final @NonNull T object)
 		throws InstantiationException, IllegalAccessException, ClassNotFoundException
 	{
 		return newInstance((Class<T>)Class.forName(object.getClass().getCanonicalName()));
@@ -281,7 +292,7 @@ public final class ReflectionExtensions
 	 *             constructor; or if the instantiation fails for some other reason.
 	 */
 
-	public static <T> T newInstance(final Class<T> clazz)
+	public static <T> T newInstance(final @NonNull Class<T> clazz)
 		throws InstantiationException, IllegalAccessException
 	{
 		return clazz.newInstance();
@@ -302,7 +313,7 @@ public final class ReflectionExtensions
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
 	 */
-	public static <T> Field getDeclaredField(@NonNull final T object, final String fieldName)
+	public static <T> Field getDeclaredField(@NonNull final T object, final @NonNull String fieldName)
 		throws NoSuchFieldException, SecurityException
 	{
 		return getDeclaredField(object.getClass(), fieldName);
@@ -321,14 +332,14 @@ public final class ReflectionExtensions
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
 	 */
-	public static Field getDeclaredField(final Class<?> cls, final String fieldName)
+	public static Field getDeclaredField(final @NonNull Class<?> cls, final @NonNull String fieldName)
 		throws NoSuchFieldException, SecurityException
 	{
 		return cls.getDeclaredField(fieldName);
 	}
 
 	/**
-	 * Gets all the declared fields which means from all superclasses from the given class object
+	 * Gets all the declared fields including all fields from all superclasses from the given class object
 	 *
 	 * @param cls
 	 *            the class object
@@ -349,6 +360,21 @@ public final class ReflectionExtensions
 			superClass = superClass.getSuperclass();
 		}
 		return fields.toArray(new Field[] { });
+	}
+
+
+	/**
+	 * Gets all the declared field names including all fields from all superclasses from the given class object
+	 *
+	 * @param cls
+	 *            the class object
+	 * @return all the declared field names
+	 */
+	public static String[] getAllDeclaredFieldNames(final @NonNull Class<?> cls) {
+		List<String> fieldNames =Arrays.stream(getAllDeclaredFields(cls))
+			.map(field -> {return field.getName();})
+			.collect(Collectors.toList());
+		return fieldNames.toArray(new String[fieldNames.size()]);
 	}
 
 }

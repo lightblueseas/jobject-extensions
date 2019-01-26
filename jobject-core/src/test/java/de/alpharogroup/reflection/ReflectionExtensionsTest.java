@@ -106,6 +106,27 @@ public class ReflectionExtensionsTest
 	}
 
 	/**
+	 * Test method for {@link ReflectionExtensions#getAllDeclaredFieldNames(Class)}
+	 */
+	@Test
+	public void testGetAllDeclaredFieldNames()
+	{
+		int expected;
+		int actual;
+		String[] allDeclaredFieldnames;
+
+		allDeclaredFieldnames = ReflectionExtensions.getAllDeclaredFieldNames(Person.class);
+		expected = 6;
+		actual = allDeclaredFieldnames.length;
+		assertEquals(expected, actual);
+
+		allDeclaredFieldnames = ReflectionExtensions.getAllDeclaredFieldNames(Member.class);
+		expected = 9;
+		actual = allDeclaredFieldnames.length;
+		assertEquals(expected, actual);
+	}
+
+	/**
 	 * Test method for {@link ReflectionExtensions#getDeclaredField(Class, String)}.
 	 *
 	 * @throws NoSuchFieldException
@@ -149,7 +170,7 @@ public class ReflectionExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link ReflectionExtensions#getFieldNames(Class)}.
+	 * Test method for {@link ReflectionExtensions#getFieldNames(Class)}
 	 */
 	@Test
 	public void testGetFieldNames()
@@ -166,7 +187,25 @@ public class ReflectionExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link ReflectionExtensions#getFieldValue(Object, String, Object)}.
+	 * Test method for {@link ReflectionExtensions#getDeclaredFieldNames(Class)}
+	 */
+	@Test
+	public void testGetDeclaredFieldNames()
+	{
+		String[] declaredFieldNames = ReflectionExtensions.getDeclaredFieldNames(Person.class);
+		List<String> fieldNames = Arrays.asList(declaredFieldNames);
+		assertNotNull(fieldNames);
+
+		assertTrue(fieldNames.contains("serialVersionUID"));
+		assertTrue(fieldNames.contains("name"));
+		assertTrue(fieldNames.contains("nickname"));
+		assertTrue(fieldNames.contains("gender"));
+		assertTrue(fieldNames.contains("about"));
+		assertTrue(fieldNames.contains("married"));
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getFieldValue(Object, String)}
 	 *
 	 * @throws NoSuchFieldException
 	 *             is thrown if no such field exists.

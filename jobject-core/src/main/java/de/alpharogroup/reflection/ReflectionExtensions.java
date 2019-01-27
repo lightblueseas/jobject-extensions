@@ -59,7 +59,8 @@ public final class ReflectionExtensions
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
-	public static <T> void copyFieldValue(final @NonNull T source, final @NonNull T target, final @NonNull String fieldName)
+	public static <T> void copyFieldValue(final @NonNull T source, final @NonNull T target,
+		final @NonNull String fieldName)
 		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(source, fieldName);
@@ -138,8 +139,8 @@ public final class ReflectionExtensions
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
-	public static <T> void setFieldValue(final @NonNull Class<?> cls, final @NonNull String fieldName,
-		final Object newValue)
+	public static <T> void setFieldValue(final @NonNull Class<?> cls,
+		final @NonNull String fieldName, final Object newValue)
 		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(cls, fieldName);
@@ -157,9 +158,9 @@ public final class ReflectionExtensions
 	 */
 	public static List<String> getFieldNames(final @NonNull Class<?> cls)
 	{
-		return Arrays.stream(cls.getDeclaredFields())
-			.map(field -> {return field.getName();})
-			.collect(Collectors.toList());
+		return Arrays.stream(cls.getDeclaredFields()).map(field -> {
+			return field.getName();
+		}).collect(Collectors.toList());
 	}
 
 	/**
@@ -171,9 +172,9 @@ public final class ReflectionExtensions
 	 *            the class object
 	 * @return all the declared field names from the given class as an String array
 	 */
-	public static String[] getDeclaredFieldNames(final @NonNull Class<?> cls){
-		List<String> fieldNames = getFieldNames(cls);
-		return fieldNames.toArray(new String[fieldNames.size()]);
+	public static String[] getDeclaredFieldNames(final @NonNull Class<?> cls)
+	{
+		return Arrays.stream(cls.getDeclaredFields()).map(Field::getName).toArray(String[]::new);
 	}
 
 	/**
@@ -313,8 +314,8 @@ public final class ReflectionExtensions
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
 	 */
-	public static <T> Field getDeclaredField(@NonNull final T object, final @NonNull String fieldName)
-		throws NoSuchFieldException, SecurityException
+	public static <T> Field getDeclaredField(@NonNull final T object,
+		final @NonNull String fieldName) throws NoSuchFieldException, SecurityException
 	{
 		return getDeclaredField(object.getClass(), fieldName);
 	}
@@ -332,14 +333,15 @@ public final class ReflectionExtensions
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
 	 */
-	public static Field getDeclaredField(final @NonNull Class<?> cls, final @NonNull String fieldName)
-		throws NoSuchFieldException, SecurityException
+	public static Field getDeclaredField(final @NonNull Class<?> cls,
+		final @NonNull String fieldName) throws NoSuchFieldException, SecurityException
 	{
 		return cls.getDeclaredField(fieldName);
 	}
 
 	/**
-	 * Gets all the declared fields including all fields from all superclasses from the given class object
+	 * Gets all the declared fields including all fields from all superclasses from the given class
+	 * object
 	 *
 	 * @param cls
 	 *            the class object
@@ -364,16 +366,18 @@ public final class ReflectionExtensions
 
 
 	/**
-	 * Gets all the declared field names including all fields from all superclasses from the given class object
+	 * Gets all the declared field names including all fields from all superclasses from the given
+	 * class object
 	 *
 	 * @param cls
 	 *            the class object
 	 * @return all the declared field names
 	 */
-	public static String[] getAllDeclaredFieldNames(final @NonNull Class<?> cls) {
-		List<String> fieldNames =Arrays.stream(getAllDeclaredFields(cls))
-			.map(field -> {return field.getName();})
-			.collect(Collectors.toList());
+	public static String[] getAllDeclaredFieldNames(final @NonNull Class<?> cls)
+	{
+		List<String> fieldNames = Arrays.stream(getAllDeclaredFields(cls)).map(field -> {
+			return field.getName();
+		}).collect(Collectors.toList());
 		return fieldNames.toArray(new String[fieldNames.size()]);
 	}
 

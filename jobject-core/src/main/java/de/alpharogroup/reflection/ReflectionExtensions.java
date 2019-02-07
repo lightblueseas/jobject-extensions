@@ -174,7 +174,7 @@ public final class ReflectionExtensions
 	 */
 	public static String[] getDeclaredFieldNames(final @NonNull Class<?> cls)
 	{
-		return Arrays.stream(cls.getDeclaredFields()).map(Field::getName).toArray(String[]::new);
+		return Arrays.stream(cls.getDeclaredFields()).filter(Field::isSynthetic).map(Field::getName).toArray(String[]::new);
 	}
 
 	/**

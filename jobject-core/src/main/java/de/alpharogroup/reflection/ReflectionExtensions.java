@@ -174,7 +174,20 @@ public final class ReflectionExtensions
 	 */
 	public static String[] getDeclaredFieldNames(final @NonNull Class<?> cls)
 	{
-		return Arrays.stream(cls.getDeclaredFields()).filter(Field::isSynthetic).map(Field::getName).toArray(String[]::new);
+		return Arrays.stream(cls.getDeclaredFields()).filter(ReflectionExtensions::isNotSynthetic)
+			.map(Field::getName).toArray(String[]::new);
+	}
+
+	/**
+	 * Checks if the given {@link Field} is not synthetic
+	 *
+	 * @param field
+	 *            the field
+	 * @return true, if the given {@link Field} is not synthetic otherwise false
+	 */
+	public static boolean isNotSynthetic(@NonNull Field field)
+	{
+		return !field.isSynthetic();
 	}
 
 	/**

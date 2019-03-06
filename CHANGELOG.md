@@ -10,7 +10,7 @@ ADDED:
 
 CHANGED:
 
-- update of parent version to 4.5
+- update of parent version to 4.7
 - update of silly-collections version to 5.1
 - update of test-objects dependency version to 5.0.1
 - replaced last test dependendy from Slf4j with java util logging

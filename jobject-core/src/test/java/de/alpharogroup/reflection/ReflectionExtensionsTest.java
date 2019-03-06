@@ -196,7 +196,6 @@ public class ReflectionExtensionsTest
 		List<String> fieldNames = Arrays.asList(declaredFieldNames);
 		assertNotNull(fieldNames);
 
-		assertTrue(fieldNames.contains("serialVersionUID"));
 		assertTrue(fieldNames.contains("name"));
 		assertTrue(fieldNames.contains("nickname"));
 		assertTrue(fieldNames.contains("gender"));

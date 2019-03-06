@@ -32,9 +32,9 @@ public interface Mergeable<T>
 	/**
 	 * Merge the given <code>object</code> with <code>this object</code>.
 	 *
-	 * @param object
-	 *            the object to merge with this one
+	 * @param other
+	 *            the other object to merge with this one
 	 * @return the merged object
 	 */
-	public T merge(T object);
+	public T merge(T other);
 }

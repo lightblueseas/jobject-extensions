@@ -4,6 +4,10 @@
 Version 2.6-SNAPSHOT
 -------------
 
+ADDED:
+
+- new generic class GenericSummarizer created for merge items 
+
 CHANGED:
 
 - update of parent version to 4.5

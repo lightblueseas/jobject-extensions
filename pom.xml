@@ -208,8 +208,9 @@
 								<!-- enums -->
 								<exclude>de/alpharogroup/evaluate/object/enums/**/*.class</exclude>
 								<!-- beans -->
-								<!-- interfaces -->
+								<!-- interfaces and abstract classes -->
 								<exclude>de/alpharogroup/evaluate/object/api/**/*.class</exclude>
+								<exclude>de/alpharogroup/merge/api/GenericSummarizer.class</exclude>
 								<!-- exceptions -->
 								<!-- deprecated -->
 								<!-- constant classes with only constants -->

@@ -130,7 +130,7 @@ public abstract class GenericSummarizer<T extends Mergeable<T>> implements Summa
             if (!mergedItems.contains(mergedItem)) {
                 mergedItems.add(mergedItem);
             }
-            if (!toRemove.contains(clonedItem) && !mergedItem.equals(clonedItem)) {
+            if (!toRemove.contains(clonedItem)) {
                 toRemove.add(clonedItem);
             }
             if (!toRemove.contains(sourceItem) && !mergedItem.equals(sourceItem)) {

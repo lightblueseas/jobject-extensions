@@ -1,3 +1,23 @@
+/**
+ * The MIT License
+ *
+ * Copyright (C) 2015 Asterios Raptis
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy of this software and
+ * associated documentation files (the "Software"), to deal in the Software without restriction,
+ * including without limitation the rights to use, copy, modify, merge, publish, distribute,
+ * sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all copies or
+ * substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT
+ * NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+ * NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM,
+ * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+ */
 package de.alpharogroup.merge.api;
 
 import java.util.ArrayList;
@@ -64,6 +84,46 @@ public abstract class GenericSummarizer<T extends Mergeable<T>> implements Summa
 	}
 
 	/**
+	 * Filter merged items.
+	 *
+	 * @param mergedItems
+	 *            the merged items
+	 * @param toRemove
+	 *            the to remove
+	 * @param clonedItem
+	 *            the cloned item
+	 * @param sourceItem
+	 *            the source item
+	 */
+	private void filterMergedItems(List<T> mergedItems, List<T> toRemove, T clonedItem,
+		T sourceItem)
+	{
+		final T mergedItem = merge(clonedItem, sourceItem);
+		if (!clonedItem.equals(mergedItem))
+		{
+			if (!mergedItems.contains(mergedItem))
+			{
+				mergedItems.add(mergedItem);
+			}
+			if (!toRemove.contains(clonedItem))
+			{
+				toRemove.add(clonedItem);
+			}
+			if (!toRemove.contains(sourceItem) && !mergedItem.equals(sourceItem))
+			{
+				toRemove.add(sourceItem);
+			}
+		}
+		else
+		{
+			if (!mergedItems.contains(sourceItem))
+			{
+				mergedItems.add(sourceItem);
+			}
+		}
+	}
+
+	/**
 	 * {@inheritDoc}
 	 */
 	@Override
@@ -84,9 +144,10 @@ public abstract class GenericSummarizer<T extends Mergeable<T>> implements Summa
 			toAdd.clear();
 			toRemove.clear();
 			final int newSize = mergedItems.size();
-            if (initialSize == newSize && mergedItems.equals(lastIterated)) {
-                break;
-            }
+			if (initialSize == newSize && mergedItems.equals(lastIterated))
+			{
+				break;
+			}
 			initialSize = newSize;
 			lastIterated = new ArrayList<>(mergedItems);
 			count++;
@@ -106,42 +167,58 @@ public abstract class GenericSummarizer<T extends Mergeable<T>> implements Summa
 	 * @param toRemove
 	 *            All items that have to be removed are saved in this list
 	 */
-    private void merge(final List<T> sourceItems, final List<T> mergedItems, final List<T> toRemove) {
-        for (final T clonedItem : sourceItems) {
-            process(sourceItems, mergedItems, toRemove, clonedItem);
-        }
-    }
+	private void merge(final List<T> sourceItems, final List<T> mergedItems, final List<T> toRemove)
+	{
+		for (final T clonedItem : sourceItems)
+		{
+			processMergedItems(sourceItems, mergedItems, toRemove, clonedItem);
+		}
+	}
 
-    private void process(List<T> sourceItems, List<T> mergedItems, List<T> toRemove, T clonedItem) {
-        for (final T sourceItem : sourceItems) {
-            if (clonedItem.equals(sourceItem)) {
-                if (!mergedItems.contains(sourceItem)) {
-                    mergedItems.add(sourceItem);
-                }
-                continue;
-            }
-            filterMergedItems(mergedItems, toRemove, clonedItem, sourceItem);
-        }
-    }
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public T merge(final T object, final T other)
+	{
+		return object.merge(other);
+	}
 
-    private void filterMergedItems(List<T> mergedItems, List<T> toRemove, T clonedItem, T sourceItem) {
-        final T mergedItem = merge(clonedItem, sourceItem);
-        if (!clonedItem.equals(mergedItem)) {
-            if (!mergedItems.contains(mergedItem)) {
-                mergedItems.add(mergedItem);
-            }
-            if (!toRemove.contains(clonedItem)) {
-                toRemove.add(clonedItem);
-            }
-            if (!toRemove.contains(sourceItem) && !mergedItem.equals(sourceItem)) {
-                toRemove.add(sourceItem);
-            }
-        } else {
-            if (!mergedItems.contains(sourceItem)) {
-                mergedItems.add(sourceItem);
-            }
-        }
-    }
+	/**
+	 * Abstract factory method that have to be implemented from classes that extends this class
+	 *
+	 * @return the comparator
+	 */
+	protected abstract Comparator<T> newComparator();
+
+	/**
+	 * Process the given source items with the merged items.
+	 *
+	 * @param sourceItems
+	 *            the source items
+	 * @param mergedItems
+	 *            the merged items
+	 * @param toRemove
+	 *            the to remove
+	 * @param clonedItem
+	 *            the cloned item
+	 */
+	private void processMergedItems(List<T> sourceItems, List<T> mergedItems, List<T> toRemove,
+		T clonedItem)
+	{
+		for (final T sourceItem : sourceItems)
+		{
+			if (clonedItem.equals(sourceItem))
+			{
+				if (!mergedItems.contains(sourceItem))
+				{
+					mergedItems.add(sourceItem);
+				}
+				continue;
+			}
+			filterMergedItems(mergedItems, toRemove, clonedItem, sourceItem);
+		}
+	}
 
 	/**
 	 * Sorts the given {@link List} with the specific {@link Comparator} that will be defined in the
@@ -153,22 +230,6 @@ public abstract class GenericSummarizer<T extends Mergeable<T>> implements Summa
 	protected void sort(List<T> list)
 	{
 		Collections.sort(list, newComparator());
-	}
-
-	/**
-	 * Abstract factory method that have to be implemented from classes that extends this class
-	 *
-	 * @return the comparator
-	 */
-	protected abstract Comparator<T> newComparator();
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public T merge(final T object, final T other)
-	{
-		return (T)object.merge(other);
 	}
 
 }

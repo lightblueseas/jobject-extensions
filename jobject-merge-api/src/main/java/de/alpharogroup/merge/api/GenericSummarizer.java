@@ -84,9 +84,9 @@ public abstract class GenericSummarizer<T extends Mergeable<T>> implements Summa
 			toAdd.clear();
 			toRemove.clear();
 			final int newSize = mergedItems.size();
-			    if (initialSize == newSize && mergedSections.equals(lastIterated)) {
-				break;
-			    }
+            if (initialSize == newSize && mergedItems.equals(lastIterated)) {
+                break;
+            }
 			initialSize = newSize;
 			lastIterated = new ArrayList<>(mergedItems);
 			count++;
@@ -106,46 +106,42 @@ public abstract class GenericSummarizer<T extends Mergeable<T>> implements Summa
 	 * @param toRemove
 	 *            All items that have to be removed are saved in this list
 	 */
-	private void merge(final List<T> sourceItems, final List<T> mergedItems, final List<T> toRemove)
-	{
-		for (final T clonedT : sourceItems)
-		{
-			for (final T section : sourceItems)
-			{
-				if (clonedT.equals(section))
-				{
-					if (!mergedItems.contains(section))
-					{
-						mergedItems.add(section);
-					}
-					continue;
-				}
-				final T mergeT = merge(clonedT, section);
-				if (!clonedT.equals(mergeT))
-				{
-					if (!mergedItems.contains(mergeT))
-					{
-						mergedItems.add(mergeT);
-					}
-					if (!toRemove.contains(clonedT) && !mergeT.equals(clonedT))
-					{
-						toRemove.add(clonedT);
-					}
-					if (!toRemove.contains(section) && !mergeT.equals(section))
-					{
-						toRemove.add(section);
-					}
-				}
-				else
-				{
-					if (!mergedItems.contains(section))
-					{
-						mergedItems.add(section);
-					}
-				}
-			}
-		}
-	}
+    private void merge(final List<T> sourceItems, final List<T> mergedItems, final List<T> toRemove) {
+        for (final T clonedItem : sourceItems) {
+            process(sourceItems, mergedItems, toRemove, clonedItem);
+        }
+    }
+
+    private void process(List<T> sourceItems, List<T> mergedItems, List<T> toRemove, T clonedItem) {
+        for (final T sourceItem : sourceItems) {
+            if (clonedItem.equals(sourceItem)) {
+                if (!mergedItems.contains(sourceItem)) {
+                    mergedItems.add(sourceItem);
+                }
+                continue;
+            }
+            filterMergedItems(mergedItems, toRemove, clonedItem, sourceItem);
+        }
+    }
+
+    private void filterMergedItems(List<T> mergedItems, List<T> toRemove, T clonedItem, T sourceItem) {
+        final T mergedItem = merge(clonedItem, sourceItem);
+        if (!clonedItem.equals(mergedItem)) {
+            if (!mergedItems.contains(mergedItem)) {
+                mergedItems.add(mergedItem);
+            }
+            if (!toRemove.contains(clonedItem) && !mergedItem.equals(clonedItem)) {
+                toRemove.add(clonedItem);
+            }
+            if (!toRemove.contains(sourceItem) && !mergedItem.equals(sourceItem)) {
+                toRemove.add(sourceItem);
+            }
+        } else {
+            if (!mergedItems.contains(sourceItem)) {
+                mergedItems.add(sourceItem);
+            }
+        }
+    }
 
 	/**
 	 * Sorts the given {@link List} with the specific {@link Comparator} that will be defined in the

@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>mvn-java-parent</artifactId>
-		<version>4</version>
+		<version>4.7</version>
 	</parent>
 
 	<artifactId>jobject-extensions</artifactId>
-	<version>1.12</version>
+	<version>2.5.1</version>
 	<packaging>pom</packaging>
 
 	<name>${project.artifactId}</name>
@@ -19,16 +20,17 @@
 		Project that holds different utility classes and extension methods for operating on java objects like clone, compare, copy, diff and merge.
 	</description>
 
-	<url>https://github.com/lightblueseas/jobject-extensions</url>
+	<url>https://github.com/lightblueseas/${project.artifactId}</url>
 
 	<properties>
 		<!-- VINTAGE-TIME version -->
-		<vintage-time.version>4.12</vintage-time.version>
+		<vintage-time.version>5.1</vintage-time.version>
+		<!-- SILLY-COLLECTIONS version -->
+		<silly-collections.version>5.1</silly-collections.version>
 		<!-- TEST-OBJECTS version -->
-		<test-objects.version>4.28</test-objects.version>
+		<test-objects.version>5.0.1</test-objects.version>
 		<!-- EXTERNAL LIBRARIES versions -->
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
-		<cloning.version>1.9.10</cloning.version>
 	</properties>
 
 	<modules>
@@ -39,6 +41,7 @@
 		<module>jobject-diff</module>
 		<module>jobject-evaluate</module>
 		<module>jobject-merge</module>
+		<module>jobject-merge-api</module>
 	</modules>
 
 	<licenses>
@@ -50,34 +53,34 @@
 	</licenses>
 
 	<scm>
-		<connection>scm:git:git:@github.com:lightblueseas/jobject-extensions.git</connection>
-		<developerConnection>scm:git:git@github.com:lightblueseas/jobject-extensions.git</developerConnection>
-		<url>git:@github.com:lightblueseas/jobject-extensions.git</url>
+		<connection>scm:git:git:@github.com:lightblueseas/${project.artifactId}.git</connection>
+		<developerConnection>scm:git:git@github.com:lightblueseas/${project.artifactId}.git</developerConnection>
+		<url>git:@github.com:lightblueseas/${project.artifactId}.git</url>
 	</scm>
 
 	<issueManagement>
 		<system>github</system>
-		<url>https://github.com/lightblueseas/jobject-extensions/issues</url>
+		<url>https://github.com/lightblueseas/${project.artifactId}/issues</url>
 	</issueManagement>
 
 	<ciManagement>
 		<system>travis-ci</system>
-		<url>https://travis-ci.org/lightblueseas/jobject-extensions</url>
+		<url>https://travis-ci.org/lightblueseas/${project.artifactId}</url>
 	</ciManagement>
 
 	<dependencyManagement>
 
 		<dependencies>
-			<!-- CLONING DEPENDENCY -->
-			<dependency>
-				<groupId>uk.com.robust-it</groupId>
-				<artifactId>cloning</artifactId>
-				<version>${cloning.version}</version>
-			</dependency>
 			<!-- COMMONS-BEANUTILS DEPENDENCY -->
 			<dependency>
 				<groupId>commons-beanutils</groupId>
 				<artifactId>commons-beanutils</artifactId>
+				<exclusions>
+					<exclusion>
+						<artifactId>commons-logging</artifactId>
+						<groupId>commons-logging</groupId>
+					</exclusion>
+				</exclusions>
 				<version>${commons-beanutils.version}</version>
 			</dependency>
 			<!-- VINTAGE-TIME DEPENDENCY -->
@@ -85,6 +88,12 @@
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>vintage-time</artifactId>
 				<version>${vintage-time.version}</version>
+			</dependency>
+			<!-- SILLY-COLLECTIONS DEPENDENCY -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>silly-collections</artifactId>
+				<version>${silly-collections.version}</version>
 			</dependency>
 			<!-- TEST-OBJECTS DEPENDENCY -->
 			<dependency>
@@ -133,12 +142,6 @@
 		<dependency>
 			<groupId>org.meanbean</groupId>
 			<artifactId>meanbean</artifactId>
-			<scope>test</scope>
-		</dependency>
-		<!-- TEST-OBJECTS DEPENDENCY -->
-		<dependency>
-			<groupId>de.alpharogroup</groupId>
-			<artifactId>test-objects</artifactId>
 			<scope>test</scope>
 		</dependency>
 
@@ -205,8 +208,9 @@
 								<!-- enums -->
 								<exclude>de/alpharogroup/evaluate/object/enums/**/*.class</exclude>
 								<!-- beans -->
-								<!-- interfaces -->
+								<!-- interfaces and abstract classes -->
 								<exclude>de/alpharogroup/evaluate/object/api/**/*.class</exclude>
+								<exclude>de/alpharogroup/merge/api/GenericSummarizer.class</exclude>
 								<!-- exceptions -->
 								<!-- deprecated -->
 								<!-- constant classes with only constants -->

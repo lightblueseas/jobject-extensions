@@ -90,10 +90,6 @@ public class CopyObjectExtensionsTest
 	 *             if the caller does not have access to the property accessor method
 	 * @throws InvocationTargetException
 	 *             if the property accessor method throws an exception
-	 * @throws IllegalArgumentException
-	 *             if the <code>destination</code> or <code>original</code> argument is null or if
-	 *             the <code>destination</code> property type is different from the source type and
-	 *             the relevant converter has not been registered.
 	 * @throws InstantiationException
 	 *             Thrown if one of the following reasons: the class object
 	 *             <ul>
@@ -106,8 +102,8 @@ public class CopyObjectExtensionsTest
 	 *             </ul>
 	 */
 	@Test
-	public void testCopyProperties() throws IllegalAccessException, InvocationTargetException,
-		IllegalArgumentException, InstantiationException
+	public void testCopyProperties()
+		throws IllegalAccessException, InvocationTargetException, InstantiationException
 	{
 		Person actual;
 		Person expected;

@@ -1,6 +1,84 @@
 ## Change log
 ----------------------
 
+Version 2.5.1
+-------------
+
+ADDED:
+
+- new generic class GenericSummarizer created for merge items 
+
+CHANGED:
+
+- update of parent version to 4.7
+- update of silly-collections version to 5.1
+- update of test-objects dependency version to 5.0.1
+- replaced last test dependendy from Slf4j with java util logging
+
+Version 2.5
+-------------
+
+CHANGED:
+
+- removed deprecated classes
+- removed cloning dependency from project jobject-clone
+- removed log4j-to-slf4j dependency from project jobject-compare and jobject-copy
+
+Version 2.4
+-------------
+
+CHANGED:
+
+- update of vintage-time version to 5.1
+- update of silly-collections version to 4.35.1
+
+Version 2.3.2
+-------------
+
+CHANGED:
+
+- update of parent version to 4.4
+- added explicit dependency to projects
+- removed dependency test-objects from project jobject-evaluate
+
+Version 2.3
+-------------
+
+CHANGED:
+
+- evaluator classes delegate now to the corresponding checker class
+- moved merge interfaces to own project jobject-merge-api
+
+Version 2.2
+-------------
+
+CHANGED:
+
+- unit tests extended for improve of code coverage to 100%
+- removed deprecated methods
+
+Version 2.1
+-------------
+
+CHANGED:
+
+- update the configuration files to log4j2 version
+- unit tests extended for improve of code coverage to 99%
+- tagged unused methods as deprecated
+
+Version 2
+-------------
+
+ADDED:
+
+- new method in classes EqualsHashCodeAndToStringEvaluator and SilentEqualsHashCodeAndToStringEvaluator with new function parameter for create random objects
+- new method in class ReflectionExtensions created for get the value of an object over reflection 
+
+CHANGED:
+
+- update of parent version to 4.2
+- update of silly-collections version to 4.35
+
 Version 1.12
 -------------
 

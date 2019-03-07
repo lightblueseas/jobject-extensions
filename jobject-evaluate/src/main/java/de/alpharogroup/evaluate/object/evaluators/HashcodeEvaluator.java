@@ -20,8 +20,8 @@
  */
 package de.alpharogroup.evaluate.object.evaluators;
 
+import de.alpharogroup.evaluate.object.checkers.HashcodeCheck;
 import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * The class {@link HashcodeEvaluator} provides algorithms for evaluate the
@@ -29,7 +29,6 @@ import lombok.extern.slf4j.Slf4j;
  * contract</a> of an given object.
  */
 @UtilityClass
-@Slf4j
 public final class HashcodeEvaluator
 {
 
@@ -55,14 +54,7 @@ public final class HashcodeEvaluator
 	 */
 	public static <T> boolean evaluateConsistency(T object)
 	{
-		if (object == null)
-		{
-			log.error(
-				"evaluation of contract condition consistency in hashCode method failed because "
-					+ "the given objects is null");
-			return false;
-		}
-		return object.hashCode() == object.hashCode();
+		return !HashcodeCheck.consistency(object).isPresent();
 	}
 
 	/**
@@ -84,18 +76,7 @@ public final class HashcodeEvaluator
 	 */
 	public static <T> boolean evaluateEquality(T object, T anotherObject)
 	{
-		if (object == null)
-		{
-			log.error("evaluation of contract condition equality in hashCode method failed "
-				+ "because the first given objects is null");
-			return false;
-		}
-		if (object.equals(anotherObject))
-		{
-			return object.hashCode() == anotherObject.hashCode();
-		}
-		throw new IllegalArgumentException(
-			"Given arguments should be equal for evaluate equality of hash code");
+		return !HashcodeCheck.equality(object, anotherObject).isPresent();
 	}
 
 	/**
@@ -120,22 +101,7 @@ public final class HashcodeEvaluator
 	 */
 	public static <T> boolean evaluateUnequality(T object, T anotherObject)
 	{
-		if (object == null)
-		{
-			log.error("evaluation of contract condition unequality in hashCode method failed "
-				+ "because the first given objects is null");
-			return false;
-		}
-		if (!object.equals(anotherObject))
-		{
-			if (anotherObject == null)
-			{
-				return true;
-			}
-			return object.hashCode() != anotherObject.hashCode();
-		}
-		throw new IllegalArgumentException(
-			"Given arguments should be unequal for evaluate unequality of hash code");
+		return !HashcodeCheck.unequality(object, anotherObject).isPresent();
 	}
 
 }

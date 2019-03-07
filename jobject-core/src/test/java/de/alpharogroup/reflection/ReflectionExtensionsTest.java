@@ -37,6 +37,7 @@ import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
 import de.alpharogroup.test.objects.A;
+import de.alpharogroup.test.objects.Member;
 import de.alpharogroup.test.objects.Person;
 
 /**
@@ -52,14 +53,12 @@ public class ReflectionExtensionsTest
 	 *             is thrown if no such field exists.
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	@Test
-	public void testCopyFieldValue() throws NoSuchFieldException, SecurityException,
-		IllegalArgumentException, IllegalAccessException
+	public void testCopyFieldValue()
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		String expected;
 		String actual;
@@ -82,6 +81,48 @@ public class ReflectionExtensionsTest
 		actual = ReflectionExtensions.firstCharacterToUpperCase("name");
 
 		expected = "Name";
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getAllDeclaredFields(Class)}
+	 */
+	@Test
+	public void testGetAllDeclaredFields()
+	{
+		int expected;
+		int actual;
+		Field[] allDeclaredFields;
+
+		allDeclaredFields = ReflectionExtensions.getAllDeclaredFields(Person.class);
+		expected = 6;
+		actual = allDeclaredFields.length;
+		assertEquals(expected, actual);
+
+		allDeclaredFields = ReflectionExtensions.getAllDeclaredFields(Member.class);
+		expected = 9;
+		actual = allDeclaredFields.length;
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getAllDeclaredFieldNames(Class)}
+	 */
+	@Test
+	public void testGetAllDeclaredFieldNames()
+	{
+		int expected;
+		int actual;
+		String[] allDeclaredFieldnames;
+
+		allDeclaredFieldnames = ReflectionExtensions.getAllDeclaredFieldNames(Person.class);
+		expected = 6;
+		actual = allDeclaredFieldnames.length;
+		assertEquals(expected, actual);
+
+		allDeclaredFieldnames = ReflectionExtensions.getAllDeclaredFieldNames(Member.class);
+		expected = 9;
+		actual = allDeclaredFieldnames.length;
 		assertEquals(expected, actual);
 	}
 
@@ -129,7 +170,7 @@ public class ReflectionExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link ReflectionExtensions#getFieldNames(Class)}.
+	 * Test method for {@link ReflectionExtensions#getFieldNames(Class)}
 	 */
 	@Test
 	public void testGetFieldNames()
@@ -143,6 +184,45 @@ public class ReflectionExtensionsTest
 		assertTrue(fieldNames.contains("gender"));
 		assertTrue(fieldNames.contains("about"));
 		assertTrue(fieldNames.contains("married"));
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getDeclaredFieldNames(Class)}
+	 */
+	@Test
+	public void testGetDeclaredFieldNames()
+	{
+		String[] declaredFieldNames = ReflectionExtensions.getDeclaredFieldNames(Person.class);
+		List<String> fieldNames = Arrays.asList(declaredFieldNames);
+		assertNotNull(fieldNames);
+
+		assertTrue(fieldNames.contains("name"));
+		assertTrue(fieldNames.contains("nickname"));
+		assertTrue(fieldNames.contains("gender"));
+		assertTrue(fieldNames.contains("about"));
+		assertTrue(fieldNames.contains("married"));
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getFieldValue(Object, String)}
+	 *
+	 * @throws NoSuchFieldException
+	 *             is thrown if no such field exists.
+	 * @throws SecurityException
+	 *             is thrown if a security manager says no.
+	 * @throws IllegalAccessException
+	 *             is thrown if an illegal on create an instance or access a method.
+	 */
+	@Test
+	public void testGetFieldValueObject()
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
+	{
+		String expected;
+		String actual;
+		final Person person = Person.builder().name("Alex").build();
+		expected = "Alex";
+		actual = (String)ReflectionExtensions.getFieldValue(person, "name");
+		assertEquals(expected, actual);
 	}
 
 	/**
@@ -204,6 +284,7 @@ public class ReflectionExtensionsTest
 		assertEquals(expected, actual);
 	}
 
+
 	/**
 	 * Test method for {@link ReflectionExtensions#newInstance(Class)}.
 	 *
@@ -260,14 +341,12 @@ public class ReflectionExtensionsTest
 	 *             is thrown if no such field exists.
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	@Test
-	public void testSetFieldValueObject() throws NoSuchFieldException, SecurityException,
-		IllegalArgumentException, IllegalAccessException
+	public void testSetFieldValueObject()
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		String expected;
 		String actual;
@@ -285,14 +364,12 @@ public class ReflectionExtensionsTest
 	 *             is thrown if no such field exists.
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
 	@Test
-	public void testSetFieldValueWithClass() throws NoSuchFieldException, SecurityException,
-		IllegalArgumentException, IllegalAccessException
+	public void testSetFieldValueWithClass()
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		String expected;
 		String actual;
@@ -307,6 +384,7 @@ public class ReflectionExtensionsTest
 		expected = null;
 		assertEquals(expected, actual);
 	}
+
 
 	/**
 	 * Test method for {@link ReflectionExtensions} with {@link BeanTester}

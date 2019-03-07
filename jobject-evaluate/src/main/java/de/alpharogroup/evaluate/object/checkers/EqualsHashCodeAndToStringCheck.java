@@ -23,8 +23,9 @@ package de.alpharogroup.evaluate.object.checkers;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
+import java.util.function.Function;
 
-import de.alpharogroup.clone.object.CloneObjectQuietlyExtensions;
+import de.alpharogroup.clone.object.CloneObjectExtensions;
 import de.alpharogroup.evaluate.object.api.ContractViolation;
 import de.alpharogroup.evaluate.object.enums.EqualsHashcodeContractViolation;
 import de.alpharogroup.evaluate.object.enums.ToStringContractViolation;
@@ -82,6 +83,27 @@ public final class EqualsHashCodeAndToStringCheck
 		{
 			return evaluated;
 		}
+		return hashcodeCheck(first, second, fourth);
+	}
+
+	/**
+	 * Checks all the contract conditions for the method {@link Object#hashCode()}
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param first
+	 *            the first object
+	 * @param second
+	 *            the second object that have to be uneqal to the first object
+	 * @param fourth
+	 *            the fourth object have to be equal to first object and third object
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
+	 */
+	public static <T> Optional<ContractViolation> hashcodeCheck(final T first, final T second,
+		final T fourth)
+	{
+		Optional<ContractViolation> evaluated;
 		evaluated = HashcodeCheck.equality(first, fourth);
 		if (evaluated.isPresent())
 		{
@@ -93,10 +115,6 @@ public final class EqualsHashCodeAndToStringCheck
 			return evaluated;
 		}
 		evaluated = HashcodeCheck.consistency(first);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 
@@ -147,10 +165,6 @@ public final class EqualsHashCodeAndToStringCheck
 			return evaluated;
 		}
 		evaluated = HashcodeCheck.equality(object, otherObject);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 
@@ -204,10 +218,6 @@ public final class EqualsHashCodeAndToStringCheck
 			return evaluated;
 		}
 		evaluated = HashcodeCheck.unequality(object, otherObject);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 
@@ -232,20 +242,55 @@ public final class EqualsHashCodeAndToStringCheck
 	 *             if an accessor method for this property cannot be found
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred
+	 * @throws ClassNotFoundException
+	 *             occurs if a given class cannot be located by the specified class loader
 	 */
-	@SuppressWarnings("unchecked")
 	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(Class<T> cls)
 		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
-		InstantiationException, IOException
+		InstantiationException, IOException, ClassNotFoundException
+	{
+		return equalsHashcodeAndToString(cls, EnhancedRandom::random);
+	}
+
+	/**
+	 * Checks all the contract conditions for the methods {@link Object#equals(Object)},
+	 * {@link Object#hashCode()} and {@link Object#toString()} from the given {@link Class}.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param cls
+	 *            the class
+	 * @param function
+	 *            the function that can create random objects
+	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
+	 *         specific violation type
+	 *
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InstantiationException
+	 *             if a new instance of the bean's class cannot be instantiated
+	 * @throws InvocationTargetException
+	 *             if the property accessor method throws an exception
+	 * @throws NoSuchMethodException
+	 *             if an accessor method for this property cannot be found
+	 * @throws IOException
+	 *             Signals that an I/O exception has occurred
+	 * @throws ClassNotFoundException
+	 *             occurs if a given class cannot be located by the specified class loader
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(Class<T> cls,
+		Function<Class<T>, T> function) throws NoSuchMethodException, IllegalAccessException,
+		InvocationTargetException, InstantiationException, IOException, ClassNotFoundException
 	{
 		if (cls == null)
 		{
 			return Optional.of(ToStringContractViolation.CLASS_NULL_ARGUMENT);
 		}
-		final T first = EnhancedRandom.random(cls);
-		final T second = EnhancedRandom.random(cls);
-		final T third = (T)CloneObjectQuietlyExtensions.cloneObjectQuietly(first);
-		final T fourth = (T)CloneObjectQuietlyExtensions.cloneObjectQuietly(third);
+		final T first = function.apply(cls);
+		final T second = function.apply(cls);
+		final T third = (T)CloneObjectExtensions.cloneObject(first);
+		final T fourth = (T)CloneObjectExtensions.cloneObject(third);
 
 		return EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(first, second, third,
 			fourth);
@@ -297,10 +342,6 @@ public final class EqualsHashCodeAndToStringCheck
 			return evaluated;
 		}
 		evaluated = ToStringCheck.consistency(object);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
 		return evaluated;
 	}
 
@@ -324,106 +365,13 @@ public final class EqualsHashCodeAndToStringCheck
 	public static <T> Optional<ContractViolation> equalsHashcodeAndToString(final T first,
 		final T second, final T third, final T fourth)
 	{
-		Optional<ContractViolation> evaluated = equalsAndHashcode(first, second, third, fourth);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
-		evaluated = ToStringCheck.evaluate(first.getClass());
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
-		evaluated = ToStringCheck.consistency(first);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
-		return evaluated;
-	}
-
-	/**
-	 * Evaluate consistency of method {@link Object#toString()} for the given objects <br>
-	 *
-	 * Evaluate consistency of the given object, that means according to {@link Object#hashCode()}
-	 * that this method should evaluate the following contract condition:
-	 * <ul>
-	 * <li>Whenever it is invoked on the same object more than once during an execution of a Java
-	 * application, the {@code hashCode} method must consistently return the same integer, provided
-	 * no information used in {@code equals} comparisons on the object is modified. This integer
-	 * need not remain consistent from one execution of an application to another execution of the
-	 * same application.
-	 * </ul>
-	 *
-	 * Note: The upper list is taken from the javadoc from {@link Object#hashCode()}
-	 *
-	 * Evaluate equality of hash code from the given objects that should be equal(if not an
-	 * {@link IllegalArgumentException} will be thrown), that means according to
-	 * {@link Object#hashCode()} that this method should evaluate the following contract condition:
-	 * <ul>
-	 * <li>If two objects are equal according to the {@code equals(Object)} method, then calling the
-	 * {@code hashCode} method on each of the two objects must produce the same integer result.
-	 * </ul>
-	 *
-	 * Checks the contract conditions for reflexivity, non null, symmetric, consistency and
-	 * transitivity of the given objects, that means according to {@link Object#equals(Object)} that
-	 * this method should evaluate the following contract condition:
-	 * <ul>
-	 * <li>It is <i>reflexive</i>: for any non-null reference value {@code x}, {@code x.equals(x)}
-	 * should return {@code true}.
-	 * <li>For any non-null reference value {@code x}, {@code x.equals(null)} should return
-	 * {@code false}.
-	 * <li>It is <i>symmetric</i>: for any non-null reference values {@code x} and {@code y},
-	 * {@code x.equals(y)} should return {@code true} if and only if {@code y.equals(x)} returns
-	 * {@code true}.
-	 * <li>It is <i>consistent</i>: for any non-null reference values {@code x} and {@code y},
-	 * multiple invocations of {@code x.equals(y)} consistently return {@code true} or consistently
-	 * return {@code false}, provided no information used in {@code equals} comparisons on the
-	 * objects is modified.
-	 * <li>It is <i>transitive</i>: for any non-null reference values {@code x}, {@code y}, and
-	 * {@code z}, if {@code x.equals(y)} returns {@code true} and {@code y.equals(z)} returns
-	 * {@code true}, then {@code x.equals(z)} should return {@code true}.
-	 * </ul>
-	 *
-	 * Note: The upper list entries is taken from the javadoc from {@link Object#equals(Object)}
-	 *
-	 * @param <T>
-	 *            the generic type
-	 * @param object
-	 *            the object
-	 * @param otherObject
-	 *            the other object
-	 * @param anotherObject
-	 *            the another object
-	 * @return an empty {@link Optional} if no violation occurred or an {@link Optional} with the
-	 *         specific violation type
-	 */
-	public static <T> Optional<ContractViolation> equalsHashcodeEqualityAndToString(final T object,
-		final T otherObject, final T anotherObject)
-	{
 		Optional<ContractViolation> evaluated;
-		evaluated = ToStringCheck.consistency(object);
+		evaluated = equalsAndHashcode(first, second, third, fourth);
 		if (evaluated.isPresent())
 		{
 			return evaluated;
 		}
-		evaluated = HashcodeCheck.consistency(object);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
-		evaluated = HashcodeCheck.equality(object, otherObject);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
-		evaluated = EqualsCheck.reflexivityNonNullSymmetricConsistencyAndTransitivity(otherObject,
-			otherObject, anotherObject);
-		if (evaluated.isPresent())
-		{
-			return evaluated;
-		}
-		return evaluated;
+		return ToStringCheck.evaluateAndConsistency(first);
 	}
 
 }

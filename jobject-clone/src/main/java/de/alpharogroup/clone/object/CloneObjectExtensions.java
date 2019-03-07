@@ -54,8 +54,6 @@ public final class CloneObjectExtensions
 	 * @throws IllegalAccessException
 	 *             Thrown if this {@code Method} object is enforcing Java language access control
 	 *             and the underlying method is inaccessible.
-	 * @throws IllegalArgumentException
-	 *             Thrown if an illegal argument is given
 	 * @throws InvocationTargetException
 	 *             Thrown if the property accessor method throws an exception
 	 * @throws ClassNotFoundException
@@ -74,8 +72,7 @@ public final class CloneObjectExtensions
 	 *             Signals that an I/O exception has occurred.
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T clone(final T object)
-		throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException,
+	public static <T> T clone(final T object) throws NoSuchMethodException, IllegalAccessException,
 		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
 	{
 		return (T)cloneObject(object);
@@ -95,8 +92,6 @@ public final class CloneObjectExtensions
 	 * @throws IllegalAccessException
 	 *             Thrown if this {@code Method} object is enforcing Java language access control
 	 *             and the underlying method is inaccessible.
-	 * @throws IllegalArgumentException
-	 *             Thrown if an illegal argument is given
 	 * @throws InvocationTargetException
 	 *             Thrown if the property accessor method throws an exception
 	 * @throws ClassNotFoundException
@@ -115,8 +110,8 @@ public final class CloneObjectExtensions
 	 *             Signals that an I/O exception has occurred.
 	 */
 	public static Object cloneObject(final Object object)
-		throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException,
-		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
+		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
+		ClassNotFoundException, InstantiationException, IOException
 	{
 		if (object == null)
 		{
@@ -190,8 +185,7 @@ public final class CloneObjectExtensions
 		final Class<?> clazz = object.getClass();
 		final Method cloneMethod = clazz.getDeclaredMethod("clone");
 		cloneMethod.setAccessible(true);
-		clone = cloneMethod.invoke(object, (Object[])null);
-		return clone;
+		return cloneMethod.invoke(object, (Object[])null);
 	}
 
 	/**
@@ -226,8 +220,7 @@ public final class CloneObjectExtensions
 	public static <T> T cloneBean(T object) throws IllegalAccessException, InstantiationException,
 		InvocationTargetException, NoSuchMethodException
 	{
-		T clone = (T)BeanUtils.cloneBean(object);
-		return clone;
+		return (T)BeanUtils.cloneBean(object);
 	}
 
 }

@@ -35,38 +35,39 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.AbstractTestCase;
+import de.alpharogroup.evaluate.object.Person;
 import de.alpharogroup.evaluate.object.api.ContractViolation;
 import de.alpharogroup.evaluate.object.enums.ToStringContractViolation;
-import de.alpharogroup.test.objects.Person;
 import io.github.benas.randombeans.api.EnhancedRandom;
 
 /**
  * The unit test class for the class {@link ToStringCheck}
  */
 public class ToStringCheckTest
-	extends
-		AbstractTestCase<Optional<ContractViolation>, Optional<ContractViolation>>
 {
+
+	/** The boolean actual result of the tests. */
+	protected Optional<ContractViolation> actual;
+
+	/** The boolean expected result of the tests. */
+	protected Optional<ContractViolation> expected;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@BeforeMethod
-	@Override
 	protected void setUp() throws Exception
 	{
-		super.setUp();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@AfterMethod
-	@Override
 	protected void tearDown() throws Exception
 	{
-		super.tearDown();
+		actual = null;
+		expected = null;
 	}
 
 	/**
@@ -79,10 +80,12 @@ public class ToStringCheckTest
 		expected = Optional.empty();
 		assertEquals(expected, actual);
 
+		actual = ToStringCheck.consistency(null);
+		expected = Optional.of(ToStringContractViolation.CONSISTENCY_NULL_ARGUMENT);
+		assertEquals(expected, actual);
+
 		actual = ToStringCheck.consistency(new Person()
 		{
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public String toString()
 			{
@@ -123,6 +126,34 @@ public class ToStringCheckTest
 		assertEquals(expected, actual);
 
 		actual = ToStringCheck.evaluate(Serializable.class);
+		expected = Optional.of(ToStringContractViolation.NOT_EXISTENT);
+		assertEquals(expected, actual);
+	}
+
+
+	/**
+	 * Test method for {@link ToStringCheck#evaluateAndConsistency(Object)}
+	 */
+	@SuppressWarnings("serial")
+	@Test
+	public void testEvaluateAndConsistency()
+	{
+
+		actual = ToStringCheck.evaluateAndConsistency(Integer.class);
+		expected = Optional.empty();
+		assertEquals(expected, actual);
+
+		actual = ToStringCheck.evaluateAndConsistency(String.class);
+		expected = Optional.empty();
+		assertEquals(expected, actual);
+
+		actual = ToStringCheck.evaluateAndConsistency(null);
+		expected = Optional.of(ToStringContractViolation.CLASS_NULL_ARGUMENT);
+		assertEquals(expected, actual);
+
+		actual = ToStringCheck.evaluateAndConsistency(new Serializable()
+		{
+		});
 		expected = Optional.of(ToStringContractViolation.NOT_EXISTENT);
 		assertEquals(expected, actual);
 	}

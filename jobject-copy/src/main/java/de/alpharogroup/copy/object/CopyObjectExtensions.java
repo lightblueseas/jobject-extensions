@@ -60,17 +60,12 @@ public final class CopyObjectExtensions
 	 *             is thrown if no such field exists.
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             if the <code>destination</code> or <code>original</code> argument is null or if
-	 *             the <code>destination</code> property type is different from the source type and
-	 *             the relevant converter has not been registered.
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
 	 */
-	public static final <ORIGINAL, DESTINATION> DESTINATION copyPropertyWithReflection(
+	public static <ORIGINAL, DESTINATION> DESTINATION copyPropertyWithReflection(
 		final ORIGINAL original, final DESTINATION destination, final String fieldName)
-		throws NoSuchFieldException, SecurityException, IllegalArgumentException,
-		IllegalAccessException
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		ReflectionExtensions.copyFieldValue(original, destination, fieldName);
 		return destination;
@@ -93,12 +88,8 @@ public final class CopyObjectExtensions
 	 *             if the caller does not have access to the property accessor method
 	 * @throws InvocationTargetException
 	 *             if the property accessor method throws an exception
-	 * @throws IllegalArgumentException
-	 *             if the <code>destination</code> or <code>original</code> argument is null or if
-	 *             the <code>destination</code> property type is different from the source type and
-	 *             the relevant converter has not been registered.
 	 */
-	public static final <ORIGINAL, DESTINATION> DESTINATION copy(final ORIGINAL original,
+	public static <ORIGINAL, DESTINATION> DESTINATION copy(final ORIGINAL original,
 		final DESTINATION destination)
 		throws IllegalAccessException, InvocationTargetException, IllegalArgumentException
 	{
@@ -122,14 +113,9 @@ public final class CopyObjectExtensions
 	 *             if the caller does not have access to the property accessor method
 	 * @throws InvocationTargetException
 	 *             if the property accessor method throws an exception
-	 * @throws IllegalArgumentException
-	 *             if the <code>destination</code> or <code>original</code> argument is null or if
-	 *             the <code>destination</code> property type is different from the source type and
-	 *             the relevant converter has not been registered.
 	 */
-	public static final <ORIGINAL, DESTINATION> DESTINATION copyProperties(final ORIGINAL original,
-		final DESTINATION destination)
-		throws IllegalAccessException, InvocationTargetException, IllegalArgumentException
+	public static <ORIGINAL, DESTINATION> DESTINATION copyProperties(final ORIGINAL original,
+		final DESTINATION destination) throws IllegalAccessException, InvocationTargetException
 	{
 		BeanUtils.copyProperties(destination, original);
 		return destination;
@@ -150,10 +136,6 @@ public final class CopyObjectExtensions
 	 *             if the caller does not have access to the property accessor method
 	 * @throws InvocationTargetException
 	 *             if the property accessor method throws an exception
-	 * @throws IllegalArgumentException
-	 *             if the <code>destination</code> or <code>original</code> argument is null or if
-	 *             the <code>destination</code> property type is different from the source type and
-	 *             the relevant converter has not been registered.
 	 * @throws InstantiationException
 	 *             Thrown if one of the following reasons: the class object
 	 *             <ul>
@@ -166,8 +148,8 @@ public final class CopyObjectExtensions
 	 *             </ul>
 	 */
 	@SuppressWarnings("unchecked")
-	public static final <T> T copyProperties(final T original) throws IllegalAccessException,
-		InvocationTargetException, IllegalArgumentException, InstantiationException
+	public static <T> T copyProperties(final T original)
+		throws IllegalAccessException, InvocationTargetException, InstantiationException
 	{
 		Object destination = original.getClass().newInstance();
 		BeanUtils.copyProperties(destination, original);
@@ -194,7 +176,7 @@ public final class CopyObjectExtensions
 		throws IOException, ClassNotFoundException
 	{
 		try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-			ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream);)
+			ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream))
 		{
 			objectOutputStream.writeObject(orig);
 			objectOutputStream.flush();

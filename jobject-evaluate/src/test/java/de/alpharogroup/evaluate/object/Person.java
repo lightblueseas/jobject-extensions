@@ -18,23 +18,42 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.merge.api;
+package de.alpharogroup.evaluate.object;
+
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 /**
- * A class that implements the {@link Mergeable} interface indicates that it can be merged with an
- * other object of its type.
- *
- * @param <T>
- *            the type of objects that this object may be merged with
+ * The class {@link Person} is a class intended for use in unit tests.
  */
-public interface Mergeable<T>
+@EqualsAndHashCode
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Person
 {
-	/**
-	 * Merge the given <code>object</code> with <code>this object</code>.
-	 *
-	 * @param object
-	 *            the object to merge with this one
-	 * @return the merged object
-	 */
-	public T merge(T object);
+
+	/** The about. */
+	String about;
+
+	/** The married flag. */
+	Boolean married;
+
+	/** The name. */
+	String name;
+
+	/** The nickname. */
+	String nickname;
+
 }

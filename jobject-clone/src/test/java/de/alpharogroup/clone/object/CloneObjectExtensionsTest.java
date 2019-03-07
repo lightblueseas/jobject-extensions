@@ -29,6 +29,7 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
+import de.alpharogroup.collections.array.ArrayFactory;
 import de.alpharogroup.date.CreateDateExtensions;
 import de.alpharogroup.test.objects.A;
 
@@ -37,21 +38,6 @@ import de.alpharogroup.test.objects.A;
  */
 public class CloneObjectExtensionsTest
 {
-
-	/**
-	 * Factory method for create new Array from the given optional elements.
-	 *
-	 * @param <T>
-	 *            the generic type of the elements
-	 * @param elements
-	 *            the optional elements to be added in the new Array.
-	 * @return the new Array.
-	 */
-	@SafeVarargs
-	public static <T> T[] newArray(final T... elements)
-	{
-		return elements;
-	}
 
 	/**
 	 * Test method for {@link CloneObjectExtensions#clone(Object)}.
@@ -64,8 +50,6 @@ public class CloneObjectExtensionsTest
 	 * @throws IllegalAccessException
 	 *             Thrown if this {@code Method} object is enforcing Java language access control
 	 *             and the underlying method is inaccessible.
-	 * @throws IllegalArgumentException
-	 *             Thrown if an illegal argument is given
 	 * @throws InvocationTargetException
 	 *             Thrown if the property accessor method throws an exception
 	 * @throws ClassNotFoundException
@@ -85,13 +69,12 @@ public class CloneObjectExtensionsTest
 	 */
 	@Test(enabled = true)
 	public void testClone() throws NoSuchMethodException, SecurityException, IllegalAccessException,
-		IllegalArgumentException, InvocationTargetException, ClassNotFoundException,
-		InstantiationException, IOException
+		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
 	{
 		Object expected;
 		Object actual;
 
-		expected = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 04);
+		expected = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 4);
 		actual = CloneObjectExtensions.clone(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
@@ -121,7 +104,7 @@ public class CloneObjectExtensionsTest
 		String[] expected;
 		String[] actual;
 
-		expected = newArray("foo", "bar");
+		expected = ArrayFactory.newArray("foo", "bar");
 		actual = CloneObjectExtensions.clone(expected);
 		for (int i = 0; i < actual.length; i++)
 		{
@@ -141,8 +124,6 @@ public class CloneObjectExtensionsTest
 	 * @throws IllegalAccessException
 	 *             Thrown if this {@code Method} object is enforcing Java language access control
 	 *             and the underlying method is inaccessible.
-	 * @throws IllegalArgumentException
-	 *             Thrown if an illegal argument is given
 	 * @throws InvocationTargetException
 	 *             Thrown if the property accessor method throws an exception
 	 * @throws ClassNotFoundException
@@ -161,15 +142,14 @@ public class CloneObjectExtensionsTest
 	 *             Signals that an I/O exception has occurred.
 	 */
 	@Test(enabled = true)
-	public void testCloneObject()
-		throws NoSuchMethodException, IllegalAccessException, IllegalArgumentException,
+	public void testCloneObject() throws NoSuchMethodException, IllegalAccessException,
 		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
 	{
 
 		Object expected;
 		Object actual;
 
-		expected = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 04);
+		expected = CreateDateExtensions.newDate(2009, 3, 26, 10, 37, 4);
 		actual = CloneObjectExtensions.cloneObject(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
@@ -189,13 +169,13 @@ public class CloneObjectExtensionsTest
 	 * values.
 	 */
 	@Test(enabled = true)
-	public void testClonePrimitiveArray() throws NoSuchMethodException, SecurityException,
-		IllegalAccessException, IllegalArgumentException, InvocationTargetException,
-		ClassNotFoundException, InstantiationException, IOException
+	public void testClonePrimitiveArray()
+		throws NoSuchMethodException, SecurityException, IllegalAccessException,
+		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
 	{
 		// TODO create szenario with no serializable...
-		int[] expected;
 		int[] actual;
+		int[] expected;
 
 		expected = new int[2];
 		expected[0] = 1;

@@ -125,10 +125,6 @@ public final class ObjectExtensions
 		{
 			return ClassType.INTERFACE;
 		}
-		if (clazz.isSynthetic())
-		{
-			return ClassType.SYNTHETIC;
-		}
 		if (clazz.isAnonymousClass())
 		{
 			return ClassType.ANONYMOUS;

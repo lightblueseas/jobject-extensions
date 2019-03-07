@@ -75,9 +75,8 @@ public abstract class GenericSummarizer<T extends Mergeable<T>> implements Summa
 		List<T> mergedItems = new ArrayList<>(items);
 		List<T> lastIterated = new ArrayList<>(mergedItems);
 		int initialSize = mergedItems.size();
-		boolean mergable = true;
 		int count = 0;
-		while (mergable && count < maxIteration)
+		while (count < maxIteration)
 		{
 			merge(mergedItems, toAdd, toRemove);
 			mergedItems = clean(toAdd, toRemove);
@@ -85,15 +84,9 @@ public abstract class GenericSummarizer<T extends Mergeable<T>> implements Summa
 			toAdd.clear();
 			toRemove.clear();
 			final int newSize = mergedItems.size();
-			if (initialSize == newSize)
-			{
-				// compare lists if equal
-				if (mergedItems.equals(lastIterated))
-				{
-					mergable = false;
-					break;
-				}
-			}
+			    if (initialSize == newSize && mergedSections.equals(lastIterated)) {
+				break;
+			    }
 			initialSize = newSize;
 			lastIterated = new ArrayList<>(mergedItems);
 			count++;

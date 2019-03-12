@@ -40,7 +40,28 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class CopyObjectExtensions
 {
-
+	
+    /**
+     * Copy the given original object
+     *
+     * @param original the original object
+     * @return a copy of the given original object
+     * @throws IllegalAccessException if the caller does not have access to the property accessor method
+     * @throws InstantiationException Thrown if one of the following reasons: the class object
+     *                                <ul>
+     *                                <li>represents an abstract class</li>
+     *                                <li>represents an interface</li>
+     *                                <li>represents an array class</li>
+     *                                <li>represents a primitive type</li>
+     *                                <li>represents {@code void}</li>
+     *                                <li>has no nullary constructor</li>
+     *                                </ul>
+     */
+    public static Object copy(@NonNull Object original) throws IllegalAccessException, InstantiationException {
+        Object destination = original.getClass().newInstance();
+        return copy(original, destination);
+    }
+	
     /**
      * Copy the given original object to the given destination object. This also works on private
      * fields.
@@ -63,7 +84,7 @@ public final class CopyObjectExtensions
      *             <li>has no nullary constructor</li>
      *             </ul>
      */
-    private static <ORIGINAL, DESTINATION> boolean copyField(@NonNull Field field, @NonNull ORIGINAL original, @NonNull DESTINATION destination) throws IllegalAccessException, InstantiationException {
+    public static <ORIGINAL, DESTINATION> boolean copyField(@NonNull Field field, @NonNull ORIGINAL original, @NonNull DESTINATION destination) throws IllegalAccessException, InstantiationException {
         field.setAccessible(true);
         if (field.get(original) == null || Modifier.isFinal(field.getModifiers())) {
             return true;
@@ -77,7 +98,7 @@ public final class CopyObjectExtensions
             if (childObj == original) {
                 field.set(destination, destination);
             } else {
-                field.set(destination, cloneObject(field.get(original)));
+                field.set(destination, copy(field.get(original)));
             }
         }
         return false;

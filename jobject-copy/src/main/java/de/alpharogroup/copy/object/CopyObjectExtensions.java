@@ -26,8 +26,11 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
 
+import lombok.NonNull;
 import org.apache.commons.beanutils.BeanUtils;
 
 import de.alpharogroup.reflection.ReflectionExtensions;
@@ -57,9 +60,9 @@ public final class CopyObjectExtensions
      *                                <li>has no nullary constructor</li>
      *                                </ul>
      */
-    public static Object copy(@NonNull Object original) throws IllegalAccessException, InstantiationException {
+    public static Object copyObject(@NonNull Object original) throws IllegalAccessException, InstantiationException {
         Object destination = original.getClass().newInstance();
-        return copy(original, destination);
+        return copyObject(original, destination);
     }
 	
     /**
@@ -82,7 +85,7 @@ public final class CopyObjectExtensions
      *                                <li>has no nullary constructor</li>
      *                                </ul>
      */
-    private static <ORIGINAL, DESTINATION> DESTINATION copy(@NonNull ORIGINAL original, @NonNull DESTINATION destination) throws IllegalAccessException, InstantiationException {
+    public static <ORIGINAL, DESTINATION> DESTINATION copyObject(@NonNull ORIGINAL original, @NonNull DESTINATION destination) throws IllegalAccessException, InstantiationException {
         for (Field field : original.getClass().getDeclaredFields()) {
             if (copyField(field, original, destination)) continue;
         }
@@ -125,7 +128,7 @@ public final class CopyObjectExtensions
             if (childObj == original) {
                 field.set(destination, destination);
             } else {
-                field.set(destination, copy(field.get(original)));
+                field.set(destination, copyObject(field.get(original)));
             }
         }
         return false;

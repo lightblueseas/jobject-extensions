@@ -41,6 +41,48 @@ import lombok.experimental.UtilityClass;
 public final class CopyObjectExtensions
 {
 
+    /**
+     * Copy the given original object to the given destination object. This also works on private
+     * fields.
+     *
+     * @param <ORIGINAL>    the generic type of the original object.
+     * @param <DESTINATION> the generic type of the destination object.
+     * @param field         the field
+     * @param original      the original object.
+     * @param destination   the destination object.
+     * @return true if the field is null or final otherwise false
+     * @throws IllegalAccessException if the caller does not have access to the property accessor method
+     * @throws InstantiationException
+     *             Thrown if one of the following reasons: the class object
+     *             <ul>
+     *             <li>represents an abstract class</li>
+     *             <li>represents an interface</li>
+     *             <li>represents an array class</li>
+     *             <li>represents a primitive type</li>
+     *             <li>represents {@code void}</li>
+     *             <li>has no nullary constructor</li>
+     *             </ul>
+     */
+    private static <ORIGINAL, DESTINATION> boolean copyField(@NonNull Field field, @NonNull ORIGINAL original, @NonNull DESTINATION destination) throws IllegalAccessException, InstantiationException {
+        field.setAccessible(true);
+        if (field.get(original) == null || Modifier.isFinal(field.getModifiers())) {
+            return true;
+        }
+        if (field.getType().isPrimitive() || field.getType().equals(String.class)
+                || field.getType().getSuperclass().equals(Number.class)
+                || field.getType().equals(Boolean.class)) {
+            field.set(destination, field.get(original));
+        } else {
+            Object childObj = field.get(original);
+            if (childObj == original) {
+                field.set(destination, destination);
+            } else {
+                field.set(destination, cloneObject(field.get(original)));
+            }
+        }
+        return false;
+    }
+	
 	/**
 	 * Copy the given original object to the given destination object. This also works on private
 	 * fields.

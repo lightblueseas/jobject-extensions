@@ -4,6 +4,10 @@
 Version 2.6-SNAPSHOT
 -------------
 
+CHANGED:
+
+- moved jobject-merge-api to its own project
+
 Version 2.5.1
 -------------
 

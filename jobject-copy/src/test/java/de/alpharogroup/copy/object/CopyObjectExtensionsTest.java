@@ -70,6 +70,13 @@ public class CopyObjectExtensionsTest
 		expected = Person.builder().gender(Gender.MALE).name("asterix").build();
 		actual = CopyObjectExtensions.copyObject(expected);
 		assertEquals(expected, actual);
+		
+		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
+				.about("Ha ha ha...").nickname("beast").build();
+
+		Employee original = Employee.builder().person(person).id("23").build();
+		Employee employee = CopyObjectExtensions.copyObject(original);
+		assertEquals(original, employee);
 	}
 
 	/**

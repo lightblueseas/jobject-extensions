@@ -116,23 +116,24 @@ public final class CopyObjectExtensions
      */
      public static <ORIGINAL, DESTINATION> boolean copyField(@NonNull Field field, @NonNull ORIGINAL original, @NonNull DESTINATION destination) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
         field.setAccessible(true);
-        if (field.get(original) == null || Modifier.isFinal(field.getModifiers())) {
+	 Object value = field.get(original);
+	 if (value == null || Modifier.isFinal(field.getModifiers())) {
             return true;
         }
 		if (field.getType().isEnum()) {
-			Enum o = (Enum) field.get(original);
-			String name = o.name();
+			Enum enumValue = (Enum) value;
+			String name = enumValue.name();
 			field.set(destination, Enum.valueOf(field.getType().asSubclass(Enum.class), name));
 		} else if (field.getType().isPrimitive() || field.getType().equals(String.class)
                 || field.getType().getSuperclass().equals(Number.class)
                 || field.getType().equals(Boolean.class)) {
-            field.set(destination, field.get(original));
+            field.set(destination, value);
         } else {
-            Object childObj = field.get(original);
+            Object childObj = value;
             if (childObj == original) {
                 field.set(destination, destination);
             } else {
-                field.set(destination, copyObject(field.get(original)));
+                field.set(destination, copyObject(value));
             }
         }
         return false;

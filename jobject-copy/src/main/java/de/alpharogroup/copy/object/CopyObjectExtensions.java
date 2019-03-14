@@ -91,6 +91,34 @@ public final class CopyObjectExtensions
         }
         return destination;
     }
+
+	/**
+	 * Copy the given original object to the given destination object. This also works on private
+	 * fields.
+	 *
+	 * @param <ORIGINAL>    the generic type of the original object.
+	 * @param <DESTINATION> the generic type of the destination object.
+	 * @param original      the original object.
+	 * @param destination   the destination object.
+	 * @param ignoreFields  optional field names to ignore
+	 * @return a copy of the given original object
+	 * @throws IllegalAccessException if the caller does not have access to the property accessor method
+	 * @throws InstantiationException Thrown if one of the following reasons: the class object
+	 *                                <ul>
+	 *                                <li>represents an abstract class</li>
+	 *                                <li>represents an interface</li>
+	 *                                <li>represents an array class</li>
+	 *                                <li>represents a primitive type</li>
+	 *                                <li>represents {@code void}</li>
+	 *                                <li>has no nullary constructor</li>
+	 *                                </ul>
+	 */
+	public static <ORIGINAL, DESTINATION> DESTINATION copyObject(@NonNull ORIGINAL original, @NonNull DESTINATION destination, String... ignoreFields) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
+		for (Field field : original.getClass().getDeclaredFields()) {
+			if (copyField(field, original, destination) || Arrays.asList(ignoreFields).contains(field.getName())) continue;
+		}
+		return destination;
+	}
 	
     /**
      * Copy the given original object to the given destination object. This also works on private

@@ -116,7 +116,7 @@ public final class CopyObjectExtensions
 	 */
 	public static <ORIGINAL, DESTINATION> DESTINATION copyObject(@NonNull ORIGINAL original, @NonNull DESTINATION destination, String... ignoreFields) throws IllegalAccessException, InstantiationException, NoSuchMethodException, InvocationTargetException {
 		for (Field field : original.getClass().getDeclaredFields()) {
-			if (copyField(field, original, destination) || Arrays.asList(ignoreFields).contains(field.getName())) continue;
+			if ( Arrays.asList(ignoreFields).contains(field.getName()) || copyField(field, original, destination)) continue;
 		}
 		return destination;
 	}

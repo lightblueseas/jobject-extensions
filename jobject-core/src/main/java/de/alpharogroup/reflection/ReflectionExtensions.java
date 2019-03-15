@@ -30,12 +30,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.objenesis.Objenesis;
+import org.objenesis.ObjenesisStd;
+import org.objenesis.instantiator.ObjectInstantiator;
+
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
-
 /**
- * The class {@link ReflectionExtensions}.
+ * The class {@link ReflectionExtensions} provides utility methods for the java reflection API
  */
 @UtilityClass
 public final class ReflectionExtensions
@@ -310,6 +313,30 @@ public final class ReflectionExtensions
 		throws InstantiationException, IllegalAccessException
 	{
 		return clazz.newInstance();
+	}
+
+	/**
+	 * Creates a new instance from the same type as the given {@link Class}
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param clazz
+	 *            the Class object
+	 * @return the new instance
+	 * @throws IllegalAccessException
+	 *             is thrown if the class or its default constructor is not accessible.
+	 * @throws InstantiationException
+	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
+	 *             array class, a primitive type, or void; or if the class has no default
+	 *             constructor; or if the instantiation fails for some other reason.
+	 */
+
+	public static <T> T newInstanceWithObjenesis(final @NonNull Class<T> clazz)
+		throws InstantiationException, IllegalAccessException
+	{
+		Objenesis objenesis = new ObjenesisStd();
+        ObjectInstantiator<T> instantiator = objenesis.getInstantiatorOf(clazz);
+		return instantiator.newInstance();
 	}
 
 	/**

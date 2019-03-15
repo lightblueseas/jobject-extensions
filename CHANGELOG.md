@@ -4,9 +4,16 @@
 Version 2.6-SNAPSHOT
 -------------
 
+ADDED:
+
+- new methods for copy object with reflection
+- new dependency objenesis for instantiate object from class objects
+- new method to create new instances of a given class object
+
 CHANGED:
 
 - moved jobject-merge-api to its own project
+- tagged class SilentEqualsHashCodeAndToStringEvaluator as deprecated
 
 Version 2.5.1
 -------------

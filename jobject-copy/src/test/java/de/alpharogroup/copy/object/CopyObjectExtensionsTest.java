@@ -47,8 +47,8 @@ public class CopyObjectExtensionsTest
 	 *
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
-	 * @throws InvocationTargetException
-	 *             if the property accessor method throws an exception
+	 * @throws ClassNotFoundException
+	 *             is thrown if the class cannot be located
 	 * @throws InstantiationException
 	 *             Thrown if one of the following reasons: the class object
 	 *             <ul>
@@ -62,7 +62,7 @@ public class CopyObjectExtensionsTest
 	 */
 	@Test
 	public void testCopyObject()
-			throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, InvocationTargetException
+		throws IllegalAccessException, InstantiationException, ClassNotFoundException
 	{
 		Person actual;
 		Person expected;
@@ -70,22 +70,20 @@ public class CopyObjectExtensionsTest
 		expected = Person.builder().gender(Gender.MALE).name("asterix").build();
 		actual = CopyObjectExtensions.copyObject(expected);
 		assertEquals(expected, actual);
-		
+
 		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
-				.about("Ha ha ha...").nickname("beast").build();
+			.about("Ha ha ha...").nickname("beast").build();
 
 		Employee original = Employee.builder().person(person).id("23").build();
 		Employee employee = CopyObjectExtensions.copyObject(original);
 		assertEquals(original, employee);
 	}
-	
+
 	/**
 	 * Test method for {@link CopyObjectExtensions#copyObject(Object)}
 	 *
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
-	 * @throws InvocationTargetException
-	 *             if the property accessor method throws an exception
 	 * @throws InstantiationException
 	 *             Thrown if one of the following reasons: the class object
 	 *             <ul>
@@ -96,10 +94,11 @@ public class CopyObjectExtensionsTest
 	 *             <li>represents {@code void}</li>
 	 *             <li>has no nullary constructor</li>
 	 *             </ul>
+	 * @throws ClassNotFoundException 
+	 *             is thrown if the class cannot be located
 	 */
 	@Test
-	public void testCopyObjectIgnoreFields()
-			throws IllegalAccessException, InvocationTargetException, InstantiationException, NoSuchMethodException, InvocationTargetException
+	public void testCopyObjectIgnoreFields() throws IllegalAccessException, InstantiationException, ClassNotFoundException
 	{
 		Person actual;
 		Person expected;
@@ -109,7 +108,7 @@ public class CopyObjectExtensionsTest
 		assertEquals(expected, actual);
 
 		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
-				.about("Ha ha ha...").nickname("beast").build();
+			.about("Ha ha ha...").nickname("beast").build();
 
 		Employee original = Employee.builder().person(person).id("23").build();
 		Employee destination = Employee.builder().build();

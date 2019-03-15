@@ -63,7 +63,6 @@ Than you can add the dependency to your dependencies:
 		<jobject-diff.version>${jobject-extensions.version}</jobject-diff.version>
 		<jobject-evaluate.version>${jobject-extensions.version}</jobject-evaluate.version>
 		<jobject-merge.version>${jobject-extensions.version}</jobject-merge.version>
-		<jobject-merge-api.version>${jobject-extensions.version}</jobject-merge-api.version>
 			...
 	</properties>
 		
@@ -165,20 +164,6 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 			...
 		</dependencies>
 		
-Add the following maven dependency to your project `pom.xml` if you want to import only the jobject-merge-api:
-
-		<dependencies>
-			...
-			<!-- JOBJECT-MERGE-API DEPENDENCY -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>jobject-merge-api</artifactId>
-				<version>${jobject-merge-api.version}</version>
-			</dependency>
-			...
-		</dependencies>
-
-
 You can of course import all dependencies of jobject-extensions:
 
 		<dependencies>
@@ -225,12 +210,6 @@ You can of course import all dependencies of jobject-extensions:
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-merge</artifactId>
 				<version>${jobject-merge.version}</version>
-			</dependency>
-			<!-- JOBJECT-MERGE-API DEPENDENCY -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>jobject-merge-api</artifactId>
-				<version>${jobject-merge-api.version}</version>
 			</dependency>
 			...
 		</dependencies>

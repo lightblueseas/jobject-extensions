@@ -335,7 +335,7 @@ public final class ReflectionExtensions
 		throws InstantiationException, IllegalAccessException
 	{
 		Objenesis objenesis = new ObjenesisStd();
-        ObjectInstantiator<T> instantiator = objenesis.getInstantiatorOf(clazz);
+		ObjectInstantiator<T> instantiator = objenesis.getInstantiatorOf(clazz);
 		return instantiator.newInstance();
 	}
 

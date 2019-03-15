@@ -43,6 +43,47 @@ public class CopyObjectExtensionsTest
 {
 
 	/**
+	 * Test method for {@link CopyObjectExtensions#copy(Object, Object)}.
+	 *
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws InvocationTargetException
+	 *             the invocation target exception
+	 */
+	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
+	public void testCopyIllegalArgumentException()
+		throws IllegalAccessException, InvocationTargetException
+	{
+		CopyObjectExtensions.copy(null, "beast");
+	}
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copy(Object, Object)}.
+	 *
+	 * @throws IllegalAccessException
+	 *             the illegal access exception
+	 * @throws InvocationTargetException
+	 *             the invocation target exception
+	 */
+	@Test(enabled = true)
+	public void testCopyNotEqualType() throws IllegalAccessException, InvocationTargetException
+	{
+		Object expected;
+		Object actual;
+
+		final DateDecorator dateDecorator = DateDecorator.builder().date(CreateDateExtensions.now())
+			.build();
+
+		final SqlTimestampDecorator timestampDecorator = SqlTimestampDecorator.builder().build();
+
+		CopyObjectExtensions.copy(dateDecorator, timestampDecorator);
+		expected = dateDecorator.getDate().getTime();
+		actual = timestampDecorator.getDate().getTime();
+		assertEquals(expected, actual);
+
+	}
+
+	/**
 	 * Test method for {@link CopyObjectExtensions#copyObject(Object)}
 	 *
 	 * @throws IllegalAccessException
@@ -94,11 +135,12 @@ public class CopyObjectExtensionsTest
 	 *             <li>represents {@code void}</li>
 	 *             <li>has no nullary constructor</li>
 	 *             </ul>
-	 * @throws ClassNotFoundException 
+	 * @throws ClassNotFoundException
 	 *             is thrown if the class cannot be located
 	 */
 	@Test
-	public void testCopyObjectIgnoreFields() throws IllegalAccessException, InstantiationException, ClassNotFoundException
+	public void testCopyObjectIgnoreFields()
+		throws IllegalAccessException, InstantiationException, ClassNotFoundException
 	{
 		Person actual;
 		Person expected;
@@ -115,47 +157,6 @@ public class CopyObjectExtensionsTest
 		Employee employee = CopyObjectExtensions.copyObject(original, destination, "id");
 		original.setId(null);
 		assertEquals(original, employee);
-	}
-
-	/**
-	 * Test method for {@link CopyObjectExtensions#copy(Object, Object)}.
-	 *
-	 * @throws IllegalAccessException
-	 *             the illegal access exception
-	 * @throws InvocationTargetException
-	 *             the invocation target exception
-	 */
-	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
-	public void testCopyIllegalArgumentException()
-		throws IllegalAccessException, InvocationTargetException
-	{
-		CopyObjectExtensions.copy(null, "beast");
-	}
-
-	/**
-	 * Test method for {@link CopyObjectExtensions#copy(Object, Object)}.
-	 *
-	 * @throws IllegalAccessException
-	 *             the illegal access exception
-	 * @throws InvocationTargetException
-	 *             the invocation target exception
-	 */
-	@Test(enabled = true)
-	public void testCopyNotEqualType() throws IllegalAccessException, InvocationTargetException
-	{
-		Object expected;
-		Object actual;
-
-		final DateDecorator dateDecorator = DateDecorator.builder().date(CreateDateExtensions.now())
-			.build();
-
-		final SqlTimestampDecorator timestampDecorator = SqlTimestampDecorator.builder().build();
-
-		CopyObjectExtensions.copy(dateDecorator, timestampDecorator);
-		expected = dateDecorator.getDate().getTime();
-		actual = timestampDecorator.getDate().getTime();
-		assertEquals(expected, actual);
-
 	}
 
 	/**

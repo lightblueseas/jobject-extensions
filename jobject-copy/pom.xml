@@ -13,7 +13,7 @@
 	<artifactId>jobject-copy</artifactId>
 
 	<dependencies>
-	
+
 		<dependency>
 			<groupId>commons-beanutils</groupId>
 			<artifactId>commons-beanutils</artifactId>

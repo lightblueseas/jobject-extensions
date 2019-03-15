@@ -308,33 +308,6 @@ public class ReflectionExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link ReflectionExtensions#newInstanceWithObjenesis(Class)}.
-	 *
-	 * @throws IllegalAccessException
-	 *             is thrown if the class or its nullary constructor is not accessible.
-	 * @throws InstantiationException
-	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
-	 *             array class, a primitive type, or void; or if the class has no nullary
-	 *             constructor; or if the instantiation fails for some other reason.
-	 */
-	@Test
-	public void testNewInstanceWithObjenesis() throws InstantiationException, IllegalAccessException
-	{
-		Person expected;
-		Person actual;
-		final Class<Person> clazz = Person.class;
-		actual = ReflectionExtensions.newInstanceWithObjenesis(clazz);
-		assertNotNull(actual);
-		expected = Person.builder().build();
-		expected.setAbout(null);
-		expected.setGender(null);
-		expected.setMarried(null);
-		expected.setName(null);
-		expected.setNickname(null);
-		assertEquals(expected, actual);
-	}
-
-	/**
 	 * Test method for {@link ReflectionExtensions#newInstance(Object)}.
 	 *
 	 * @throws ClassNotFoundException
@@ -358,6 +331,33 @@ public class ReflectionExtensionsTest
 		expected = new A();
 		assertEquals(expected, actual);
 		expected = A.builder().build();
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#newInstanceWithObjenesis(Class)}.
+	 *
+	 * @throws IllegalAccessException
+	 *             is thrown if the class or its nullary constructor is not accessible.
+	 * @throws InstantiationException
+	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
+	 *             array class, a primitive type, or void; or if the class has no nullary
+	 *             constructor; or if the instantiation fails for some other reason.
+	 */
+	@Test
+	public void testNewInstanceWithObjenesis() throws InstantiationException, IllegalAccessException
+	{
+		Person expected;
+		Person actual;
+		final Class<Person> clazz = Person.class;
+		actual = ReflectionExtensions.newInstanceWithObjenesis(clazz);
+		assertNotNull(actual);
+		expected = Person.builder().build();
+		expected.setAbout(null);
+		expected.setGender(null);
+		expected.setMarried(null);
+		expected.setName(null);
+		expected.setNickname(null);
 		assertEquals(expected, actual);
 	}
 

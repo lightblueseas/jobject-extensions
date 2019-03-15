@@ -32,7 +32,7 @@ import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
 /**
- * The unit test class for the class {@link SilentEqualsHashCodeAndToStringEvaluator}.
+ * The unit test class for the class {@link SilentEqualsHashCodeAndToStringEvaluator}
  */
 public class SilentEqualsHashCodeAndToStringEvaluatorTest
 {
@@ -41,6 +41,7 @@ public class SilentEqualsHashCodeAndToStringEvaluatorTest
 	 * Test method for
 	 * {@link SilentEqualsHashCodeAndToStringEvaluator#evaluateEqualsHashcodeAndToStringQuietly(Class)}
 	 */
+	@SuppressWarnings("deprecation")
 	@Test
 	public void testEvaluateEqualsHashcodeAndToStringQuietly()
 	{
@@ -65,6 +66,7 @@ public class SilentEqualsHashCodeAndToStringEvaluatorTest
 	/**
 	 * Test method for {@link SilentEqualsHashCodeAndToStringEvaluator} with {@link BeanTester}
 	 */
+	@SuppressWarnings("deprecation")
 	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,
 			UnsupportedOperationException.class })
 	public void testWithBeanTester()

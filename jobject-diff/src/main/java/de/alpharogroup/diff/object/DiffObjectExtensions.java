@@ -156,8 +156,6 @@ public class DiffObjectExtensions
 	 * @param parent
 	 *            the parent of the changed data. This is initially null.
 	 * @return the list with the changed data
-	 * @throws IllegalArgumentException
-	 *             Thrown if an illegal argument is given
 	 * @throws IllegalAccessException
 	 *             Thrown if this method or object is enforcing java language access control and the
 	 *             underlying method or object is inaccessible.
@@ -165,7 +163,7 @@ public class DiffObjectExtensions
 	public static List<ChangedAttributeResult> getChangedDataWithReflection(
 		final Object sourceOjbect, final Object objectToCompare,
 		List<ChangedAttributeResult> changedData, final ChangedAttributeResult parent)
-		throws IllegalArgumentException, IllegalAccessException
+		throws IllegalAccessException
 	{
 		if (changedData == null)
 		{

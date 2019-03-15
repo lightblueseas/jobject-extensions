@@ -28,7 +28,7 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.test.objects.Person;
+import de.alpharogroup.evaluate.object.Person;
 import io.github.benas.randombeans.api.EnhancedRandom;
 
 /**
@@ -63,8 +63,6 @@ public class HashcodeEvaluatorTest
 
 		actual = HashcodeEvaluator.evaluateConsistency(new Person()
 		{
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public int hashCode()
 			{
@@ -97,8 +95,6 @@ public class HashcodeEvaluatorTest
 
 		actual = HashcodeEvaluator.evaluateEquality(new Person()
 		{
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public int hashCode()
 			{
@@ -106,8 +102,6 @@ public class HashcodeEvaluatorTest
 			}
 		}, new Person()
 		{
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public int hashCode()
 			{
@@ -116,24 +110,6 @@ public class HashcodeEvaluatorTest
 		});
 		expected = false;
 		assertEquals(expected, actual);
-	}
-
-	/**
-	 * Test method for {@link HashcodeEvaluator#evaluateEquality(Object, Object)}.
-	 */
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateEqualityExpectedException01()
-	{
-		HashcodeEvaluator.evaluateEquality(Integer.valueOf(1), Integer.valueOf(0));
-	}
-
-	/**
-	 * Test method for {@link HashcodeEvaluator#evaluateEquality(Object, Object)}.
-	 */
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateEqualityExpectedException02()
-	{
-		HashcodeEvaluator.evaluateEquality(Integer.valueOf(1), null);
 	}
 
 	/**
@@ -159,15 +135,6 @@ public class HashcodeEvaluatorTest
 		actual = HashcodeEvaluator.evaluateUnequality(Integer.valueOf(1), null);
 		expected = true;
 		assertEquals(expected, actual);
-	}
-
-	/**
-	 * Test method for {@link HashcodeEvaluator#evaluateUnequality(Object, Object)}.
-	 */
-	@Test(expectedExceptions = IllegalArgumentException.class)
-	public void testEvaluateUnequalityExpectedException01()
-	{
-		HashcodeEvaluator.evaluateUnequality(Integer.valueOf(0), Integer.valueOf(0));
 	}
 
 	/**

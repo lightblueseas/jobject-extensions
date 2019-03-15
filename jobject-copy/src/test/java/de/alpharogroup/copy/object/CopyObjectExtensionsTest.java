@@ -84,16 +84,12 @@ public class CopyObjectExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link CopyObjectExtensions#copyProperties(Object)}
-	 * 
+	 * Test method for {@link CopyObjectExtensions#copyObject(Object)}
+	 *
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
-	 * @throws InvocationTargetException
-	 *             if the property accessor method throws an exception
-	 * @throws IllegalArgumentException
-	 *             if the <code>destination</code> or <code>original</code> argument is null or if
-	 *             the <code>destination</code> property type is different from the source type and
-	 *             the relevant converter has not been registered.
+	 * @throws ClassNotFoundException
+	 *             is thrown if the class cannot be located
 	 * @throws InstantiationException
 	 *             Thrown if one of the following reasons: the class object
 	 *             <ul>
@@ -106,8 +102,84 @@ public class CopyObjectExtensionsTest
 	 *             </ul>
 	 */
 	@Test
-	public void testCopyProperties() throws IllegalAccessException, InvocationTargetException,
-		IllegalArgumentException, InstantiationException
+	public void testCopyObject()
+		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+	{
+		Person actual;
+		Person expected;
+
+		expected = Person.builder().gender(Gender.MALE).name("asterix").build();
+		actual = CopyObjectExtensions.copyObject(expected);
+		assertEquals(expected, actual);
+
+		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
+			.about("Ha ha ha...").nickname("beast").build();
+
+		Employee original = Employee.builder().person(person).id("23").build();
+		Employee employee = CopyObjectExtensions.copyObject(original);
+		assertEquals(original, employee);
+	}
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copyObject(Object)}
+	 *
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InstantiationException
+	 *             Thrown if one of the following reasons: the class object
+	 *             <ul>
+	 *             <li>represents an abstract class</li>
+	 *             <li>represents an interface</li>
+	 *             <li>represents an array class</li>
+	 *             <li>represents a primitive type</li>
+	 *             <li>represents {@code void}</li>
+	 *             <li>has no nullary constructor</li>
+	 *             </ul>
+	 * @throws ClassNotFoundException
+	 *             is thrown if the class cannot be located
+	 */
+	@Test
+	public void testCopyObjectIgnoreFields()
+		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+	{
+		Person actual;
+		Person expected;
+
+		expected = Person.builder().gender(Gender.MALE).name("asterix").build();
+		actual = CopyObjectExtensions.copyObject(expected);
+		assertEquals(expected, actual);
+
+		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
+			.about("Ha ha ha...").nickname("beast").build();
+
+		Employee original = Employee.builder().person(person).id("23").build();
+		Employee destination = Employee.builder().build();
+		Employee employee = CopyObjectExtensions.copyObject(original, destination, "id");
+		original.setId(null);
+		assertEquals(original, employee);
+	}
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copyProperties(Object)}
+	 * 
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InvocationTargetException
+	 *             if the property accessor method throws an exception
+	 * @throws InstantiationException
+	 *             Thrown if one of the following reasons: the class object
+	 *             <ul>
+	 *             <li>represents an abstract class</li>
+	 *             <li>represents an interface</li>
+	 *             <li>represents an array class</li>
+	 *             <li>represents a primitive type</li>
+	 *             <li>represents {@code void}</li>
+	 *             <li>has no nullary constructor</li>
+	 *             </ul>
+	 */
+	@Test
+	public void testCopyProperties()
+		throws IllegalAccessException, InvocationTargetException, InstantiationException
 	{
 		Person actual;
 		Person expected;

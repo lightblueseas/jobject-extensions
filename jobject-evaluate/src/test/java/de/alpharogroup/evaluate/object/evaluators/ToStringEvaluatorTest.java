@@ -32,7 +32,7 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.test.objects.Person;
+import de.alpharogroup.evaluate.object.Person;
 import io.github.benas.randombeans.api.EnhancedRandom;
 
 /**
@@ -81,8 +81,6 @@ public class ToStringEvaluatorTest
 
 		actual = ToStringEvaluator.evaluateConsistency(new Person()
 		{
-			private static final long serialVersionUID = 1L;
-
 			@Override
 			public String toString()
 			{
@@ -101,8 +99,13 @@ public class ToStringEvaluatorTest
 	{
 		boolean expected;
 		boolean actual;
+
 		actual = ToStringEvaluator.evaluateConsistency(Integer.valueOf(1), 10);
 		expected = true;
+		assertEquals(expected, actual);
+
+		actual = ToStringEvaluator.evaluateConsistency(null, 10);
+		expected = false;
 		assertEquals(expected, actual);
 	}
 

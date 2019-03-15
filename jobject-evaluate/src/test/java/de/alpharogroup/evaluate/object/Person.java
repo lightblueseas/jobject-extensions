@@ -18,38 +18,42 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.merge.api;
+package de.alpharogroup.evaluate.object;
 
-import java.util.List;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.EqualsAndHashCode;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 /**
- * A class that implements the {@link Summarizer} interface indicates that it can merge single or a
- * collection of objects in with each other.
- *
- * @param <T>
- *            the type of objects that may be merged
+ * The class {@link Person} is a class intended for use in unit tests.
  */
-public interface Summarizer<T>
+@EqualsAndHashCode
+@Getter
+@Setter
+@ToString
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class Person
 {
 
-	/**
-	 * Merge the given <code>list</code> with the <code>objects</code> that can be merged and return
-	 * the resulted merged <code>objects</code> in a <code>list</code>.
-	 *
-	 * @param list
-	 *            the <code>list</code> with the <code>objects</code> to merge
-	 * @return the list with the merged objects
-	 */
-	List<T> merge(List<T> list);
+	/** The about. */
+	String about;
 
-	/**
-	 * Merge the given <code>object</code> with <code>other</code> object.
-	 *
-	 * @param object
-	 *            the object to merge in
-	 * @param other
-	 *            the other object to merge with
-	 * @return the merged object or null if it isn't possible
-	 */
-	T merge(T object, T other);
+	/** The married flag. */
+	Boolean married;
+
+	/** The name. */
+	String name;
+
+	/** The nickname. */
+	String nickname;
+
 }

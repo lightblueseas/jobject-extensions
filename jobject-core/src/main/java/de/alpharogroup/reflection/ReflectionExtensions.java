@@ -28,13 +28,17 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import org.objenesis.Objenesis;
+import org.objenesis.ObjenesisStd;
+import org.objenesis.instantiator.ObjectInstantiator;
 
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
-
 /**
- * The class {@link ReflectionExtensions}.
+ * The class {@link ReflectionExtensions} provides utility methods for the java reflection API
  */
 @UtilityClass
 public final class ReflectionExtensions
@@ -55,14 +59,12 @@ public final class ReflectionExtensions
 	 *             is thrown if no such field exists.
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
-	public static <T> void copyFieldValue(final T source, final T target, final String fieldName)
-		throws NoSuchFieldException, SecurityException, IllegalArgumentException,
-		IllegalAccessException
+	public static <T> void copyFieldValue(final @NonNull T source, final @NonNull T target,
+		final @NonNull String fieldName)
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(source, fieldName);
 		sourceField.setAccessible(true);
@@ -85,18 +87,41 @@ public final class ReflectionExtensions
 	 *             is thrown if no such field exists.
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
-	public static <T> void setFieldValue(final T source, final String fieldName,
-		final Object newValue) throws NoSuchFieldException, SecurityException,
-		IllegalArgumentException, IllegalAccessException
+	public static <T> void setFieldValue(final @NonNull T source, final @NonNull String fieldName,
+		final Object newValue)
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(source, fieldName);
 		sourceField.setAccessible(true);
 		sourceField.set(source, newValue);
+	}
+
+	/**
+	 * Gets the field value of the given source object over the field name.
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param source
+	 *            the source
+	 * @param fieldName
+	 *            the field name
+	 * @return the field value
+	 * @throws NoSuchFieldException
+	 *             is thrown if no such field exists.
+	 * @throws SecurityException
+	 *             is thrown if a security manager says no.
+	 * @throws IllegalAccessException
+	 *             is thrown if an illegal on create an instance or access a method.
+	 */
+	public static <T> Object getFieldValue(final @NonNull T source, final @NonNull String fieldName)
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
+	{
+		final Field sourceField = getDeclaredField(source, fieldName);
+		sourceField.setAccessible(true);
+		return sourceField.get(source);
 	}
 
 	/**
@@ -114,14 +139,12 @@ public final class ReflectionExtensions
 	 *             is thrown if no such field exists.
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
-	 * @throws IllegalArgumentException
-	 *             is thrown if an illegal or inappropriate argument has been passed to a method.
 	 * @throws IllegalAccessException
 	 *             is thrown if an illegal on create an instance or access a method.
 	 */
-	public static <T> void setFieldValue(final Class<?> cls, final String fieldName,
-		final Object newValue) throws NoSuchFieldException, SecurityException,
-		IllegalArgumentException, IllegalAccessException
+	public static <T> void setFieldValue(final @NonNull Class<?> cls,
+		final @NonNull String fieldName, final Object newValue)
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		final Field sourceField = getDeclaredField(cls, fieldName);
 		sourceField.setAccessible(true);
@@ -136,15 +159,38 @@ public final class ReflectionExtensions
 	 *
 	 * @return Gets all field names from the given class as an String list.
 	 */
-	public static List<String> getFieldNames(final Class<?> cls)
+	public static List<String> getFieldNames(final @NonNull Class<?> cls)
 	{
-		final Field[] fields = cls.getDeclaredFields();
-		final List<String> fieldNames = new ArrayList<>();
-		for (final Field field : fields)
-		{
-			fieldNames.add(field.getName());
-		}
-		return fieldNames;
+		return Arrays.stream(cls.getDeclaredFields()).map(field -> {
+			return field.getName();
+		}).collect(Collectors.toList());
+	}
+
+	/**
+	 * Gets all the declared field names from the given class object.
+	 *
+	 * Note: without the field names from any superclasses
+	 *
+	 * @param cls
+	 *            the class object
+	 * @return all the declared field names from the given class as an String array
+	 */
+	public static String[] getDeclaredFieldNames(final @NonNull Class<?> cls)
+	{
+		return Arrays.stream(cls.getDeclaredFields()).filter(ReflectionExtensions::isNotSynthetic)
+			.map(Field::getName).toArray(String[]::new);
+	}
+
+	/**
+	 * Checks if the given {@link Field} is not synthetic
+	 *
+	 * @param field
+	 *            the field
+	 * @return true, if the given {@link Field} is not synthetic otherwise false
+	 */
+	public static boolean isNotSynthetic(@NonNull Field field)
+	{
+		return !field.isSynthetic();
 	}
 
 	/**
@@ -155,7 +201,7 @@ public final class ReflectionExtensions
 	 *
 	 * @return Gets all method names from the given class as an String array.
 	 */
-	public static String[] getMethodNames(final Class<?> cls)
+	public static String[] getMethodNames(final @NonNull Class<?> cls)
 	{
 		final Method[] methods = cls.getDeclaredMethods();
 		final String[] methodNames = new String[methods.length];
@@ -177,8 +223,8 @@ public final class ReflectionExtensions
 	 *
 	 * @return the method names with prefix from field names
 	 */
-	public static final Map<String, String> getMethodNamesWithPrefixFromFieldNames(
-		final List<String> fieldNames, final String prefix)
+	public static Map<String, String> getMethodNamesWithPrefixFromFieldNames(
+		final @NonNull List<String> fieldNames, final String prefix)
 	{
 		final Map<String, String> fieldNameMethodMapper = new HashMap<>();
 		for (final String fieldName : fieldNames)
@@ -199,7 +245,7 @@ public final class ReflectionExtensions
 	 *            The String to modify.
 	 * @return The modified string.
 	 */
-	public static final String firstCharacterToUpperCase(final String fieldName)
+	public static String firstCharacterToUpperCase(final @NonNull String fieldName)
 	{
 		String firstCharacter = fieldName.substring(0, 1);
 		firstCharacter = firstCharacter.toUpperCase();
@@ -216,7 +262,7 @@ public final class ReflectionExtensions
 	 *            The field to get the modifiers.
 	 * @return A list with the modifiers as String objects from the given Field.
 	 */
-	public static List<String> getModifiers(final Field field)
+	public static List<String> getModifiers(final @NonNull Field field)
 	{
 		final String modifiers = Modifier.toString(field.getModifiers());
 		final String[] modifiersArray = modifiers.split(" ");
@@ -241,7 +287,7 @@ public final class ReflectionExtensions
 	 *             constructor; or if the instantiation fails for some other reason.
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T newInstance(final T object)
+	public static <T> T newInstance(final @NonNull T object)
 		throws InstantiationException, IllegalAccessException, ClassNotFoundException
 	{
 		return newInstance((Class<T>)Class.forName(object.getClass().getCanonicalName()));
@@ -263,10 +309,34 @@ public final class ReflectionExtensions
 	 *             constructor; or if the instantiation fails for some other reason.
 	 */
 
-	public static <T> T newInstance(final Class<T> clazz)
+	public static <T> T newInstance(final @NonNull Class<T> clazz)
 		throws InstantiationException, IllegalAccessException
 	{
 		return clazz.newInstance();
+	}
+
+	/**
+	 * Creates a new instance from the same type as the given {@link Class}
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param clazz
+	 *            the Class object
+	 * @return the new instance
+	 * @throws IllegalAccessException
+	 *             is thrown if the class or its default constructor is not accessible.
+	 * @throws InstantiationException
+	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
+	 *             array class, a primitive type, or void; or if the class has no default
+	 *             constructor; or if the instantiation fails for some other reason.
+	 */
+
+	public static <T> T newInstanceWithObjenesis(final @NonNull Class<T> clazz)
+		throws InstantiationException, IllegalAccessException
+	{
+		Objenesis objenesis = new ObjenesisStd();
+		ObjectInstantiator<T> instantiator = objenesis.getInstantiatorOf(clazz);
+		return instantiator.newInstance();
 	}
 
 	/**
@@ -284,8 +354,8 @@ public final class ReflectionExtensions
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
 	 */
-	public static <T> Field getDeclaredField(@NonNull final T object, final String fieldName)
-		throws NoSuchFieldException, SecurityException
+	public static <T> Field getDeclaredField(@NonNull final T object,
+		final @NonNull String fieldName) throws NoSuchFieldException, SecurityException
 	{
 		return getDeclaredField(object.getClass(), fieldName);
 	}
@@ -303,11 +373,52 @@ public final class ReflectionExtensions
 	 * @throws SecurityException
 	 *             is thrown if a security manager says no.
 	 */
-	public static Field getDeclaredField(final Class<?> cls, final String fieldName)
-		throws NoSuchFieldException, SecurityException
+	public static Field getDeclaredField(final @NonNull Class<?> cls,
+		final @NonNull String fieldName) throws NoSuchFieldException, SecurityException
 	{
-		final Field field = cls.getDeclaredField(fieldName);
-		return field;
+		return cls.getDeclaredField(fieldName);
+	}
+
+	/**
+	 * Gets all the declared fields including all fields from all superclasses from the given class
+	 * object
+	 *
+	 * @param cls
+	 *            the class object
+	 * @return all the declared fields
+	 */
+	public static Field[] getAllDeclaredFields(final @NonNull Class<?> cls)
+	{
+		List<Field> fields = new ArrayList<>(Arrays.asList(cls.getDeclaredFields()));
+		Class<?> superClass = cls.getSuperclass();
+		if (superClass != null && superClass.equals(Object.class))
+		{
+			return fields.toArray(new Field[] { });
+		}
+		while ((superClass != null && superClass.getSuperclass() != null
+			&& superClass.getSuperclass().equals(Object.class)))
+		{
+			fields.addAll(Arrays.asList(superClass.getDeclaredFields()));
+			superClass = superClass.getSuperclass();
+		}
+		return fields.toArray(new Field[] { });
+	}
+
+
+	/**
+	 * Gets all the declared field names including all fields from all superclasses from the given
+	 * class object
+	 *
+	 * @param cls
+	 *            the class object
+	 * @return all the declared field names
+	 */
+	public static String[] getAllDeclaredFieldNames(final @NonNull Class<?> cls)
+	{
+		List<String> fieldNames = Arrays.stream(getAllDeclaredFields(cls)).map(field -> {
+			return field.getName();
+		}).collect(Collectors.toList());
+		return fieldNames.toArray(new String[fieldNames.size()]);
 	}
 
 }

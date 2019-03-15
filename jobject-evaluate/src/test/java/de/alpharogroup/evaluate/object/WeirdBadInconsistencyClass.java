@@ -18,23 +18,43 @@
  * DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package de.alpharogroup.merge.api;
+package de.alpharogroup.evaluate.object;
 
-/**
- * A class that implements the {@link Mergeable} interface indicates that it can be merged with an
- * other object of its type.
- *
- * @param <T>
- *            the type of objects that this object may be merged with
- */
-public interface Mergeable<T>
+import io.github.benas.randombeans.api.EnhancedRandom;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import lombok.experimental.FieldDefaults;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE)
+public class WeirdBadInconsistencyClass
 {
-	/**
-	 * Merge the given <code>object</code> with <code>this object</code>.
-	 *
-	 * @param object
-	 *            the object to merge with this one
-	 * @return the merged object
-	 */
-	public T merge(T object);
+	String name;
+
+	@Override
+	public boolean equals(Object o)
+	{
+		boolean randomBoolean = EnhancedRandom.random(boolean.class);
+		return randomBoolean;
+	}
+
+	@Override
+	public int hashCode()
+	{
+		return EnhancedRandom.random(Integer.class);
+	}
+
+	@Override
+	public String toString()
+	{
+		return EnhancedRandom.random(String.class);
+	}
 }

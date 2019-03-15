@@ -32,41 +32,44 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
-import de.alpharogroup.AbstractTestCase;
+import de.alpharogroup.evaluate.object.Person;
 import de.alpharogroup.evaluate.object.api.ContractViolation;
 import de.alpharogroup.evaluate.object.enums.EqualsContractViolation;
 import de.alpharogroup.evaluate.object.enums.EqualsHashcodeContractViolation;
 import de.alpharogroup.evaluate.object.enums.HashcodeContractViolation;
 import de.alpharogroup.evaluate.object.enums.ToStringContractViolation;
-import de.alpharogroup.test.objects.Person;
+import io.github.benas.randombeans.api.EnhancedRandom;
 
 /**
  * The unit test class for the class {@link EqualsHashCodeAndToStringCheck}
  */
 public class EqualsHashCodeAndToStringCheckTest
-	extends
-		AbstractTestCase<Optional<ContractViolation>, Optional<ContractViolation>>
 {
+
+	/** The boolean actual result of the tests. */
+	protected Optional<ContractViolation> actual;
+
+	/** The boolean expected result of the tests. */
+	protected Optional<ContractViolation> expected;
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@BeforeMethod
-	@Override
 	protected void setUp() throws Exception
 	{
-		super.setUp();
 	}
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@AfterMethod
-	@Override
 	protected void tearDown() throws Exception
 	{
-		super.tearDown();
+		actual = null;
+		expected = null;
 	}
+
 
 	/**
 	 * Test method for
@@ -211,10 +214,13 @@ public class EqualsHashCodeAndToStringCheckTest
 	 *             if an accessor method for this property cannot be found
 	 * @throws IOException
 	 *             Signals that an I/O exception has occurred
+	 * @throws ClassNotFoundException
+	 *             occurs if a given class cannot be located by the specified class loader
 	 */
 	@Test(enabled = true)
-	public void testEqualsHashcodeAndToStringClass() throws NoSuchMethodException,
-		IllegalAccessException, InvocationTargetException, InstantiationException, IOException
+	public void testEqualsHashcodeAndToStringClass()
+		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
+		InstantiationException, IOException, ClassNotFoundException
 	{
 		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(null);
 		expected = Optional.of(ToStringContractViolation.CLASS_NULL_ARGUMENT);
@@ -250,24 +256,48 @@ public class EqualsHashCodeAndToStringCheckTest
 		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString((Object)null);
 		expected = Optional.of(EqualsContractViolation.REFLEXIVITY_NULL_ARGUMENT);
 		assertEquals(expected, actual);
+
+		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeAndToString(new Person()
+		{
+			@Override
+			public int hashCode()
+			{
+				return EnhancedRandom.random(Integer.class);
+			}
+		});
+		expected = Optional.of(HashcodeContractViolation.CONSISTENCY);
+		assertEquals(expected, actual);
 	}
 
 	/**
-	 * Test method for
-	 * {@link EqualsHashCodeAndToStringCheck#equalsHashcodeEqualityAndToString(Object, Object, Object)}
+	 * Test method for {@link EqualsHashCodeAndToStringCheck#hashcodeCheck(Object, Object, Object)}
 	 */
 	@Test(enabled = true)
-	public void testEqualsHashcodeEqualityAndToString()
+	public void testHashcodeCheck()
 	{
-		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeEqualityAndToString(
-			Integer.valueOf(0), Integer.valueOf(0), Integer.valueOf(0));
-		expected = Optional.empty();
+		actual = EqualsHashCodeAndToStringCheck.hashcodeCheck(Integer.valueOf(0),
+			Integer.valueOf(0), Integer.valueOf(0));
+		expected = Optional.of(HashcodeContractViolation.UNEQAUALITY);
 		assertEquals(expected, actual);
 
-		actual = EqualsHashCodeAndToStringCheck.equalsHashcodeEqualityAndToString(null,
-			Integer.valueOf(0), Integer.valueOf(0));
-		expected = Optional.of(ToStringContractViolation.CONSISTENCY_NULL_ARGUMENT);
+		actual = EqualsHashCodeAndToStringCheck.hashcodeCheck(new Person()
+		{
+			@Override
+			public int hashCode()
+			{
+				return EnhancedRandom.random(Integer.class);
+			}
+		}, Person.builder().build(), new Person()
+		{
+			@Override
+			public int hashCode()
+			{
+				return EnhancedRandom.random(Integer.class);
+			}
+		});
+		expected = Optional.of(HashcodeContractViolation.EQAUALITY);
 		assertEquals(expected, actual);
+
 	}
 
 	/**

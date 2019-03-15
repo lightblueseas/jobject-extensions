@@ -106,4 +106,30 @@ public final class ToStringCheck
 		return Optional.empty();
 	}
 
+	/**
+	 * Checks the all the contract conditions for the methods {@link Object#toString()}
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param object
+	 *            the object
+	 * @return true, if all contract conditions for the methods {@link Object#toString()} is given
+	 *         otherwise false
+	 */
+	public static <T> Optional<ContractViolation> evaluateAndConsistency(final T object)
+	{
+		if (object == null)
+		{
+			return Optional.of(ToStringContractViolation.CLASS_NULL_ARGUMENT);
+		}
+		Optional<ContractViolation> evaluated;
+		evaluated = ToStringCheck.evaluate(object.getClass());
+		if (evaluated.isPresent())
+		{
+			return evaluated;
+		}
+		evaluated = ToStringCheck.consistency(object);
+		return evaluated;
+	}
+
 }

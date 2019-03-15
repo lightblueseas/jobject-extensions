@@ -44,6 +44,13 @@ public class ObjectExtensionsTest
 {
 
 	/**
+	 * The interface {@link Member} that represents the member class
+	 */
+	interface Member
+	{
+	}
+
+	/**
 	 * Test method for {@link ObjectExtensions#getClassType(Class)}
 	 */
 	@Test
@@ -98,10 +105,20 @@ public class ObjectExtensionsTest
 			@Override
 			public void run()
 			{
-				// TODO Auto-generated method stub
-
 			}
 		}.getClass());
+		assertEquals(expected, actual);
+
+		class Local
+		{
+		}
+		expected = ClassType.LOCAL;
+		actual = ObjectExtensions.getClassType(Local.class);
+		assertEquals(expected, actual);
+
+
+		expected = ClassType.MEMBER;
+		actual = ObjectExtensions.getClassType(Member.class);
 		assertEquals(expected, actual);
 
 	}

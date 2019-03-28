@@ -161,9 +161,10 @@ public final class ReflectionExtensions
 	 */
 	public static List<String> getFieldNames(final @NonNull Class<?> cls)
 	{
-		return Arrays.stream(cls.getDeclaredFields()).map(field -> {
-			return field.getName();
-		}).collect(Collectors.toList());
+		return Arrays.stream(cls.getDeclaredFields())
+				.filter(ReflectionExtensions::isNotSynthetic)
+				.map(Field::getName)
+				.collect(Collectors.toList());
 	}
 
 	/**

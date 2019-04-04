@@ -32,6 +32,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
+import de.alpharogroup.collections.list.ListFactory;
 import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
@@ -202,6 +203,39 @@ public class ReflectionExtensionsTest
 		assertTrue(fieldNames.contains("about"));
 		assertTrue(fieldNames.contains("married"));
 	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getFieldNames(Class, List)}
+	 */
+	@Test
+	public void testGetFieldNamesIgnore()
+	{
+		List<String> fieldNames = ReflectionExtensions.getFieldNames(Person.class, ListFactory.newArrayList("serialVersionUID"));
+		assertNotNull(fieldNames);
+
+		assertTrue(fieldNames.contains("name"));
+		assertTrue(fieldNames.contains("nickname"));
+		assertTrue(fieldNames.contains("gender"));
+		assertTrue(fieldNames.contains("about"));
+		assertTrue(fieldNames.contains("married"));
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getFieldNames(Class, String...)}
+	 */
+	@Test
+	public void testGetFieldNamesIgnoreVarargs()
+	{
+		List<String> fieldNames = ReflectionExtensions.getFieldNames(Person.class, "serialVersionUID");
+		assertNotNull(fieldNames);
+
+		assertTrue(fieldNames.contains("name"));
+		assertTrue(fieldNames.contains("nickname"));
+		assertTrue(fieldNames.contains("gender"));
+		assertTrue(fieldNames.contains("about"));
+		assertTrue(fieldNames.contains("married"));
+	}
+
 
 	/**
 	 * Test method for {@link ReflectionExtensions#getFieldValue(Object, String)}

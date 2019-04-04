@@ -187,6 +187,21 @@ public final class ReflectionExtensions
 	}
 
 	/**
+	 * Gets all field names from the given class as an String list list minus the given optional array of ignored field names
+	 *
+	 * @param cls
+	 *            The class object to get the field names
+	 * @param ignoreFieldNames
+	 * 			  a optional array with the field names that shell be ignored
+	 *
+	 * @return Gets all field names from the given class as an String list minus the given optional array of ignored field names
+	 */
+	public static List<String> getFieldNames(final @NonNull Class<?> cls, String... ignoreFieldNames)
+	{
+		return getFieldNames(cls, Arrays.asList(ignoreFieldNames));
+	}
+
+	/**
 	 * Gets all the declared field names from the given class object.
 	 *
 	 * Note: without the field names from any superclasses

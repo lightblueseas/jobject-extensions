@@ -165,6 +165,25 @@ public final class ReflectionExtensions
 				.filter(ReflectionExtensions::isNotSynthetic)
 				.map(Field::getName)
 				.collect(Collectors.toList());
+	}	
+
+	/**
+	 * Gets all field names from the given class as an String list list minus the given ignored field names 
+	 *
+	 * @param cls
+	 *            The class object to get the field names
+	 * @param ignoreFieldNames 
+	 * 			  a list with field names that shell be ignored 
+	 *
+	 * @return Gets all field names from the given class as an String list minus the given ignored field names 
+	 */
+	public static List<String> getFieldNames(final @NonNull Class<?> cls, List<String> ignoreFieldNames)
+	{
+		return Arrays.stream(cls.getDeclaredFields())
+				.filter(ReflectionExtensions::isNotSynthetic)
+				.map(Field::getName)
+				.filter(name -> !ignoreFieldNames.contains(name))
+				.collect(Collectors.toList());
 	}
 
 	/**

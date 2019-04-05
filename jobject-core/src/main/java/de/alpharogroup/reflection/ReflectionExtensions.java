@@ -494,7 +494,6 @@ public final class ReflectionExtensions
 	 */
 	public static String[] getAllDeclaredFieldNames(final @NonNull Class<?> cls, String... ignoreFieldNames)
 	{
-		Field[] allDeclaredFields = getAllDeclaredFields(cls);
 		return getAllDeclaredFieldNames(cls, Arrays.asList(ignoreFieldNames));
 	}
 
@@ -513,8 +512,7 @@ public final class ReflectionExtensions
 		Field[] allDeclaredFields = getAllDeclaredFields(cls);
 		return Arrays.stream(allDeclaredFields)
 				.map(Field::getName)
-				.filter(name -> !ignoreFieldNames.contains(name))
-				.collect(Collectors.toList()).toArray(new String[allDeclaredFields.length]);
+				.filter(name -> !ignoreFieldNames.contains(name)).toArray(String[]::new);
 	}
 
 }

@@ -128,6 +128,27 @@ public class ReflectionExtensionsTest
 	}
 
 	/**
+	 * Test method for {@link ReflectionExtensions#getAllDeclaredFieldNames(Class, String...)}
+	 */
+	@Test
+	public void testGetAllDeclaredFieldNamesWithVarargs()
+	{
+		int expected;
+		int actual;
+		String[] allDeclaredFieldnames;
+
+		allDeclaredFieldnames = ReflectionExtensions.getAllDeclaredFieldNames(Person.class, "serialVersionUID", "name");
+		expected = 4;
+		actual = allDeclaredFieldnames.length;
+		assertEquals(expected, actual);
+
+		allDeclaredFieldnames = ReflectionExtensions.getAllDeclaredFieldNames(Member.class,"dateofbirth", "name");
+		expected = 7;
+		actual = allDeclaredFieldnames.length;
+		assertEquals(expected, actual);
+	}
+
+	/**
 	 * Test method for {@link ReflectionExtensions#getAllDeclaredFields(Class)}
 	 */
 	@Test

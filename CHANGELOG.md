@@ -4,6 +4,10 @@
 Version 2.7-SNAPSHOT
 -------------
 
+ADDED:
+
+- new methods for get the declared fields of a class with an optional list of fields that shell be ignored
+
 Version 2.6
 -------------
 

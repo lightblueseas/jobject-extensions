@@ -149,6 +149,38 @@ public class ReflectionExtensionsTest
 	}
 
 	/**
+	 * Test method for {@link ReflectionExtensions#getDeclaredFieldNames(Class, List)}
+	 */
+	@Test
+	public void testGetDeclaredFieldNamesWithIgnoreFields()
+	{
+		String[] declaredFieldNames = ReflectionExtensions.getDeclaredFieldNames(Person.class, ListFactory.newArrayList("serialVersionUID", "name"));
+		List<String> fieldNames = Arrays.asList(declaredFieldNames);
+		assertNotNull(fieldNames);
+
+		assertTrue(fieldNames.contains("nickname"));
+		assertTrue(fieldNames.contains("gender"));
+		assertTrue(fieldNames.contains("about"));
+		assertTrue(fieldNames.contains("married"));
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getDeclaredFieldNames(Class, List)}
+	 */
+	@Test
+	public void testGetDeclaredFieldNamesWithVarargs()
+	{
+		String[] declaredFieldNames = ReflectionExtensions.getDeclaredFieldNames(Person.class, "serialVersionUID", "name");
+		List<String> fieldNames = Arrays.asList(declaredFieldNames);
+		assertNotNull(fieldNames);
+
+		assertTrue(fieldNames.contains("nickname"));
+		assertTrue(fieldNames.contains("gender"));
+		assertTrue(fieldNames.contains("about"));
+		assertTrue(fieldNames.contains("married"));
+	}
+
+	/**
 	 * Test method for {@link ReflectionExtensions#getDeclaredFieldNames(Class)}
 	 */
 	@Test
@@ -158,6 +190,7 @@ public class ReflectionExtensionsTest
 		List<String> fieldNames = Arrays.asList(declaredFieldNames);
 		assertNotNull(fieldNames);
 
+		assertTrue(fieldNames.contains("serialVersionUID"));
 		assertTrue(fieldNames.contains("name"));
 		assertTrue(fieldNames.contains("nickname"));
 		assertTrue(fieldNames.contains("gender"));
@@ -369,17 +402,10 @@ public class ReflectionExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link ReflectionExtensions#newInstanceWithObjenesis(Class)}.
-	 *
-	 * @throws IllegalAccessException
-	 *             is thrown if the class or its nullary constructor is not accessible.
-	 * @throws InstantiationException
-	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
-	 *             array class, a primitive type, or void; or if the class has no nullary
-	 *             constructor; or if the instantiation fails for some other reason.
+	 * Test method for {@link ReflectionExtensions#newInstanceWithObjenesis(Class)}
 	 */
 	@Test
-	public void testNewInstanceWithObjenesis() throws InstantiationException, IllegalAccessException
+	public void testNewInstanceWithObjenesis()
 	{
 		Person expected;
 		Person actual;

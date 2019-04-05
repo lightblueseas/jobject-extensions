@@ -213,7 +213,39 @@ public final class ReflectionExtensions
 	public static String[] getDeclaredFieldNames(final @NonNull Class<?> cls)
 	{
 		return Arrays.stream(cls.getDeclaredFields()).filter(ReflectionExtensions::isNotSynthetic)
-			.map(Field::getName).toArray(String[]::new);
+				.map(Field::getName).toArray(String[]::new);
+	}
+
+	/**
+	 * Gets all the declared field names from the given class object.
+	 *
+	 * Note: without the field names from any superclasses
+	 *
+	 * @param cls
+	 *            the class object
+	 * @return all the declared field names from the given class as an String array
+	 */
+	public static String[] getDeclaredFieldNames(final @NonNull Class<?> cls, String... ignoreFieldNames)
+	{
+		return getDeclaredFieldNames(cls, Arrays.asList(ignoreFieldNames));
+	}
+
+	/**
+	 * Gets all the declared field names from the given class object.
+	 *
+	 * Note: without the field names from any superclasses
+	 *
+	 * @param cls
+	 *            the class object
+	 * @param ignoreFieldNames
+	 * 			  a list with field names that shell be ignored
+	 * @return all the declared field names from the given class as an String array
+	 */
+	public static String[] getDeclaredFieldNames(final @NonNull Class<?> cls, List<String> ignoreFieldNames)
+	{
+		return Arrays.stream(cls.getDeclaredFields()).filter(ReflectionExtensions::isNotSynthetic)
+				.map(Field::getName)
+				.filter(name -> !ignoreFieldNames.contains(name)).toArray(String[]::new);
 	}
 
 	/**
@@ -358,16 +390,9 @@ public final class ReflectionExtensions
 	 * @param clazz
 	 *            the Class object
 	 * @return the new instance
-	 * @throws IllegalAccessException
-	 *             is thrown if the class or its default constructor is not accessible.
-	 * @throws InstantiationException
-	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
-	 *             array class, a primitive type, or void; or if the class has no default
-	 *             constructor; or if the instantiation fails for some other reason.
 	 */
 
 	public static <T> T newInstanceWithObjenesis(final @NonNull Class<T> clazz)
-		throws InstantiationException, IllegalAccessException
 	{
 		Objenesis objenesis = new ObjenesisStd();
 		ObjectInstantiator<T> instantiator = objenesis.getInstantiatorOf(clazz);
@@ -450,10 +475,10 @@ public final class ReflectionExtensions
 	 */
 	public static String[] getAllDeclaredFieldNames(final @NonNull Class<?> cls)
 	{
-		List<String> fieldNames = Arrays.stream(getAllDeclaredFields(cls)).map(field -> {
-			return field.getName();
-		}).collect(Collectors.toList());
-		return fieldNames.toArray(new String[fieldNames.size()]);
+		Field[] allDeclaredFields = getAllDeclaredFields(cls);
+		return Arrays.stream(allDeclaredFields)
+				.map(Field::getName)
+				.collect(Collectors.toList()).toArray(new String[allDeclaredFields.length]);
 	}
 
 }

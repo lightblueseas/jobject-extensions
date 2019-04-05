@@ -107,6 +107,27 @@ public class ReflectionExtensionsTest
 	}
 
 	/**
+	 * Test method for {@link ReflectionExtensions#getAllDeclaredFieldNames(Class, List)}
+	 */
+	@Test
+	public void testGetAllDeclaredFieldNamesWithIgnoreFields()
+	{
+		int expected;
+		int actual;
+		String[] allDeclaredFieldnames;
+
+		allDeclaredFieldnames = ReflectionExtensions.getAllDeclaredFieldNames(Person.class, ListFactory.newArrayList("serialVersionUID", "name"));
+		expected = 4;
+		actual = allDeclaredFieldnames.length;
+		assertEquals(expected, actual);
+
+		allDeclaredFieldnames = ReflectionExtensions.getAllDeclaredFieldNames(Member.class, ListFactory.newArrayList("dateofbirth", "name"));
+		expected = 7;
+		actual = allDeclaredFieldnames.length;
+		assertEquals(expected, actual);
+	}
+
+	/**
 	 * Test method for {@link ReflectionExtensions#getAllDeclaredFields(Class)}
 	 */
 	@Test

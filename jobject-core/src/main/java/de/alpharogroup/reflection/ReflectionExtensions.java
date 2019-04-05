@@ -168,7 +168,7 @@ public final class ReflectionExtensions
 	}	
 
 	/**
-	 * Gets all field names from the given class as an String list list minus the given ignored field names 
+	 * Gets all field names from the given class as an String list minus the given ignored field names
 	 *
 	 * @param cls
 	 *            The class object to get the field names
@@ -187,7 +187,7 @@ public final class ReflectionExtensions
 	}
 
 	/**
-	 * Gets all field names from the given class as an String list list minus the given optional array of ignored field names
+	 * Gets all field names from the given class as an String list minus the given optional array of ignored field names
 	 *
 	 * @param cls
 	 *            The class object to get the field names
@@ -217,13 +217,15 @@ public final class ReflectionExtensions
 	}
 
 	/**
-	 * Gets all the declared field names from the given class object.
+	 * Gets all the declared field names from the given class object minus the given ignored field names
 	 *
 	 * Note: without the field names from any superclasses
 	 *
 	 * @param cls
 	 *            the class object
-	 * @return all the declared field names from the given class as an String array
+	 * @param ignoreFieldNames
+	 * 			  a optional array with the field names that shell be ignored
+	 * @return all the declared field names from the given class as an String array minus the given optional array of ignored field names
 	 */
 	public static String[] getDeclaredFieldNames(final @NonNull Class<?> cls, String... ignoreFieldNames)
 	{
@@ -231,7 +233,7 @@ public final class ReflectionExtensions
 	}
 
 	/**
-	 * Gets all the declared field names from the given class object.
+	 * Gets all the declared field names from the given class object minus the given ignored field names
 	 *
 	 * Note: without the field names from any superclasses
 	 *
@@ -239,7 +241,7 @@ public final class ReflectionExtensions
 	 *            the class object
 	 * @param ignoreFieldNames
 	 * 			  a list with field names that shell be ignored
-	 * @return all the declared field names from the given class as an String array
+	 * @return all the declared field names from the given class as an String array minus the given ignored field names
 	 */
 	public static String[] getDeclaredFieldNames(final @NonNull Class<?> cls, List<String> ignoreFieldNames)
 	{
@@ -464,7 +466,6 @@ public final class ReflectionExtensions
 		return fields.toArray(new Field[] { });
 	}
 
-
 	/**
 	 * Gets all the declared field names including all fields from all superclasses from the given
 	 * class object
@@ -478,6 +479,41 @@ public final class ReflectionExtensions
 		Field[] allDeclaredFields = getAllDeclaredFields(cls);
 		return Arrays.stream(allDeclaredFields)
 				.map(Field::getName)
+				.collect(Collectors.toList()).toArray(new String[allDeclaredFields.length]);
+	}
+
+	/**
+	 * Gets all the declared field names including all fields from all superclasses from the given
+	 * class object minus the given optional array of ignored field names
+	 *
+	 * @param cls
+	 *            the class object
+	 * @param ignoreFieldNames
+	 * 			  a optional array with the field names that shell be ignored
+	 * @return all the declared field names minus the given optional array of ignored field names
+	 */
+	public static String[] getAllDeclaredFieldNames(final @NonNull Class<?> cls, String... ignoreFieldNames)
+	{
+		Field[] allDeclaredFields = getAllDeclaredFields(cls);
+		return getAllDeclaredFieldNames(cls, Arrays.asList(ignoreFieldNames));
+	}
+
+	/**
+	 * Gets all the declared field names including all fields from all superclasses from the given
+	 * class object minus the given ignored field names
+	 *
+	 * @param cls
+	 *            the class object
+	 * @param ignoreFieldNames
+	 * 			  a list with field names that shell be ignored
+	 * @return all the declared field names minus the given ignored field names
+	 */
+	public static String[] getAllDeclaredFieldNames(final @NonNull Class<?> cls, List<String> ignoreFieldNames)
+	{
+		Field[] allDeclaredFields = getAllDeclaredFields(cls);
+		return Arrays.stream(allDeclaredFields)
+				.map(Field::getName)
+				.filter(name -> !ignoreFieldNames.contains(name))
 				.collect(Collectors.toList()).toArray(new String[allDeclaredFields.length]);
 	}
 

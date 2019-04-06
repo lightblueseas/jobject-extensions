@@ -32,11 +32,11 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-import de.alpharogroup.collections.list.ListFactory;
 import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
+import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.test.objects.A;
 import de.alpharogroup.test.objects.Member;
 import de.alpharogroup.test.objects.Person;
@@ -116,12 +116,14 @@ public class ReflectionExtensionsTest
 		int actual;
 		String[] allDeclaredFieldnames;
 
-		allDeclaredFieldnames = ReflectionExtensions.getAllDeclaredFieldNames(Person.class, ListFactory.newArrayList("serialVersionUID", "name"));
+		allDeclaredFieldnames = ReflectionExtensions.getAllDeclaredFieldNames(Person.class,
+			ListFactory.newArrayList("serialVersionUID", "name"));
 		expected = 4;
 		actual = allDeclaredFieldnames.length;
 		assertEquals(expected, actual);
 
-		allDeclaredFieldnames = ReflectionExtensions.getAllDeclaredFieldNames(Member.class, ListFactory.newArrayList("dateofbirth", "name"));
+		allDeclaredFieldnames = ReflectionExtensions.getAllDeclaredFieldNames(Member.class,
+			ListFactory.newArrayList("dateofbirth", "name"));
 		expected = 7;
 		actual = allDeclaredFieldnames.length;
 		assertEquals(expected, actual);
@@ -137,12 +139,14 @@ public class ReflectionExtensionsTest
 		int actual;
 		String[] allDeclaredFieldnames;
 
-		allDeclaredFieldnames = ReflectionExtensions.getAllDeclaredFieldNames(Person.class, "serialVersionUID", "name");
+		allDeclaredFieldnames = ReflectionExtensions.getAllDeclaredFieldNames(Person.class,
+			"serialVersionUID", "name");
 		expected = 4;
 		actual = allDeclaredFieldnames.length;
 		assertEquals(expected, actual);
 
-		allDeclaredFieldnames = ReflectionExtensions.getAllDeclaredFieldNames(Member.class,"dateofbirth", "name");
+		allDeclaredFieldnames = ReflectionExtensions.getAllDeclaredFieldNames(Member.class,
+			"dateofbirth", "name");
 		expected = 7;
 		actual = allDeclaredFieldnames.length;
 		assertEquals(expected, actual);
@@ -191,38 +195,6 @@ public class ReflectionExtensionsTest
 	}
 
 	/**
-	 * Test method for {@link ReflectionExtensions#getDeclaredFieldNames(Class, List)}
-	 */
-	@Test
-	public void testGetDeclaredFieldNamesWithIgnoreFields()
-	{
-		String[] declaredFieldNames = ReflectionExtensions.getDeclaredFieldNames(Person.class, ListFactory.newArrayList("serialVersionUID", "name"));
-		List<String> fieldNames = Arrays.asList(declaredFieldNames);
-		assertNotNull(fieldNames);
-
-		assertTrue(fieldNames.contains("nickname"));
-		assertTrue(fieldNames.contains("gender"));
-		assertTrue(fieldNames.contains("about"));
-		assertTrue(fieldNames.contains("married"));
-	}
-
-	/**
-	 * Test method for {@link ReflectionExtensions#getDeclaredFieldNames(Class, List)}
-	 */
-	@Test
-	public void testGetDeclaredFieldNamesWithVarargs()
-	{
-		String[] declaredFieldNames = ReflectionExtensions.getDeclaredFieldNames(Person.class, "serialVersionUID", "name");
-		List<String> fieldNames = Arrays.asList(declaredFieldNames);
-		assertNotNull(fieldNames);
-
-		assertTrue(fieldNames.contains("nickname"));
-		assertTrue(fieldNames.contains("gender"));
-		assertTrue(fieldNames.contains("about"));
-		assertTrue(fieldNames.contains("married"));
-	}
-
-	/**
 	 * Test method for {@link ReflectionExtensions#getDeclaredFieldNames(Class)}
 	 */
 	@Test
@@ -238,6 +210,110 @@ public class ReflectionExtensionsTest
 		assertTrue(fieldNames.contains("gender"));
 		assertTrue(fieldNames.contains("about"));
 		assertTrue(fieldNames.contains("married"));
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getDeclaredFieldNames(Class, List)}
+	 */
+	@Test
+	public void testGetDeclaredFieldNamesWithIgnoreFields()
+	{
+		String[] declaredFieldNames = ReflectionExtensions.getDeclaredFieldNames(Person.class,
+			ListFactory.newArrayList("serialVersionUID", "name"));
+		List<String> fieldNames = Arrays.asList(declaredFieldNames);
+		assertNotNull(fieldNames);
+
+		assertTrue(fieldNames.contains("nickname"));
+		assertTrue(fieldNames.contains("gender"));
+		assertTrue(fieldNames.contains("about"));
+		assertTrue(fieldNames.contains("married"));
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getDeclaredFieldNames(Class, List)}
+	 */
+	@Test
+	public void testGetDeclaredFieldNamesWithVarargs()
+	{
+		String[] declaredFieldNames = ReflectionExtensions.getDeclaredFieldNames(Person.class,
+			"serialVersionUID", "name");
+		List<String> fieldNames = Arrays.asList(declaredFieldNames);
+		assertNotNull(fieldNames);
+
+		assertTrue(fieldNames.contains("nickname"));
+		assertTrue(fieldNames.contains("gender"));
+		assertTrue(fieldNames.contains("about"));
+		assertTrue(fieldNames.contains("married"));
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getDeclaredFields(Class, List)}
+	 */
+	@Test
+	public void testGetDeclaredFieldsWithIgnoreFields()
+	{
+		int expected;
+		int actual;
+		Field[] allDeclaredFields;
+
+		allDeclaredFields = ReflectionExtensions.getDeclaredFields(Person.class,
+			ListFactory.newArrayList("serialVersionUID"));
+		expected = 5;
+		actual = allDeclaredFields.length;
+		assertEquals(expected, actual);
+
+		allDeclaredFields = ReflectionExtensions.getDeclaredFields(Person.class,
+			ListFactory.newArrayList("serialVersionUID", "married"));
+		expected = 4;
+		actual = allDeclaredFields.length;
+		assertEquals(expected, actual);
+
+		allDeclaredFields = ReflectionExtensions.getDeclaredFields(Member.class,
+			ListFactory.newArrayList("serialVersionUID"));
+		expected = 2;
+		actual = allDeclaredFields.length;
+		assertEquals(expected, actual);
+
+		allDeclaredFields = ReflectionExtensions.getDeclaredFields(Member.class,
+			ListFactory.newArrayList("serialVersionUID", "dateofMarriage"));
+		expected = 1;
+		actual = allDeclaredFields.length;
+		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link ReflectionExtensions#getDeclaredFields(Class, String...)}
+	 */
+	@Test
+	public void testGetDeclaredFieldsWithVarargs()
+	{
+		int expected;
+		int actual;
+		Field[] allDeclaredFields;
+
+		allDeclaredFields = ReflectionExtensions.getDeclaredFields(Person.class,
+			"serialVersionUID");
+		expected = 5;
+		actual = allDeclaredFields.length;
+		assertEquals(expected, actual);
+
+		allDeclaredFields = ReflectionExtensions.getDeclaredFields(Person.class, "serialVersionUID",
+			"married");
+		expected = 4;
+		actual = allDeclaredFields.length;
+		assertEquals(expected, actual);
+
+		allDeclaredFields = ReflectionExtensions.getDeclaredFields(Member.class,
+			"serialVersionUID");
+		expected = 2;
+		actual = allDeclaredFields.length;
+		assertEquals(expected, actual);
+
+		allDeclaredFields = ReflectionExtensions.getDeclaredFields(Member.class, "serialVersionUID",
+			"dateofMarriage");
+		expected = 1;
+		actual = allDeclaredFields.length;
+		assertEquals(expected, actual);
 	}
 
 	/**
@@ -279,13 +355,15 @@ public class ReflectionExtensionsTest
 		assertTrue(fieldNames.contains("married"));
 	}
 
+
 	/**
 	 * Test method for {@link ReflectionExtensions#getFieldNames(Class, List)}
 	 */
 	@Test
 	public void testGetFieldNamesIgnore()
 	{
-		List<String> fieldNames = ReflectionExtensions.getFieldNames(Person.class, ListFactory.newArrayList("serialVersionUID"));
+		List<String> fieldNames = ReflectionExtensions.getFieldNames(Person.class,
+			ListFactory.newArrayList("serialVersionUID"));
 		assertNotNull(fieldNames);
 
 		assertTrue(fieldNames.contains("name"));
@@ -301,7 +379,8 @@ public class ReflectionExtensionsTest
 	@Test
 	public void testGetFieldNamesIgnoreVarargs()
 	{
-		List<String> fieldNames = ReflectionExtensions.getFieldNames(Person.class, "serialVersionUID");
+		List<String> fieldNames = ReflectionExtensions.getFieldNames(Person.class,
+			"serialVersionUID");
 		assertNotNull(fieldNames);
 
 		assertTrue(fieldNames.contains("name"));
@@ -310,7 +389,6 @@ public class ReflectionExtensionsTest
 		assertTrue(fieldNames.contains("about"));
 		assertTrue(fieldNames.contains("married"));
 	}
-
 
 	/**
 	 * Test method for {@link ReflectionExtensions#getFieldValue(Object, String)}
@@ -347,6 +425,7 @@ public class ReflectionExtensionsTest
 		assertTrue(methodNames.contains("getNickname"));
 		assertTrue(methodNames.contains("getName"));
 	}
+
 
 	/**
 	 * Test method for
@@ -392,7 +471,6 @@ public class ReflectionExtensionsTest
 		actual = modifiers.get(0);
 		assertEquals(expected, actual);
 	}
-
 
 	/**
 	 * Test method for {@link ReflectionExtensions#newInstance(Class)}.
@@ -462,6 +540,7 @@ public class ReflectionExtensionsTest
 		expected.setNickname(null);
 		assertEquals(expected, actual);
 	}
+
 
 	/**
 	 * Test method for {@link ReflectionExtensions#setFieldValue(Object, String, Object)}.

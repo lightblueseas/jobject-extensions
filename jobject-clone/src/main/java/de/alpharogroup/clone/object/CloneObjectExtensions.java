@@ -29,6 +29,7 @@ import java.lang.reflect.Method;
 import org.apache.commons.beanutils.BeanUtils;
 
 import de.alpharogroup.copy.object.CopyObjectExtensions;
+import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -137,6 +138,14 @@ public final class CloneObjectExtensions
 		if (clone == null)
 		{
 			clone = cloneBean(object);
+
+			if(!object.equals(clone)) {
+				if(clone != null) {
+					CopyObjectExtensions.copyObject(object, clone);
+				} else {
+					clone = CopyObjectExtensions.copyObject(object);
+				}
+			}
 		}
 		return clone;
 	}
@@ -217,10 +226,19 @@ public final class CloneObjectExtensions
 	 *             and the underlying method is inaccessible.
 	 */
 	@SuppressWarnings("unchecked")
+	@SneakyThrows
 	public static <T> T cloneBean(T object) throws IllegalAccessException, InstantiationException,
 		InvocationTargetException, NoSuchMethodException
 	{
-		return (T)BeanUtils.cloneBean(object);
+		T clone = (T)BeanUtils.cloneBean(object);
+		if(!object.equals(clone)) {
+			if(clone != null) {
+				CopyObjectExtensions.copyObject(object, clone);
+			} else {
+				clone = CopyObjectExtensions.copyObject(object);
+			}
+		}
+		return clone;
 	}
 
 }

@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>jobject-extensions</artifactId>
-	<version>2.5.1</version>
+	<version>2.6.1</version>
 	<packaging>pom</packaging>
 
 	<name>${project.artifactId}</name>
@@ -31,6 +31,8 @@
 		<test-objects.version>5.0.1</test-objects.version>
 		<!-- EXTERNAL LIBRARIES versions -->
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
+		<!-- OBJENESIS version -->
+		<objenesis.version>3.0.1</objenesis.version>
 	</properties>
 
 	<modules>
@@ -41,7 +43,6 @@
 		<module>jobject-diff</module>
 		<module>jobject-evaluate</module>
 		<module>jobject-merge</module>
-		<module>jobject-merge-api</module>
 	</modules>
 
 	<licenses>
@@ -71,6 +72,12 @@
 	<dependencyManagement>
 
 		<dependencies>
+			<!-- OBJENESIS DEPENDENCY -->
+			<dependency>
+				<groupId>org.objenesis</groupId>
+				<artifactId>objenesis</artifactId>
+				<version>${objenesis.version}</version>
+			</dependency>
 			<!-- COMMONS-BEANUTILS DEPENDENCY -->
 			<dependency>
 				<groupId>commons-beanutils</groupId>
@@ -210,15 +217,10 @@
 								<!-- beans -->
 								<!-- interfaces and abstract classes -->
 								<exclude>de/alpharogroup/evaluate/object/api/**/*.class</exclude>
-								<exclude>de/alpharogroup/merge/api/GenericSummarizer.class</exclude>
 								<!-- exceptions -->
 								<!-- deprecated -->
 								<!-- constant classes with only constants -->
 								<!-- explicit bean classes -->
-								<exclude>de/alpharogroup/clone/object/CloneObjectQuietlyExtensions.class</exclude>
-								<exclude>de/alpharogroup/compare/object/CompareObjectQuietlyExtensions.class</exclude>
-								<exclude>de/alpharogroup/copy/object/CopyObjectQuietlyExtensions.class</exclude>
-								<exclude>de/alpharogroup/merge/object/MergeObjectQuietlyExtensions.class</exclude>
 								<exclude>de/alpharogroup/evaluate/object/evaluators/SilentEqualsHashCodeAndToStringEvaluator.class</exclude>
 								<!-- explicit deprecated classes -->
 								<!-- explicit enums -->

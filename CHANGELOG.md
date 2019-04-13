@@ -1,6 +1,27 @@
 ## Change log
 ----------------------
 
+Version 2.7-SNAPSHOT
+-------------
+
+ADDED:
+
+- new methods for get the declared fields of a class with an optional list of fields that shell be ignored
+
+Version 2.6
+-------------
+
+ADDED:
+
+- new methods for copy object with reflection
+- new dependency objenesis for instantiate object from class objects
+- new method to create new instances of a given class object
+
+CHANGED:
+
+- moved jobject-merge-api to its own project
+- tagged class SilentEqualsHashCodeAndToStringEvaluator as deprecated
+
 Version 2.5.1
 -------------
 

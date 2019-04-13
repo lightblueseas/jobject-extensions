@@ -27,8 +27,13 @@ import java.util.function.Function;
 import lombok.experimental.UtilityClass;
 
 /**
- * The class {@link SilentEqualsHashCodeAndToStringEvaluator} evaluates classes in a silent manner
+ * The class {@link SilentEqualsHashCodeAndToStringEvaluator} evaluates classes in a silent manner.
+ * 
+ * @deprecated use instead the not silent methods <br>
+ *             <br>
+ *             Note: will be removed in the next minor version.
  */
+@Deprecated
 @UtilityClass
 public final class SilentEqualsHashCodeAndToStringEvaluator
 {

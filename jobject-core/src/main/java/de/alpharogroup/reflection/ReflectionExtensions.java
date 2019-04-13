@@ -30,12 +30,15 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
+import org.objenesis.Objenesis;
+import org.objenesis.ObjenesisStd;
+import org.objenesis.instantiator.ObjectInstantiator;
+
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
-
 /**
- * The class {@link ReflectionExtensions}.
+ * The class {@link ReflectionExtensions} provides utility methods for the java reflection API
  */
 @UtilityClass
 public final class ReflectionExtensions
@@ -158,9 +161,46 @@ public final class ReflectionExtensions
 	 */
 	public static List<String> getFieldNames(final @NonNull Class<?> cls)
 	{
-		return Arrays.stream(cls.getDeclaredFields()).map(field -> {
-			return field.getName();
-		}).collect(Collectors.toList());
+		return Arrays.stream(cls.getDeclaredFields()).filter(ReflectionExtensions::isNotSynthetic)
+			.map(Field::getName).collect(Collectors.toList());
+	}
+
+	/**
+	 * Gets all field names from the given class as an String list minus the given ignored field
+	 * names
+	 *
+	 * @param cls
+	 *            The class object to get the field names
+	 * @param ignoreFieldNames
+	 *            a list with field names that shell be ignored
+	 *
+	 * @return Gets all field names from the given class as an String list minus the given ignored
+	 *         field names
+	 */
+	public static List<String> getFieldNames(final @NonNull Class<?> cls,
+		List<String> ignoreFieldNames)
+	{
+		return Arrays.stream(cls.getDeclaredFields()).filter(ReflectionExtensions::isNotSynthetic)
+			.map(Field::getName).filter(name -> !ignoreFieldNames.contains(name))
+			.collect(Collectors.toList());
+	}
+
+	/**
+	 * Gets all field names from the given class as an String list minus the given optional array of
+	 * ignored field names
+	 *
+	 * @param cls
+	 *            The class object to get the field names
+	 * @param ignoreFieldNames
+	 *            a optional array with the field names that shell be ignored
+	 *
+	 * @return Gets all field names from the given class as an String list minus the given optional
+	 *         array of ignored field names
+	 */
+	public static List<String> getFieldNames(final @NonNull Class<?> cls,
+		String... ignoreFieldNames)
+	{
+		return getFieldNames(cls, Arrays.asList(ignoreFieldNames));
 	}
 
 	/**
@@ -176,6 +216,46 @@ public final class ReflectionExtensions
 	{
 		return Arrays.stream(cls.getDeclaredFields()).filter(ReflectionExtensions::isNotSynthetic)
 			.map(Field::getName).toArray(String[]::new);
+	}
+
+	/**
+	 * Gets all the declared field names from the given class object minus the given ignored field
+	 * names
+	 *
+	 * Note: without the field names from any superclasses
+	 *
+	 * @param cls
+	 *            the class object
+	 * @param ignoreFieldNames
+	 *            a optional array with the field names that shell be ignored
+	 * @return all the declared field names from the given class as an String array minus the given
+	 *         optional array of ignored field names
+	 */
+	public static String[] getDeclaredFieldNames(final @NonNull Class<?> cls,
+		String... ignoreFieldNames)
+	{
+		return getDeclaredFieldNames(cls, Arrays.asList(ignoreFieldNames));
+	}
+
+	/**
+	 * Gets all the declared field names from the given class object minus the given ignored field
+	 * names
+	 *
+	 * Note: without the field names from any superclasses
+	 *
+	 * @param cls
+	 *            the class object
+	 * @param ignoreFieldNames
+	 *            a list with field names that shell be ignored
+	 * @return all the declared field names from the given class as an String array minus the given
+	 *         ignored field names
+	 */
+	public static String[] getDeclaredFieldNames(final @NonNull Class<?> cls,
+		List<String> ignoreFieldNames)
+	{
+		return Arrays.stream(cls.getDeclaredFields()).filter(ReflectionExtensions::isNotSynthetic)
+			.map(Field::getName).filter(name -> !ignoreFieldNames.contains(name))
+			.toArray(String[]::new);
 	}
 
 	/**
@@ -313,6 +393,23 @@ public final class ReflectionExtensions
 	}
 
 	/**
+	 * Creates a new instance from the same type as the given {@link Class}
+	 *
+	 * @param <T>
+	 *            the generic type
+	 * @param clazz
+	 *            the Class object
+	 * @return the new instance
+	 */
+
+	public static <T> T newInstanceWithObjenesis(final @NonNull Class<T> clazz)
+	{
+		Objenesis objenesis = new ObjenesisStd();
+		ObjectInstantiator<T> instantiator = objenesis.getInstantiatorOf(clazz);
+		return instantiator.newInstance();
+	}
+
+	/**
 	 * Gets the {@link Field} that match to the given field name that exists in the given object.
 	 *
 	 * @param <T>
@@ -353,7 +450,7 @@ public final class ReflectionExtensions
 	}
 
 	/**
-	 * Gets all the declared fields including all fields from all superclasses from the given class
+	 * Gets all the declared fields including all fields from all super classes from the given class
 	 * object
 	 *
 	 * @param cls
@@ -377,9 +474,8 @@ public final class ReflectionExtensions
 		return fields.toArray(new Field[] { });
 	}
 
-
 	/**
-	 * Gets all the declared field names including all fields from all superclasses from the given
+	 * Gets all the declared field names including all fields from all super classes from the given
 	 * class object
 	 *
 	 * @param cls
@@ -388,10 +484,79 @@ public final class ReflectionExtensions
 	 */
 	public static String[] getAllDeclaredFieldNames(final @NonNull Class<?> cls)
 	{
-		List<String> fieldNames = Arrays.stream(getAllDeclaredFields(cls)).map(field -> {
-			return field.getName();
-		}).collect(Collectors.toList());
-		return fieldNames.toArray(new String[fieldNames.size()]);
+		Field[] allDeclaredFields = getAllDeclaredFields(cls);
+		return Arrays.stream(allDeclaredFields).map(Field::getName).toArray(String[]::new);
+	}
+
+	/**
+	 * Gets all the declared field names including all fields from all super classes from the given
+	 * class object minus the given optional array of ignored field names
+	 *
+	 * @param cls
+	 *            the class object
+	 * @param ignoreFieldNames
+	 *            a optional array with the field names that shell be ignored
+	 * @return all the declared field names minus the given optional array of ignored field names
+	 */
+	public static String[] getAllDeclaredFieldNames(final @NonNull Class<?> cls,
+		String... ignoreFieldNames)
+	{
+		return getAllDeclaredFieldNames(cls, Arrays.asList(ignoreFieldNames));
+	}
+
+	/**
+	 * Gets all the declared field names including all fields from all super classes from the given
+	 * class object minus the given ignored field names
+	 *
+	 * @param cls
+	 *            the class object
+	 * @param ignoreFieldNames
+	 *            a list with field names that shell be ignored
+	 * @return all the declared field names minus the given ignored field names
+	 */
+	public static String[] getAllDeclaredFieldNames(final @NonNull Class<?> cls,
+		List<String> ignoreFieldNames)
+	{
+		Field[] allDeclaredFields = getAllDeclaredFields(cls);
+		return Arrays.stream(allDeclaredFields).map(Field::getName)
+			.filter(name -> !ignoreFieldNames.contains(name)).toArray(String[]::new);
+	}
+
+	/**
+	 * Gets the declared fields from the given class minus the given ignored field names
+	 *
+	 * @param cls
+	 *            the class object
+	 * @param ignoreFieldNames
+	 *            a list with field names that shell be ignored
+	 * @return the declared {@link Field} from the given class minus the given ignored field names
+	 * @throws SecurityException
+	 *             is thrown if a security manager says no
+	 */
+	public static Field[] getDeclaredFields(final @NonNull Class<?> cls,
+		List<String> ignoreFieldNames) throws SecurityException
+	{
+		return Arrays.stream(cls.getDeclaredFields())
+			.filter(field -> !ignoreFieldNames.contains(field.getName())).toArray(Field[]::new);
+	}
+
+	/**
+	 * Gets the declared fields from the given class minus the given optional array of ignored field
+	 * names
+	 *
+	 * @param cls
+	 *            the class object
+	 * @param ignoreFieldNames
+	 *            a list with field names that shell be ignored
+	 * @return the declared {@link Field} from the given class minus the given optional array of
+	 *         ignored field names
+	 * @throws SecurityException
+	 *             is thrown if a security manager says no
+	 */
+	public static Field[] getDeclaredFields(final @NonNull Class<?> cls, String... ignoreFieldNames)
+		throws SecurityException
+	{
+		return getDeclaredFields(cls, Arrays.asList(ignoreFieldNames));
 	}
 
 }

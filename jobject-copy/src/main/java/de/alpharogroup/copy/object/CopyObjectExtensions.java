@@ -26,11 +26,15 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Modifier;
+import java.util.Arrays;
 
 import org.apache.commons.beanutils.BeanUtils;
 
 import de.alpharogroup.reflection.ReflectionExtensions;
+import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -40,6 +44,189 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class CopyObjectExtensions
 {
+
+	/**
+	 * Copy the given original object.
+	 *
+	 * @param <T>
+	 *            the generic type of the given object
+	 * @param original
+	 *            the original object
+	 * @return a copy of the given original object
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InstantiationException
+	 *             Thrown if one of the following reasons: the class object
+	 *             <ul>
+	 *             <li>represents an abstract class</li>
+	 *             <li>represents an interface</li>
+	 *             <li>represents an array class</li>
+	 *             <li>represents a primitive type</li>
+	 *             <li>represents {@code void}</li>
+	 *             <li>has no nullary constructor</li>
+	 *             </ul>
+	 * @throws ClassNotFoundException
+	 *             is thrown if the class cannot be located
+	 */
+	public static <T> T copyObject(@NonNull T original)
+		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+	{
+		T destination = ReflectionExtensions.newInstance(original);
+		return copyObject(original, destination);
+	}
+
+	/**
+	 * Copy the given original object to the given destination object. This also works on private
+	 * fields.
+	 *
+	 * @param <ORIGINAL>
+	 *            the generic type of the original object.
+	 * @param <DESTINATION>
+	 *            the generic type of the destination object.
+	 * @param original
+	 *            the original object.
+	 * @param destination
+	 *            the destination object.
+	 * @return a copy of the given original object
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InstantiationException
+	 *             Thrown if one of the following reasons: the class object
+	 *             <ul>
+	 *             <li>represents an abstract class</li>
+	 *             <li>represents an interface</li>
+	 *             <li>represents an array class</li>
+	 *             <li>represents a primitive type</li>
+	 *             <li>represents {@code void}</li>
+	 *             <li>has no nullary constructor</li>
+	 *             </ul>
+	 * @throws ClassNotFoundException
+	 *             is thrown if the class cannot be located
+	 */
+	public static <ORIGINAL, DESTINATION> DESTINATION copyObject(@NonNull ORIGINAL original,
+		@NonNull DESTINATION destination)
+		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+	{
+		for (Field field : original.getClass().getDeclaredFields())
+		{
+			if (copyField(field, original, destination))
+			{
+				continue;
+			}
+		}
+		return destination;
+	}
+
+	/**
+	 * Copy the given original object to the given destination object. This also works on private
+	 * fields.
+	 *
+	 * @param <ORIGINAL>
+	 *            the generic type of the original object.
+	 * @param <DESTINATION>
+	 *            the generic type of the destination object.
+	 * @param original
+	 *            the original object.
+	 * @param destination
+	 *            the destination object.
+	 * @param ignoreFields
+	 *            optional field names to ignore
+	 * @return a copy of the given original object
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InstantiationException
+	 *             Thrown if one of the following reasons: the class object
+	 *             <ul>
+	 *             <li>represents an abstract class</li>
+	 *             <li>represents an interface</li>
+	 *             <li>represents an array class</li>
+	 *             <li>represents a primitive type</li>
+	 *             <li>represents {@code void}</li>
+	 *             <li>has no nullary constructor</li>
+	 *             </ul>
+	 * @throws ClassNotFoundException
+	 *             is thrown if the class cannot be located
+	 */
+	public static <ORIGINAL, DESTINATION> DESTINATION copyObject(@NonNull ORIGINAL original,
+		@NonNull DESTINATION destination, String... ignoreFields)
+		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+	{
+		for (Field field : original.getClass().getDeclaredFields())
+		{
+			if (Arrays.asList(ignoreFields).contains(field.getName())
+				|| copyField(field, original, destination))
+				continue;
+		}
+		return destination;
+	}
+
+	/**
+	 * Copy the given original object to the given destination object. This also works on private
+	 * fields.
+	 *
+	 * @param <ORIGINAL>
+	 *            the generic type of the original object.
+	 * @param <DESTINATION>
+	 *            the generic type of the destination object.
+	 * @param field
+	 *            the field
+	 * @param original
+	 *            the original object.
+	 * @param destination
+	 *            the destination object.
+	 * @return true if the field is null or final otherwise false
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 * @throws InstantiationException
+	 *             Thrown if one of the following reasons: the class object
+	 *             <ul>
+	 *             <li>represents an abstract class</li>
+	 *             <li>represents an interface</li>
+	 *             <li>represents an array class</li>
+	 *             <li>represents a primitive type</li>
+	 *             <li>represents {@code void}</li>
+	 *             <li>has no nullary constructor</li>
+	 *             </ul>
+	 * @throws ClassNotFoundException
+	 *             is thrown if the class cannot be located
+	 */
+	@SuppressWarnings("unchecked")
+	public static <ORIGINAL, DESTINATION> boolean copyField(@NonNull Field field,
+		@NonNull ORIGINAL original, @NonNull DESTINATION destination)
+		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+	{
+		field.setAccessible(true);
+		Object value = field.get(original);
+		if (value == null || Modifier.isFinal(field.getModifiers()))
+		{
+			return true;
+		}
+		if (field.getType().isEnum())
+		{
+			Enum<?> enumValue = (Enum<?>)value;
+			String name = enumValue.name();
+			field.set(destination, Enum.valueOf(field.getType().asSubclass(Enum.class), name));
+		}
+		else if (field.getType().isPrimitive() || field.getType().equals(String.class)
+			|| field.getType().getSuperclass().equals(Number.class)
+			|| field.getType().equals(Boolean.class))
+		{
+			field.set(destination, value);
+		}
+		else
+		{
+			Object childObj = value;
+			if (childObj == original)
+			{
+				field.set(destination, destination);
+			}
+			else
+			{
+				field.set(destination, copyObject(value));
+			}
+		}
+		return false;
+	}
 
 	/**
 	 * Copy the given original object to the given destination object. This also works on private

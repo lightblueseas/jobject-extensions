@@ -33,6 +33,8 @@ import java.util.Arrays;
 
 import org.apache.commons.beanutils.BeanUtils;
 
+import de.alpharogroup.lang.ClassType;
+import de.alpharogroup.lang.ObjectExtensions;
 import de.alpharogroup.reflection.ReflectionExtensions;
 import lombok.NonNull;
 import lombok.experimental.UtilityClass;
@@ -201,29 +203,32 @@ public final class CopyObjectExtensions
 		{
 			return true;
 		}
-		if (field.getType().isEnum())
+		Class<?> fieldType = field.getType();
+		ClassType classType = ObjectExtensions.getClassType(fieldType);
+		switch (classType)
 		{
-			Enum<?> enumValue = (Enum<?>)value;
-			String name = enumValue.name();
-			field.set(destination, Enum.valueOf(field.getType().asSubclass(Enum.class), name));
-		}
-		else if (field.getType().isPrimitive() || field.getType().equals(String.class)
-			|| field.getType().getSuperclass().equals(Number.class)
-			|| field.getType().equals(Boolean.class))
-		{
-			field.set(destination, value);
-		}
-		else
-		{
-			Object childObj = value;
-			if (childObj == original)
-			{
-				field.set(destination, destination);
-			}
-			else
-			{
-				field.set(destination, copyObject(value));
-			}
+			case ARRAY :
+				field.set(destination, ReflectionExtensions.copyArray(value));
+				break;
+			case ENUM :
+				Enum<?> enumValue = (Enum<?>)value;
+				String name = enumValue.name();
+				field.set(destination, Enum.valueOf(fieldType.asSubclass(Enum.class), name));
+				break;
+			case ANNOTATION :
+			case ANONYMOUS :
+			case COLLECTION :
+			case LOCAL :
+			case DEFAULT :
+			case MEMBER :
+			case SYNTHETIC :
+			case INTERFACE :
+			case PRIMITIVE :
+				field.set(destination, value);
+				break;
+			case MAP :
+				field.set(destination, value);
+				break;
 		}
 		return false;
 	}
@@ -318,7 +323,7 @@ public final class CopyObjectExtensions
 	 * @param original
 	 *            the original object.
 	 * @return the new object that is a copy of the given object.
-	 * 
+	 *
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
 	 * @throws InvocationTargetException

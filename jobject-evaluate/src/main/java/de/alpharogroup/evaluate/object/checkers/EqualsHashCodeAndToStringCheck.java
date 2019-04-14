@@ -29,7 +29,7 @@ import de.alpharogroup.clone.object.CloneObjectExtensions;
 import de.alpharogroup.evaluate.object.api.ContractViolation;
 import de.alpharogroup.evaluate.object.enums.EqualsHashcodeContractViolation;
 import de.alpharogroup.evaluate.object.enums.ToStringContractViolation;
-import io.github.benas.randombeans.api.EnhancedRandom;
+import io.github.benas.randombeans.EnhancedRandomBuilder;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -249,7 +249,8 @@ public final class EqualsHashCodeAndToStringCheck
 		throws NoSuchMethodException, IllegalAccessException, InvocationTargetException,
 		InstantiationException, IOException, ClassNotFoundException
 	{
-		return equalsHashcodeAndToString(cls, EnhancedRandom::random);
+		Function<Class<T>, T> function = new EnhancedRandomBuilder().build()::nextObject;
+		return equalsHashcodeAndToString(cls, function);
 	}
 
 	/**

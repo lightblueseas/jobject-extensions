@@ -59,6 +59,14 @@ public class ObjectExtensionsTest
 		ClassType expected;
 		ClassType actual;
 
+		expected = ClassType.DEFAULT;
+		actual = ObjectExtensions.getClassType(Integer.class);
+		assertEquals(expected, actual);
+
+		expected = ClassType.DEFAULT;
+		actual = ObjectExtensions.getClassType(Boolean.class);
+		assertEquals(expected, actual);
+
 		expected = ClassType.PRIMITIVE;
 		actual = ObjectExtensions.getClassType(int.class);
 		assertEquals(expected, actual);

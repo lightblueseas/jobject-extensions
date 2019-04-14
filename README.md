@@ -245,6 +245,7 @@ or over flattr: <a href="https://flattr.com/submit/auto?fid=r7vp62&url=https%3A%
 - [cloning](https://github.com/kostaskougios/cloning) deep clone java objects
 - [JaVers](https://github.com/javers/javers) JaVers - Object auditing and diff framework for Java
 - [equalsverifier](https://github.com/jqno/equalsverifier) EqualsVerifier can be used in Java unit tests to verify whether the contract for the equals and hashCode methods is met.
+- [jOOR](https://github.com/jOOQ/jOOR) Fluent Reflection in Java jOOR is a very simple fluent API that gives access to your Java Class structures in a more intuitive way.
 
 ## Credits
 

@@ -8,6 +8,10 @@ ADDED:
 
 - new methods for get the declared fields of a class with an optional list of fields that shell be ignored
 
+CHANGED:
+
+- moved jobject-compare to its own project
+
 Version 2.6
 -------------
 

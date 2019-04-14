@@ -31,8 +31,6 @@ The source code comes under the liberal MIT License, making jobject-extensions g
 
 [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-clone.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-clone) jobject-clone
 
-[![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-compare.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-compare) jobject-compare
-
 [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-copy.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-copy) jobject-copy
 
 [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-core.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-core) jobject-core
@@ -57,7 +55,6 @@ Than you can add the dependency to your dependencies:
 		<!-- JOBJECT-EXTENSIONS versions -->
 		<jobject-extensions.version>2.6</jobject-extensions.version>		
 		<jobject-clone.version>${jobject-extensions.version}</jobject-clone.version>
-		<jobject-compare.version>${jobject-extensions.version}</jobject-compare.version>
 		<jobject-copy.version>${jobject-extensions.version}</jobject-copy.version>
 		<jobject-core.version>${jobject-extensions.version}</jobject-core.version>
 		<jobject-diff.version>${jobject-extensions.version}</jobject-diff.version>
@@ -77,19 +74,6 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-clone</artifactId>
 				<version>${jobject-clone.version}</version>
-			</dependency>
-			...
-		</dependencies>
-
-Add the following maven dependency to your project `pom.xml` if you want to import the functionality of jobject-compare:
-
-		<dependencies>
-			...
-			<!-- JOBJECT-COMPARE DEPENDENCY -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>jobject-compare</artifactId>
-				<version>${jobject-compare.version}</version>
 			</dependency>
 			...
 		</dependencies>
@@ -174,12 +158,6 @@ You can of course import all dependencies of jobject-extensions:
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-clone</artifactId>
 				<version>${jobject-clone.version}</version>
-			</dependency>
-			<!-- JOBJECT-COMPARE DEPENDENCY -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>jobject-compare</artifactId>
-				<version>${jobject-compare.version}</version>
 			</dependency>
 			<!-- JOBJECT-COPY DEPENDENCY -->
 			<dependency>
@@ -280,7 +258,6 @@ or over flattr: <a href="https://flattr.com/submit/auto?fid=r7vp62&url=https%3A%
 |**Nexus Sonatype repositories**|
 |     :---:      |
 |[![sonatype repository](https://img.shields.io/nexus/r/https/oss.sonatype.org/de.alpharogroup/jobject-clone.svg?style=for-the-badge)](https://oss.sonatype.org/index.html#nexus-search;gav~de.alpharogroup~jobject-clone~~~) jobject-clone|
-|[![sonatype repository](https://img.shields.io/nexus/r/https/oss.sonatype.org/de.alpharogroup/jobject-compare.svg?style=for-the-badge)](https://oss.sonatype.org/index.html#nexus-search;gav~de.alpharogroup~jobject-compare~~~) jobject-compare|
 |[![sonatype repository](https://img.shields.io/nexus/r/https/oss.sonatype.org/de.alpharogroup/jobject-copy.svg?style=for-the-badge)](https://oss.sonatype.org/index.html#nexus-search;gav~de.alpharogroup~jobject-copy~~~) jobject-copy|
 |[![sonatype repository](https://img.shields.io/nexus/r/https/oss.sonatype.org/de.alpharogroup/jobject-core.svg?style=for-the-badge)](https://oss.sonatype.org/index.html#nexus-search;gav~de.alpharogroup~jobject-core~~~) jobject-core|
 |[![sonatype repository](https://img.shields.io/nexus/r/https/oss.sonatype.org/de.alpharogroup/jobject-diff.svg?style=for-the-badge)](https://oss.sonatype.org/index.html#nexus-search;gav~de.alpharogroup~jobject-diff~~~) jobject-diff|
@@ -298,7 +275,6 @@ or over flattr: <a href="https://flattr.com/submit/auto?fid=r7vp62&url=https%3A%
 |**javadoc.io**|
 |     :---:      |
 |[![Javadoc](http://www.javadoc.io/badge/de.alpharogroup/jobject-clone.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-clone) jobject-clone|
-|[![Javadoc](http://www.javadoc.io/badge/de.alpharogroup/jobject-compare.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-compare) jobject-compare|
 |[![Javadoc](http://www.javadoc.io/badge/de.alpharogroup/jobject-copy.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-copy) jobject-copy|
 |[![Javadoc](http://www.javadoc.io/badge/de.alpharogroup/jobject-core.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-core) jobject-core|
 |[![Javadoc](http://www.javadoc.io/badge/de.alpharogroup/jobject-diff.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-diff) jobject-diff|

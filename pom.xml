@@ -33,11 +33,12 @@
 		<commons-beanutils.version>1.9.3</commons-beanutils.version>
 		<!-- OBJENESIS version -->
 		<objenesis.version>3.0.1</objenesis.version>
+		<!-- JOBJ-COMPARE version -->
+		<jobj-compare.version>3</jobj-compare.version>
 	</properties>
 
 	<modules>
 		<module>jobject-copy</module>
-		<module>jobject-compare</module>
 		<module>jobject-clone</module>
 		<module>jobject-core</module>
 		<module>jobject-diff</module>
@@ -114,12 +115,6 @@
 				<artifactId>jobject-copy</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<!-- JOBJECT-COMPARE DEPENDENCY -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>jobject-compare</artifactId>
-				<version>${project.version}</version>
-			</dependency>
 			<!-- JOBJECT-CLONE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
@@ -137,6 +132,12 @@
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-evaluate</artifactId>
 				<version>${project.version}</version>
+			</dependency>
+			<!-- JOBJ-COMPARE DEPENDENCY -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobj-compare</artifactId>
+				<version>${jobj-compare.version}</version>
 			</dependency>
 
 		</dependencies>

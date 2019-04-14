@@ -69,7 +69,7 @@ public final class CopyObjectExtensions
 	 *             is thrown if the class cannot be located
 	 */
 	public static <T> T copyObject(@NonNull T original)
-		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException
 	{
 		T destination = ReflectionExtensions.newInstance(original);
 		return copyObject(original, destination);
@@ -104,8 +104,8 @@ public final class CopyObjectExtensions
 	 *             is thrown if the class cannot be located
 	 */
 	public static <ORIGINAL, DESTINATION> DESTINATION copyObject(@NonNull ORIGINAL original,
-		@NonNull DESTINATION destination)
-		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+																 @NonNull DESTINATION destination)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException
 	{
 		for (Field field : original.getClass().getDeclaredFields())
 		{
@@ -148,13 +148,13 @@ public final class CopyObjectExtensions
 	 *             is thrown if the class cannot be located
 	 */
 	public static <ORIGINAL, DESTINATION> DESTINATION copyObject(@NonNull ORIGINAL original,
-		@NonNull DESTINATION destination, String... ignoreFields)
-		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+																 @NonNull DESTINATION destination, String... ignoreFields)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException
 	{
 		for (Field field : original.getClass().getDeclaredFields())
 		{
 			if (Arrays.asList(ignoreFields).contains(field.getName())
-				|| copyField(field, original, destination))
+					|| copyField(field, original, destination))
 				continue;
 		}
 		return destination;
@@ -192,8 +192,8 @@ public final class CopyObjectExtensions
 	 */
 	@SuppressWarnings("unchecked")
 	public static <ORIGINAL, DESTINATION> boolean copyField(@NonNull Field field,
-		@NonNull ORIGINAL original, @NonNull DESTINATION destination)
-		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+															@NonNull ORIGINAL original, @NonNull DESTINATION destination)
+			throws IllegalAccessException, InstantiationException, ClassNotFoundException
 	{
 		field.setAccessible(true);
 		Object value = field.get(original);
@@ -201,15 +201,16 @@ public final class CopyObjectExtensions
 		{
 			return true;
 		}
-		if (field.getType().isEnum())
+		Class<?> fieldType = field.getType();
+		if (fieldType.isEnum())
 		{
 			Enum<?> enumValue = (Enum<?>)value;
 			String name = enumValue.name();
-			field.set(destination, Enum.valueOf(field.getType().asSubclass(Enum.class), name));
+			field.set(destination, Enum.valueOf(fieldType.asSubclass(Enum.class), name));
 		}
-		else if (field.getType().isPrimitive() || field.getType().equals(String.class)
-			|| field.getType().getSuperclass().equals(Number.class)
-			|| field.getType().equals(Boolean.class))
+		else if (fieldType.isPrimitive() || fieldType.equals(String.class)
+				|| fieldType.getSuperclass()!= null && fieldType.getSuperclass().equals(Number.class)
+				|| fieldType.equals(Boolean.class))
 		{
 			field.set(destination, value);
 		}
@@ -251,8 +252,8 @@ public final class CopyObjectExtensions
 	 *             if the caller does not have access to the property accessor method
 	 */
 	public static <ORIGINAL, DESTINATION> DESTINATION copyPropertyWithReflection(
-		final ORIGINAL original, final DESTINATION destination, final String fieldName)
-		throws NoSuchFieldException, SecurityException, IllegalAccessException
+			final ORIGINAL original, final DESTINATION destination, final String fieldName)
+			throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		ReflectionExtensions.copyFieldValue(original, destination, fieldName);
 		return destination;
@@ -277,8 +278,8 @@ public final class CopyObjectExtensions
 	 *             if the property accessor method throws an exception
 	 */
 	public static <ORIGINAL, DESTINATION> DESTINATION copy(final ORIGINAL original,
-		final DESTINATION destination)
-		throws IllegalAccessException, InvocationTargetException, IllegalArgumentException
+														   final DESTINATION destination)
+			throws IllegalAccessException, InvocationTargetException, IllegalArgumentException
 	{
 		return copyProperties(original, destination);
 	}
@@ -302,7 +303,7 @@ public final class CopyObjectExtensions
 	 *             if the property accessor method throws an exception
 	 */
 	public static <ORIGINAL, DESTINATION> DESTINATION copyProperties(final ORIGINAL original,
-		final DESTINATION destination) throws IllegalAccessException, InvocationTargetException
+																	 final DESTINATION destination) throws IllegalAccessException, InvocationTargetException
 	{
 		BeanUtils.copyProperties(destination, original);
 		return destination;
@@ -318,7 +319,7 @@ public final class CopyObjectExtensions
 	 * @param original
 	 *            the original object.
 	 * @return the new object that is a copy of the given object.
-	 * 
+	 *
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
 	 * @throws InvocationTargetException
@@ -336,7 +337,7 @@ public final class CopyObjectExtensions
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T copyProperties(final T original)
-		throws IllegalAccessException, InvocationTargetException, InstantiationException
+			throws IllegalAccessException, InvocationTargetException, InstantiationException
 	{
 		Object destination = original.getClass().newInstance();
 		BeanUtils.copyProperties(destination, original);
@@ -360,16 +361,16 @@ public final class CopyObjectExtensions
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T extends Serializable> T copySerializedObject(final T orig)
-		throws IOException, ClassNotFoundException
+			throws IOException, ClassNotFoundException
 	{
 		try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-			ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream))
+			 ObjectOutputStream objectOutputStream = new ObjectOutputStream(byteArrayOutputStream))
 		{
 			objectOutputStream.writeObject(orig);
 			objectOutputStream.flush();
 			objectOutputStream.close();
 			final ByteArrayInputStream bis = new ByteArrayInputStream(
-				byteArrayOutputStream.toByteArray());
+					byteArrayOutputStream.toByteArray());
 			final ObjectInputStream ois = new ObjectInputStream(bis);
 			T object = (T)ois.readObject();
 			byteArrayOutputStream.close();

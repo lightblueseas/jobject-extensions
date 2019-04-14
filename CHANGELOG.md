@@ -7,6 +7,7 @@ Version 2.6.4
 ADDED:
 
 - new methods for get the declared fields of a class with an optional list of fields that shell be ignored
+- new method for copy an array over reflection
 
 CHANGED:
 

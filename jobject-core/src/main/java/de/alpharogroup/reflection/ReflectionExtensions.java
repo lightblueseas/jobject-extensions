@@ -20,6 +20,7 @@
  */
 package de.alpharogroup.reflection;
 
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
@@ -43,6 +44,24 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class ReflectionExtensions
 {
+
+	/**
+	 * Copy the given array object and return a copy of it
+	 *
+	 * @param source
+	 *            the source
+	 * @return the copy of the given array object
+	 */
+	public static Object copyArray(final @NonNull Object source)
+	{
+		Class<?> arrayType = source.getClass().getComponentType();
+		Object destination = Array.newInstance(arrayType, Array.getLength(source));
+		for (int i = 0; i < Array.getLength(source); i++)
+		{
+			Array.set(destination, i, Array.get(source, i));
+		}
+		return destination;
+	}
 
 	/**
 	 * Copies the field value of the given source object to the given target object.

@@ -1,7 +1,7 @@
 ## Change log
 ----------------------
 
-Version 2.6.4
+Version 3
 -------------
 
 ADDED:
@@ -12,6 +12,8 @@ ADDED:
 CHANGED:
 
 - moved jobject-compare to its own project
+- moved jobect-evaluate to its own project
+- moved jobject-diff to its own project
 
 Version 2.6
 -------------

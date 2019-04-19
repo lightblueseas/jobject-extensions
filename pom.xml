@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>jobject-extensions</artifactId>
-	<version>2.6.4</version>
+	<version>3</version>
 	<packaging>pom</packaging>
 
 	<name>${project.artifactId}</name>
@@ -26,7 +26,7 @@
 		<!-- VINTAGE-TIME version -->
 		<vintage-time.version>5.1</vintage-time.version>
 		<!-- SILLY-COLLECTIONS version -->
-		<silly-collections.version>5.1</silly-collections.version>
+		<silly-collections.version>5.2</silly-collections.version>
 		<!-- TEST-OBJECTS version -->
 		<test-objects.version>5.0.1</test-objects.version>
 		<!-- EXTERNAL LIBRARIES versions -->
@@ -34,15 +34,15 @@
 		<!-- OBJENESIS version -->
 		<objenesis.version>3.0.1</objenesis.version>
 		<!-- JOBJ-COMPARE version -->
-		<jobj-compare.version>3</jobj-compare.version>
+		<jobj-compare.version>3.1</jobj-compare.version>
+		<!-- JOBJ-CONTRACT-VERIFIER version -->
+		<jobj-contract-verifier.version>3</jobj-contract-verifier.version>
 	</properties>
 
 	<modules>
+		<module>jobject-core</module>
 		<module>jobject-copy</module>
 		<module>jobject-clone</module>
-		<module>jobject-core</module>
-		<module>jobject-diff</module>
-		<module>jobject-evaluate</module>
 		<module>jobject-merge</module>
 	</modules>
 
@@ -127,17 +127,17 @@
 				<artifactId>jobject-core</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<!-- JOBJECT-EVALUATE DEPENDENCY -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>jobject-evaluate</artifactId>
-				<version>${project.version}</version>
-			</dependency>
 			<!-- JOBJ-COMPARE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobj-compare</artifactId>
 				<version>${jobj-compare.version}</version>
+			</dependency>
+			<!-- JOBJ-CONTRACT-VERIFIER DEPENDENCY -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobj-contract-verifier</artifactId>
+				<version>${jobj-contract-verifier.version}</version>
 			</dependency>
 
 		</dependencies>
@@ -214,15 +214,12 @@
 						<instrumentation>
 							<excludes>
 								<!-- enums -->
-								<exclude>de/alpharogroup/evaluate/object/enums/**/*.class</exclude>
 								<!-- beans -->
 								<!-- interfaces and abstract classes -->
-								<exclude>de/alpharogroup/evaluate/object/api/**/*.class</exclude>
 								<!-- exceptions -->
 								<!-- deprecated -->
 								<!-- constant classes with only constants -->
 								<!-- explicit bean classes -->
-								<exclude>de/alpharogroup/evaluate/object/evaluators/SilentEqualsHashCodeAndToStringEvaluator.class</exclude>
 								<!-- explicit deprecated classes -->
 								<!-- explicit enums -->
 								<exclude>de/alpharogroup/lang/ClassType.class</exclude>

@@ -50,21 +50,6 @@ public class CopyObjectExtensionsTest
 	 * @throws InvocationTargetException
 	 *             the invocation target exception
 	 */
-	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
-	public void testCopyIllegalArgumentException()
-		throws IllegalAccessException, InvocationTargetException
-	{
-		CopyObjectExtensions.copy(null, "beast");
-	}
-
-	/**
-	 * Test method for {@link CopyObjectExtensions#copy(Object, Object)}.
-	 *
-	 * @throws IllegalAccessException
-	 *             the illegal access exception
-	 * @throws InvocationTargetException
-	 *             the invocation target exception
-	 */
 	@Test(enabled = true)
 	public void testCopyNotEqualType() throws IllegalAccessException, InvocationTargetException
 	{
@@ -154,14 +139,18 @@ public class CopyObjectExtensionsTest
 
 		Employee original = Employee.builder().person(person).id("23").build();
 		Employee destination = Employee.builder().build();
-		Employee employee = CopyObjectExtensions.copyObject(original, destination, "id");
+		Employee employee = CopyObjectExtensions.copyObject(original, destination);
+		assertEquals(original, employee);
+		// new scenario with ignore the id...
+		destination = Employee.builder().build();
+		employee = CopyObjectExtensions.copyObject(original, destination, "id");
 		original.setId(null);
 		assertEquals(original, employee);
 	}
 
 	/**
 	 * Test method for {@link CopyObjectExtensions#copyProperties(Object)}
-	 * 
+	 *
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
 	 * @throws InvocationTargetException

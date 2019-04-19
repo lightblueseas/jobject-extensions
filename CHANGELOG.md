@@ -4,6 +4,10 @@
 Version 3.1-SNAPSHOT
 -------------
 
+ADDED:
+
+- new methods for get all the declared fields of a class with an optional list of fields that shell be ignored
+
 Version 3
 -------------
 

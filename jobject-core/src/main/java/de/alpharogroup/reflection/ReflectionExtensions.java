@@ -470,24 +470,45 @@ public final class ReflectionExtensions
 
 	/**
 	 * Gets all the declared fields including all fields from all super classes from the given class
-	 * object
+	 * object minus the given ignored fields
 	 *
 	 * @param cls
 	 *            the class object
-	 * @return all the declared fields
+	 * @param ignoreFieldNames
+	 *            an optional array with field names that shell be ignored
+	 * @return all the declared fields minus the given ignored field names
 	 */
-	public static Field[] getAllDeclaredFields(final @NonNull Class<?> cls)
+	public static Field[] getAllDeclaredFields(final @NonNull Class<?> cls, final String... ignoreFieldNames)
 	{
-		List<Field> fields = new ArrayList<>(Arrays.asList(cls.getDeclaredFields()));
+		return getAllDeclaredFields(cls, Arrays.asList(ignoreFieldNames));
+	}
+
+	/**
+	 * Gets all the declared fields including all fields from all super classes from the given class
+	 * object minus the given ignored fields
+	 *
+	 * @param cls
+	 *            the class object
+	 * @param ignoreFieldNames
+	 *            a list with field names that shell be ignored
+	 * @return all the declared fields minus the given ignored field names
+	 */
+	public static Field[] getAllDeclaredFields(final @NonNull Class<?> cls, final List<String> ignoreFieldNames)
+	{
+		Field[] declaredFields = getDeclaredFields(cls, ignoreFieldNames);
 		Class<?> superClass = cls.getSuperclass();
 		if (superClass != null && superClass.equals(Object.class))
 		{
-			return fields.toArray(new Field[] { });
+			return declaredFields;
 		}
+		// TODO optimize with dot detection...
+		ignoreFieldNames.removeAll(Arrays.asList(getDeclaredFieldNames(cls)));
+		List<Field> fields = new ArrayList<>(Arrays.asList(declaredFields));
 		while ((superClass != null && superClass.getSuperclass() != null
 			&& superClass.getSuperclass().equals(Object.class)))
 		{
-			fields.addAll(Arrays.asList(superClass.getDeclaredFields()));
+			fields.addAll(Arrays.asList(getDeclaredFields(superClass, ignoreFieldNames)));
+			ignoreFieldNames.removeAll(Arrays.asList(getDeclaredFieldNames(cls)));
 			superClass = superClass.getSuperclass();
 		}
 		return fields.toArray(new Field[] { });
@@ -514,7 +535,7 @@ public final class ReflectionExtensions
 	 * @param cls
 	 *            the class object
 	 * @param ignoreFieldNames
-	 *            a optional array with the field names that shell be ignored
+	 *            an optional array with the field names that shell be ignored
 	 * @return all the declared field names minus the given optional array of ignored field names
 	 */
 	public static String[] getAllDeclaredFieldNames(final @NonNull Class<?> cls,

@@ -89,48 +89,6 @@ public final class CopyObjectExtensions
 	 *            the original object.
 	 * @param destination
 	 *            the destination object.
-	 * @return a copy of the given original object
-	 * @throws IllegalAccessException
-	 *             if the caller does not have access to the property accessor method
-	 * @throws InstantiationException
-	 *             Thrown if one of the following reasons: the class object
-	 *             <ul>
-	 *             <li>represents an abstract class</li>
-	 *             <li>represents an interface</li>
-	 *             <li>represents an array class</li>
-	 *             <li>represents a primitive type</li>
-	 *             <li>represents {@code void}</li>
-	 *             <li>has no nullary constructor</li>
-	 *             </ul>
-	 * @throws ClassNotFoundException
-	 *             is thrown if the class cannot be located
-	 */
-	public static <ORIGINAL, DESTINATION> DESTINATION copyObject(@NonNull ORIGINAL original,
-		@NonNull DESTINATION destination)
-		throws IllegalAccessException, InstantiationException, ClassNotFoundException
-	{
-		for (Field field : original.getClass().getDeclaredFields())
-		{
-			if (copyField(field, original, destination))
-			{
-				continue;
-			}
-		}
-		return destination;
-	}
-
-	/**
-	 * Copy the given original object to the given destination object. This also works on private
-	 * fields.
-	 *
-	 * @param <ORIGINAL>
-	 *            the generic type of the original object.
-	 * @param <DESTINATION>
-	 *            the generic type of the destination object.
-	 * @param original
-	 *            the original object.
-	 * @param destination
-	 *            the destination object.
 	 * @param ignoreFields
 	 *            optional field names to ignore
 	 * @return a copy of the given original object
@@ -149,15 +107,18 @@ public final class CopyObjectExtensions
 	 * @throws ClassNotFoundException
 	 *             is thrown if the class cannot be located
 	 */
-	public static <ORIGINAL, DESTINATION> DESTINATION copyObject(@NonNull ORIGINAL original,
-		@NonNull DESTINATION destination, String... ignoreFields)
+	public static <ORIGINAL, DESTINATION> DESTINATION copyObject(final @NonNull ORIGINAL original,
+		final @NonNull DESTINATION destination, final String... ignoreFields)
 		throws IllegalAccessException, InstantiationException, ClassNotFoundException
 	{
-		for (Field field : original.getClass().getDeclaredFields())
+		Field[] allDeclaredFields = ReflectionExtensions.getAllDeclaredFields(original.getClass(), ignoreFields);
+		for (Field field : allDeclaredFields)
 		{
 			if (Arrays.asList(ignoreFields).contains(field.getName())
 				|| copyField(field, original, destination))
+			{
 				continue;
+			}
 		}
 		return destination;
 	}
@@ -193,8 +154,8 @@ public final class CopyObjectExtensions
 	 *             is thrown if the class cannot be located
 	 */
 	@SuppressWarnings("unchecked")
-	public static <ORIGINAL, DESTINATION> boolean copyField(@NonNull Field field,
-		@NonNull ORIGINAL original, @NonNull DESTINATION destination)
+	public static <ORIGINAL, DESTINATION> boolean copyField(final @NonNull Field field,
+		final @NonNull ORIGINAL original, final @NonNull DESTINATION destination)
 		throws IllegalAccessException, InstantiationException, ClassNotFoundException
 	{
 		field.setAccessible(true);
@@ -256,7 +217,7 @@ public final class CopyObjectExtensions
 	 *             if the caller does not have access to the property accessor method
 	 */
 	public static <ORIGINAL, DESTINATION> DESTINATION copyPropertyWithReflection(
-		final ORIGINAL original, final DESTINATION destination, final String fieldName)
+		final @NonNull ORIGINAL original, final @NonNull DESTINATION destination, final @NonNull String fieldName)
 		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		ReflectionExtensions.copyFieldValue(original, destination, fieldName);
@@ -281,8 +242,8 @@ public final class CopyObjectExtensions
 	 * @throws InvocationTargetException
 	 *             if the property accessor method throws an exception
 	 */
-	public static <ORIGINAL, DESTINATION> DESTINATION copy(final ORIGINAL original,
-		final DESTINATION destination)
+	public static <ORIGINAL, DESTINATION> DESTINATION copy(final @NonNull ORIGINAL original,
+		final @NonNull DESTINATION destination)
 		throws IllegalAccessException, InvocationTargetException, IllegalArgumentException
 	{
 		return copyProperties(original, destination);
@@ -306,8 +267,8 @@ public final class CopyObjectExtensions
 	 * @throws InvocationTargetException
 	 *             if the property accessor method throws an exception
 	 */
-	public static <ORIGINAL, DESTINATION> DESTINATION copyProperties(final ORIGINAL original,
-		final DESTINATION destination) throws IllegalAccessException, InvocationTargetException
+	public static <ORIGINAL, DESTINATION> DESTINATION copyProperties(final @NonNull ORIGINAL original,
+		final @NonNull DESTINATION destination) throws IllegalAccessException, InvocationTargetException
 	{
 		BeanUtils.copyProperties(destination, original);
 		return destination;
@@ -340,7 +301,7 @@ public final class CopyObjectExtensions
 	 *             </ul>
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T copyProperties(final T original)
+	public static <T> T copyProperties(final @NonNull T original)
 		throws IllegalAccessException, InvocationTargetException, InstantiationException
 	{
 		Object destination = original.getClass().newInstance();
@@ -364,7 +325,7 @@ public final class CopyObjectExtensions
 	 *             class with the specified name could be found.
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T extends Serializable> T copySerializedObject(final T orig)
+	public static <T extends Serializable> T copySerializedObject(final @NonNull T orig)
 		throws IOException, ClassNotFoundException
 	{
 		try (ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

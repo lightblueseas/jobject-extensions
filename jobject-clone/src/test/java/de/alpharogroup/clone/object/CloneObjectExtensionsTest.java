@@ -24,6 +24,7 @@ import static org.testng.AssertJUnit.assertEquals;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 
 import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
@@ -32,6 +33,12 @@ import org.testng.annotations.Test;
 import de.alpharogroup.collections.array.ArrayFactory;
 import de.alpharogroup.date.CreateDateExtensions;
 import de.alpharogroup.test.objects.A;
+import de.alpharogroup.test.objects.Employee;
+import de.alpharogroup.test.objects.Member;
+import de.alpharogroup.test.objects.NotSerializable;
+import de.alpharogroup.test.objects.Person;
+import de.alpharogroup.test.objects.enums.Gender;
+import lombok.SneakyThrows;
 
 /**
  * The unit test class for the class {@link CloneObjectExtensions}.
@@ -114,6 +121,61 @@ public class CloneObjectExtensionsTest
 	}
 
 	/**
+	 * Test method for {@link CloneObjectExtensions#cloneBean(Object)} with an array.
+	 */
+	@Test(enabled = true)
+	@SneakyThrows
+	public void testCloneBeanWithExtends()
+	{
+		Person actual;
+		Person expected;
+		actual = Person.builder()
+			.name("Nikky")
+			.nickname("Six")
+			.gender(Gender.MALE)
+			.about("")
+			.married(false)
+			.build();
+		expected = CloneObjectExtensions.cloneBean(actual);
+		assertEquals("Cloned bean should be equal with the source object.", expected, actual);
+		actual = Member.buildMember()
+			.name("Nikky")
+			.nickname("Six")
+			.gender(Gender.MALE)
+			.about("")
+			.married(false)
+			.dateofbirth(new Date())
+			.dateofMarriage(new Date())
+			.build();
+
+		expected = CloneObjectExtensions.cloneBean(actual);
+		assertEquals("Cloned bean should be equal with the source object.", expected, actual);
+	}
+
+	/**
+	 * Test method for {@link CloneObjectExtensions#cloneBean(Object)} with an array.
+	 */
+	@Test(enabled = true)
+	@SneakyThrows
+	public void testCloneBeanWithComposition()
+	{
+		Employee actual;
+		Employee expected;
+
+		actual = Employee.builder()
+		.person(Person.builder()
+			.name("Nikky")
+			.nickname("Six")
+			.gender(Gender.MALE)
+			.about("")
+			.married(false)
+			.build())
+		.build();
+		expected = CloneObjectExtensions.cloneBean(actual);
+		assertEquals("Cloned bean should be equal with the source object.", expected, actual);
+	}
+
+	/**
 	 * Test method for {@link CloneObjectExtensions#cloneObject(Object)}.
 	 *
 	 * @throws NoSuchMethodException
@@ -169,11 +231,26 @@ public class CloneObjectExtensionsTest
 	 * values.
 	 */
 	@Test(enabled = true)
+	@SneakyThrows
+	public void testCloneNotSerializable() {
+		NotSerializable actual;
+		NotSerializable expected;
+
+		expected = NotSerializable.builder().name("foo").build();
+		actual = CloneObjectExtensions.clone(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
+
+	}
+
+	/**
+	 * Test method for {@link CloneObjectExtensions#clone(Object)} with an array with primitive
+	 * values.
+	 */
+	@Test(enabled = true)
 	public void testClonePrimitiveArray()
 		throws NoSuchMethodException, SecurityException, IllegalAccessException,
 		InvocationTargetException, ClassNotFoundException, InstantiationException, IOException
 	{
-		// TODO create szenario with no serializable...
 		int[] actual;
 		int[] expected;
 

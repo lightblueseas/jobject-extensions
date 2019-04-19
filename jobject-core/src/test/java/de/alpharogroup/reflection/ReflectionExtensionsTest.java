@@ -36,6 +36,7 @@ import org.meanbean.test.BeanTestException;
 import org.meanbean.test.BeanTester;
 import org.testng.annotations.Test;
 
+import de.alpharogroup.collections.array.ArrayFactory;
 import de.alpharogroup.collections.list.ListFactory;
 import de.alpharogroup.test.objects.A;
 import de.alpharogroup.test.objects.Member;
@@ -46,6 +47,18 @@ import de.alpharogroup.test.objects.Person;
  */
 public class ReflectionExtensionsTest
 {
+
+	/**
+	 * Test method for {@link ReflectionExtensions#copyArray(Object)}
+	 */
+	@Test
+	public void testCopyArray() {
+		Integer[] actual;
+		Integer[] expected;
+		actual = ArrayFactory.newArray(1,2,3);
+		expected = (Integer[])ReflectionExtensions.copyArray(actual);
+		assertTrue(Arrays.deepEquals(actual, expected));
+	}
 
 	/**
 	 * Test method for {@link ReflectionExtensions#copyFieldValue(Object, Object, String)}.
@@ -607,12 +620,3 @@ public class ReflectionExtensionsTest
 
 }
 
-class StaticBox
-{
-	private static String value;
-
-	public static String getValue()
-	{
-		return value;
-	}
-}

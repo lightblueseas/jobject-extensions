@@ -35,8 +35,6 @@ The source code comes under the liberal MIT License, making jobject-extensions g
 
 [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-core.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-core) jobject-core
 
-[![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-diff.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-diff) jobject-diff
-
 [![Javadocs](http://www.javadoc.io/badge/de.alpharogroup/jobject-merge.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-merge) jobject-merge
 
 ## Maven dependency
@@ -55,7 +53,6 @@ Than you can add the dependency to your dependencies:
 		<jobject-clone.version>${jobject-extensions.version}</jobject-clone.version>
 		<jobject-copy.version>${jobject-extensions.version}</jobject-copy.version>
 		<jobject-core.version>${jobject-extensions.version}</jobject-core.version>
-		<jobject-diff.version>${jobject-extensions.version}</jobject-diff.version>
 		<jobject-merge.version>${jobject-extensions.version}</jobject-merge.version>
 			...
 	</properties>
@@ -104,20 +101,6 @@ Add the following maven dependency to your project `pom.xml` if you want to impo
 		</dependencies>
 
 
-Add the following maven dependency to your project `pom.xml` if you want to import only the jobject-diff:
-
-		<dependencies>
-			...
-			<!-- JOBJECT-DIFF DEPENDENCY -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>jobject-diff</artifactId>
-				<version>${jobject-diff.version}</version>
-			</dependency>
-			...
-		</dependencies>
-
-
 Add the following maven dependency to your project `pom.xml` if you want to import only the jobject-merge:
 
 		<dependencies>
@@ -153,12 +136,6 @@ You can of course import all dependencies of jobject-extensions:
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobject-core</artifactId>
 				<version>${jobject-core.version}</version>
-			</dependency>
-			<!-- JOBJECT-DIFF DEPENDENCY -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>jobject-diff</artifactId>
-				<version>${jobject-diff.version}</version>
 			</dependency>
 			<!-- JOBJECT-MERGE DEPENDENCY -->
 			<dependency>
@@ -237,7 +214,6 @@ or over flattr: <a href="https://flattr.com/submit/auto?fid=r7vp62&url=https%3A%
 |[![sonatype repository](https://img.shields.io/nexus/r/https/oss.sonatype.org/de.alpharogroup/jobject-clone.svg?style=for-the-badge)](https://oss.sonatype.org/index.html#nexus-search;gav~de.alpharogroup~jobject-clone~~~) jobject-clone|
 |[![sonatype repository](https://img.shields.io/nexus/r/https/oss.sonatype.org/de.alpharogroup/jobject-copy.svg?style=for-the-badge)](https://oss.sonatype.org/index.html#nexus-search;gav~de.alpharogroup~jobject-copy~~~) jobject-copy|
 |[![sonatype repository](https://img.shields.io/nexus/r/https/oss.sonatype.org/de.alpharogroup/jobject-core.svg?style=for-the-badge)](https://oss.sonatype.org/index.html#nexus-search;gav~de.alpharogroup~jobject-core~~~) jobject-core|
-|[![sonatype repository](https://img.shields.io/nexus/r/https/oss.sonatype.org/de.alpharogroup/jobject-diff.svg?style=for-the-badge)](https://oss.sonatype.org/index.html#nexus-search;gav~de.alpharogroup~jobject-diff~~~) jobject-diff|
 |[![sonatype repository](https://img.shields.io/nexus/r/https/oss.sonatype.org/de.alpharogroup/jobject-merge.svg?style=for-the-badge)](https://oss.sonatype.org/index.html#nexus-search;gav~de.alpharogroup~jobject-merge~~~) jobject-merge|
 |Special thanks to [sonatype repository](https://www.sonatype.com) for providing a free maven repository service for open source projects|
 |     <img width=1000/>     |
@@ -253,7 +229,6 @@ or over flattr: <a href="https://flattr.com/submit/auto?fid=r7vp62&url=https%3A%
 |[![Javadoc](http://www.javadoc.io/badge/de.alpharogroup/jobject-clone.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-clone) jobject-clone|
 |[![Javadoc](http://www.javadoc.io/badge/de.alpharogroup/jobject-copy.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-copy) jobject-copy|
 |[![Javadoc](http://www.javadoc.io/badge/de.alpharogroup/jobject-core.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-core) jobject-core|
-|[![Javadoc](http://www.javadoc.io/badge/de.alpharogroup/jobject-diff.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-diff) jobject-diff|
 |[![Javadoc](http://www.javadoc.io/badge/de.alpharogroup/jobject-merge.svg)](http://www.javadoc.io/doc/de.alpharogroup/jobject-merge) jobject-merge|
 |Special thanks to [javadoc.io](http://www.javadoc.io) for providing a free javadoc documentation for open source projects|
 |     <img width=1000/>     |

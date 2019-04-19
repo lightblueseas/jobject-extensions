@@ -43,7 +43,6 @@
 		<module>jobject-copy</module>
 		<module>jobject-clone</module>
 		<module>jobject-core</module>
-		<module>jobject-diff</module>
 		<module>jobject-merge</module>
 	</modules>
 

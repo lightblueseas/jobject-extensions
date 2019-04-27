@@ -24,7 +24,7 @@
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>jobj-core</artifactId>
 		</dependency>
-
+		<!-- UNIT-TEST DEPENDENCIES -->
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>test-objects</artifactId>

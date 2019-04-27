@@ -7,6 +7,7 @@ Version 3.1-SNAPSHOT
 CHANGED:
 
 - moved jobject-core to its own project
+- update of test-objects dependency version to 5.1
 
 Version 3
 -------------

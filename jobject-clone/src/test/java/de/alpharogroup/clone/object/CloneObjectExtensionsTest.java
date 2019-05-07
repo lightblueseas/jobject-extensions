@@ -125,29 +125,13 @@ public class CloneObjectExtensionsTest
 	 */
 	@Test(enabled = true)
 	@SneakyThrows
-	public void testCloneBeanWithExtends()
+	public void testCloneBeanWithComposition()
 	{
-		Person actual;
-		Person expected;
-		actual = Person.builder()
-			.name("Nikky")
-			.nickname("Six")
-			.gender(Gender.MALE)
-			.about("")
-			.married(false)
-			.build();
-		expected = CloneObjectExtensions.cloneBean(actual);
-		assertEquals("Cloned bean should be equal with the source object.", expected, actual);
-		actual = Member.buildMember()
-			.name("Nikky")
-			.nickname("Six")
-			.gender(Gender.MALE)
-			.about("")
-			.married(false)
-			.dateofbirth(new Date())
-			.dateofMarriage(new Date())
-			.build();
+		Employee actual;
+		Employee expected;
 
+		actual = Employee.builder().person(Person.builder().name("Nikky").nickname("Six")
+			.gender(Gender.MALE).about("").married(false).build()).build();
 		expected = CloneObjectExtensions.cloneBean(actual);
 		assertEquals("Cloned bean should be equal with the source object.", expected, actual);
 	}
@@ -157,22 +141,36 @@ public class CloneObjectExtensionsTest
 	 */
 	@Test(enabled = true)
 	@SneakyThrows
-	public void testCloneBeanWithComposition()
+	public void testCloneBeanWithExtends()
 	{
-		Employee actual;
-		Employee expected;
-
-		actual = Employee.builder()
-		.person(Person.builder()
-			.name("Nikky")
-			.nickname("Six")
-			.gender(Gender.MALE)
-			.about("")
-			.married(false)
-			.build())
-		.build();
+		Person actual;
+		Person expected;
+		actual = Person.builder().name("Nikky").nickname("Six").gender(Gender.MALE).about("")
+			.married(false).build();
 		expected = CloneObjectExtensions.cloneBean(actual);
 		assertEquals("Cloned bean should be equal with the source object.", expected, actual);
+		actual = Member.buildMember().name("Nikky").nickname("Six").gender(Gender.MALE).about("")
+			.married(false).dateofbirth(new Date()).dateofMarriage(new Date()).build();
+
+		expected = CloneObjectExtensions.cloneBean(actual);
+		assertEquals("Cloned bean should be equal with the source object.", expected, actual);
+	}
+
+	/**
+	 * Test method for {@link CloneObjectExtensions#clone(Object)} with an array with primitive
+	 * values.
+	 */
+	@Test(enabled = true)
+	@SneakyThrows
+	public void testCloneNotSerializable()
+	{
+		NotSerializable actual;
+		NotSerializable expected;
+
+		expected = NotSerializable.builder().name("foo").build();
+		actual = CloneObjectExtensions.clone(expected);
+		assertEquals("Cloned object should be equal with the source object.", expected, actual);
+
 	}
 
 	/**
@@ -222,22 +220,6 @@ public class CloneObjectExtensionsTest
 
 		expected = A.builder().a("a").build();
 		actual = CloneObjectExtensions.cloneObject(expected);
-		assertEquals("Cloned object should be equal with the source object.", expected, actual);
-
-	}
-
-	/**
-	 * Test method for {@link CloneObjectExtensions#clone(Object)} with an array with primitive
-	 * values.
-	 */
-	@Test(enabled = true)
-	@SneakyThrows
-	public void testCloneNotSerializable() {
-		NotSerializable actual;
-		NotSerializable expected;
-
-		expected = NotSerializable.builder().name("foo").build();
-		actual = CloneObjectExtensions.clone(expected);
 		assertEquals("Cloned object should be equal with the source object.", expected, actual);
 
 	}

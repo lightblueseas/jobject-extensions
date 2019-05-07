@@ -89,7 +89,7 @@ public final class CopyObjectExtensions
 	 *            the original object.
 	 * @param destination
 	 *            the destination object.
-	 * @param ignoreFields
+	 * @param ignoreFieldNames
 	 *            optional field names to ignore
 	 * @return a copy of the given original object
 	 * @throws IllegalAccessException
@@ -108,13 +108,14 @@ public final class CopyObjectExtensions
 	 *             is thrown if the class cannot be located
 	 */
 	public static <ORIGINAL, DESTINATION> DESTINATION copyObject(final @NonNull ORIGINAL original,
-		final @NonNull DESTINATION destination, final String... ignoreFields)
+		final @NonNull DESTINATION destination, final String... ignoreFieldNames)
 		throws IllegalAccessException, InstantiationException, ClassNotFoundException
 	{
-		Field[] allDeclaredFields = ReflectionExtensions.getAllDeclaredFields(original.getClass(), ignoreFields);
+		Field[] allDeclaredFields = ReflectionExtensions.getAllDeclaredFields(original.getClass(),
+			ignoreFieldNames);
 		for (Field field : allDeclaredFields)
 		{
-			if (Arrays.asList(ignoreFields).contains(field.getName())
+			if (Arrays.asList(ignoreFieldNames).contains(field.getName())
 				|| copyField(field, original, destination))
 			{
 				continue;
@@ -196,13 +197,14 @@ public final class CopyObjectExtensions
 
 
 	/**
-	 * Copy the given object over reflection and return a copy of it
-	 * object.
+	 * Copy the given object over reflection and return a copy of it object.
 	 *
 	 * @param <T>
 	 *            the generic type of the given object.
 	 * @param original
 	 *            the original object.
+	 * @param ignoreFieldNames
+	 *            optional field names to ignore
 	 * @return the new object that is a copy of the given object
 	 * @throws InstantiationException
 	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
@@ -214,13 +216,16 @@ public final class CopyObjectExtensions
 	 *             is thrown if no such field exists
 	 */
 	@SuppressWarnings("unchecked")
-	public static <T> T copyPropertiesWithReflection(
-			final @NonNull T original, final String... ignoreFieldNames) throws InstantiationException, IllegalAccessException, NoSuchFieldException
+	public static <T> T copyPropertiesWithReflection(final @NonNull T original,
+		final String... ignoreFieldNames)
+		throws InstantiationException, IllegalAccessException, NoSuchFieldException
 	{
 		Class<T> clazz = (Class<T>)original.getClass();
 		T destination = ReflectionExtensions.newInstanceWithObjenesis(clazz);
-		String[] allDeclaredFieldNames = ReflectionExtensions.getAllDeclaredFieldNames(clazz, ignoreFieldNames);
-		for (String fieldName : allDeclaredFieldNames) {
+		String[] allDeclaredFieldNames = ReflectionExtensions.getAllDeclaredFieldNames(clazz,
+			ignoreFieldNames);
+		for (String fieldName : allDeclaredFieldNames)
+		{
 			ReflectionExtensions.copyFieldValue(original, destination, fieldName);
 		}
 		return destination;
@@ -249,7 +254,8 @@ public final class CopyObjectExtensions
 	 *             if the caller does not have access to the property accessor method
 	 */
 	public static <ORIGINAL, DESTINATION> DESTINATION copyPropertyWithReflection(
-		final @NonNull ORIGINAL original, final @NonNull DESTINATION destination, final @NonNull String fieldName)
+		final @NonNull ORIGINAL original, final @NonNull DESTINATION destination,
+		final @NonNull String fieldName)
 		throws NoSuchFieldException, SecurityException, IllegalAccessException
 	{
 		ReflectionExtensions.copyFieldValue(original, destination, fieldName);
@@ -299,8 +305,9 @@ public final class CopyObjectExtensions
 	 * @throws InvocationTargetException
 	 *             if the property accessor method throws an exception
 	 */
-	public static <ORIGINAL, DESTINATION> DESTINATION copyProperties(final @NonNull ORIGINAL original,
-		final @NonNull DESTINATION destination) throws IllegalAccessException, InvocationTargetException
+	public static <ORIGINAL, DESTINATION> DESTINATION copyProperties(
+		final @NonNull ORIGINAL original, final @NonNull DESTINATION destination)
+		throws IllegalAccessException, InvocationTargetException
 	{
 		BeanUtils.copyProperties(destination, original);
 		return destination;
@@ -336,9 +343,10 @@ public final class CopyObjectExtensions
 	public static <T> T copyProperties(final @NonNull T original)
 		throws IllegalAccessException, InvocationTargetException, InstantiationException
 	{
-		Object destination = original.getClass().newInstance();
+		Class<T> clazz = (Class<T>)original.getClass();
+		T destination = ReflectionExtensions.newInstanceWithObjenesis(clazz);
 		BeanUtils.copyProperties(destination, original);
-		return (T)destination;
+		return destination;
 	}
 
 	/**

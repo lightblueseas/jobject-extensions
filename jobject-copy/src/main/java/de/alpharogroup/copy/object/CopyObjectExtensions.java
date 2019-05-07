@@ -70,10 +70,12 @@ public final class CopyObjectExtensions
 	 * @throws ClassNotFoundException
 	 *             is thrown if the class cannot be located
 	 */
+	@SuppressWarnings("unchecked")
 	public static <T> T copyObject(@NonNull T original)
 		throws IllegalAccessException, InstantiationException, ClassNotFoundException
 	{
-		T destination = ReflectionExtensions.newInstance(original);
+		Class<T> clazz = (Class<T>)original.getClass();
+		T destination = ReflectionExtensions.newInstanceWithObjenesis(clazz);
 		return copyObject(original, destination);
 	}
 

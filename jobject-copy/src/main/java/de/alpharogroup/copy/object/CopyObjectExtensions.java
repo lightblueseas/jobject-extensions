@@ -225,6 +225,37 @@ public final class CopyObjectExtensions
 	}
 
 	/**
+	 * Copy the given object over reflection and return a copy of it
+	 * object.
+	 *
+	 * @param <T>
+	 *            the generic type of the given object.
+	 * @param original
+	 *            the original object.
+	 * @return the new object that is a copy of the given object
+	 * @throws InstantiationException
+	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
+	 *             array class, a primitive type, or void; or if the class has no default
+	 *             constructor; or if the instantiation fails for some other reason.
+	 * @throws IllegalAccessException
+	 *             is thrown if the class or its default constructor is not accessible
+	 * @throws NoSuchFieldException
+	 *             is thrown if no such field exists
+	 */
+	@SuppressWarnings("unchecked")
+	public static <T> T copyPropertiesWithReflection(
+			final @NonNull T original) throws InstantiationException, IllegalAccessException, NoSuchFieldException
+	{
+		Class<T> clazz = (Class<T>)original.getClass();
+		T destination = ReflectionExtensions.newInstance(clazz);
+		String[] allDeclaredFieldNames = ReflectionExtensions.getAllDeclaredFieldNames(clazz, "serialVersionUID");
+		for (String fieldName : allDeclaredFieldNames) {
+			ReflectionExtensions.copyFieldValue(original, destination, fieldName);
+		}
+		return destination;
+	}
+
+	/**
 	 * A delegate method to {@link CopyObjectExtensions#copyProperties(Object, Object)} for copy the
 	 * given original object to the given destination object.
 	 *

@@ -223,6 +223,37 @@ public class CopyObjectExtensionsTest
 	}
 
 	/**
+	 * Test method for {@link CopyObjectExtensions#copyPropertiesWithReflection(Object)}
+	 *
+	 * @throws InstantiationException
+	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
+	 *             array class, a primitive type, or void; or if the class has no default
+	 *             constructor; or if the instantiation fails for some other reason.
+	 * @throws IllegalAccessException
+	 *             is thrown if the class or its default constructor is not accessible
+	 * @throws NoSuchFieldException
+	 *             is thrown if no such field exists
+	 */
+	@Test(enabled = true)
+	public void testCopyPropertiesWithReflection()
+			throws InstantiationException, IllegalAccessException, NoSuchFieldException
+	{
+
+		Employee expected;
+		Employee actual;
+
+		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
+				.about("Bla foo bar ...").nickname("beast").build();
+
+		expected = Employee.builder().person(person).id("23").build();
+
+		actual = CopyObjectExtensions.copyPropertiesWithReflection(expected);
+
+		assertEquals(expected, actual);
+
+	}
+
+	/**
 	 * Test method for {@link CopyObjectExtensions} with {@link BeanTester}
 	 */
 	@Test(expectedExceptions = { BeanTestException.class, InvocationTargetException.class,

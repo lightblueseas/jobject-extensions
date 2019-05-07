@@ -26,6 +26,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Modifier;
@@ -172,7 +173,13 @@ public final class CopyObjectExtensions
 		switch (classType)
 		{
 			case ARRAY :
-				field.set(destination, ReflectionExtensions.copyArray(value));
+				Class<?> arrayType = value.getClass().getComponentType();
+				Object dest = Array.newInstance(arrayType, Array.getLength(value));
+				for (int i = 0; i < Array.getLength(value); i++)
+				{
+					Array.set(destination, i, Array.get(value, i));
+				}
+				field.set(destination, dest);
 				break;
 			case ENUM :
 				Enum<?> enumValue = (Enum<?>)value;

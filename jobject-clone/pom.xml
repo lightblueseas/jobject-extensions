@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>jobject-extensions</artifactId>
-		<version>3</version>
+		<version>3.1</version>
 	</parent>
 
 	<artifactId>jobject-clone</artifactId>
@@ -15,15 +15,10 @@
 	<dependencies>
 
 		<dependency>
-			<groupId>commons-beanutils</groupId>
-			<artifactId>commons-beanutils</artifactId>
-		</dependency>
-		
-		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>jobject-copy</artifactId>
 		</dependency>
-
+		<!-- UNIT-TEST DEPENDENCIES -->
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>vintage-time</artifactId>
@@ -35,7 +30,7 @@
 			<artifactId>silly-collections</artifactId>
 			<scope>test</scope>
 		</dependency>
-
+		<!-- TEST-OBJECTS DEPENDENCY -->
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>test-objects</artifactId>

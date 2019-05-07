@@ -29,7 +29,6 @@ import java.lang.reflect.Method;
 import org.apache.commons.beanutils.BeanUtils;
 
 import de.alpharogroup.copy.object.CopyObjectExtensions;
-import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -138,14 +137,6 @@ public final class CloneObjectExtensions
 		if (clone == null)
 		{
 			clone = cloneBean(object);
-
-			if(!object.equals(clone)) {
-				if(clone != null) {
-					CopyObjectExtensions.copyObject(object, clone);
-				} else {
-					clone = CopyObjectExtensions.copyObject(object);
-				}
-			}
 		}
 		return clone;
 	}
@@ -224,21 +215,13 @@ public final class CloneObjectExtensions
 	 * @throws IllegalAccessException
 	 *             Thrown if this {@code Method} object is enforcing Java language access control
 	 *             and the underlying method is inaccessible.
+	 * @throws ClassNotFoundException
+	 *             is thrown if the class cannot be located
 	 */
-	@SuppressWarnings("unchecked")
-	@SneakyThrows
 	public static <T> T cloneBean(T object) throws IllegalAccessException, InstantiationException,
-		InvocationTargetException, NoSuchMethodException
+		InvocationTargetException, NoSuchMethodException, ClassNotFoundException
 	{
-		T clone = (T)BeanUtils.cloneBean(object);
-		if(!object.equals(clone)) {
-			if(clone != null) {
-				CopyObjectExtensions.copyObject(object, clone);
-			} else {
-				clone = CopyObjectExtensions.copyObject(object);
-			}
-		}
-		return clone;
+		return CopyObjectExtensions.copyObject(object);
 	}
 
 }

@@ -1,6 +1,15 @@
 ## Change log
 ----------------------
 
+Version 3.1
+-------------
+
+CHANGED:
+
+- moved jobject-core to its own project
+- new method for copy properties over reflection
+- removed unused dependency commons-beanutils in project jobject-clone
+
 Version 3
 -------------
 

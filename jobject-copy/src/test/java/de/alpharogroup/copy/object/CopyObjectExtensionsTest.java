@@ -50,21 +50,6 @@ public class CopyObjectExtensionsTest
 	 * @throws InvocationTargetException
 	 *             the invocation target exception
 	 */
-	@Test(enabled = true, expectedExceptions = IllegalArgumentException.class)
-	public void testCopyIllegalArgumentException()
-		throws IllegalAccessException, InvocationTargetException
-	{
-		CopyObjectExtensions.copy(null, "beast");
-	}
-
-	/**
-	 * Test method for {@link CopyObjectExtensions#copy(Object, Object)}.
-	 *
-	 * @throws IllegalAccessException
-	 *             the illegal access exception
-	 * @throws InvocationTargetException
-	 *             the invocation target exception
-	 */
 	@Test(enabled = true)
 	public void testCopyNotEqualType() throws IllegalAccessException, InvocationTargetException
 	{
@@ -154,14 +139,18 @@ public class CopyObjectExtensionsTest
 
 		Employee original = Employee.builder().person(person).id("23").build();
 		Employee destination = Employee.builder().build();
-		Employee employee = CopyObjectExtensions.copyObject(original, destination, "id");
+		Employee employee = CopyObjectExtensions.copyObject(original, destination);
+		assertEquals(original, employee);
+		// new scenario with ignore the id...
+		destination = Employee.builder().build();
+		employee = CopyObjectExtensions.copyObject(original, destination, "id");
 		original.setId(null);
 		assertEquals(original, employee);
 	}
 
 	/**
 	 * Test method for {@link CopyObjectExtensions#copyProperties(Object)}
-	 * 
+	 *
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
 	 * @throws InvocationTargetException
@@ -187,6 +176,36 @@ public class CopyObjectExtensionsTest
 		expected = Person.builder().gender(Gender.MALE).name("asterix").build();
 		actual = CopyObjectExtensions.copyProperties(expected);
 		assertEquals(expected, actual);
+	}
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copyPropertiesWithReflection(Object)}
+	 *
+	 * @throws InstantiationException
+	 *             is thrown if this {@code Class} represents an abstract class, an interface, an
+	 *             array class, a primitive type, or void; or if the class has no default
+	 *             constructor; or if the instantiation fails for some other reason.
+	 * @throws IllegalAccessException
+	 *             is thrown if the class or its default constructor is not accessible
+	 * @throws NoSuchFieldException
+	 *             is thrown if no such field exists
+	 */
+	@Test(enabled = true)
+	public void testCopyPropertiesWithReflection()
+		throws InstantiationException, IllegalAccessException, NoSuchFieldException
+	{
+		Employee expected;
+		Employee actual;
+
+		final Person person = Person.builder().gender(Gender.FEMALE).name("Anna").married(true)
+			.about("Bla foo bar ...").nickname("beast").build();
+
+		expected = Employee.builder().person(person).id("23").build();
+
+		actual = CopyObjectExtensions.copyPropertiesWithReflection(expected, "serialVersionUID");
+
+		assertEquals(expected, actual);
+
 	}
 
 	/**

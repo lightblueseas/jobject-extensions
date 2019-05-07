@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>jobject-extensions</artifactId>
-	<version>3</version>
+	<version>3.1</version>
 	<packaging>pom</packaging>
 
 	<name>${project.artifactId}</name>
@@ -37,10 +37,11 @@
 		<jobj-compare.version>3.1</jobj-compare.version>
 		<!-- JOBJ-CONTRACT-VERIFIER version -->
 		<jobj-contract-verifier.version>3</jobj-contract-verifier.version>
+		<!-- JOBJ-CORE version -->
+		<jobj-core.version>3</jobj-core.version>
 	</properties>
 
 	<modules>
-		<module>jobject-core</module>
 		<module>jobject-copy</module>
 		<module>jobject-clone</module>
 		<module>jobject-merge</module>
@@ -121,11 +122,11 @@
 				<artifactId>jobject-clone</artifactId>
 				<version>${project.version}</version>
 			</dependency>
-			<!-- JOBJECT-CORE DEPENDENCY -->
+			<!-- JOBJ-CORE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
-				<artifactId>jobject-core</artifactId>
-				<version>${project.version}</version>
+				<artifactId>jobj-core</artifactId>
+				<version>${jobj-core.version}</version>
 			</dependency>
 			<!-- JOBJ-COMPARE DEPENDENCY -->
 			<dependency>
@@ -222,7 +223,6 @@
 								<!-- explicit bean classes -->
 								<!-- explicit deprecated classes -->
 								<!-- explicit enums -->
-								<exclude>de/alpharogroup/lang/ClassType.class</exclude>
 								<!-- explicit interfaces -->
 								<!-- explicit constant classes with only constants -->
 								<!-- explicit delegation classes -->

@@ -7,7 +7,7 @@
 	<parent>
 		<groupId>de.alpharogroup</groupId>
 		<artifactId>jobject-extensions</artifactId>
-		<version>3</version>
+		<version>3.1</version>
 	</parent>
 
 	<artifactId>jobject-copy</artifactId>
@@ -19,11 +19,12 @@
 			<artifactId>commons-beanutils</artifactId>
 		</dependency>
 
+		<!-- JOBJ-CORE DEPENDENCY -->
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
-			<artifactId>jobject-core</artifactId>
+			<artifactId>jobj-core</artifactId>
 		</dependency>
-
+		<!-- UNIT-TEST DEPENDENCIES -->
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
 			<artifactId>test-objects</artifactId>

@@ -4,6 +4,10 @@
 Version 3.2-SNAPSHOT
 -------------
 
+CHANGED:
+
+- update of dependency jobj-core version to 3.1
+
 Version 3.1
 -------------
 

@@ -194,35 +194,6 @@ public final class CopyObjectExtensions
 		return false;
 	}
 
-	/**
-	 * Copy the given original object to the given destination object. This also works on private
-	 * fields.
-	 *
-	 * @param <ORIGINAL>
-	 *            the generic type of the original object.
-	 * @param <DESTINATION>
-	 *            the generic type of the destination object.
-	 * @param original
-	 *            the original object.
-	 * @param destination
-	 *            the destination object.
-	 * @param fieldName
-	 *            the field name
-	 * @return the destination object
-	 * @throws NoSuchFieldException
-	 *             is thrown if no such field exists.
-	 * @throws SecurityException
-	 *             is thrown if a security manager says no.
-	 * @throws IllegalAccessException
-	 *             if the caller does not have access to the property accessor method
-	 */
-	public static <ORIGINAL, DESTINATION> DESTINATION copyPropertyWithReflection(
-		final @NonNull ORIGINAL original, final @NonNull DESTINATION destination, final @NonNull String fieldName)
-		throws NoSuchFieldException, SecurityException, IllegalAccessException
-	{
-		ReflectionExtensions.copyFieldValue(original, destination, fieldName);
-		return destination;
-	}
 
 	/**
 	 * Copy the given object over reflection and return a copy of it
@@ -252,6 +223,36 @@ public final class CopyObjectExtensions
 		for (String fieldName : allDeclaredFieldNames) {
 			ReflectionExtensions.copyFieldValue(original, destination, fieldName);
 		}
+		return destination;
+	}
+
+	/**
+	 * Copy the given original object to the given destination object. This also works on private
+	 * fields.
+	 *
+	 * @param <ORIGINAL>
+	 *            the generic type of the original object.
+	 * @param <DESTINATION>
+	 *            the generic type of the destination object.
+	 * @param original
+	 *            the original object.
+	 * @param destination
+	 *            the destination object.
+	 * @param fieldName
+	 *            the field name
+	 * @return the destination object
+	 * @throws NoSuchFieldException
+	 *             is thrown if no such field exists.
+	 * @throws SecurityException
+	 *             is thrown if a security manager says no.
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
+	 */
+	public static <ORIGINAL, DESTINATION> DESTINATION copyPropertyWithReflection(
+		final @NonNull ORIGINAL original, final @NonNull DESTINATION destination, final @NonNull String fieldName)
+		throws NoSuchFieldException, SecurityException, IllegalAccessException
+	{
+		ReflectionExtensions.copyFieldValue(original, destination, fieldName);
 		return destination;
 	}
 

@@ -9,6 +9,7 @@ CHANGED:
 - moved jobject-core to its own project
 - update of test-objects dependency version to 5.1
 - new method for copy properties over reflection
+- removed unused dependency commons-beanutils in project jobject-clone
 
 Version 3
 -------------

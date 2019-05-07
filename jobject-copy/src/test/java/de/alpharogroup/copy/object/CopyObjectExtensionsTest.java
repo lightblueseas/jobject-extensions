@@ -238,7 +238,6 @@ public class CopyObjectExtensionsTest
 	public void testCopyPropertiesWithReflection()
 			throws InstantiationException, IllegalAccessException, NoSuchFieldException
 	{
-
 		Employee expected;
 		Employee actual;
 
@@ -247,7 +246,7 @@ public class CopyObjectExtensionsTest
 
 		expected = Employee.builder().person(person).id("23").build();
 
-		actual = CopyObjectExtensions.copyPropertiesWithReflection(expected);
+		actual = CopyObjectExtensions.copyPropertiesWithReflection(expected, "serialVersionUID");
 
 		assertEquals(expected, actual);
 

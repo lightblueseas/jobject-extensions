@@ -215,11 +215,11 @@ public final class CopyObjectExtensions
 	 */
 	@SuppressWarnings("unchecked")
 	public static <T> T copyPropertiesWithReflection(
-			final @NonNull T original) throws InstantiationException, IllegalAccessException, NoSuchFieldException
+			final @NonNull T original, final String... ignoreFieldNames) throws InstantiationException, IllegalAccessException, NoSuchFieldException
 	{
 		Class<T> clazz = (Class<T>)original.getClass();
-		T destination = ReflectionExtensions.newInstance(clazz);
-		String[] allDeclaredFieldNames = ReflectionExtensions.getAllDeclaredFieldNames(clazz, "serialVersionUID");
+		T destination = ReflectionExtensions.newInstanceWithObjenesis(clazz);
+		String[] allDeclaredFieldNames = ReflectionExtensions.getAllDeclaredFieldNames(clazz, ignoreFieldNames);
 		for (String fieldName : allDeclaredFieldNames) {
 			ReflectionExtensions.copyFieldValue(original, destination, fieldName);
 		}

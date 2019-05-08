@@ -71,7 +71,7 @@ Than you can add the dependency to your dependencies:
 	<properties>
 			...
 		<!-- JOBJECT-EXTENSIONS versions -->
-		<jobject-extensions.version>3.1.1</jobject-extensions.version>		
+		<jobject-extensions.version>3.1.2</jobject-extensions.version>		
 		<jobject-clone.version>${jobject-extensions.version}</jobject-clone.version>
 		<jobject-copy.version>${jobject-extensions.version}</jobject-copy.version>
 		<jobject-merge.version>${jobject-extensions.version}</jobject-merge.version>

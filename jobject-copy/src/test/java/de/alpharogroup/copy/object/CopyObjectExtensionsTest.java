@@ -110,6 +110,37 @@ public class CopyObjectExtensionsTest
 	 *
 	 * @throws IllegalAccessException
 	 *             if the caller does not have access to the property accessor method
+	 * @throws ClassNotFoundException
+	 *             is thrown if the class cannot be located
+	 * @throws InstantiationException
+	 *             Thrown if one of the following reasons: the class object
+	 *             <ul>
+	 *             <li>represents an abstract class</li>
+	 *             <li>represents an interface</li>
+	 *             <li>represents an array class</li>
+	 *             <li>represents a primitive type</li>
+	 *             <li>represents {@code void}</li>
+	 *             <li>has no nullary constructor</li>
+	 *             </ul>
+	 */
+	@Test(enabled = false)
+	public void testCopyString()
+		throws IllegalAccessException, InstantiationException, ClassNotFoundException
+	{
+		String actual;
+		String expected;
+
+		expected = "Foo bar";
+		actual = CopyObjectExtensions.copyObject(expected);
+		assertEquals(expected, actual);
+
+	}
+
+	/**
+	 * Test method for {@link CopyObjectExtensions#copyObject(Object)}
+	 *
+	 * @throws IllegalAccessException
+	 *             if the caller does not have access to the property accessor method
 	 * @throws InstantiationException
 	 *             Thrown if one of the following reasons: the class object
 	 *             <ul>

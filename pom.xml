@@ -11,7 +11,7 @@
 	</parent>
 
 	<artifactId>jobject-extensions</artifactId>
-	<version>3.2-SNAPSHOT</version>
+	<version>3.1.2</version>
 	<packaging>pom</packaging>
 
 	<name>${project.artifactId}</name>
@@ -24,9 +24,11 @@
 
 	<properties>
 		<!-- VINTAGE-TIME version -->
-		<vintage-time.version>5.1</vintage-time.version>
+		<vintage-time.version>5.1</vintage-time.version>		
+		<!-- CLONING version -->
+		<cloning.version>1.9.12</cloning.version>
 		<!-- SILLY-COLLECTIONS version -->
-		<silly-collections.version>5.2</silly-collections.version>
+		<silly-collections.version>5.2.1</silly-collections.version>
 		<!-- TEST-OBJECTS version -->
 		<test-objects.version>5.0.1</test-objects.version>
 		<!-- EXTERNAL LIBRARIES versions -->
@@ -74,6 +76,12 @@
 	<dependencyManagement>
 
 		<dependencies>
+		<!-- CLONING DEPENDENCY -->
+		<dependency>
+			<groupId>uk.com.robust-it</groupId>
+			<artifactId>cloning</artifactId>
+			<version>${cloning.version}</version>
+		</dependency>
 			<!-- OBJENESIS DEPENDENCY -->
 			<dependency>
 				<groupId>org.objenesis</groupId>

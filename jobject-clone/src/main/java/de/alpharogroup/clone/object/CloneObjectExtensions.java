@@ -21,14 +21,13 @@
 package de.alpharogroup.clone.object;
 
 import java.io.IOException;
-import java.io.Serializable;
 import java.lang.reflect.Array;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import org.apache.commons.beanutils.BeanUtils;
+import com.rits.cloning.Cloner;
 
-import de.alpharogroup.copy.object.CopyObjectExtensions;
+import lombok.NonNull;
 import lombok.experimental.UtilityClass;
 
 /**
@@ -37,7 +36,7 @@ import lombok.experimental.UtilityClass;
 @UtilityClass
 public final class CloneObjectExtensions
 {
-
+	private final static Cloner cloner = new Cloner();
 	/**
 	 * Try to clone the given generic object.
 	 *
@@ -119,26 +118,29 @@ public final class CloneObjectExtensions
 		}
 		Object clone = null;
 
-		// Try to clone the object if it is Cloneble.
+		// Try to clone the object if it is 'Cloneable'
 		if (object instanceof Cloneable)
 		{
 			clone = cloneCloneable(object);
 		}
 
-		// Try to clone the object if it implements Serializable.
-		if (clone == null && object instanceof Serializable)
-		{
-			Serializable serializableObject = (Serializable)object;
-			clone = CopyObjectExtensions.copySerializedObject(serializableObject);
+		// Try to clone the object with external cloner
+		if(clone == null) {
+			clone = withCloner(object);
 		}
 
-		// Try to clone the object by copying all his properties with
-		// the BeanUtils.cloneBean() method.
-		if (clone == null)
-		{
-			clone = cloneBean(object);
-		}
 		return clone;
+	}
+
+	/**
+	 * Try to clone the given object with the external cloner
+	 *
+	 * @param <T> the generic type
+	 * @param object the object
+	 * @return the t
+	 */
+	public static  <T> T withCloner(final @NonNull T object) {
+		return cloner.deepClone(object);
 	}
 
 	/**
@@ -186,42 +188,6 @@ public final class CloneObjectExtensions
 		final Method cloneMethod = clazz.getDeclaredMethod("clone");
 		cloneMethod.setAccessible(true);
 		return cloneMethod.invoke(object, (Object[])null);
-	}
-
-	/**
-	 * Clone the given object. Note: this method decorates the method of
-	 * {@link BeanUtils#cloneBean(Object)}
-	 *
-	 * @param <T>
-	 *            the generic type of the given bean
-	 * @param object
-	 *            the object to clone
-	 * @return the cloned object
-	 * @throws NoSuchMethodException
-	 *             Thrown if a matching method is not found or if the name is "&lt;init&gt;"or
-	 *             "&lt;clinit&gt;".
-	 * @throws InvocationTargetException
-	 *             Thrown if the property accessor method throws an exception
-	 * @throws InstantiationException
-	 *             Thrown if one of the following reasons: the class object
-	 *             <ul>
-	 *             <li>represents an abstract class</li>
-	 *             <li>represents an interface</li>
-	 *             <li>represents an array class</li>
-	 *             <li>represents a primitive type</li>
-	 *             <li>represents {@code void}</li>
-	 *             <li>has no nullary constructor</li>
-	 *             </ul>
-	 * @throws IllegalAccessException
-	 *             Thrown if this {@code Method} object is enforcing Java language access control
-	 *             and the underlying method is inaccessible.
-	 * @throws ClassNotFoundException
-	 *             is thrown if the class cannot be located
-	 */
-	public static <T> T cloneBean(T object) throws IllegalAccessException, InstantiationException,
-		InvocationTargetException, NoSuchMethodException, ClassNotFoundException
-	{
-		return CopyObjectExtensions.copyObject(object);
 	}
 
 }

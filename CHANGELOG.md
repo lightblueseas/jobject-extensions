@@ -1,8 +1,16 @@
 ## Change log
 ----------------------
 
-Version 3.2-SNAPSHOT
+Version 3.1.2
 -------------
+
+ADDED:
+
+- new cloning dependency added to project jobject-clone
+
+CHANGED:
+
+- update of silly-collections version to 5.2.1
 
 Version 3.1.1
 -------------

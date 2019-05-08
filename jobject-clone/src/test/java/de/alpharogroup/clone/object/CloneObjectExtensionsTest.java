@@ -132,7 +132,7 @@ public class CloneObjectExtensionsTest
 
 		actual = Employee.builder().person(Person.builder().name("Nikky").nickname("Six")
 			.gender(Gender.MALE).about("").married(false).build()).build();
-		expected = CloneObjectExtensions.cloneBean(actual);
+		expected = CloneObjectExtensions.withCloner(actual);
 		assertEquals("Cloned bean should be equal with the source object.", expected, actual);
 	}
 
@@ -141,18 +141,18 @@ public class CloneObjectExtensionsTest
 	 */
 	@Test(enabled = true)
 	@SneakyThrows
-	public void testCloneBeanWithExtends()
+	public void testCloneWithCloner()
 	{
 		Person actual;
 		Person expected;
 		actual = Person.builder().name("Nikky").nickname("Six").gender(Gender.MALE).about("")
 			.married(false).build();
-		expected = CloneObjectExtensions.cloneBean(actual);
+		expected = CloneObjectExtensions.withCloner(actual);
 		assertEquals("Cloned bean should be equal with the source object.", expected, actual);
 		actual = Member.buildMember().name("Nikky").nickname("Six").gender(Gender.MALE).about("")
 			.married(false).dateofbirth(new Date()).dateofMarriage(new Date()).build();
 
-		expected = CloneObjectExtensions.cloneBean(actual);
+		expected = CloneObjectExtensions.withCloner(actual);
 		assertEquals("Cloned bean should be equal with the source object.", expected, actual);
 	}
 

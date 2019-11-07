@@ -4,6 +4,12 @@
 Version 3.2-SNAPSHOT
 -------------
 
+CHANGED:
+
+-moved jobject-copy to own project jobj-copy
+-moved jobject-clone to own project jobj-clone
+-moved jobject-merge to own project jobj-merge
+
 Version 3.1.2
 -------------
 

@@ -14,9 +14,10 @@
 
 	<dependencies>
 
+		<!-- JOBJ-COPY DEPENDENCY -->
 		<dependency>
 			<groupId>de.alpharogroup</groupId>
-			<artifactId>jobject-copy</artifactId>
+			<artifactId>jobj-copy</artifactId>
 		</dependency>
 		<!-- JOBJ-CORE DEPENDENCY -->
 		<dependency>

@@ -41,10 +41,11 @@
 		<jobj-contract-verifier.version>3.1</jobj-contract-verifier.version>
 		<!-- JOBJ-CORE version -->
 		<jobj-core.version>3.1</jobj-core.version>
+		<!-- JOBJ-COPY version -->
+		<jobj-copy.version>3.2</jobj-copy.version>
 	</properties>
 
 	<modules>
-		<module>jobject-copy</module>
 		<module>jobject-clone</module>
 		<module>jobject-merge</module>
 	</modules>
@@ -118,12 +119,6 @@
 				<artifactId>test-objects</artifactId>
 				<version>${test-objects.version}</version>
 			</dependency>
-			<!-- JOBJECT-COPY DEPENDENCY -->
-			<dependency>
-				<groupId>de.alpharogroup</groupId>
-				<artifactId>jobject-copy</artifactId>
-				<version>${project.version}</version>
-			</dependency>
 			<!-- JOBJECT-CLONE DEPENDENCY -->
 			<dependency>
 				<groupId>de.alpharogroup</groupId>
@@ -147,6 +142,12 @@
 				<groupId>de.alpharogroup</groupId>
 				<artifactId>jobj-contract-verifier</artifactId>
 				<version>${jobj-contract-verifier.version}</version>
+			</dependency>
+			<!-- JOBJ-COPY DEPENDENCY -->
+			<dependency>
+				<groupId>de.alpharogroup</groupId>
+				<artifactId>jobj-copy</artifactId>
+				<version>${jobj-copy.version}</version>
 			</dependency>
 
 		</dependencies>

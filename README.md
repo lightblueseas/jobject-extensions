@@ -11,6 +11,16 @@
 
 </div>
 
+The module projects of the parent project moved to its own projects.
+
+ * [jobj-clone](https://github.com/astrapi69/jobj-clone)
+ * [jobj-compare](https://github.com/astrapi69/jobj-compare)
+ * [jobj-contract-verifier](https://github.com/astrapi69/jobj-contract-verifier)
+ * [jobj-copy](https://github.com/astrapi69/jobj-copy)
+ * [jobj-core](https://github.com/astrapi69/jobj-core)
+ * [jobj-differ](https://github.com/astrapi69/jobj-differ)
+ * [jobj-merge](https://github.com/astrapi69/jobj-merge)
+
 The jobject-extensions project provides main operation that you can do with java objects.
 
 When programming with java you offen have to clone, copy and some times you have even merge objects. 
